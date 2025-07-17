@@ -1,0 +1,433 @@
+//tema
+//1
+andra@ubuntu:~$ a=2009
+andra@ubuntu:~$ b=alex
+andra@ubuntu:~$ c="fata merge pe jos"
+andra@ubuntu:~$ echo $a, $b, $c
+2009, alex, fata merge pe jos
+andra@ubuntu:~$ d="$b: $c ($a)"
+andra@ubuntu:~$ echo $d
+alex: fata merge pe jos (2009)
+andra@ubuntu:~$ name=bond
+andra@ubuntu:~$ echo $name
+bond
+andra@ubuntu:~$ name="james $name"
+andra@ubuntu:~$ echo &name
+[1] 5163
+
+Command 'name' not found, did you mean:
+  command 'mame' from snap mame (mame0270)
+  command 'nama' from deb nama (1.216-2)
+  command 'lame' from deb lame (3.100-6build1)
+  command 'nam' from deb nam (1.15-8)
+  command 'names' from deb names (0.14.0-1)
+  command 'uname' from deb coreutils (9.4-3.1ubuntu1)
+  command 'mame' from deb mame (0.269+dfsg.1-1)
+  command 'nvme' from deb nvme-cli (2.10.2-1)
+  command 'named' from deb bind9 (1:9.20.0-2ubuntu3)
+  command 'namei' from deb util-linux (2.40.2-1ubuntu1)
+See 'snap info <snapname>' for additional versions.
+[1]+  Done                    echo
+andra@ubuntu:~$ echo $name
+james bond
+andra@ubuntu:~$ myname=John
+andra@ubuntu:~$ echo $myname_Doe
+
+andra@ubuntu:~$ echo ${myname}_Doe
+John_Doe
+andra@ubuntu:~$ sudo echo
+sudo: /etc/sudoers: Not a directory
+
+andra@ubuntu:~$ sudo visudo
+sudo: /etc/sudoers: Not a directory
+visudo: /etc/sudoers: Not a directory
+press return to edit /etc/sudoers.d/README: ^Cvisudo exiting due to signal: Interrupt
+andra@ubuntu:~$ sudo echo
+sudo: /etc/sudoers: Not a directory
+
+andra@ubuntu:~$ sudo visudo
+sudo: /etc/sudoers: Not a directory
+visudo: /etc/sudoers: Not a directory
+press return to edit /etc/sudoers.d/README: 
+visudo: /etc/sudoers.d/README.tmp unchanged
+andra@ubuntu:~$ sudo echo
+
+andra@ubuntu:~$ sudo visudo
+visudo: /etc/sudoers.tmp unchanged
+andra@ubuntu:~$ a="some string"
+andra@ubuntu:~$ expr $a + 1
+expr: syntax error: unexpected argument ‘string’
+andra@ubuntu:~$ b=2
+andra@ubuntu:~$ expr $b + 1
+3
+andra@ubuntu:~$ read favorite_movie
+star treck
+andra@ubuntu:~$ echo $favorite_movie
+star treck
+andra@ubuntu:~$ read a b c
+1 2 3
+andra@ubuntu:~$ echo $a
+1
+andra@ubuntu:~$ echo $b
+2
+andra@ubuntu:~$ echo $c
+3
+andra@ubuntu:~$ read a b c
+1 2 3 4 5 6 
+andra@ubuntu:~$ echo $a
+1
+andra@ubuntu:~$ echo $b
+2
+andra@ubuntu:~$ echo $c
+3 4 5 6
+andra@ubuntu:~$ echo ${mylongname:- John Doe}
+John Doe
+andra@ubuntu:~$ echo $mylongname
+
+andra@ubuntu:~$ read mylonname
+john j. doe
+andra@ubuntu:~$ echo ${mylongname:- john doe}
+john doe
+andra@ubuntu:~$ echo -n "prima lista de comenzi a utilizatorului "; whoami; ls-1
+prima lista de comenzi a utilizatorului andra
+ls-1: command not found
+andra@ubuntu:~$ echo -n "prima lista de comenzi a utilizatorului "; whoami; ls -l
+prima lista de comenzi a utilizatorului andra
+total 2576
+-rw-rw-r-- 1 andra andra      22 Oct 20 13:19 a
+-r--rw-r-- 1 alex  users       0 Oct 19 20:26 bar
+-rw-rw-r-- 1 andra users       0 Oct 19 20:26 baz
+drwxrwxr-x 2 andra andra    4096 Oct 18 20:15 bin
+-rw-rw-r-- 1 andra andra      66 Oct 18 20:35 cuv
+drwxr-xr-x 3 andra andra    4096 Oct 19 22:13 Desktop
+drwxr-xr-x 2 andra andra    4096 Oct 14 08:03 Documents
+drwxr-xr-x 2 andra andra    4096 Oct 14 23:25 Downloads
+-rwxrwxrwx 1 alex  users       0 Oct 19 20:26 foo
+-rw-rw-r-- 1 andra andra  743936 Oct 18 21:49 lab2.txt
+-rw-rw-r-- 1 andra andra  161280 Oct 20 14:23 lab3s.txt
+-rw-rw-r-- 1 andra andra 1626112 Oct 18 21:46 laborator2-tema.txt
+drwxrwxr-x 2 andra andra    4096 Oct 16 12:26 laborator3
+drwxrwxr-x 2 andra andra    4096 Oct 22 08:05 laborator-asc
+drwxr-xr-x 2 andra andra    4096 Oct 14 08:03 Music
+drwxrwxr-x 2 andra andra    4096 Oct 18 20:43 orig
+-rw-rw-r-- 1 andra andra      59 Oct 18 21:12 out
+drwxr-xr-x 3 andra andra    4096 Oct 15 18:33 Pictures
+drwxr-xr-x 2 andra andra    4096 Oct 14 08:03 Public
+-rw-rw-r-- 1 andra andra      37 Oct 18 21:05 rat
+drwxrwxr-x 8 andra andra    4096 Oct 20 12:55 seria15
+drwx------ 9 andra andra    4096 Oct 18 19:44 snap
+drwxrwxr-x 2 andra andra    4096 Oct 18 19:40 tema
+drwxr-xr-x 2 andra andra    4096 Oct 14 08:03 Templates
+drwxrwxr-x 2 andra andra    4096 Oct 18 21:42 tmp
+drwxrwxr-x 2 andra andra    4096 Oct 19 22:08 tmpdir
+drwxrwxr-x 4 andra andra    4096 Oct 18 19:57 uso
+drwxr-xr-x 2 andra andra    4096 Oct 14 08:03 Videos
+andra@ubuntu:~$ cmd1 && cmd2
+cmd1: command not found
+andra@ubuntu:~$ echo cat > animals.txt
+andra@ubuntu:~$ grep cat animals.txt
+cat
+andra@ubuntu:~$ echo $?
+0
+andra@ubuntu:~$ grep dog animals.txt
+andra@ubuntu:~$ echo $?
+1
+andra@ubuntu:~$ echo Ana > agenda.txt
+andra@ubuntu:~$ grep Ana agenda.txt
+Ana
+andra@ubuntu:~$ grep Mara agenda.txt
+andra@ubuntu:~$ echo Ana > agenda.txt
+andra@ubuntu:~$ grep Ana agenda.txt || echo "Persoana nu exista!"
+Ana
+andra@ubuntu:~$ grep Mara agenda.txt || echo "Persoana nu exista!"
+Persoana nu exista!
+andra@ubuntu:~$ echo Maria > agenda.txt
+andra@ubuntu:~$ grep Ana agenda.txt || grep Maria agenda.txt
+Maria
+andra@ubuntu:~$ cat -
+echo
+echo
+stop doing that
+stop doing that
+press ctrl-d
+press ctrl-d
+andra@ubuntu:~$ cat - > hello.c
+#include<stdio.h>
+
+int main()
+{
+printf("Hello, World!\n");
+return 0;
+}
+andra@ubuntu:~$ cat hell.c
+cat: hell.c: No such file or directory
+andra@ubuntu:~$ cat hello.c
+#include<stdio.h>
+
+int main()
+{
+printf("Hello, World!\n");
+return 0;
+}
+andra@ubuntu:~$ cat << END > hello.c
+> #include <stdio.h>
+> 
+> int main()
+> {
+> printf("Hello, World!\n");
+> return 0;
+> }
+> END
+andra@ubuntu:~$ cat hello.c
+#include <stdio.h>
+
+int main()
+{
+printf("Hello, World!\n");
+return 0;
+}
+andra@ubuntu:~$ cat < 'tty' > hello.c
+bash: tty: No such file or directory
+andra@ubuntu:~$ cat < 'tty' > hello.c
+bash: tty: No such file or directory
+andra@ubuntu:~$ cat < /dev/pts/1 > hello.c
+bash: /dev/pts/1: No such file or directory
+andra@ubuntu:~$ cat < 'tty' > hello.c
+bash: tty: No such file or directory
+andra@ubuntu:~$ cat hello.c
+#include <stdio.h>
+
+int main()
+{
+printf("Hello, World!\n");
+return 0;
+}
+andra@ubuntu:~$ mv new_hello.c hello.c
+mv: cannot stat 'new_hello.c': No such file or directory
+andra@ubuntu:~$ cat - hello.c > new_hello.c
+/*this is my first C program*/
+^C
+andra@ubuntu:~$ mv new_hello.c hello.c
+andra@ubuntu:~$ cat hello.c
+/*this is my first C program*/
+andra@ubuntu:~$ cc hello -o hello
+cc: fatal error: input file ‘hello’ is the same as output file
+compilation terminated.
+andra@ubuntu:~$ ./hello
+bash: ./hello: No such file or directory
+andra@ubuntu:~$ cc hello.c -o hello
+/usr/bin/ld: /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/Scrt1.o: in function `_start':
+(.text+0x1b): undefined reference to `main'
+collect2: error: ld returned 1 exit status
+andra@ubuntu:~$ ./hello
+bash: ./hello: No such file or directory
+andra@ubuntu:~$ gcc hello.c -o hello
+/usr/bin/ld: /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/Scrt1.o: in function `_start':
+(.text+0x1b): undefined reference to `main'
+collect2: error: ld returned 1 exit status
+andra@ubuntu:~$ gcc hello.c -o hello
+/usr/bin/ld: /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/Scrt1.o: in function `_start':
+(.text+0x1b): undefined reference to `main'
+collect2: error: ld returned 1 exit status
+andra@ubuntu:~$ touch lab4.txt
+
+//2
+andra@ubuntu:~$ touch t-lab4script.txt
+andra@ubuntu:~$ script t-lab4script.txt
+Script started, output log file is 't-lab4script.txt'.
+andra@ubuntu:~$ read a b c
+4 7 8
+andra@ubuntu:~$ expr $a+$b+$c
+4+7+8
+andra@ubuntu:~$ expr $a + $b + $c
+19
+
+//3
+andra@ubuntu:~$ myusername=$(whoami)
+andra@ubuntu:~$ echo $myusername
+andra
+
+//4
+andra@ubuntu:~$ cat - > hello.c
+#include <stdio.h>    
+
+int main()
+{
+printf("Hello, World!\n");
+return 0;
+}
+andra@ubuntu:~$ cat hello.c
+#include <stdio.h>
+
+int main()
+{
+printf("Hello, World!\n");
+return 0;
+}
+andra@ubuntu:~$ cc hello.c -o hello
+andra@ubuntu:~$ ./ hello
+bash: ./: Is a directory
+andra@ubuntu:~$ ./hello
+Hello, World!
+andra@ubuntu:~$ cc hello.c -o hello && ./hello
+Hello, World!
+
+//5
+ndra@ubuntu:~$ cat <<END > hello.c
+> #include <stdio.h>
+> 
+> int main()
+> {
+> char name[100];
+> scanf("%99", name);
+> printf("Numele tau este: %s\n", name);
+> return 0;
+> ^C
+andra@ubuntu:~$ cat <<END > hello.c
+> #include <stdio.h>
+> 
+> int main()
+> {
+> char nume[100];
+> scanf("%99s", nume);
+> printf("Hello, %s!\n", nume);
+> return 0;
+> }
+> END
+andra@ubuntu:~$ cc hello.c -o hello
+andra@ubuntu:~$ ./hello
+Alex
+Hello, Alex!
+
+//6
+andra@ubuntu:~$ cat - > printenv.c
+#include< stdio.h>
+
+int main(int argc, char *argv[]
+^C
+andra@ubuntu:~$ cat - > printenv.c
+#include <stdio.h>
+
+int main(int argc, char *argv[], char *envp[])
+{
+printf("Prima variabila de mediu este %s\n", envp[0]);
+exit(0);
+}
+andra@ubuntu:~$ cc printenv.c -o printenv
+printenv.c: In function ‘main’:
+printenv.c:6:1: error: implicit declaration of function ‘exit’ [-Wimplicit-function-declaration]
+    6 | exit(0);
+      | ^~~~
+printenv.c:2:1: note: include ‘<stdlib.h>’ or provide a declaration of ‘exit’
+    1 | #include <stdio.h>
+  +++ |+#include <stdlib.h>
+    2 | 
+printenv.c:6:1: warning: incompatible implicit declaration of built-in function ‘exit’ [-Wbuiltin-declaration-mismatch]
+    6 | exit(0);
+      | ^~~~
+printenv.c:6:1: note: include ‘<stdlib.h>’ or provide a declaration of ‘exit’
+andra@ubuntu:~$ cat - > printenv.c
+#include<stdio.h>
+
+int main(int argc, char *argv[], char *envp[])
+{
+printf("Prima variabila de mediu este %s\n", envp[0]);
+return 0;
+}
+andra@ubuntu:~$ cc printenv.c -o printenv
+andra@ubuntu:~$ ./printenv
+Prima variabila de mediu este SHELL=/bin/bash
+
+andra@ubuntu:~$ cat << END > printenv.c
+> #include <stdio.h>
+> #include <stdlib.h>
+> 
+> int main(int argc, char *argv[], char *envp[])
+> {
+> int i=0;
+> while(envp[i]!=NULL)
+> {
+> printf("variabila de mediu este %s\n", envp[i]);
+> i=i+1;
+> }
+> exit(0);
+> }
+> END
+andra@ubuntu:~$ cc printenv.c -o printenv
+andra@ubuntu:~$ ./printenv
+variabila de mediu este SHELL=/bin/bash
+variabila de mediu este SESSION_MANAGER=local/ubuntu:@/tmp/.ICE-unix/3267,unix/ubuntu:/tmp/.ICE-unix/3267
+variabila de mediu este QT_ACCESSIBILITY=1
+variabila de mediu este COLORTERM=truecolor
+variabila de mediu este XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg
+variabila de mediu este XDG_MENU_PREFIX=gnome-
+variabila de mediu este GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+variabila de mediu este GNOME_SHELL_SESSION_MODE=ubuntu
+variabila de mediu este SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+variabila de mediu este MEMORY_PRESSURE_WRITE=c29tZSAyMDAwMDAgMjAwMDAwMAA=
+variabila de mediu este XMODIFIERS=@im=ibus
+variabila de mediu este DESKTOP_SESSION=ubuntu
+variabila de mediu este GTK_MODULES=gail:atk-bridge
+variabila de mediu este PWD=/home/andra
+variabila de mediu este XDG_SESSION_DESKTOP=ubuntu
+variabila de mediu este LOGNAME=andra
+variabila de mediu este XDG_SESSION_TYPE=wayland
+variabila de mediu este SYSTEMD_EXEC_PID=3325
+variabila de mediu este XAUTHORITY=/run/user/1000/.mutter-Xwaylandauth.INESV2
+variabila de mediu este HOME=/home/andra
+variabila de mediu este USERNAME=andra
+variabila de mediu este IM_CONFIG_PHASE=1
+variabila de mediu este LANG=en_US.UTF-8
+variabila de mediu este LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:
+variabila de mediu este XDG_CURRENT_DESKTOP=ubuntu:GNOME
+variabila de mediu este MEMORY_PRESSURE_WATCH=/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.Shell@wayland.service/memory.pressure
+variabila de mediu este VTE_VERSION=7800
+variabila de mediu este WAYLAND_DISPLAY=wayland-0
+variabila de mediu este GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/91b90c71_b4a9_4bf2_8243_cf742395f48f
+variabila de mediu este GNOME_SETUP_DISPLAY=:1
+variabila de mediu este LESSCLOSE=/usr/bin/lesspipe %s %s
+variabila de mediu este XDG_SESSION_CLASS=user
+variabila de mediu este TERM=xterm-256color
+variabila de mediu este LESSOPEN=| /usr/bin/lesspipe %s
+variabila de mediu este USER=andra
+variabila de mediu este GNOME_TERMINAL_SERVICE=:1.116
+variabila de mediu este DISPLAY=:0
+variabila de mediu este SHLVL=2
+variabila de mediu este GSM_SKIP_SSH_AGENT_WORKAROUND=true
+variabila de mediu este QT_IM_MODULE=ibus
+variabila de mediu este XDG_RUNTIME_DIR=/run/user/1000
+variabila de mediu este DEBUGINFOD_URLS=https://debuginfod.ubuntu.com 
+variabila de mediu este XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
+variabila de mediu este PATH=/home/andra/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/bin:/bin:/bin
+variabila de mediu este GDMSESSION=ubuntu
+variabila de mediu este DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+variabila de mediu este _=./printenv
+
+//7
+andra@ubuntu:~$ mkdir bin
+mkdir: cannot create directory ‘bin’: File exists
+andra@ubuntu:~$ sudo cp hello /bin
+andra@ubuntu:~$ sudo mv hello /bin
+andra@ubuntu:~$ echo $PATH
+/home/andra/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/bin:/bin:/bin
+ndra@ubuntu:~$ ls -l /bin/hello
+-rwxrwxr-x 1 andra andra 16136 Oct 25 17:34 /bin/hello
+andra@ubuntu:~$ echo $PATH
+/home/andra/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/bin:/bin:/bin
+andra@ubuntu:~$ export PATH="$PATH:usr/local/bin"
+andra@ubuntu:~$ cat hello.c
+#include <stdio.h>
+
+int main()
+{
+char nume[100];
+scanf("%99s", nume);
+printf("Hello, %s!\n", nume);
+return 0;
+}
+
+andra@ubuntu:~$ hello
+ana
+Hello, ana!
+
+

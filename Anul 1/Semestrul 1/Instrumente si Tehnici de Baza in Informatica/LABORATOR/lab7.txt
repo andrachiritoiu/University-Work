@@ -1,0 +1,355 @@
+//laborator
+Script started on 2024-11-13 12:44:17+00:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="80" LINES="24"]
+andra@ubuntu:~$ mkdir testrepo
+andra@ubuntu:~$ cd testrepo
+andra@ubuntu:~/testrepo$ git init
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositories, which will suppress this warning, call:
+hint: 	git config --global init.defaultBranch <name>
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint: 	git branch -m <name>
+Initialized empty Git repository in /home/andra/testrepo/.git/
+andra@ubuntu:~/testrepo$ ls -a
+.  ..  .git
+andra@ubuntu:~/testrepo$ touch file.c
+andra@ubuntu:~/testrepo$ agit add file.c
+Command 'agit' not found, did you mean:
+  command 'git' from deb git (1:2.45.2-1ubuntu1)
+  command 'dgit' from deb dgit (11.10)
+  command 'jgit' from deb jgit-cli (6.7.0-2)
+  command 'qgit' from deb qgit (2.10-2build2)
+Try: sudo apt install <deb name>
+andra@ubuntu:~/testrepo$ git add file.c
+andra@ubuntu:~/testrepo$ git commit file.c
+Author identity unknown
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: unable to auto-detect email address (got 'andra@ubuntu.(none)')
+andra@ubuntu:~/testrepo$ git config andra.chiritoiu
+andra@ubuntu:~/testrepo$ git config chiritoiu.andra@yahoo.com
+andra@ubuntu:~/testrepo$ git config user.name "andra.chiritoiu"
+andra@ubuntu:~/testrepo$ git config user.email "chiritoiu.andra@yahoo.com"
+andra@ubuntu:~/testrepo$ git add file.c
+andra@ubuntu:~/testrepo$ git commit myfile.c
+error: pathspec 'myfile.c' did not match any file(s) known to git
+andra@ubuntu:~/testrepo$ 
+andra@ubuntu:~/testrepo$ git commit file.c
+Aborting commit due to empty commit message.
+andra@ubuntu:~/testrepo$ git commit file.c
+[master (root-commit) 309ccb1] schimbare
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 file.c
+andra@ubuntu:~/testrepo$ git remote add origin https://github.com/user/repo.git
+andra@ubuntu:~/testrepo$ git push origin
+fatal: The current branch master has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin master
+
+To have this happen automatically for branches without a tracking
+upstream, see 'push.autoSetupRemote' in 'git help config'.
+
+andra@ubuntu:~/testrepo$ git pull origin
+Username for 'https://github.com': andra.chiritoiu
+Password for 'https://andra.chiritoiu@github.com': 
+remote: Support for password authentication was removed on August 13, 2021.
+remote: Please see https://docs.github.com/get-started/getting-started-with-git/about-remote-repositories#cloning-with-https-urls for information on currently recommended modes of authentication.
+fatal: Authentication failed for 'https://github.com/user/repo.git/'
+andra@ubuntu:~/testrepo$ git remote add origin https://github.com/andra.chiritoiu/repo.git
+error: remote origin already exists.
+andra@ubuntu:~/testrepo$ git push origin
+fatal: The current branch master has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin master
+
+To have this happen automatically for branches without a tracking
+upstream, see 'push.autoSetupRemote' in 'git help config'.
+
+andra@ubuntu:~/testrepo$ git remote add origin https://github.com/andrachiritoiu/repo.git
+error: remote origin already exists.
+andra@ubuntu:~/testrepo$ git push origin
+fatal: The current branch master has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin master
+
+To have this happen automatically for branches without a tracking
+upstream, see 'push.autoSetupRemote' in 'git help config'.
+andra@ubuntu:~/testrepo$ git push --set-upstream origin master
+Username for 'https://github.com': andrachiritoiu
+Password for 'https://andrachiritoiu@github.com': 
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (5/5), 421 bytes | 421.00 KiB/s, done.
+Total 5 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To https://github.com/andrachiritoiu/testrepo.git
+ * [new branch]      master -> master
+branch 'master' set up to track 'origin/master'.
+andra@ubuntu:~/testrepo$ git push origin
+Username for 'https://github.com': andrachiritoiu
+Password for 'https://andrachiritoiu@github.com': 
+Everything up-to-date
+andra@ubuntu:~/testrepo$ git pull origin
+Username for 'https://github.com': andrachiritoiu
+Password for 'https://andrachiritoiu@github.com': 
+Already up to date.
+andra@ubuntu:~/testrepo$ git pull --rebase origin
+Username for 'https://github.com': andrachiritoiu
+Password for 'https://andrachiritoiu@github.com': 
+Already up to date.
+andra@ubuntu:~/testrepo$ git clone https://github.com/andrachiritoiu/testrepo.git
+Cloning into 'testrepo'...
+Username for 'https://github.com': andrachiritoiu
+Password for 'https://andrachiritoiu@github.com': 
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 5 (delta 0), reused 5 (delta 0), pack-reused 0 (from 0)
+Receiving objects: 100% (5/5), done.
+andra@ubuntu:~/testrepo$ git branch newtopic
+andra@ubuntu:~/testrepo$ git checkout newtopic
+Switched to branch 'newtopic'
+andra@ubuntu:~/testrepo$ git checkout master
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+
+
+//1
+andra@ubuntu:~/testrepo$ gpg --full-generate-key
+gpg (GnuPG) 2.4.4; Copyright (C) 2024 g10 Code GmbH
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Please select what kind of key you want:
+   (1) RSA and RSA
+   (2) DSA and Elgamal
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+   (9) ECC (sign and encrypt) *default*
+  (10) ECC (sign only)
+  (14) Existing key from card
+Your selection? 
+Please select which elliptic curve you want:
+   (1) Curve 25519 *default*
+   (4) NIST P-384
+   (6) Brainpool P-256
+Your selection? 
+Please specify how long the key should be valid.
+         0 = key does not expire
+      <n>  = key expires in n days
+      <n>w = key expires in n weeks
+      <n>m = key expires in n months
+      <n>y = key expires in n years
+Key is valid for? (0) 
+Key does not expire at all
+Is this correct? (y/N) y
+
+GnuPG needs to construct a user ID to identify your key.
+
+Real name: andra
+Email address: chiritoiu.andra@yahoo.com
+Comment: 
+You selected this USER-ID:
+    "andra <chiritoiu.andra@yahoo.com>"
+
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? 
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? o
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+gpg: directory '/home/andra/.gnupg/openpgp-revocs.d' created
+gpg: revocation certificate stored as '/home/andra/.gnupg/openpgp-revocs.d/3A333B99979EA5935FCCADBC3D405555794B8A4F.rev'
+public and secret key created and signed.
+
+pub   ed25519 2024-11-13 [SC]
+      3A333B99979EA5935FCCADBC3D405555794B8A4F
+uid                      andra <chiritoiu.andra@yahoo.com>
+sub   cv25519 2024-11-13 [E]
+
+andra@ubuntu:~/testrepo$ gpg --list-secret-keys --keyid-format=long
+gpg: checking the trustdb
+gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+gpg: depth: 0  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 1u
+/home/andra/.gnupg/pubring.kbx
+------------------------------
+sec   ed25519/3D405555794B8A4F 2024-11-13 [SC]
+      3A333B99979EA5935FCCADBC3D405555794B8A4F
+uid                 [ultimate] andra <chiritoiu.andra@yahoo.com>
+ssb   cv25519/11A45C9A63BFB1D7 2024-11-13 [E]
+
+andra@ubuntu:~/testrepo$ ^C
+andra@ubuntu:~/testrepo$ gpg --armor --export
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mDMEZzSpnRYJKwYBBAHaRw8BAQdAdLks4wD436vV0o8EMMdi0JCLTu81s0/HCYR8
+PLdMDXe0IWFuZHJhIDxjaGlyaXRvaXUuYW5kcmFAeWFob28uY29tPoiTBBMWCgA7
+FiEEOjM7mZeepZNfzK28PUBVVXlLik8FAmc0qZ0CGwMFCwkIBwICIgIGFQoJCAsC
+BBYCAwECHgcCF4AACgkQPUBVVXlLik+6nQD8Cx0ifBiSUoKFpdmfp3BJt3VepRGm
+fzj9+HGWwQLbLg8A+wSrD90nDsVxhT1OOU4Q1wxAFz5YOO9GmYYgZ6WXBOQJuDgE
+ZzSpnRIKKwYBBAGXVQEFAQEHQPcrV55nMqCU8Qiv0QNbR8D2U2SQaUGJ9iQs/BJz
+LMZcAwEIB4h4BBgWCgAgFiEEOjM7mZeepZNfzK28PUBVVXlLik8FAmc0qZ0CGwwA
+CgkQPUBVVXlLik+MMgEAyuVA55DyPKkN7wXipDe/CIRrLGtlA9PNiec6Fk7Q9O8B
+AIIdAKxaReYvLJ3771BBmSLvEdmjWiIKdS+4PqlowiMB
+=zhPz
+-----END PGP PUBLIC KEY BLOCK-----
+andra@ubuntu:~/testrepo$ gpg --armor --export 3D405555794B8A4F
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mDMEZzSpnRYJKwYBBAHaRw8BAQdAdLks4wD436vV0o8EMMdi0JCLTu81s0/HCYR8
+PLdMDXe0IWFuZHJhIDxjaGlyaXRvaXUuYW5kcmFAeWFob28uY29tPoiTBBMWCgA7
+FiEEOjM7mZeepZNfzK28PUBVVXlLik8FAmc0qZ0CGwMFCwkIBwICIgIGFQoJCAsC
+BBYCAwECHgcCF4AACgkQPUBVVXlLik+6nQD8Cx0ifBiSUoKFpdmfp3BJt3VepRGm
+fzj9+HGWwQLbLg8A+wSrD90nDsVxhT1OOU4Q1wxAFz5YOO9GmYYgZ6WXBOQJuDgE
+ZzSpnRIKKwYBBAGXVQEFAQEHQPcrV55nMqCU8Qiv0QNbR8D2U2SQaUGJ9iQs/BJz
+LMZcAwEIB4h4BBgWCgAgFiEEOjM7mZeepZNfzK28PUBVVXlLik8FAmc0qZ0CGwwA
+CgkQPUBVVXlLik+MMgEAyuVA55DyPKkN7wXipDe/CIRrLGtlA9PNiec6Fk7Q9O8B
+AIIdAKxaReYvLJ3771BBmSLvEdmjWiIKdS+4PqlowiMB
+=zhPz
+-----END PGP PUBLIC KEY BLOCK-----
+andra@ubuntu:~/testrepo$ gpg --full-generate-key
+gpg (GnuPG) 2.4.4; Copyright (C) 2024 g10 Code GmbH
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Please select what kind of key you want:
+   (1) RSA and RSA
+   (2) DSA and Elgamal
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+   (9) ECC (sign and encrypt) *default*
+  (10) ECC (sign only)
+  (14) Existing key from card
+Your selection? 1
+RSA keys may be between 1024 and 4096 bits long.
+What keysize do you want? (3072) 3072
+Requested keysize is 3072 bits
+Please specify how long the key should be valid.
+         0 = key does not expire
+      <n>  = key expires in n days
+      <n>w = key expires in n weeks
+      <n>m = key expires in n months
+      <n>y = key expires in n years
+Key is valid for? (0) 0
+Key does not expire at all
+Is this correct? (y/N) y
+
+GnuPG needs to construct a user ID to identify your key.
+
+Real name: andra chiritoiu
+Email address: chiritoiu.andra@yahoo.com
+Comment: 
+You selected this USER-ID:
+    "andra chiritoiu <chiritoiu.andra@yahoo.com>"
+
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? o
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+gpg: revocation certificate stored as '/home/andra/.gnupg/openpgp-revocs.d/AF68F68B2E2775E9695F698786C31684A946A391.rev'
+public and secret key created and signed.
+
+pub   rsa3072 2024-11-13 [SC]
+      AF68F68B2E2775E9695F698786C31684A946A391
+uid                      andra chiritoiu <chiritoiu.andra@yahoo.com>
+sub   rsa3072 2024-11-13 [E]
+
+andra@ubuntu:~/testrepo$ gpg --list-secret-keys --keyid-format=long
+gpg: checking the trustdb
+gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+gpg: depth: 0  valid:   2  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 2u
+/home/andra/.gnupg/pubring.kbx
+------------------------------
+sec   ed25519/3D405555794B8A4F 2024-11-13 [SC]
+      3A333B99979EA5935FCCADBC3D405555794B8A4F
+uid                 [ultimate] andra <chiritoiu.andra@yahoo.com>
+ssb   cv25519/11A45C9A63BFB1D7 2024-11-13 [E]
+
+sec   rsa3072/86C31684A946A391 2024-11-13 [SC]
+      AF68F68B2E2775E9695F698786C31684A946A391
+uid                 [ultimate] andra chiritoiu <chiritoiu.andra@yahoo.com>
+ssb   rsa3072/7AB3A9C43FC365B1 2024-11-13 [E]
+
+andra@ubuntu:~/testrepo$ gpg --armor --export 3D405555794B8A4F 
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mDMEZzSpnRYJKwYBBAHaRw8BAQdAdLks4wD436vV0o8EMMdi0JCLTu81s0/HCYR8
+PLdMDXe0IWFuZHJhIDxjaGlyaXRvaXUuYW5kcmFAeWFob28uY29tPoiTBBMWCgA7
+FiEEOjM7mZeepZNfzK28PUBVVXlLik8FAmc0qZ0CGwMFCwkIBwICIgIGFQoJCAsC
+BBYCAwECHgcCF4AACgkQPUBVVXlLik+6nQD8Cx0ifBiSUoKFpdmfp3BJt3VepRGm
+fzj9+HGWwQLbLg8A+wSrD90nDsVxhT1OOU4Q1wxAFz5YOO9GmYYgZ6WXBOQJuDgE
+ZzSpnRIKKwYBBAGXVQEFAQEHQPcrV55nMqCU8Qiv0QNbR8D2U2SQaUGJ9iQs/BJz
+LMZcAwEIB4h4BBgWCgAgFiEEOjM7mZeepZNfzK28PUBVVXlLik8FAmc0qZ0CGwwA
+CgkQPUBVVXlLik+MMgEAyuVA55DyPKkN7wXipDe/CIRrLGtlA9PNiec6Fk7Q9O8B
+AIIdAKxaReYvLJ3771BBmSLvEdmjWiIKdS+4PqlowiMB
+=zhPz
+-----END PGP PUBLIC KEY BLOCK-----
+andra@ubuntu:~/testrepo$ exit
+exit
+
+Script done on 2024-11-13 13:54:38+00:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2024-11-16 12:52:01+00:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="80" LINES="24"]
+
+
+//2
+andra@ubuntu:~$ mkdir hosts
+andra@ubuntu:~$ cd hosts
+andra@ubuntu:~/hosts$ git init
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositories, which will suppress this warning, call:
+hint:
+hint: 	git config --global init.defaultBranch <name>
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint: 	git branch -m <name>
+Initialized empty Git repository in /home/andra/hosts/.git/
+andra@ubuntu:~/hosts$ vi .git/description
+andra@ubuntu:~/hosts$ git config user.name "Andra Chiritoiu"
+andra@ubuntu:~/hosts$ git config user.email "chiritoiu.andra@yahoo.com"
+andra@ubuntu:~/hosts$ git clone https://github.com/andrachiritoiu/hosts.git
+Cloning into 'hosts'...
+warning: You appear to have cloned an empty repository.
+
+//3
+andra@ubuntu:~/hosts$ git add verifid.sh
+andra@ubuntu:~/hosts$ git commit verifid.sh
+[master (root-commit) 91fcc76] verifica id
+ 1 file changed, 11 insertions(+)
+ create mode 100755 verifid.sh
+andra@ubuntu:~/hosts$ touch verifid2.sh
+andra@ubuntu:~/hosts$ git commit verifid2.sh
+error: pathspec 'verifid2.sh' did not match any file(s) known to git
+andra@ubuntu:~/hosts$ ls
+hosts  verifid2.sh  verifid.sh
+andra@ubuntu:~/hosts$ git add verifid2.sh
+andra@ubuntu:~/hosts$ git commit verifid2.sh
+Aborting commit due to empty commit message.
+
+//4
+andra@ubuntu:~/hosts$ git remote add origin https://github.com/andrachiritoiu/hosts.git
+
+//5

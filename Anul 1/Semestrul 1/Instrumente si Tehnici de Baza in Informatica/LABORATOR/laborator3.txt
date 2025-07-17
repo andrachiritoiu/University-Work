@@ -1,0 +1,932 @@
+//laborator3
+//1
+andra@ubuntu:~$ cd Desktop
+andra@ubuntu:~/Desktop$ touch laborator3.txt
+andra@ubuntu:~/Desktop$ touch lab3s.txt
+andra@ubuntu:~/Desktop$ cd ..
+andra@ubuntu:~$ script lab3s.txt
+Script started, output log file is 'lab3s.txt'.
+andra@ubuntu:~$ sudo useradd -m -g users alex
+[sudo] password for andra: 
+andra@ubuntu:~$ sudo passwd alex
+New password: 
+BAD PASSWORD: The password is shorter than 8 characters
+Retype new password: 
+Sorry, passwords do not match.
+New password: 
+Retype new password: 
+passwd: password updated successfully
+andra@ubuntu:~$ sudo usermod -G wheel alex
+andra@ubuntu:~$ sudo userdel -r alex
+userdel: alex mail spool (/var/mail/alex) not found
+ndra@ubuntu:~$ sudo userdel alex
+userdel: user 'alex' does not exist
+andra@ubuntu:~$ rm -r /home/alex
+rm: cannot remove '/home/alex': No such file or directory
+andra@ubuntu:~$ ls /home/
+andra
+andra@ubuntu:~$ adduser alex
+fatal: Only root may add a user or group to the system.
+andra@ubuntu:~$ sudo adduser alex
+info: Adding user `alex' ...
+info: Selecting UID/GID from range 1000 to 59999 ...
+info: Adding new group `alex' (1002) ...
+info: Adding new user `alex' (1002) with group `alex (1002)' ...
+info: Creating home directory `/home/alex' ...
+info: Copying files from `/etc/skel' ...
+New password: 
+Retype new password: 
+passwd: password updated successfully
+Changing the user information for alex
+Enter the new value, or press ENTER for the default
+	Full Name []: 
+	Room Number []: 
+	Work Phone []: 
+	Home Phone []: 
+	Other []: 
+Is the information correct? [Y/n] y
+info: Adding new user `alex' to supplemental / extra groups `users' ...
+info: Adding user `alex' to group `users' ...
+andra@ubuntu:~$ sudo deluser alex
+info: Removing crontab ...
+info: Removing user `alex' ...
+andra@ubuntu:~$ groupadd mygroup
+groupadd: Permission denied.
+groupadd: cannot lock /etc/group; try again later.
+andra@ubuntu:~$ sudo groupadd mygroup
+andra@ubuntu:~$ sudo groupdel mygroup
+andra@ubuntu:~$ sudo userdel alex
+andra@ubuntu:~$ touch foo bar baz
+andra@ubuntu:~$ ls -l foo bar baz
+-rw-rw-r-- 1 andra users 0 Oct 19 20:26 bar
+-rw-rw-r-- 1 andra users 0 Oct 19 20:26 baz
+-rw-rw-r-- 1 andra users 0 Oct 19 20:26 foo
+andra@ubuntu:~$ sudo useradd -m -g users alex
+useradd: warning: the home directory /home/alex already exists.
+useradd: Not copying any file from skel directory into it.
+andra@ubuntu:~$ sudo rm -r /home/alex
+andra@ubuntu:~$ chown alex:users foo
+chown: changing ownership of 'foo': Operation not permitted
+andra@ubuntu:~$ sudo chown alex:users foo
+andra@ubuntu:~$ sudo chown alex bar
+andra@ubuntu:~$ sudo chown :users baz
+andra@ubuntu:~$ ls -l foo bar baz
+-rw-rw-r-- 1 alex  users 0 Oct 19 20:26 bar
+-rw-rw-r-- 1 andra users 0 Oct 19 20:26 baz
+-rw-rw-r-- 1 alex  users 0 Oct 19 20:26 foo
+andra@ubuntu:~$ sudo chmod u-w bar
+andra@ubuntu:~$ sudo g+w baz
+sudo: g+w: command not found
+andra@ubuntu:~$ sudo chmod g+w baz
+andra@ubuntu:~$ sudo chmod a+wx foo
+andra@ubuntu:~$ ls -l foo bar baz
+-r--rw-r-- 1 alex  users 0 Oct 19 20:26 bar
+-rw-rw-r-- 1 andra users 0 Oct 19 20:26 baz
+-rwxrwxrwx 1 alex  users 0 Oct 19 20:26 foo
+andra@ubuntu:~$ user host=cmd1 ,cmd2
+Command 'user' not found, did you mean:
+  command 'userv' from deb userv (1.2.1~beta4)
+  command 'users' from deb coreutils (9.4-3.1ubuntu1)
+  command 'fuser' from deb psmisc (23.7-1build1)
+  command 'iuser' from deb ipmiutil (3.1.9-3build2)
+Try: sudo apt install <deb name>
+andra@ubuntu:~$ %group host=cmd1,cmd2
+bash: fg: %group: no such job
+andra@ubuntu:~$ %group host=cmd1,cmd2
+bash: fg: %group: no such job
+andra@ubuntu:~$ root ALL=(ALL) SETENV: ALL
+bash: syntax error near unexpected token `('
+andra@ubuntu:~$ %users ALL=/sbin/mount /cdrom,/sbin/umount /cdrom
+bash: fg: %users: no such job
+andra@ubuntu:~$ jobs
+andra@ubuntu:~$ %users localhost=/sbin/shutdown -h now
+bash: fg: %users: no such job
+
+//2
+andra@ubuntu:~$ w
+ 21:27:24 up  2:00,  2 users,  load average: 0.01, 0.03, 0.05
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU  WHAT
+andra    tty2     -                19:30    2:00m  0.09s  0.08s /usr/li
+andra             -                19:30    1:59m  0.00s  2.43s /usr/li
+andra@ubuntu:~$ who -a
+           system boot  2024-10-19 19:27
+           run-level 5  2024-10-19 19:27
+andra    ? seat0        2024-10-19 19:30   ?          2970 (login screen)
+andra    + tty2         2024-10-19 19:30 02:00        2970 (tty2)
+           pts/1        2024-10-19 20:59              5672 id=ts/1  term=0 exit=0
+           pts/2        2024-10-19 20:37              5065 id=ts/2  term=0 exit=0
+andra@ubuntu:~$ last -5
+last: invalid option -- '5'
+Usage: wtmpdb [command] [options]
+Commands: last, boot, boottime, rotate, shutdown
+
+Options for last:
+  -a, --hostlast      Display hostnames as last entry
+  -d, --dns           Translate IP addresses into a hostname
+  -f, --file FILE     Use FILE as wtmpdb database
+  -F, --fulltimes     Display full times and dates
+  -i, --ip            Translate hostnames to IP addresses
+  -n, --limit N       Display only first N entries
+  -p, --present TIME  Display who was present at TIME
+  -R, --nohostname    Don't display hostname
+  -S, --service       Display PAM service used to login
+  -s, --since TIME    Display who was logged in after TIME
+  -t, --until TIME    Display who was logged in until TIME
+  -w, --fullnames     Display full IP addresses and user and domain names
+  -x, --system        Display system shutdown entries
+      --time-format FORMAT  Display timestamps in the specified FORMAT:
+                              notime|short|full|iso
+  [username...]       Display only entries matching these arguments
+  [tty...]            Display only entries matching these arguments
+TIME must be in the format "YYYY-MM-DD HH:MM:SS"
+
+Options for boot (writes boot entry to wtmpdb):
+  -f, --file FILE     Use FILE as wtmpdb database
+
+Options for boottime (print time of last system boot):
+  -f, --file FILE     Use FILE as wtmpdb database
+
+Options for rotate (exports old entries to wtmpdb_<datetime>)):
+  -f, --file FILE     Use FILE as wtmpdb database
+  -d, --days INTEGER  Export all entries which are older than the given days
+
+Options for shutdown (writes shutdown time to wtmpdb):
+  -f, --file FILE     Use FILE as wtmpdb database
+
+Generic options:
+  -h, --help          Display this help message and exit
+  -v, --version       Print version number and exit
+
+//3
+andra@ubuntu:~$ ps
+    PID TTY          TIME CMD
+   6681 pts/1    00:00:00 bash
+   8464 pts/1    00:00:00 ps
+andra@ubuntu:~$ ps -o pid,group,command
+    PID GROUP    COMMAND
+   6681 andra    bash -i
+   8506 andra    ps -o pid,group,command
+andra@ubuntu:~$ ps -a -o pid,user,command
+    PID USER     COMMAND
+   2990 andra    /usr/libexec/gnome-session-binary --session=ubuntu
+   6680 andra    script -a lab3s.txt
+   8528 andra    ps -a -o pid,user,command
+andra@ubuntu:~$ ps
+    PID TTY          TIME CMD
+   6681 pts/1    00:00:00 bash
+   8557 pts/1    00:00:00 ps
+andra@ubuntu:~$ pstree 19310
+andra@ubuntu:~$ pstree
+systemd─┬─ModemManager───3*[{ModemManager}]
+        ├─NetworkManager───3*[{NetworkManager}]
+        ├─VBoxService───8*[{VBoxService}]
+        ├─accounts-daemon───3*[{accounts-daemon}]
+        ├─avahi-daemon───avahi-daemon
+        ├─colord───3*[{colord}]
+        ├─cron
+        ├─cups-browsed───3*[{cups-browsed}]
+        ├─cupsd
+        ├─dbus-daemon
+        ├─fwupd───5*[{fwupd}]
+        ├─gdm3─┬─gdm-session-wor─┬─gdm-wayland-ses─┬─gnome-session-b───3*[{gnom+
+        │      │                 │                 └─3*[{gdm-wayland-ses}]
+        │      │                 └─3*[{gdm-session-wor}]
+        │      └─3*[{gdm3}]
+        ├─gnome-remote-de───3*[{gnome-remote-de}]
+        ├─polkitd───3*[{polkitd}]
+        ├─power-profiles-───3*[{power-profiles-}]
+        ├─rsyslogd───3*[{rsyslogd}]
+        ├─rtkit-daemon───2*[{rtkit-daemon}]
+        ├─snapd───10*[{snapd}]
+        ├─switcheroo-cont───3*[{switcheroo-cont}]
+        ├─systemd─┬─(sd-pam)
+        │         ├─VBoxClient───VBoxClient───3*[{VBoxClient}]
+        │         ├─VBoxClient
+        │         ├─at-spi2-registr───3*[{at-spi2-registr}]
+        │         ├─dbus-daemon
+        │         ├─dconf-service───3*[{dconf-service}]
+        │         ├─evolution-addre───6*[{evolution-addre}]
+        │         ├─evolution-calen───9*[{evolution-calen}]
+        │         ├─evolution-sourc───4*[{evolution-sourc}]
+        │         ├─gcr-ssh-agent───2*[{gcr-ssh-agent}]
+        │         ├─2*[gjs───7*[{gjs}]]
+        │         ├─gnome-keyring-d───4*[{gnome-keyring-d}]
+        │         ├─gnome-session-b─┬─at-spi-bus-laun─┬─dbus-daemon
+        │         │                 │                 └─4*[{at-spi-bus-laun}]
+        │         │                 ├─evolution-alarm───7*[{evolution-alarm}]
+        │         │                 ├─gsd-disk-utilit───3*[{gsd-disk-utilit}]
+        │         │                 ├─update-notifier───4*[{update-notifier}]
+        │         │                 └─4*[{gnome-session-b}]
+        │         ├─gnome-session-c───{gnome-session-c}
+        │         ├─gnome-shell─┬─Xwayland
+        │         │             ├─gjs───9*[{gjs}]
+        │         │             ├─mutter-x11-fram───14*[{mutter-x11-fram}]
+        │         │             └─21*[{gnome-shell}]
+        │         ├─gnome-shell-cal───6*[{gnome-shell-cal}]
+        │         ├─gnome-terminal-─┬─bash───script───bash───pstree
+        │         │                 └─6*[{gnome-terminal-}]
+        │         ├─gnome-text-edit───15*[{gnome-text-edit}]
+        │         ├─goa-daemon───4*[{goa-daemon}]
+        │         ├─goa-identity-se───3*[{goa-identity-se}]
+        │         ├─gsd-a11y-settin───4*[{gsd-a11y-settin}]
+        │         ├─gsd-color───4*[{gsd-color}]
+        │         ├─gsd-datetime───4*[{gsd-datetime}]
+        │         ├─gsd-housekeepin───4*[{gsd-housekeepin}]
+        │         ├─gsd-keyboard───4*[{gsd-keyboard}]
+        │         ├─gsd-media-keys───4*[{gsd-media-keys}]
+        │         ├─gsd-power───4*[{gsd-power}]
+        │         ├─gsd-print-notif───3*[{gsd-print-notif}]
+        │         ├─gsd-printer───3*[{gsd-printer}]
+        │         ├─gsd-rfkill───3*[{gsd-rfkill}]
+        │         ├─gsd-screensaver───3*[{gsd-screensaver}]
+        │         ├─gsd-sharing───4*[{gsd-sharing}]
+        │         ├─gsd-smartcard───4*[{gsd-smartcard}]
+        │         ├─gsd-sound───4*[{gsd-sound}]
+        │         ├─gsd-wacom───4*[{gsd-wacom}]
+        │         ├─gsd-xsettings───4*[{gsd-xsettings}]
+        │         ├─gvfs-afc-volume───4*[{gvfs-afc-volume}]
+        │         ├─gvfs-goa-volume───3*[{gvfs-goa-volume}]
+        │         ├─gvfs-gphoto2-vo───3*[{gvfs-gphoto2-vo}]
+        │         ├─gvfs-mtp-volume───3*[{gvfs-mtp-volume}]
+        │         ├─gvfs-udisks2-vo───4*[{gvfs-udisks2-vo}]
+        │         ├─gvfsd─┬─gvfsd-trash───4*[{gvfsd-trash}]
+        │         │       └─3*[{gvfsd}]
+        │         ├─gvfsd-fuse───6*[{gvfsd-fuse}]
+        │         ├─gvfsd-metadata───3*[{gvfsd-metadata}]
+        │         ├─ibus-daemon─┬─ibus-engine-sim───3*[{ibus-engine-sim}]
+        │         │             ├─ibus-extension-───4*[{ibus-extension-}]
+        │         │             ├─ibus-memconf───3*[{ibus-memconf}]
+        │         │             └─3*[{ibus-daemon}]
+        │         ├─ibus-portal───3*[{ibus-portal}]
+        │         ├─ibus-x11───3*[{ibus-x11}]
+        │         ├─pipewire───2*[{pipewire}]
+        │         ├─pipewire───{pipewire}
+        │         ├─pipewire-pulse───2*[{pipewire-pulse}]
+        │         ├─snap───7*[{snap}]
+        │         ├─snapd-desktop-i───snapd-desktop-i───4*[{snapd-desktop-i}]
+        │         ├─tracker-miner-f───7*[{tracker-miner-f}]
+        │         ├─wireplumber───5*[{wireplumber}]
+        │         ├─2*[xdg-desktop-por───5*[{xdg-desktop-por}]]
+        │         ├─xdg-desktop-por───4*[{xdg-desktop-por}]
+        │         ├─xdg-document-po─┬─fusermount3
+        │         │                 └─6*[{xdg-document-po}]
+        │         └─xdg-permission-───3*[{xdg-permission-}]
+        ├─systemd-journal
+        ├─systemd-logind
+        ├─systemd-oomd
+        ├─systemd-resolve
+        ├─systemd-timesyn───{systemd-timesyn}
+        ├─systemd-udevd
+        ├─udisksd───5*[{udisksd}]
+        ├─unattended-upgr───{unattended-upgr}
+        ├─upowerd───3*[{upowerd}]
+        └─wpa_supplicant
+andra@ubuntu:~$ kill 5714
+bash: kill: (5714) - No such process
+andra@ubuntu:~$ pgrep bc
+andra@ubuntu:~$ pgrep -lf bc
+andra@ubuntu:~$ pkill
+pkill: no matching criteria specified
+Try `pkill --help' for more information.
+
+//4
+andra@ubuntu:~$ sleep 60 &
+[1] 9132
+andra@ubuntu:~$ jobs
+[1]+  Running                 sleep 60 &
+andra@ubuntu:~$ sleep 45 &
+[2] 9166
+andra@ubuntu:~$ jobs
+[1]-  Running                 sleep 60 &
+[2]+  Running                 sleep 45 &
+andra@ubuntu:~$ fg %1
+bash: fg: job has terminated
+[1]-  Done                    sleep 60
+andra@ubuntu:~$ kill %2
+bash: kill: (9166) - No such process
+[2]+  Done                    sleep 45
+andra@ubuntu:~$ jobs
+andra@ubuntu:~$ fg %1
+bash: fg: %1: no such job
+andra@ubuntu:~$ ^Z
+bash: :s^Z: substitution failed
+andra@ubuntu:~$ jobs
+andra@ubuntu:~$ bg %1
+bash: bg: %1: no such job
+andra@ubuntu:~$ jobs
+andra@ubuntu:~$ fg %1
+bash: fg: %1: no such job
+andra@ubuntu:~$ ^C
+
+//5
+andra@ubuntu:~$ mkdir tmpdir
+andra@ubuntu:~$ cd tmpdir/
+andra@ubuntu:~/tmpdir$ fuser .
+/home/andra/tmpdir:   6681c
+andra@ubuntu:~/tmpdir$ ps
+    PID TTY          TIME CMD
+   6681 pts/1    00:00:00 bash
+  10338 pts/1    00:00:00 ps
+andra@ubuntu:~/tmpdir$ lsof .
+COMMAND   PID  USER   FD   TYPE DEVICE SIZE/OFF    NODE NAME
+bash     6681 andra  cwd    DIR    8,2     4096 1314849 .
+lsof    10347 andra  cwd    DIR    8,2     4096 1314849 .
+lsof    10348 andra  cwd    DIR    8,2     4096 1314849 .
+andra@ubuntu:~/tmpdir$ fuser -k
+No process specification given
+Usage: fuser [-fIMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE]
+             [-k [-i] [-SIGNAL]] NAME...
+       fuser -l
+       fuser -V
+Show which processes use the named files, sockets, or filesystems.
+
+  -a,--all              display unused files too
+  -i,--interactive      ask before killing (ignored without -k)
+  -I,--inode            use always inodes to compare files
+  -k,--kill             kill processes accessing the named file
+  -l,--list-signals     list available signal names
+  -m,--mount            show all processes using the named filesystems or
+                        block device
+  -M,--ismountpoint     fulfill request only if NAME is a mount point
+  -n,--namespace SPACE  search in this name space (file, udp, or tcp)
+  -s,--silent           silent operation
+  -SIGNAL               send this signal instead of SIGKILL
+  -u,--user             display user IDs
+  -v,--verbose          verbose output
+  -w,--writeonly        kill only processes with write access
+  -V,--version          display version information
+  -4,--ipv4             search IPv4 sockets only
+  -6,--ipv6             search IPv6 sockets only
+  udp/tcp names: [local_port][,[rmt_host][,[rmt_port]]]
+
+andra@ubuntu:~/tmpdir$ cd ; fuser .
+/home/andra:          2895c  2896c  2902c  2905c  2908c  2919c  2942c  2953c  2970c  2990c  3068c  3069c  3083c  3094c  3145c  3146c  3166c  3239c  3259c  3266c  3277c  3282c  3283c  3284c  3286c  3289c  3295c  3299c  3300c  3308c  3309c  3316c  3322c  3323c  3324c  3327c  3374c  3391c  3427c  3436c  3438c  3439c  3453c  3454c  3510c  3535c  3551c  3583c  3598c  3608c  3613c  3619c  3665c  3687c  3705c  3706c  3789c  3813c  3820c  3850c  3852c  3853c  3873c  3939c  4054c  4375c  4382c  4604c  5524c  6680c  6681c  7893c
+andra@ubuntu:~$ exit
+exit
+Script done.
+
+
+//tema
+//1
+andra@ubuntu:~$ script -a lab3s.txt
+Script started, output log file is 'lab3s.txt'.
+andra@ubuntu:~$ sudo useradd -m -g users admin
+[sudo] password for andra: 
+andra@ubuntu:~$ sudo useradd -m -g users prof
+andra@ubuntu:~$ sudo useradd -m -g users stud151
+andra@ubuntu:~$ sudo useradd -m -g users stud152
+andra@ubuntu:~$ sudo useradd -m -g users stud153
+andra@ubuntu:~$ sudo useradd -m -g users stud154
+andra@ubuntu:~$ sudo groupadd seria15
+andra@ubuntu:~$ sudo groupadd gr151
+andra@ubuntu:~$ sudo groupadd gr152
+andra@ubuntu:~$ sudo groupadd gr153
+andra@ubuntu:~$ sudo groupadd gr154
+
+//2
+andra@ubuntu:~$ sudo usermod -G wheel admin
+andra@ubuntu:~$ sudo visudo
+visudo: /etc/sudoers: Not a directory
+
+//3
+andra@ubuntu:~$ mkdir seria15
+andra@ubuntu:~$ cd seria15
+andra@ubuntu:~/seria15$ mkdir 151
+andra@ubuntu:~/seria15$ cd 151
+andra@ubuntu:~/seria15/151$ touch discutii.txt
+andra@ubuntu:~/seria15/151$ touch laborator.txt
+andra@ubuntu:~/seria15/151$ cd ..
+andra@ubuntu:~/seria15$ mkdir 152
+andra@ubuntu:~/seria15$ cd 152
+andra@ubuntu:~/seria15/152$ touch discutii.txt
+andra@ubuntu:~/seria15/152$ touch laborator.txt
+andra@ubuntu:~/seria15/152$ cd ..
+andra@ubuntu:~/seria15$ mkdir 153
+andra@ubuntu:~/seria15$ cd 153
+andra@ubuntu:~/seria15/153$ touch discutii.txt
+andra@ubuntu:~/seria15/153$ touch laborator.txt
+andra@ubuntu:~/seria15/153$ cd ..
+andra@ubuntu:~/seria15$ mkdir 154
+andra@ubuntu:~/seria15$ cd 154
+andra@ubuntu:~/seria15/154$ touch discutii.txt
+andra@ubuntu:~/seria15/154$ touch laborator.txt
+andra@ubuntu:~/seria15/154$ cd ..
+andra@ubuntu:~/seria15$ mkdir catalog
+andra@ubuntu:~/seria15$ cd catalog
+andra@ubuntu:~/seria15/catalog$ touch note151.txt
+andra@ubuntu:~/seria15/catalog$ touch note152.txt
+andra@ubuntu:~/seria15/catalog$ touch note153.txt
+andra@ubuntu:~/seria15/catalog$ touch note154.txt
+andra@ubuntu:~/seria15/catalog$ cd..
+cd..: command not found
+andra@ubuntu:~/seria15/catalog$ cd ..
+andra@ubuntu:~/seria15$ mkdir subiecte
+andra@ubuntu:~/seria15$ cd subiecte
+andra@ubuntu:~/seria15/subiecte$ touch examen.txt
+andra@ubuntu:~/seria15/subiecte$ touch restanta.txt
+andra@ubuntu:~/seria15/subiecte$ cd ..
+andra@ubuntu:~/seria15$ cd ..
+andra@ubuntu:~$ script -a lab3s.txt
+Script started, output log file is 'lab3s.txt'.
+andra@ubuntu:~$ sudo chown prof seria15/catalog
+[sudo] password for andra: 
+andra@ubuntu:~$ sudo chmod u+rwx seria15/catalog 
+andra@ubuntu:~$ sudo chmod g+r seria15/catalog
+andra@ubuntu:~$ sudo chmod g+rw seria15/151
+andra@ubuntu:~$ sudo chmod g+rw seria15/152
+andra@ubuntu:~$ sudo chmod g+rw seria15/153
+andra@ubuntu:~$ sudo chmod g+rw seria15/154
+andra@ubuntu:~$ sudo chmod a+r seria15
+andra@ubuntu:~$ sudo chown prof seria15/subiecte
+andra@ubuntu:~$ sudo chmod u+rwx
+sudo: /etc/sudoers: Not a directory
+chmod: missing operand after ‘u+rwx’
+Try 'chmod --help' for more information.
+andra@ubuntu:~$ sudo chmod u+rwx seria15/subiecte
+
+//4ndra@ubuntu:~$ ps
+    PID TTY          TIME CMD
+   4316 pts/1    00:00:00 bash
+   4534 pts/1    00:00:00 ps
+andra@ubuntu:~$ nano proces1.txt &
+[1] 4535
+andra@ubuntu:~$ nano proces2.txt &
+[2] 4536
+
+[1]+  Stopped                 nano proces1.txt
+andra@ubuntu:~$ nano proces3.txt &
+[3] 4537
+
+[2]+  Stopped                 nano proces2.txt
+andra@ubuntu:~$ pgrep
+pgrep: no matching criteria specified
+Try `pgrep --help' for more information.
+
+[3]+  Stopped                 nano proces3.txt
+andra@ubuntu:~$ pgrep bc
+andra@ubuntu:~$ kill 4536
+andra@ubuntu:~$ kill 4535
+andra@ubuntu:~$ kill 4537
+
+
+//5
+andra@ubuntu:~$ ps aux
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root           1  0.2  0.4  23328 15096 ?        Ss   13:48   0:04 /sbin/init sp
+root           2  0.0  0.0      0     0 ?        S    13:48   0:00 [kthreadd]
+root           3  0.0  0.0      0     0 ?        S    13:48   0:00 [pool_workque
+root           4  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-rc
+root           5  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-sy
+root           6  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-sl
+root           7  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-ne
+root          10  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/0:0H
+root          11  0.0  0.0      0     0 ?        I    13:48   0:01 [kworker/u16:
+root          12  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-mm
+root          13  0.0  0.0      0     0 ?        I    13:48   0:00 [rcu_tasks_kt
+root          14  0.0  0.0      0     0 ?        I    13:48   0:00 [rcu_tasks_ru
+root          15  0.0  0.0      0     0 ?        I    13:48   0:00 [rcu_tasks_tr
+root          16  0.0  0.0      0     0 ?        S    13:48   0:00 [ksoftirqd/0]
+root          17  0.0  0.0      0     0 ?        I    13:48   0:01 [rcu_preempt]
+root          18  0.0  0.0      0     0 ?        S    13:48   0:00 [rcu_exp_par_
+root          19  0.0  0.0      0     0 ?        S    13:48   0:00 [rcu_exp_gp_k
+root          20  0.0  0.0      0     0 ?        S    13:48   0:00 [migration/0]
+root          21  0.0  0.0      0     0 ?        S    13:48   0:00 [idle_inject/
+root          22  0.0  0.0      0     0 ?        S    13:48   0:00 [cpuhp/0]
+root          23  0.0  0.0      0     0 ?        S    13:48   0:00 [cpuhp/1]
+root          24  0.0  0.0      0     0 ?        S    13:48   0:00 [idle_inject/
+root          25  0.0  0.0      0     0 ?        S    13:48   0:00 [migration/1]
+root          26  0.0  0.0      0     0 ?        S    13:48   0:00 [ksoftirqd/1]
+root          28  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/1:0H
+root          29  0.0  0.0      0     0 ?        S    13:48   0:00 [cpuhp/2]
+root          30  0.0  0.0      0     0 ?        S    13:48   0:00 [idle_inject/
+root          31  0.0  0.0      0     0 ?        S    13:48   0:00 [migration/2]
+root          32  0.0  0.0      0     0 ?        S    13:48   0:00 [ksoftirqd/2]
+root          34  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/2:0H
+root          35  0.0  0.0      0     0 ?        S    13:48   0:00 [cpuhp/3]
+root          36  0.0  0.0      0     0 ?        S    13:48   0:00 [idle_inject/
+root          37  0.0  0.0      0     0 ?        S    13:48   0:00 [migration/3]
+root          38  0.0  0.0      0     0 ?        S    13:48   0:00 [ksoftirqd/3]
+root          40  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/3:0H
+root          41  0.0  0.0      0     0 ?        S    13:48   0:00 [kdevtmpfs]
+root          42  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-in
+root          44  0.0  0.0      0     0 ?        S    13:48   0:00 [kauditd]
+root          45  0.0  0.0      0     0 ?        S    13:48   0:00 [khungtaskd]
+root          46  0.0  0.0      0     0 ?        S    13:48   0:00 [oom_reaper]
+root          48  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-wr
+root          49  0.0  0.0      0     0 ?        S    13:48   0:00 [kcompactd0]
+root          50  0.0  0.0      0     0 ?        SN   13:48   0:00 [ksmd]
+root          51  0.0  0.0      0     0 ?        SN   13:48   0:00 [khugepaged]
+root          52  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-ki
+root          53  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-kb
+root          54  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-bl
+root          55  0.0  0.0      0     0 ?        S    13:48   0:00 [irq/9-acpi]
+root          56  0.0  0.0      0     0 ?        I    13:48   0:00 [kworker/1:1-
+root          57  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-tp
+root          58  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-at
+root          59  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-md
+root          60  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-md
+root          61  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-ed
+root          62  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-de
+root          63  0.0  0.0      0     0 ?        S    13:48   0:00 [watchdogd]
+root          65  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/0:1H
+root          66  0.0  0.0      0     0 ?        S    13:48   0:00 [kswapd0]
+root          67  0.0  0.0      0     0 ?        I    13:48   0:00 [kworker/2:1-
+root          68  0.0  0.0      0     0 ?        S    13:48   0:00 [ecryptfs-kth
+root          69  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-kt
+root          70  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-ac
+root          71  0.0  0.0      0     0 ?        S    13:48   0:00 [scsi_eh_0]
+root          72  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-sc
+root          73  0.0  0.0      0     0 ?        S    13:48   0:00 [scsi_eh_1]
+root          74  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-sc
+root          75  0.0  0.0      0     0 ?        I    13:48   0:01 [kworker/u16:
+root          78  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-ml
+root          79  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-ip
+root          80  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/2:1H
+root          87  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-ks
+root          89  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/u17:
+root         103  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-ch
+root         127  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/1:1H
+root         130  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/3:1H
+root         157  0.0  0.0      0     0 ?        I    13:48   0:01 [kworker/3:2-
+root         160  0.0  0.0      0     0 ?        I    13:48   0:00 [kworker/0:3-
+root         161  0.0  0.0      0     0 ?        S    13:48   0:00 [scsi_eh_2]
+root         162  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-sc
+root         163  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-tt
+root         255  0.0  0.0      0     0 ?        S    13:48   0:00 [jbd2/sda2-8]
+root         256  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-ex
+root         307  0.0  1.3  98136 46284 ?        S<s  13:48   0:01 /usr/lib/syst
+root         350  0.0  0.0      0     0 ?        I    13:48   0:00 [kworker/2:3-
+root         367  0.0  0.2  31420  8648 ?        Ss   13:48   0:00 /usr/lib/syst
+root         372  0.0  0.0      0     0 ?        S    13:48   0:00 [psimon]
+root         622  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-cr
+systemd+     688  0.0  0.2  16740  7236 ?        Ss   13:48   0:01 /usr/lib/syst
+systemd+     694  0.0  0.3  21176 12816 ?        Ss   13:48   0:00 /usr/lib/syst
+systemd+     741  0.0  0.2  90228  7552 ?        Ssl  13:48   0:00 /usr/lib/syst
+avahi        831  0.0  0.1   6224  3856 ?        Ss   13:48   0:00 avahi-daemon:
+message+     832  0.1  0.1   9852  6572 ?        Ss   13:48   0:02 @dbus-daemon 
+gnome-r+     836  0.0  0.4 516216 16152 ?        Ssl  13:48   0:00 /usr/libexec/
+polkitd      851  0.0  0.2 308612 10448 ?        Ssl  13:48   0:01 /usr/lib/polk
+root         855  0.0  0.9 1992200 33016 ?       Ssl  13:48   0:01 /usr/lib/snap
+root         856  0.0  0.2 319744  7312 ?        Ssl  13:48   0:00 /usr/libexec/
+root         857  0.0  0.0  18192  2896 ?        Ss   13:48   0:00 /usr/sbin/cro
+root         858  0.0  0.1 318668  6456 ?        Ssl  13:48   0:00 /usr/libexec/
+root         862  0.0  0.2  17484  8508 ?        Ss   13:48   0:00 /usr/lib/syst
+root         865  0.0  0.4 468856 14236 ?        Ssl  13:48   0:00 /usr/libexec/
+avahi        891  0.0  0.0   6036  1228 ?        S    13:48   0:00 avahi-daemon:
+root         893  0.0  0.5 344056 20396 ?        Ssl  13:48   0:00 /usr/sbin/Net
+root         894  0.0  0.1  16472  5728 ?        Ss   13:48   0:00 /usr/sbin/wpa
+syslog       900  0.0  0.1 220144  5624 ?        Ssl  13:48   0:00 /usr/sbin/rsy
+root        1000  0.0  0.3 389864 12244 ?        Ssl  13:48   0:00 /usr/sbin/Mod
+root        1174  0.0  0.3  44776 11692 ?        Ss   13:48   0:00 /usr/sbin/cup
+root        1177  0.0  0.6 121764 22972 ?        Ssl  13:48   0:00 /usr/bin/pyth
+cups-br+    1186  0.0  0.5 267716 19724 ?        Ssl  13:48   0:00 /usr/sbin/cup
+root        1798  0.0  0.0 287744  3088 ?        Sl   13:49   0:00 /usr/sbin/VBo
+root        2395  0.0  0.2 321272  8612 ?        Ssl  13:49   0:00 /usr/sbin/gdm
+root        2410  0.0  0.0      0     0 ?        S    13:49   0:00 [psimon]
+rtkit       2462  0.0  0.0  20480  3004 ?        SNsl 13:49   0:00 /usr/libexec/
+colord      2573  0.0  0.4 326548 14144 ?        Ssl  13:49   0:00 /usr/libexec/
+root        2615  0.0  0.2 327092  9372 ?        Ssl  13:49   0:00 /usr/libexec/
+root        2866  0.0  0.1 319936  6840 ?        Ssl  13:49   0:00 /usr/libexec/
+root        2984  0.0  0.3 250672 11316 ?        Sl   13:49   0:00 gdm-session-w
+andra       2995  0.0  0.3  21452 13056 ?        Ss   13:49   0:01 /usr/lib/syst
+andra       3000  0.0  0.1  22144  3636 ?        S    13:49   0:00 (sd-pam)
+andra       3019  0.0  0.3 114292 13088 ?        S<sl 13:49   0:00 /usr/bin/pipe
+andra       3020  0.0  0.1  95572  5224 ?        Ssl  13:49   0:00 /usr/bin/pipe
+andra       3026  0.0  0.5 489828 18184 ?        S<sl 13:49   0:00 /usr/bin/wire
+andra       3028  0.0  0.3 187976 11992 ?        S<sl 13:49   0:00 /usr/bin/pipe
+andra       3036  0.0  0.2 324712  9856 ?        SLsl 13:49   0:00 /usr/bin/gnom
+andra       3043  0.0  0.1   8460  6008 ?        Ss   13:49   0:01 /usr/bin/dbus
+andra       3064  0.0  0.1 691412  6820 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3080  0.0  0.1 318188  6120 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3089  0.0  0.1 244556  6060 tty2     Ssl+ 13:49   0:00 /usr/libexec/
+andra       3100  0.0  0.4 304788 16144 tty2     Sl+  13:49   0:00 /usr/libexec/
+root        3113  0.0  0.0   2768  1884 ?        Ss   13:49   0:00 fusermount3 -
+andra       3196  0.0  0.2 162172  7176 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3197  0.0  0.1  97904  5212 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3212  0.0  0.2 323544  7932 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3219  0.0  0.2 543356  7040 ?        Sl   13:49   0:00 /usr/libexec/
+andra       3226  0.0  0.5 527052 17836 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3281  5.2 12.0 4654836 420512 ?      Ssl  13:49   1:38 /usr/bin/gnom
+andra       3284  0.0  0.2 380644  7264 ?        Sl   13:49   0:00 /usr/libexec/
+andra       3304  0.0  0.1   7080  4712 ?        S    13:49   0:00 /usr/bin/dbus
+andra       3373  0.0  0.2 233768  7092 ?        Sl   13:49   0:00 /usr/libexec/
+andra       3393  0.0  0.5 655236 17784 ?        Sl   13:49   0:00 /usr/libexec/
+andra       3400  0.0  2.5 837916 88816 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3412  0.0  0.8 2667056 27888 ?       Sl   13:49   0:00 /usr/bin/gjs 
+andra       3415  0.2  0.3 397560 12104 ?        Ssl  13:49   0:04 /usr/bin/ibus
+andra       3417  0.0  0.1 392452  6732 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3418  0.0  0.5 419636 20004 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3421  0.0  0.3 438036 11812 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3427  0.0  0.2 467820  7940 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3432  0.0  0.5 492148 19748 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3436  0.0  0.7 603848 25404 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3438  0.0  0.6 456384 23568 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3441  0.0  0.3 330128 11076 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3444  0.0  0.1 540092  6888 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3451  0.0  0.1 318488  6196 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3452  0.0  0.3 549776 11004 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3454  0.0  0.2 394764  8132 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3459  0.0  0.2 403132  9276 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3464  0.0  0.5 493596 20808 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3490  0.0  0.2 305860  7324 ?        Sl   13:49   0:00 /usr/libexec/
+andra       3509  0.0  3.0 995156 106488 ?       Sl   13:49   0:00 /usr/libexec/
+andra       3577  0.0  0.3 471328 11360 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3596  0.0  0.2 245544  7012 ?        Sl   13:49   0:00 /usr/libexec/
+andra       3603  0.2  0.8 428112 29272 ?        Sl   13:49   0:05 /usr/libexec/
+andra       3611  0.0  0.6 556012 24288 ?        Sl   13:49   0:00 /usr/libexec/
+andra       3620  0.0  0.2 319324  7164 ?        Sl   13:49   0:00 /usr/libexec/
+andra       3643  0.0  0.7 900036 24412 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3648  0.0  0.4 422888 14444 ?        Sl   13:49   0:00 /usr/libexec/
+andra       3649  0.0  0.1 319704  6752 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3654  0.0  0.2 398392  9112 ?        Sl   13:49   0:00 /usr/libexec/
+andra       3669  0.0  0.2 399668  8072 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3680  0.0  0.1 318752  6776 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3691  0.0  0.8 835808 30100 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3692  0.0  0.1 318660  6136 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3703  0.0  1.7 227856 62180 ?        S    13:49   0:00 /usr/bin/Xway
+andra       3722  0.0  0.3  39128 11996 ?        Ss   13:49   0:00 /snap/snapd-d
+andra       3768  0.0  0.2 245668  7284 ?        Sl   13:49   0:01 /usr/libexec/
+andra       3785  0.0  0.8 428904 29852 ?        Sl   13:49   0:00 /snap/snapd-d
+andra       3816  0.0  0.1 230452  5768 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3825  0.0  0.1 245300  6748 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3826  0.0  0.2 618708  9100 ?        Sl   13:49   0:00 /usr/libexec/
+andra       3871  0.0  0.4 710104 16828 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3876  0.0  2.3 631628 80164 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3879  0.0  0.7 2667020 27620 ?       Sl   13:49   0:00 /usr/bin/gjs 
+andra       3912  0.0  1.8 2955596 66048 ?       Sl   13:49   0:01 gjs /usr/shar
+andra       3966  0.0  0.7 273732 24436 ?        Sl   13:49   0:00 /usr/libexec/
+andra       3971  0.0  0.7 817060 25736 ?        SNsl 13:49   0:00 /usr/libexec/
+andra       3972  0.0  2.5 1019844 87496 ?       Ssl  13:49   0:00 /usr/libexec/
+andra       3981  0.0  3.1 1427380 108248 ?      Sl   13:49   0:00 /usr/libexec/
+andra       3983  0.0  0.0  28236  1508 ?        S    13:49   0:00 /usr/bin/VBox
+andra       3984  0.0  1.0 235148 36704 ?        Sl   13:49   0:00 /usr/bin/VBox
+andra       4022  0.0  0.0  28236  1576 ?        S    13:49   0:00 /usr/bin/VBox
+andra       4052  0.0  0.7 424364 26000 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       4089  0.5  1.5 633460 54364 ?        Ssl  13:49   0:10 /usr/libexec/
+andra       4096  0.0  0.1  20376  5884 pts/0    Ss   13:49   0:00 bash
+andra       4182  0.0  0.7 498240 26276 ?        Sl   13:50   0:00 /usr/bin/upda
+andra       4232  0.3  6.8 2492604 240420 ?      Sl   13:50   0:05 /usr/bin/naut
+andra       4265  0.0  0.2 397496  8584 ?        Sl   13:50   0:00 /usr/libexec/
+andra       4273  0.0  0.2 397732  8848 ?        Sl   13:50   0:00 /usr/libexec/
+andra       4280  0.0  0.2 398736  8648 ?        Sl   13:50   0:00 /usr/libexec/
+andra       4287  0.0  0.2 397296  8304 ?        Sl   13:50   0:00 /usr/libexec/
+andra       4292  0.0  0.8  51780 29676 ?        S    13:50   0:00 python3 /usr/
+andra       4315  0.0  0.0  17036  2128 pts/0    S+   13:53   0:00 script -a lab
+andra       4316  0.0  0.1  20380  5916 pts/1    Ss   13:53   0:00 bash -i
+root        4364  0.0  0.0      0     0 ?        I    14:03   0:00 [kworker/3:0]
+root        4391  0.2  0.0      0     0 ?        I    14:09   0:01 [kworker/u16:
+root        4450  0.0  0.0      0     0 ?        I    14:10   0:00 [kworker/1:0-
+andra       4476  3.0  8.1 2464972 282300 ?      Sl   14:10   0:18 /usr/bin/gnom
+root        4527  0.0  0.0      0     0 ?        I    14:10   0:00 [kworker/0:1-
+andra       4535  0.0  0.0  17840  2808 pts/1    T    14:14   0:00 nano proces1.
+andra       4536  0.0  0.0  17840  2976 pts/1    T    14:14   0:00 nano proces2.
+andra       4537  0.0  0.0  17840  2952 pts/1    T    14:14   0:00 nano proces3.
+andra       4604  0.0  0.0 161036  3224 ?        Sl   14:19   0:00 /usr/bin/VBox
+root        4624  0.0  0.0      0     0 ?        I    14:19   0:00 [kworker/u16:
+root        4631  0.0  0.0      0     0 ?        I    14:20   0:00 [kworker/1:2-
+root        4632  0.0  0.0      0     0 ?        I    14:20   0:00 [kworker/1:3]
+andra       4633  0.0  0.1  19960  4216 pts/1    R+   14:20   0:00 ps aux
+andra@ubuntu:~$ ps u
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+andra       3089  0.0  0.1 244556  6060 tty2     Ssl+ 13:49   0:00 /usr/libexec/
+andra       3100  0.0  0.4 304788 16144 tty2     Sl+  13:49   0:00 /usr/libexec/
+andra       4096  0.0  0.1  20376  5884 pts/0    Ss   13:49   0:00 bash
+andra       4315  0.0  0.0  17036  2128 pts/0    S+   13:53   0:00 script -a lab
+andra       4316  0.0  0.1  20380  5916 pts/1    Ss   13:53   0:00 bash -i
+andra       4535  0.0  0.0  17840  2808 pts/1    T    14:14   0:00 nano proces1.
+andra       4536  0.0  0.0  17840  2976 pts/1    T    14:14   0:00 nano proces2.
+andra       4537  0.0  0.0  17840  2952 pts/1    T    14:14   0:00 nano proces3.
+andra       4634  200  0.1  19960  4220 pts/1    R+   14:21   0:00 ps u
+andra@ubuntu:~$ ps a
+    PID TTY      STAT   TIME COMMAND
+   3089 tty2     Ssl+   0:00 /usr/libexec/gdm-wayland-session env GNOME_SHELL_SE
+   3100 tty2     Sl+    0:00 /usr/libexec/gnome-session-binary --session=ubuntu
+   4096 pts/0    Ss     0:00 bash
+   4315 pts/0    S+     0:00 script -a lab3s.txt
+   4316 pts/1    Ss     0:00 bash -i
+   4535 pts/1    T      0:00 nano proces1.txt
+   4536 pts/1    T      0:00 nano proces2.txt
+   4537 pts/1    T      0:00 nano proces3.txt
+   4636 pts/1    R+     0:00 ps a
+andra@ubuntu:~$ ps aux --sort=-%mem
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+andra       3281  5.1 12.0 4654836 420188 ?      Ssl  13:49   1:41 /usr/bin/gnom
+andra       4476  2.6  8.1 2464972 282300 ?      Sl   14:10   0:18 /usr/bin/gnom
+andra       4232  0.3  6.8 2492604 240420 ?      Sl   13:50   0:05 /usr/bin/naut
+andra       3981  0.0  3.1 1427380 108248 ?      Sl   13:49   0:00 /usr/libexec/
+andra       3509  0.0  3.0 995156 106488 ?       Sl   13:49   0:00 /usr/libexec/
+andra       3400  0.0  2.5 837916 88816 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3972  0.0  2.5 1019844 87496 ?       Ssl  13:49   0:00 /usr/libexec/
+andra       3876  0.0  2.3 631628 80164 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3912  0.0  1.8 2955596 66048 ?       Sl   13:49   0:01 gjs /usr/shar
+andra       3703  0.0  1.7 227856 62180 ?        S    13:49   0:00 /usr/bin/Xway
+andra       4089  0.5  1.5 633460 54364 ?        Ssl  13:49   0:10 /usr/libexec/
+root         307  0.0  1.3  98136 46284 ?        S<s  13:48   0:01 /usr/lib/syst
+andra       3984  0.0  1.0 235148 36704 ?        Sl   13:49   0:00 /usr/bin/VBox
+root         855  0.0  0.9 1992200 33016 ?       Ssl  13:48   0:01 /usr/lib/snap
+andra       3691  0.0  0.8 835808 30100 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3785  0.0  0.8 428904 29852 ?        Sl   13:49   0:00 /snap/snapd-d
+andra       4292  0.0  0.8  51780 29676 ?        S    13:50   0:00 python3 /usr/
+andra       3603  0.2  0.8 428112 29272 ?        Sl   13:49   0:05 /usr/libexec/
+andra       3412  0.0  0.8 2667056 27888 ?       Sl   13:49   0:00 /usr/bin/gjs 
+andra       3879  0.0  0.7 2667020 27620 ?       Sl   13:49   0:00 /usr/bin/gjs 
+andra       4182  0.0  0.7 498240 26276 ?        Sl   13:50   0:00 /usr/bin/upda
+andra       4052  0.0  0.7 424364 26000 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3971  0.0  0.7 817060 25736 ?        SNsl 13:49   0:00 /usr/libexec/
+andra       3436  0.0  0.7 603848 25404 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3966  0.0  0.7 273732 24436 ?        Sl   13:49   0:00 /usr/libexec/
+andra       3643  0.0  0.7 900036 24412 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3611  0.0  0.6 556012 24288 ?        Sl   13:49   0:00 /usr/libexec/
+andra       3438  0.0  0.6 456384 23568 ?        Ssl  13:49   0:00 /usr/libexec/
+root        1177  0.0  0.6 121764 22972 ?        Ssl  13:48   0:00 /usr/bin/pyth
+andra       3464  0.0  0.5 493596 20808 ?        Ssl  13:49   0:00 /usr/libexec/
+root         893  0.0  0.5 344056 20396 ?        Ssl  13:48   0:00 /usr/sbin/Net
+andra       3418  0.0  0.5 419636 20004 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3432  0.0  0.5 492148 19748 ?        Ssl  13:49   0:00 /usr/libexec/
+cups-br+    1186  0.0  0.5 267716 19724 ?        Ssl  13:48   0:00 /usr/sbin/cup
+andra       3026  0.0  0.5 489828 18184 ?        S<sl 13:49   0:00 /usr/bin/wire
+andra       3226  0.0  0.5 527052 17836 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3393  0.0  0.5 655236 17784 ?        Sl   13:49   0:00 /usr/libexec/
+andra       3871  0.0  0.4 710104 16828 ?        Ssl  13:49   0:00 /usr/libexec/
+gnome-r+     836  0.0  0.4 516216 16152 ?        Ssl  13:48   0:00 /usr/libexec/
+andra       3100  0.0  0.4 304788 16144 tty2     Sl+  13:49   0:00 /usr/libexec/
+root           1  0.2  0.4  23328 15096 ?        Ss   13:48   0:04 /sbin/init sp
+andra       3648  0.0  0.4 422888 14444 ?        Sl   13:49   0:00 /usr/libexec/
+root         865  0.0  0.4 468856 14236 ?        Ssl  13:48   0:00 /usr/libexec/
+colord      2573  0.0  0.4 326548 14144 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3019  0.0  0.3 114292 13088 ?        S<sl 13:49   0:00 /usr/bin/pipe
+andra       2995  0.0  0.3  21452 13056 ?        Ss   13:49   0:01 /usr/lib/syst
+systemd+     694  0.0  0.3  21176 12816 ?        Ss   13:48   0:00 /usr/lib/syst
+root        1000  0.0  0.3 389864 12244 ?        Ssl  13:48   0:00 /usr/sbin/Mod
+andra       3415  0.2  0.3 397560 12104 ?        Ssl  13:49   0:04 /usr/bin/ibus
+andra       3722  0.0  0.3  39128 11996 ?        Ss   13:49   0:00 /snap/snapd-d
+andra       3028  0.0  0.3 187976 11992 ?        S<sl 13:49   0:00 /usr/bin/pipe
+andra       3421  0.0  0.3 438036 11812 ?        Ssl  13:49   0:00 /usr/libexec/
+root        1174  0.0  0.3  44776 11692 ?        Ss   13:48   0:00 /usr/sbin/cup
+andra       3577  0.0  0.3 471328 11360 ?        Ssl  13:49   0:00 /usr/libexec/
+root        2984  0.0  0.3 250672 11316 ?        Sl   13:49   0:00 gdm-session-w
+andra       3441  0.0  0.3 330128 11076 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3452  0.0  0.3 549776 11004 ?        Ssl  13:49   0:00 /usr/libexec/
+polkitd      851  0.0  0.2 308612 10448 ?        Ssl  13:48   0:01 /usr/lib/polk
+andra       3036  0.0  0.2 324712  9856 ?        SLsl 13:49   0:00 /usr/bin/gnom
+root        2615  0.0  0.2 327092  9372 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3459  0.0  0.2 403132  9276 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3654  0.0  0.2 398392  9112 ?        Sl   13:49   0:00 /usr/libexec/
+andra       3826  0.0  0.2 618708  9100 ?        Sl   13:49   0:00 /usr/libexec/
+andra       4273  0.0  0.2 397732  8848 ?        Sl   13:50   0:00 /usr/libexec/
+root         367  0.0  0.2  31420  8648 ?        Ss   13:48   0:00 /usr/lib/syst
+andra       4280  0.0  0.2 398736  8648 ?        Sl   13:50   0:00 /usr/libexec/
+root        2395  0.0  0.2 321272  8612 ?        Ssl  13:49   0:00 /usr/sbin/gdm
+andra       4265  0.0  0.2 397496  8584 ?        Sl   13:50   0:00 /usr/libexec/
+root         862  0.0  0.2  17484  8508 ?        Ss   13:48   0:00 /usr/lib/syst
+andra       4287  0.0  0.2 397296  8304 ?        Sl   13:50   0:00 /usr/libexec/
+andra       3454  0.0  0.2 394764  8132 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3669  0.0  0.2 399668  8072 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3427  0.0  0.2 467820  7940 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3212  0.0  0.2 323544  7932 ?        Ssl  13:49   0:00 /usr/libexec/
+systemd+     741  0.0  0.2  90228  7552 ?        Ssl  13:48   0:00 /usr/lib/syst
+andra       3490  0.0  0.2 305860  7324 ?        Sl   13:49   0:00 /usr/libexec/
+root         856  0.0  0.2 319744  7312 ?        Ssl  13:48   0:00 /usr/libexec/
+andra       3768  0.0  0.2 245668  7284 ?        Sl   13:49   0:01 /usr/libexec/
+andra       3284  0.0  0.2 380644  7264 ?        Sl   13:49   0:00 /usr/libexec/
+systemd+     688  0.0  0.2  16740  7236 ?        Ss   13:48   0:01 /usr/lib/syst
+andra       3196  0.0  0.2 162172  7176 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3620  0.0  0.2 319324  7164 ?        Sl   13:49   0:00 /usr/libexec/
+andra       3373  0.0  0.2 233768  7092 ?        Sl   13:49   0:00 /usr/libexec/
+andra       3219  0.0  0.2 543356  7040 ?        Sl   13:49   0:00 /usr/libexec/
+andra       3596  0.0  0.2 245544  7012 ?        Sl   13:49   0:00 /usr/libexec/
+andra       3444  0.0  0.1 540092  6888 ?        Ssl  13:49   0:00 /usr/libexec/
+root        2866  0.0  0.1 319936  6840 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3064  0.0  0.1 691412  6820 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3680  0.0  0.1 318752  6776 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3649  0.0  0.1 319704  6752 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3825  0.0  0.1 245300  6748 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3417  0.0  0.1 392452  6732 ?        Ssl  13:49   0:00 /usr/libexec/
+message+     832  0.1  0.1   9852  6572 ?        Ss   13:48   0:02 @dbus-daemon 
+root         858  0.0  0.1 318668  6456 ?        Ssl  13:48   0:00 /usr/libexec/
+andra       3451  0.0  0.1 318488  6196 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3692  0.0  0.1 318660  6136 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3080  0.0  0.1 318188  6120 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3089  0.0  0.1 244556  6060 tty2     Ssl+ 13:49   0:00 /usr/libexec/
+andra       3043  0.0  0.1   8460  6008 ?        Ss   13:49   0:01 /usr/bin/dbus
+andra       4316  0.0  0.1  20380  5916 pts/1    Ss   13:53   0:00 bash -i
+andra       4096  0.0  0.1  20376  5884 pts/0    Ss   13:49   0:00 bash
+andra       3816  0.0  0.1 230452  5768 ?        Ssl  13:49   0:00 /usr/libexec/
+root         894  0.0  0.1  16472  5728 ?        Ss   13:48   0:00 /usr/sbin/wpa
+syslog       900  0.0  0.1 220144  5624 ?        Ssl  13:48   0:00 /usr/sbin/rsy
+andra       3020  0.0  0.1  95572  5224 ?        Ssl  13:49   0:00 /usr/bin/pipe
+andra       3197  0.0  0.1  97904  5212 ?        Ssl  13:49   0:00 /usr/libexec/
+andra       3304  0.0  0.1   7080  4712 ?        S    13:49   0:00 /usr/bin/dbus
+andra       4637  200  0.1  19960  4216 pts/1    R+   14:22   0:00 ps aux --sort
+avahi        831  0.0  0.1   6224  3856 ?        Ss   13:48   0:00 avahi-daemon:
+andra       3000  0.0  0.1  22144  3636 ?        S    13:49   0:00 (sd-pam)
+andra       4604  0.0  0.0 161036  3224 ?        Sl   14:19   0:00 /usr/bin/VBox
+root        1798  0.0  0.0 287744  3088 ?        Sl   13:49   0:00 /usr/sbin/VBo
+rtkit       2462  0.0  0.0  20480  3004 ?        SNsl 13:49   0:00 /usr/libexec/
+andra       4536  0.0  0.0  17840  2976 pts/1    T    14:14   0:00 nano proces2.
+andra       4537  0.0  0.0  17840  2952 pts/1    T    14:14   0:00 nano proces3.
+root         857  0.0  0.0  18192  2896 ?        Ss   13:48   0:00 /usr/sbin/cro
+andra       4535  0.0  0.0  17840  2808 pts/1    T    14:14   0:00 nano proces1.
+andra       4315  0.0  0.0  17036  2128 pts/0    S+   13:53   0:00 script -a lab
+root        3113  0.0  0.0   2768  1884 ?        Ss   13:49   0:00 fusermount3 -
+andra       4022  0.0  0.0  28236  1576 ?        S    13:49   0:00 /usr/bin/VBox
+andra       3983  0.0  0.0  28236  1508 ?        S    13:49   0:00 /usr/bin/VBox
+avahi        891  0.0  0.0   6036  1228 ?        S    13:48   0:00 avahi-daemon:
+root           2  0.0  0.0      0     0 ?        S    13:48   0:00 [kthreadd]
+root           3  0.0  0.0      0     0 ?        S    13:48   0:00 [pool_workque
+root           4  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-rc
+root           5  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-sy
+root           6  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-sl
+root           7  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-ne
+root          10  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/0:0H
+root          11  0.0  0.0      0     0 ?        I    13:48   0:01 [kworker/u16:
+root          12  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-mm
+root          13  0.0  0.0      0     0 ?        I    13:48   0:00 [rcu_tasks_kt
+root          14  0.0  0.0      0     0 ?        I    13:48   0:00 [rcu_tasks_ru
+root          15  0.0  0.0      0     0 ?        I    13:48   0:00 [rcu_tasks_tr
+root          16  0.0  0.0      0     0 ?        S    13:48   0:00 [ksoftirqd/0]
+root          17  0.0  0.0      0     0 ?        I    13:48   0:01 [rcu_preempt]
+root          18  0.0  0.0      0     0 ?        S    13:48   0:00 [rcu_exp_par_
+root          19  0.0  0.0      0     0 ?        S    13:48   0:00 [rcu_exp_gp_k
+root          20  0.0  0.0      0     0 ?        S    13:48   0:00 [migration/0]
+root          21  0.0  0.0      0     0 ?        S    13:48   0:00 [idle_inject/
+root          22  0.0  0.0      0     0 ?        S    13:48   0:00 [cpuhp/0]
+root          23  0.0  0.0      0     0 ?        S    13:48   0:00 [cpuhp/1]
+root          24  0.0  0.0      0     0 ?        S    13:48   0:00 [idle_inject/
+root          25  0.0  0.0      0     0 ?        S    13:48   0:00 [migration/1]
+root          26  0.0  0.0      0     0 ?        S    13:48   0:00 [ksoftirqd/1]
+root          28  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/1:0H
+root          29  0.0  0.0      0     0 ?        S    13:48   0:00 [cpuhp/2]
+root          30  0.0  0.0      0     0 ?        S    13:48   0:00 [idle_inject/
+root          31  0.0  0.0      0     0 ?        S    13:48   0:00 [migration/2]
+root          32  0.0  0.0      0     0 ?        S    13:48   0:00 [ksoftirqd/2]
+root          34  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/2:0H
+root          35  0.0  0.0      0     0 ?        S    13:48   0:00 [cpuhp/3]
+root          36  0.0  0.0      0     0 ?        S    13:48   0:00 [idle_inject/
+root          37  0.0  0.0      0     0 ?        S    13:48   0:00 [migration/3]
+root          38  0.0  0.0      0     0 ?        S    13:48   0:00 [ksoftirqd/3]
+root          40  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/3:0H
+root          41  0.0  0.0      0     0 ?        S    13:48   0:00 [kdevtmpfs]
+root          42  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-in
+root          44  0.0  0.0      0     0 ?        S    13:48   0:00 [kauditd]
+root          45  0.0  0.0      0     0 ?        S    13:48   0:00 [khungtaskd]
+root          46  0.0  0.0      0     0 ?        S    13:48   0:00 [oom_reaper]
+root          48  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-wr
+root          49  0.0  0.0      0     0 ?        S    13:48   0:00 [kcompactd0]
+root          50  0.0  0.0      0     0 ?        SN   13:48   0:00 [ksmd]
+root          51  0.0  0.0      0     0 ?        SN   13:48   0:00 [khugepaged]
+root          52  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-ki
+root          53  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-kb
+root          54  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-bl
+root          55  0.0  0.0      0     0 ?        S    13:48   0:00 [irq/9-acpi]
+root          56  0.0  0.0      0     0 ?        I    13:48   0:00 [kworker/1:1-
+root          57  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-tp
+root          58  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-at
+root          59  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-md
+root          60  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-md
+root          61  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-ed
+root          62  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-de
+root          63  0.0  0.0      0     0 ?        S    13:48   0:00 [watchdogd]
+root          65  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/0:1H
+root          66  0.0  0.0      0     0 ?        S    13:48   0:00 [kswapd0]
+root          67  0.0  0.0      0     0 ?        I    13:48   0:00 [kworker/2:1-
+root          68  0.0  0.0      0     0 ?        S    13:48   0:00 [ecryptfs-kth
+root          69  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-kt
+root          70  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-ac
+root          71  0.0  0.0      0     0 ?        S    13:48   0:00 [scsi_eh_0]
+root          72  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-sc
+root          73  0.0  0.0      0     0 ?        S    13:48   0:00 [scsi_eh_1]
+root          74  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-sc
+root          75  0.0  0.0      0     0 ?        I    13:48   0:01 [kworker/u16:
+root          78  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-ml
+root          79  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-ip
+root          80  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/2:1H
+root          87  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-ks
+root          89  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/u17:
+root         103  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-ch
+root         127  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/1:1H
+root         130  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/3:1H
+root         157  0.0  0.0      0     0 ?        I    13:48   0:01 [kworker/3:2-
+root         160  0.0  0.0      0     0 ?        I    13:48   0:00 [kworker/0:3-
+root         161  0.0  0.0      0     0 ?        S    13:48   0:00 [scsi_eh_2]
+root         162  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-sc
+root         163  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-tt
+root         255  0.0  0.0      0     0 ?        S    13:48   0:00 [jbd2/sda2-8]
+root         256  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-ex
+root         350  0.0  0.0      0     0 ?        I    13:48   0:00 [kworker/2:3-
+root         372  0.0  0.0      0     0 ?        S    13:48   0:00 [psimon]
+root         622  0.0  0.0      0     0 ?        I<   13:48   0:00 [kworker/R-cr
+root        2410  0.0  0.0      0     0 ?        S    13:49   0:00 [psimon]
+root        4364  0.0  0.0      0     0 ?        I    14:03   0:00 [kworker/3:0]
+root        4391  0.2  0.0      0     0 ?        I    14:09   0:01 [kworker/u16:
+root        4450  0.0  0.0      0     0 ?        I    14:10   0:00 [kworker/1:0-
+root        4527  0.0  0.0      0     0 ?        I    14:10   0:00 [kworker/0:1-
+root        4624  0.0  0.0      0     0 ?        I    14:19   0:00 [kworker/u16:
+root        4631  0.0  0.0      0     0 ?        I    14:20   0:00 [kworker/1:2-
+root        4632  0.0  0.0      0     0 ?        I    14:20   0:00 [kworker/1:3]
+
+
+
+
+
+

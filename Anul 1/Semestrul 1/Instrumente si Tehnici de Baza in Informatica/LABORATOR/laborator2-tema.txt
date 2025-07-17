@@ -1,0 +1,302 @@
+//rezolvare sarcini de laborator2
+//1
+andra@ubuntu:~$ script laborator2-tema.txt
+Script started, output log file is 'laborator2-tema.txt'.
+andra@ubuntu:~$ mkdir uso
+andra@ubuntu:~$ cd uso
+andra@ubuntu:~/uso$ mkdir curs
+andra@ubuntu:~/uso$ cd curs
+andra@ubuntu:~/uso/curs$ mkdir 1
+andra@ubuntu:~/uso/curs$ cd 1
+andra@ubuntu:~/uso/curs/1$ touch uso-curs-1.pdf
+andra@ubuntu:~/uso/curs/1$ touch uso-curs-1.tex
+andra@ubuntu:~/uso/curs/1$ cd ..
+andra@ubuntu:~/uso/curs$ cd ..
+andra@ubuntu:~/uso$ mkdir lab
+andra@ubuntu:~/uso$ cd lab
+andra@ubuntu:~/uso/lab$ mkdir 1
+andra@ubuntu:~/uso/lab$ cd 1
+andra@ubuntu:~/uso/lab/1$ touch uso-lab-1.aux
+andra@ubuntu:~/uso/lab/1$ touch uso-lab-1.fbd_latexmk
+andra@ubuntu:~/uso/lab/1$ touch uso-lab-1.fls
+andra@ubuntu:~/uso/lab/1$ touch uso-lab-1.log
+andra@ubuntu:~/uso/lab/1$ touch uso-lab-1.pdf
+andra@ubuntu:~/uso/lab/1$ touch uso-lab-1.synctex.gz
+andra@ubuntu:~/uso/lab/1$ touch uso-lab-1.tex
+andra@ubuntu:~/uso/lab/1$ cd ..
+andra@ubuntu:~/uso/lab$ cd ..
+andra@ubuntu:~/uso$ touch plan
+andra@ubuntu:~/uso$ cd ..
+andra@ubuntu:~$ tree uso
+uso
+├── curs
+│   └── 1
+│       ├── uso-curs-1.pdf
+│       └── uso-curs-1.tex
+├── lab
+│   └── 1
+│       ├── uso-lab-1.aux
+│       ├── uso-lab-1.fbd_latexmk
+│       ├── uso-lab-1.fls
+│       ├── uso-lab-1.log
+│       ├── uso-lab-1.pdf
+│       ├── uso-lab-1.synctex.gz
+│       └── uso-lab-1.tex
+└── plan
+
+5 directories, 10 files
+
+//2
+andra@ubuntu:~$ mkdir $HOME/bin
+andra@ubuntu:~$ export PATH="$HOME/bin:$PATH"
+andra@ubuntu:~$ source ~/.bashrc
+andra@ubuntu:~$ cp /bin/ls $HOME/bin/
+andra@ubuntu:~$ which ls
+/home/andra/bin/ls
+
+//3
+andra@ubuntu:~$ grep -E 'ex(a)*' cuv
+exemple
+excelent
+examinare
+excentric
+exemplar
+examinare
+exercitiu
+andra@ubuntu:~$ grep -E 'ex(a)+' cuv
+examinare
+examinare
+andra@ubuntu:~$ grep -E 'ex(a)?' cuv
+exemple
+excelent
+examinare
+excentric
+exemplar
+examinare
+exercitiu
+
+//4
+andra@ubuntu:~$ mkdir orig backup
+andra@ubuntu:~$ touch orig/foo orig/bar orig/baz
+andra@ubuntu:~$ find orig -name "foo" -exec mv {} backup/foo.orig \;
+andra@ubuntu:~$ find orig -name "bar" -exec mv {} backup/bar.orig \;
+andra@ubuntu:~$ find orig -name "baz" -exec mv {} backup/baz.orig \;
+andra@ubuntu:~$ ls backup
+bar.orig  baz.orig  foo.orig
+
+//5
+andra@ubuntu:~$ man rm
+andra@ubuntu:~$ rm -r backup
+andra@ubuntu:~$ ls backup
+ls: cannot access 'backup': No such file or directory
+
+//rezolvare laborator2
+//2
+andra@ubuntu:~$ echo rezolvare exercitii laborator 2
+rezolvare exercitii laborator 2
+andra@ubuntu:~$ echo "Hello , World!"
+Hello , World!
+andra@ubuntu:~$ man echo
+andra@ubuntu:~$ man printf
+andra@ubuntu:~$ man 3 printf
+andra@ubuntu:~$ man man
+man: can't resolve man7/groff_man.7
+andra@ubuntu:~$ 
+//3
+andra@ubuntu:~$ echo $HOME
+/home/andra
+andra@ubuntu:~$ echo $PATH
+/home/andra/bin:/home/andra/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/bin:/bin:/bin:/bin:/bin:/bin
+andra@ubuntu:~$ pwd
+/home/andra
+andra@ubuntu:~$ ls
+bin      Documents  laborator2-tema.txt  Music  Pictures  tema       Videos
+cuv      Downloads  laborator3           orig   Public    Templates
+Desktop  lab2.txt   laborator-asc        out    snap      uso
+andra@ubuntu:~$ cd ../../../../../
+andra@ubuntu:/$ cd /home/andra
+andra@ubuntu:~$ cd $HOME
+andra@ubuntu:~$ cd
+andra@ubuntu:~$ which ls
+/home/andra/bin/ls
+//4
+andra@ubuntu:~$ echo "lorem ipsum" > foo
+andra@ubuntu:~$ cat foo
+lorem ipsum
+andra@ubuntu:~$ hexdump -C/bin/ls | less
+andra@ubuntu:~$ hexdump -C /bin/ls
+......
+0023c30  00 00 00 00 00 00 00 00                           |........|
+00023c38
+andra@ubuntu:~$ less /etc/passwd
+andra@ubuntu:~$ echo -e "words\nrat\nrata\nratat\nratata\nratatata" > rat
+andra@ubuntu:~$ grep at rat
+rat
+rata
+ratat
+ratata
+ratatata
+andra@ubuntu:~$ grep t$ rat
+rat
+ratat
+andra@ubuntu:~$ grep ^w rat
+words
+andra@ubuntu:~$ grep -E 'rata(ta)*' rat
+rata
+ratat
+ratata
+ratatata
+andra@ubuntu:~$ grep -E 'rata(ta)+' rat
+ratata
+ratatata
+andra@ubuntu:~$ grep -E 'rata(ta)?' rat
+rata
+ratat
+ratata
+ratatata
+//5
+andra@ubuntu:~$ cat - > out
+aici introduceti textul de la tastaura
+andra@ubuntu:~$ cat out
+aici introduceti textul de la tastaura
+andra@ubuntu:~$ cat <<MY-OWN-EOF>> out
+> text nou
+> my-own-eof
+> 
+bash: warning: here-document at line 81 delimited by end-of-file (wanted `MY-OWN-EOF')
+andra@ubuntu:~$ cat out
+aici introduceti textul de la tastaura
+text nou
+my-own-eof
+andra@ubuntu:~$ cat < out
+aici introduceti textul de la tastaura
+text nou
+my-own-eof
+//6
+andra@ubuntu:~$ echo $PS1
+\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$
+andra@ubuntu:~$ export PS1="uso$"
+uso$ echo $PS1
+uso$
+uso$^C
+uso$ cd ..
+uso$ export PS1="uso$PS1" 
+usouso$echo $PS1
+usouso$
+usouso$pwd
+/home
+usouso$mkdir tmp
+mkdir: cannot create directory ‘tmp’: Permission denied
+andra@ubuntu$exit
+exit
+
+Script done on 2024-10-18 21:34:39+00:00 [COMMAND_EXIT_CODE="130"]
+andra@ubuntu:~$ script -a lab2.txt
+Script started, output log file is 'lab2.txt'.
+andra@ubuntu:~$ pwd
+/home/andra
+andra@ubuntu:~$ mkdir pwd
+andra@ubuntu:~$ mkdir tmp
+andra@ubuntu:~$ cd tmp
+andra@ubuntu:~/tmp$ cd ..
+andra@ubuntu:~$ touch foo
+andra@ubuntu:~$ ls
+bin        Downloads            laborator3     out       snap       uso
+cuv        foo                  laborator-asc  Pictures  tema       Videos
+Desktop    lab2.txt             Music          Public    Templates
+Documents  laborator2-tema.txt  orig           rat       tmp
+andra@ubuntu:~$ foo
+Command 'foo' not found, did you mean:
+  command 'roo' from snap roo (2.0.3)
+  command 'foot' from deb foot (1.18.1-1)
+  command 'fop' from deb fop (1:2.8-3)
+  command 'fio' from deb fio (3.37-1)
+  command 'goo' from deb goo (0.155+ds-5)
+See 'snap info <snapname>' for additional versions.
+andra@ubuntu:~$ cp foo bar
+andra@ubuntu:~$ ls
+bar      Documents  laborator2-tema.txt  orig      rat        tmp
+bin      Downloads  laborator3           out       snap       uso
+cuv      foo        laborator-asc        Pictures  tema       Videos
+Desktop  lab2.txt   Music                Public    Templates
+andra@ubuntu:~$ mv bar baz
+andra@ubuntu:~$ ls
+baz      Documents  laborator2-tema.txt  orig      rat        tmp
+bin      Downloads  laborator3           out       snap       uso
+cuv      foo        laborator-asc        Pictures  tema       Videos
+Desktop  lab2.txt   Music                Public    Templates
+andra@ubuntu:~$ pwd
+/home/andra
+andra@ubuntu:~$ ls
+andra@ubuntu:/$ exit
+exit
+Script done.
+
+baz      Documents  laborator2-tema.txt  orig      rat        tmp
+bin      Downloads  laborator3           out       snap       uso
+cuv      foo        laborator-asc        Pictures  tema       Videos
+Desktop  lab2.txt   Music                Public    Templates
+andra@ubuntu:~$ rm baz foo
+andra@ubuntu:~$ ls
+bin      Documents  laborator2-tema.txt  Music  Pictures  snap       tmp
+cuv      Downloads  laborator3           orig   Public    tema       uso
+Desktop  lab2.txt   laborator-asc        out    rat       Templates  Videos
+andra@ubuntu:~$ cd ..
+andra@ubuntu:/home$ cd ../
+andra@ubuntu:/$ rm dir tmp
+rm: cannot remove 'dir': No such file or directory
+rm: cannot remove 'tmp': Is a directory
+andra@ubuntu:/$ cd bin
+andra@ubuntu:/bin$ touch name
+touch: cannot touch 'name': Permission denied
+andra@ubuntu:/bin$ touch name.txt
+touch: cannot touch 'name.txt': Permission denied
+andra@ubuntu:/bin$ cd ..
+andra@ubuntu:/$ find /bin -name ls
+andra@ubuntu:/$ find /bin -name 1*
+andra@ubuntu:/$ mkdir tmp
+mkdir: cannot create directory ‘tmp’: File exists
+andra@ubuntu:/$ touch tmp/foo tmp/bar tmp/baz
+andra@ubuntu:/$ ls tmp
+bar
+baz
+foo
+snap-private-tmp
+systemd-private-8418dda169e448769b345fb0788b7aa3-colord.service-Ma8gdK
+systemd-private-8418dda169e448769b345fb0788b7aa3-fwupd.service-au9ikK
+systemd-private-8418dda169e448769b345fb0788b7aa3-ModemManager.service-HtQsvG
+systemd-private-8418dda169e448769b345fb0788b7aa3-polkit.service-WSDTNY
+systemd-private-8418dda169e448769b345fb0788b7aa3-power-profiles-daemon.service-4qK2Ce
+systemd-private-8418dda169e448769b345fb0788b7aa3-switcheroo-control.service-t7LDMO
+systemd-private-8418dda169e448769b345fb0788b7aa3-systemd-logind.service-bg8LhH
+systemd-private-8418dda169e448769b345fb0788b7aa3-systemd-oomd.service-jGbrTo
+systemd-private-8418dda169e448769b345fb0788b7aa3-systemd-resolved.service-4JLIFW
+systemd-private-8418dda169e448769b345fb0788b7aa3-systemd-timesyncd.service-w18kDE
+systemd-private-8418dda169e448769b345fb0788b7aa3-upower.service-1lcH0d
+andra@ubuntu:/$ find tmp -foo b* -exec rm {} \;
+find: unknown predicate `-foo'
+andra@ubuntu:/$ ls tmp
+bar
+baz
+foo
+snap-private-tmp
+systemd-private-8418dda169e448769b345fb0788b7aa3-colord.service-Ma8gdK
+systemd-private-8418dda169e448769b345fb0788b7aa3-fwupd.service-au9ikK
+systemd-private-8418dda169e448769b345fb0788b7aa3-ModemManager.service-HtQsvG
+systemd-private-8418dda169e448769b345fb0788b7aa3-polkit.service-WSDTNY
+systemd-private-8418dda169e448769b345fb0788b7aa3-power-profiles-daemon.service-4qK2Ce
+systemd-private-8418dda169e448769b345fb0788b7aa3-switcheroo-control.service-t7LDMO
+systemd-private-8418dda169e448769b345fb0788b7aa3-systemd-logind.service-bg8LhH
+systemd-private-8418dda169e448769b345fb0788b7aa3-systemd-oomd.service-jGbrTo
+systemd-private-8418dda169e448769b345fb0788b7aa3-systemd-resolved.service-4JLIFW
+systemd-private-8418dda169e448769b345fb0788b7aa3-systemd-timesyncd.service-w18kDE
+systemd-private-8418dda169e448769b345fb0788b7aa3-upower.service-1lcH0d
+andra@ubuntu:/$ cd ..
+andra@ubuntu:/$ exit
+exit
+Script done.
+andra@ubuntu:~$ 
+
+
+
+

@@ -1,0 +1,705 @@
+//1.1
+andra@ubuntu:~$ script -a lab5s.txt
+Script started, output log file is 'lab5s.txt'.
+andra@ubuntu:~$ ./myscript
+Hello scripting world !
+andra@ubuntu:~$ touch myscript2
+andra@ubuntu:~$ ./myscript2
+bash: ./myscript2: Permission denied
+andra@ubuntu:~$ chmod u+x myscript2
+andra@ubuntu:~$ ./myscript2
+ARGV[0] = awk
+andra@ubuntu:~$ type test
+test is a shell builtin
+andra@ubuntu:~$ type [
+[ is a shell builtin
+andra@ubuntu:~$ type type
+type is a shell builtin
+andra@ubuntu:~$ x=4
+andra@ubuntu:~$ [ "$x" lt "0" ] && echo "X is less than zero" \
+>  || echo "x is greater than zero"
+bash: [: lt: binary operator expected
+x is greater than zero
+andra@ubuntu:~$ x=-1
+andra@ubuntu:~$ x=-1
+andra@ubuntu:~$ ["$x -lt "0" ] && echo "x is less than zero"\
+> || echo "x is greater than zero"
+> ^C
+andra@ubuntu:~$ X=-1
+andra@ubuntu:~$ ["$X" -lt "0" ] && echo "X is less than zero" \
+bash: [: -lt: unary operator expected
+andra@ubuntu:~$ X=-1
+andra@ubuntu:~$ ["$X" -lt "0" ] && echo "X is less than zero" \
+> || echo "X is greater than zero"
+[-1: command not found
+X is greater than zero
+andra@ubuntu:~$ X=0
+andra@ubuntu:~$ [ "$X" = "0" ] && \
+> echo "X is the string or number \"0\""
+X is the string or number "0"
+andra@ubuntu:~$ X=hello
+andra@ubuntu:~$ [ "$X" = "hello" ] && \
+> echo "X matches the string \"hello\""
+X matches the string "hello"
+andra@ubuntu:~$ echo $X
+hello
+andra@ubuntu:~$ X="not hello"
+andra@ubuntu:~$ [ "$X"! = "hello" ] && echo "X matches the string \"hello\""
+andra@ubuntu:~$ [ "$X" != "hello" ] && echo "X matches the string \"hello\""
+X matches the string "hello"
+andra@ubuntu:~$ echo
+andra@ubuntu:~$ echo $X
+not hello
+andra@ubuntu:~$ X=somefile
+andra@ubuntu:~$ [ -f "$X" ] && \
+> echo "X is the path of a real file" || \
+> echo "No such file: $X"
+No such file: somefile
+andra@ubuntu:~$ X=/etc/passwd
+andra@ubuntu:~$ [ -f "$X" ] && \
+> echo "X is the path of a real file" || \
+> echo "No such file: $X"
+X is the path of a real file
+andra@ubuntu:~$ X=/bin/ls
+andra@ubuntu:~$ [ -x "$X" ] && echo "X is the path of an executable file"
+X is the path of an executable file
+andra@ubuntu:~$ X=.
+andra@ubuntu:~$ [ "$X" -nt "/etc/passwd" ] && \
+>  echo "X is a file which is newer than  /etc/passwd"
+X is a file which is newer than  /etc/passwd
+andra@ubuntu:~$ X=hello
+andra@ubuntu:~$ [ -n "$X" ] && "$X is a non-zero string" \
+> || echo "$X is equal to $Y"
+hello is a non-zero string: command not found
+hello is equal to 
+andra@ubuntu:~$ [ -n "$X" ] && echo "$X is a non-zero string" \
+hello is a non-zero string
+andra@ubuntu:~$ [ -n "$X" ] && "$X is a non-zero string" \
+hello is a non-zero string: command not found
+andra@ubuntu:~$ [ -n "$X" ] && echo "$X is a non-zero string" \
+> || echo "$X is the null string"
+hello is a non-zero string
+andra@ubuntu:~$ Y=bye
+andra@ubuntu:~$ [ $X != $Y ] && echo "$X is not equal to $Y" \
+> || echo "$X is equal to $Y"
+hello is not equal to bye
+andra@ubuntu:~$ echo $X
+hello
+andra@ubuntu:~$ [ ! "$X" = "" ] && echo "$X is not an empty string" \
+> || echo "$X is the empty string"
+hello is not an empty string
+andra@ubuntu:~$ echo $X $Y
+hello bye
+andra@ubuntu:~$ [ "$X" = "hello" -a "$Y" = "bye" ] && \
+> echo "proper greetings have been made"\
+> || echo "This is not quite polite"
+proper greetings have been made
+andra@ubuntu:~$ Y=notbye
+andra@ubuntu:~$ echo $X $Y
+hello notbye
+andra@ubuntu:~$ [ "$X" != "hello" -o "$Y" != "bye" ] && \
+> echo "This is not quite polite" \
+> || echo "Politeness has been satisfied"
+This is not quite polite
+
+//1.2
+andra@ubuntu:~$ if [ ... ]
+> then
+> 
+> #if-code
+> else
+bash: syntax error near unexpected token `else'
+andra@ubuntu:~$ script -a lab5s.txt
+Script started, output log file is 'lab5s.txt'.
+andra@ubuntu:~$ chmod u+x if.sh
+andra@ubuntu:~$ ./if.sh
+somefile
+somefile does not exist
+andra@ubuntu:~$ ./if.sh
+/etc/passwd
+/etc/passwd is a regular file
+andra@ubuntu:~$ ./if.sh
+/etc
+/etc exists, but we don't know what kind of file it is
+andra@ubuntu:~$ touch case.sh
+andra@ubuntu:~$ ./case.sh
+bash: ./case.sh: Permission denied
+andra@ubuntu:~$ chmod u+x case.sh
+andra@ubuntu:~$ ./case.sh
+Please input a name file: a
+a is a regular file
+andra@ubuntu:~$ ./case.sh
+Please input a name file: /etc
+/etc is a directory
+andra@ubuntu:~$ ./case.sh
+Please input a name file: /etc/passwd
+/etc/passwd is a regular file
+andra@ubuntu:~$ ./case.sh
+Please input a name file: /dev/tty1
+/dev/tty1 is a character file
+andra@ubuntu:~$ ./case.sh
+Please input a name file: /dev/sda1
+/dev/sda1 is a block file
+andra@ubuntu:~$ ./case.sh
+Please input a name file: somefile
+Sorry, I don't know anything about somefile
+//1.3
+andra@ubuntu:~$ touch myfor-loop.sh
+andra@ubuntu:~$ cat - > myfor-loop.sh
+#!/bin/bash
+for i in 1 2 3 4 5
+do
+ echo "Iteratia cu numarul $i"
+done
+^C
+andra@ubuntu:~$ chmod u+x myfor-loop.sh
+andra@ubuntu:~$ ./myfor-loop.sh
+Iteratia cu numarul 1
+Iteratia cu numarul 2
+Iteratia cu numarul 3
+Iteratia cu numarul 4
+Iteratia cu numarul 5
+andra@ubuntu:~$ touch myfor-loop-er.sh
+andra@ubuntu:~$ chmod u+x myfor-loop-er.sh
+andra@ubuntu:~$ ./myfor-loop-er.sh
+Iteratia cu numarul 1
+Iteratia cu numarul 2
+Iteratia cu numarul 3
+Iteratia cu numarul 4
+Iteratia cu numarul 5
+andra@ubuntu:~$ touch myfor-loop2.sh
+andra@ubuntu:~$ chmod u+x myfor-loop2.sh
+andra@ubuntu:~$ ./myfor-loop2.sh
+Valoarea lui i este math
+Valoarea lui i este 1.5
+Valoarea lui i este a
+Valoarea lui i este agenda.txt
+Valoarea lui i este animals.txt
+Valoarea lui i este bar
+Valoarea lui i este baz
+Valoarea lui i este bin
+Valoarea lui i este case.sh
+Valoarea lui i este cuv
+Valoarea lui i este Desktop
+Valoarea lui i este Documents
+Valoarea lui i este Downloads
+Valoarea lui i este exercitii.sh
+Valoarea lui i este foo
+Valoarea lui i este hello
+Valoarea lui i este hello.c
+Valoarea lui i este if.sh
+Valoarea lui i este lab
+Valoarea lui i este lab2.txt
+Valoarea lui i este lab3s.txt
+Valoarea lui i este lab4.txt
+Valoarea lui i este lab5s.txt
+Valoarea lui i este lab5.txt
+Valoarea lui i este laborator2-tema.txt
+Valoarea lui i este laborator3
+Valoarea lui i este laborator-asc
+Valoarea lui i este Music
+Valoarea lui i este myfor-loop2.sh
+Valoarea lui i este myfor-loop-er.sh
+Valoarea lui i este myfor-loop.sh
+Valoarea lui i este myscript
+Valoarea lui i este myscript2
+Valoarea lui i este new_hello.c
+Valoarea lui i este orig
+Valoarea lui i este out
+Valoarea lui i este Pictures
+Valoarea lui i este printenv
+Valoarea lui i este printenv.c
+Valoarea lui i este Public
+Valoarea lui i este rat
+Valoarea lui i este seria15
+Valoarea lui i este snap
+Valoarea lui i este tema
+Valoarea lui i este Templates
+Valoarea lui i este t-lab4script.txt
+Valoarea lui i este t-lab4.txt
+Valoarea lui i este tmp
+Valoarea lui i este tmpdir
+Valoarea lui i este uso
+Valoarea lui i este Videos
+Valoarea lui i este 2
+Valoarea lui i este done
+//1.3.2
+andra@ubuntu:~$ touch while.sh
+andra@ubuntu:~$ chmod u+x while.sh
+andra@ubuntu:~$ ./while.sh
+Introduceti date (bye pentru a iesi din bucla)
+ana 
+Ati introdus: ana
+Introduceti date (bye pentru a iesi din bucla)
+are
+Ati introdus: are
+Introduceti date (bye pentru a iesi din bucla)
+mere
+Ati introdus: mere
+Introduceti date (bye pentru a iesi din bucla)
+si 
+Ati introdus: si
+Introduceti date (bye pentru a iesi din bucla)
+pere
+Ati introdus: pere
+Introduceti date (bye pentru a iesi din bucla)
+bye
+Ati introdus: bye
+andra@ubuntu:~$ touch while2.sh
+andra@ubuntu:~$ chmod u+x while2.txt
+chmod: cannot access 'while2.txt': No such file or directory
+andra@ubuntu:~$ chmod u+x while2.sh
+andra@ubuntu:~$ ./while2.sh
+Introduceti date (Ctrl- pentru a iesi din bucla)
+a 
+Ati introdus: a
+Introduceti date (Ctrl- pentru a iesi din bucla)
+b
+Ati introdus: b
+Introduceti date (Ctrl- pentru a iesi din bucla)
+c
+Ati introdus: c
+Introduceti date (Ctrl- pentru a iesi din bucla)
+d
+Ati introdus: d
+Introduceti date (Ctrl- pentru a iesi din bucla)
+^C
+andra@ubuntu:~$ touch while3.sh
+andra@ubuntu:~$ chmod u+x while3.sh
+andra@ubuntu:~$ ./while3.sh
+Please input a name file: a
+a is a regular file
+Please input a filename : animals.txt
+animals.txt is a regular file
+Please input a filename : ^C
+//1.4
+andra@ubuntu:~$ touch param.sh
+andra@ubuntu:~$ chmod u+x param.sh
+andra@ubuntu:~$ ./param.sh
+I was called with 0 parameters
+My name is ./param.sh
+My nicer name is 'basename '
+My first parameter is 
+My second parameter is 
+All parameters are 
+andra@ubuntu:~$ ./param.sh first second third fourth
+I was called with 4 parameters
+My name is ./param.sh
+My nicer name is 'basename ./param.sh'
+My first parameter is first
+My second parameter is second
+All parameters are first second third fourth
+andra@ubuntu:~$ touch param2.sh
+andra@ubuntu:~$ chmod u+x param2.sh
+andra@ubuntu:~$ ./param2.sh
+andra@ubuntu:~$ ./param2.sh 1 2 3 4 
+\ 1 is 1
+\ 2 is 2
+\ 3 is 3
+\ 4 is 4
+andra@ubuntu:~$ touch retur.sh
+andra@ubuntu:~$ chmod u+x retur.sh
+andra@ubuntu:~$ ./retur.sh
+somecmd
+somecmd has failed!
+andra@ubuntu:~$ ./retur.sh
+[ "0" -gt "1" ]
+[ "0" -gt "1" ] has failed!
+
+//2
+andra@ubuntu:~$ ./case.sh
+Please input a name file: a
+a is a regular file
+andra@ubuntu:~$ touch casemodif.sh
+andra@ubuntu:~$ ./casemodif.sh
+Utilizare: ./casemodif.sh <numele_fisierului>
+
+CASEMODIF.SH:
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+    echo "Utilizare: $0 <numele_fisierului>"
+    exit 1
+fi
+filename=$1
+longformat=$(ls -ld "$filename" 2> /dev/null )
+
+case "${longformat:0:1}" in
+        -)
+                  echo "$filename is a regular file"
+                  ;;
+        d)
+                  echo "$filename is a directory"
+                  ;;
+
+        b)
+                 echo "$filename is a block file"
+                 ;;
+        c)
+                 echo "$filename is a character file"
+                 ;;
+        *)
+                  echo "Sorry, I don't know anything about $filename"
+                  ;;
+esac
+
+//3
+andra@ubuntu:~$ ls
+a             hello                myfor-loop-er.sh  retur.sh
+agenda.txt    hello.c              myfor-loop.sh     seria15
+animals.txt   if.sh                myscript          snap
+bar           lab                  myscript2         tema
+baz           lab2.txt             new_hello.c       Templates
+bin           lab3s.txt            orig              t-lab4script.txt
+casemodif.sh  lab4.txt             out               t-lab4.txt
+case.sh       lab5s.txt            param2.sh         tmp
+cuv           lab5.txt             param.sh          tmpdir
+Desktop       laborator2-tema.txt  Pictures          uso
+Documents     laborator3           printenv          Videos
+Downloads     laborator-asc        printenv.c        while2.sh
+exercitii.sh  Music                Public            while3.sh
+foo           myfor-loop2.sh       rat               while.sh
+andra@ubuntu:~$ touch ls.sh
+andra@ubuntu:~$ chmod u+x ls.sh
+andra@ubuntu:~$ ./ls.sh
+a
+agenda.txt
+animals.txt
+bar
+baz
+bin
+casemodif.sh
+case.sh
+cuv
+Desktop
+Documents
+Downloads
+exercitii.sh
+foo
+hello
+hello.c
+if.sh
+lab
+lab2.txt
+lab3s.txt
+lab4.txt
+lab5s.txt
+lab5.txt
+laborator2-tema.txt
+laborator3
+laborator-asc
+ls.sh
+Music
+myfor-loop2.sh
+myfor-loop-er.sh
+myfor-loop.sh
+myscript
+myscript2
+new_hello.c
+orig
+out
+param2.sh
+param.sh
+Pictures
+printenv
+printenv.c
+Public
+rat
+retur.sh
+seria15
+snap
+tema
+Templates
+t-lab4script.txt
+t-lab4.txt
+tmp
+tmpdir
+uso
+Videos
+while2.sh
+while3.sh
+while.sh
+
+LS.SH:
+for file in *
+do
+  echo "$file"
+done
+
+//4
+andra@ubuntu:~$ touch ps.sh
+andra@ubuntu:~$ chmod u+x ps.sh
+andra@ubuntu:~$ ./ps.sh
+USER PID
+root 1
+root 2
+root 3
+root 4
+root 5
+root 6
+root 7
+root 10
+root 12
+root 13
+root 14
+root 15
+root 16
+root 17
+root 18
+root 19
+root 20
+root 21
+root 22
+root 23
+root 24
+root 25
+root 26
+root 28
+root 29
+root 30
+root 31
+root 32
+root 34
+root 35
+root 36
+root 37
+root 38
+root 40
+root 41
+root 42
+root 44
+root 45
+root 46
+root 48
+root 49
+root 50
+root 51
+root 52
+root 53
+root 54
+root 55
+root 56
+root 58
+root 59
+root 60
+root 61
+root 62
+root 63
+root 64
+root 65
+root 66
+root 67
+root 68
+root 69
+root 70
+root 71
+root 72
+root 73
+root 74
+root 78
+root 79
+root 86
+root 88
+root 102
+root 103
+root 127
+root 131
+root 159
+root 162
+root 163
+root 255
+root 256
+root 306
+root 366
+root 371
+root 573
+systemd+ 674
+systemd+ 679
+systemd+ 740
+avahi 833
+message+ 834
+gnome-r+ 839
+polkitd 850
+root 863
+root 864
+root 865
+root 866
+root 868
+root 869
+avahi 893
+root 897
+root 900
+syslog 920
+root 1007
+root 1188
+root 1796
+root 2383
+root 2397
+rtkit 2451
+colord 2564
+root 2606
+root 2913
+root 2973
+andra 3005
+andra 3009
+andra 3021
+andra 3023
+andra 3036
+andra 3039
+andra 3042
+andra 3044
+andra 3067
+andra 3087
+root 3094
+andra 3102
+andra 3112
+andra 3200
+andra 3201
+andra 3215
+andra 3233
+andra 3240
+andra 3286
+andra 3288
+andra 3298
+andra 3376
+andra 3398
+andra 3406
+andra 3418
+andra 3429
+andra 3431
+andra 3436
+andra 3437
+andra 3441
+andra 3443
+andra 3445
+andra 3451
+andra 3454
+andra 3457
+andra 3459
+andra 3460
+andra 3466
+andra 3483
+andra 3486
+andra 3490
+andra 3502
+andra 3560
+andra 3574
+andra 3623
+andra 3631
+andra 3636
+andra 3638
+andra 3655
+andra 3665
+andra 3674
+andra 3678
+andra 3684
+andra 3696
+andra 3701
+andra 3706
+andra 3737
+andra 3763
+andra 3772
+andra 3773
+andra 3774
+andra 3841
+andra 3844
+andra 3868
+andra 3943
+andra 3979
+andra 3984
+andra 3985
+andra 3991
+andra 3998
+andra 3999
+andra 4047
+andra 4077
+andra 4159
+andra 4209
+andra 4219
+andra 4991
+andra 4992
+andra 5006
+andra 5038
+andra 5045
+andra 5053
+andra 5060
+andra 5066
+andra 5072
+root 5359
+root 5846
+cups-br+ 5849
+root 6275
+root 13585
+root 14780
+root 14947
+root 15663
+root 15978
+root 16060
+root 16273
+root 16292
+root 16489
+root 16520
+root 16717
+root 16898
+andra 16920
+andra 17110
+andra 17120
+andra 17121
+andra 17122
+
+PS.SH
+#!/bin/bash
+ps auxw | awk '{print $1, $2}'
+
+//5
+andra@ubuntu:~$ touch myfind.sh
+andra@ubuntu:~$ chmod u+x myfind.sh
+andra@ubuntu:~$ ./myfind
+bash: ./myfind: No such file or directory
+andra@ubuntu:~$ ./myfind.sh
+andra@ubuntu:~$ ./myfind.sh
+a
+Găsit: /bin
+Găsit: /boot
+Găsit: /cdrom
+Găsit: /dev
+Găsit: /etc
+Găsit: /home
+Găsit: /lib
+Găsit: /lib32
+Găsit: /lib64
+Găsit: /libx32
+Găsit: /lost+found
+Găsit: /media
+Găsit: /mnt
+Găsit: /opt
+Găsit: /proc
+Găsit: /root
+Găsit: /run
+Găsit: /sbin
+Găsit: /snap
+Găsit: /srv
+Găsit: /sys
+Găsit: /tmp
+Găsit: /usr
+Găsit: /var
+
+MYFIND.SH
+#!/bin/bash
+
+director=$1        
+tip=$2          
+comanda=${3:-""}   
+read 
+for file in "$director"/*;
+do
+    if [[ -e "$file" ]]; then  
+        if [[ "$file" == *"$tip"* ]]; then
+            echo "Găsit: $file"
+            if [ -n "$command" ]; then
+                $command "$file"
+            fi
+        fi
+    fi
+done
+

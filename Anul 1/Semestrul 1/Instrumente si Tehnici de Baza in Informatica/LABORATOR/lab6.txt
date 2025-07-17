@@ -1,0 +1,2896 @@
+//laborator
+//1,2
+andra@ubuntu:~$ nslookup fmi.unibuc.ro
+Server:		127.0.0.53
+Address:	127.0.0.53#53
+
+Non-authoritative answer:
+Name:	fmi.unibuc.ro
+Address: 80.96.21.88
+
+andra@ubuntu:~$ nslookup fmi.unibuc.ro 8.8.8.8
+Server:		8.8.8.8
+Address:	8.8.8.8#53
+
+Non-authoritative answer:
+Name:	fmi.unibuc.ro
+Address: 80.96.21.88
+
+andra@ubuntu:~$ nslookup
+> server
+Default server: 127.0.0.53
+Address: 127.0.0.53#53
+> server 1.1.1.1
+Default server: 1.1.1.1
+Address: 1.1.1.1#53
+> set type=ptr
+> 8.8.8.8
+Server:		1.1.1.1
+Address:	1.1.1.1#53
+
+Non-authoritative answer:
+8.8.8.8.in-addr.arpa	name = dns.google.
+
+Authoritative answers can be found from:
+> set type=a
+> dns.google
+Server:		1.1.1.1
+Address:	1.1.1.1#53
+
+Non-authoritative answer:
+Name:	dns.google
+Address: 8.8.8.8
+Name:	dns.google
+Address: 8.8.4.4
+> set type=ns
+> google.com
+Server:		1.1.1.1
+Address:	1.1.1.1#53
+
+Non-authoritative answer:
+google.com	nameserver = ns1.google.com.
+google.com	nameserver = ns4.google.com.
+google.com	nameserver = ns3.google.com.
+google.com	nameserver = ns2.google.com.
+
+Authoritative answers can be found from:
+> set type=mx
+> google.com
+Server:		1.1.1.1
+Address:	1.1.1.1#53
+
+Non-authoritative answer:
+google.com	mail exchanger = 10 smtp.google.com.
+
+Authoritative answers can be found from:
+> exit
+
+andra@ubuntu:~$ dig @8.8.8.8 fmi.unibuc.ro 
+
+; <<>> DiG 9.20.0-2ubuntu3-Ubuntu <<>> @8.8.8.8 fmi.unibuc.ro
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 53026
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;fmi.unibuc.ro.			IN	A
+
+;; ANSWER SECTION:
+fmi.unibuc.ro.		11659	IN	A	80.96.21.88
+
+;; Query time: 35 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8) (UDP)
+;; WHEN: Wed Nov 06 13:10:53 UTC 2024
+;; MSG SIZE  rcvd: 58
+
+andra@ubuntu:~$ host fmi.unibuc.ro 8.8.8.8
+Using domain server:
+Name: 8.8.8.8
+Address: 8.8.8.8#53
+Aliases: 
+
+fmi.unibuc.ro has address 80.96.21.88
+fmi.unibuc.ro mail is handled by 10 657f9c276ce843bb4aa341845d842b.mail.outlook.com.
+andra@ubuntu:~$ whois unibuc.ro
+Command 'whois' not found, but can be installed with:
+sudo apt install whois
+andra@ubuntu:~$ sudo apt install whois
+[sudo] password for andra: 
+Installing:                     
+  whois
+
+Summary:
+  Upgrading: 0, Installing: 1, Removing: 0, Not Upgrading: 17
+  Download size: 51.8 kB
+  Space needed: 279 kB / 17.3 GB available
+
+Get:1 http://ro.archive.ubuntu.com/ubuntu oracular/main amd64 whois amd64 5.5.23 [51.8 kB]
+Fetched 51.8 kB in 0s (198 kB/s)
+Selecting previously unselected package whois.
+(Reading database ... 160011 files and directories currently installed.)
+Preparing to unpack .../whois_5.5.23_amd64.deb ...
+Unpacking whois (5.5.23) ...
+Setting up whois (5.5.23) ...
+Processing triggers for man-db (2.12.1-3) ...
+andra@ubuntu:~$ whois unibuc.ro
+
+% The WHOIS service offered by ROTLD and the access to the records in the ROTLD WHOIS database 
+% are provided for information purposes and to be used within the scope of technical or administrative
+% necessities of Internet operation or to remedy legal problems. The use for other purposes, 
+% in particular for advertising and domain hunting, is not permitted.
+
+% Without prejudice to the above, it is explicitly forbidden to extract, copy and/or use or re-utilise
+% in any form and by any means (electronically or not) the whole or a quantitatively or qualitatively 
+% substantial part of the contents of the WHOIS database without prior and explicit permission by ROTLD, 
+% nor in any attempt hereof, to apply automated, electronic processes to ROTLD (or its systems).
+
+% ROTLD cannot, under any circumstances, be held liable in case the stored information would prove 
+% to be wrong, incomplete or not accurate in any sense.
+
+% You agree that any reproduction and/or transmission of data for commercial purposes will always 
+% be considered as the extraction of a substantial part of the content of the WHOIS database.
+
+% By submitting the query you agree to abide by this policy and accept that ROTLD can take measures 
+% to limit the use of its WHOIS services in order to protect the privacy of its registrants or the 
+% integrity of the database.
+
+% The ROTLD WHOIS service on port 43 never discloses any information concerning the registrant.
+
+% Registrant information can be obtained through use of the web-based whois service available from 
+% the ROTLD website www.rotld.ro
+
+
+  Domain Name: unibuc.ro
+  Registered On: Before 2001
+  Expires On: 2028-05-29
+  Registrar: ICI - Registrar
+  Referral URL: http://www.rotld.ro
+
+  DNSSEC: Inactive
+
+  Nameserver: ns1.unibuc.ro
+  Nameserver: ns2.unibuc.ro
+  Nameserver: ns3.unibuc.ro
+  Nameserver: ns4.unibuc.ro
+  Nameserver: ns5.unibuc.ro
+
+  Domain Status: OK
+
+
+^CInterrupted by signal 2...
+andra@ubuntu:~$ ping fmi.unibuc.ro
+PING fmi.unibuc.ro (80.96.21.88) 56(84) bytes of data.
+^C64 bytes from 80.96.21.88: icmp_seq=1 ttl=255 time=7.56 ms
+
+--- fmi.unibuc.ro ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 7.560/7.560/7.560/0.000 ms
+andra@ubuntu:~$ traceroute 8.8.8.8
+Command 'traceroute' not found, but can be installed with:
+sudo apt install inetutils-traceroute  # version 2:2.5-5ubuntu1, or
+sudo apt install traceroute            # version 1:2.1.5-1
+andra@ubuntu:~$ sudo apt install traceroute
+Installing:                     
+  traceroute
+
+Summary:
+  Upgrading: 0, Installing: 1, Removing: 0, Not Upgrading: 17
+  Download size: 60.5 kB
+  Space needed: 162 kB / 17.3 GB available
+
+Get:1 http://ro.archive.ubuntu.com/ubuntu oracular/universe amd64 traceroute amd64 1:2.1.5-1 [60.5 kB]
+Fetched 60.5 kB in 0s (221 kB/s)    
+Selecting previously unselected package traceroute.
+(Reading database ... 160022 files and directories currently installed.)
+Preparing to unpack .../traceroute_1%3a2.1.5-1_amd64.deb ...
+Unpacking traceroute (1:2.1.5-1) ...
+Setting up traceroute (1:2.1.5-1) ...
+update-alternatives: using /usr/bin/traceroute.db to provide /usr/bin/traceroute
+ (traceroute) in auto mode
+update-alternatives: using /usr/bin/traceroute6.db to provide /usr/bin/tracerout
+e6 (traceroute6) in auto mode
+update-alternatives: using /usr/bin/lft.db to provide /usr/bin/lft (lft) in auto
+ mode
+update-alternatives: using /usr/bin/traceproto.db to provide /usr/bin/traceproto
+ (traceproto) in auto mode
+update-alternatives: using /usr/sbin/tcptraceroute.db to provide /usr/sbin/tcptr
+aceroute (tcptraceroute) in auto mode
+Processing triggers for man-db (2.12.1-3) ...
+andra@ubuntu:~$ traceroute 8.8.8.8
+traceroute to 8.8.8.8 (8.8.8.8), 30 hops max, 60 byte packets
+ 1  _gateway (10.0.2.2)  0.950 ms  0.885 ms  0.862 ms
+^C
+andra@ubuntu:~$ cat /etc/hosts
+127.0.0.1 localhost
+127.0.1.1 ubuntu
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+//3
+andra@ubuntu:~$ service ssh start
+Failed to start ssh.service: Unit ssh.service not found.
+andra@ubuntu:~$ service ssh start
+Failed to start ssh.service: Unit ssh.service not found.
+andra@ubuntu:~$ sudo service ssh start
+Failed to start ssh.service: Unit ssh.service not found.
+andra@ubuntu:~$ sudo systemctl start openvpn.service
+andra@ubuntu:~$ systemctl status openvpn.service
+● openvpn.service - OpenVPN service
+     Loaded: loaded (/usr/lib/systemd/system/openvpn.service; enabled; pres>
+     Active: active (exited) since Wed 2024-11-06 12:39:43 UTC; 41min ago
+ Invocation: 3b5d6c52166847a1bcbbfda12cc8e456
+       Docs: man:openvpn(8)
+   Main PID: 1177 (code=exited, status=0/SUCCESS)
+   Mem peak: 1.5M
+        CPU: 12ms
+
+Nov 06 12:39:43 ubuntu systemd[1]: Starting openvpn.service - OpenVPN servi>
+Nov 06 12:39:43 ubuntu systemd[1]: Finished openvpn.service - OpenVPN servi>
+
+andra@ubuntu:~$ sudo systemctl stop openvpn.service
+andra@ubuntu:~$ systemctl status openvpn.service
+○ openvpn.service - OpenVPN service
+     Loaded: loaded (/usr/lib/systemd/system/openvpn.service; enabled; pres>
+     Active: inactive (dead) since Wed 2024-11-06 13:22:01 UTC; 4s ago
+   Duration: 42min 17.746s
+ Invocation: 3b5d6c52166847a1bcbbfda12cc8e456
+       Docs: man:openvpn(8)
+   Main PID: 1177 (code=exited, status=0/SUCCESS)
+
+Nov 06 12:39:43 ubuntu systemd[1]: Starting openvpn.service - OpenVPN servi>
+Nov 06 12:39:43 ubuntu systemd[1]: Finished openvpn.service - OpenVPN servi>
+Nov 06 13:22:01 ubuntu systemd[1]: openvpn.service: Deactivated successfull>
+Nov 06 13:22:01 ubuntu systemd[1]: Stopped openvpn.service - OpenVPN servic>
+
+andra@ubuntu:~$ /etc/init.d/ssh start
+bash: /etc/init.d/ssh: No such file or directory
+andra@ubuntu:~$ /etc/init.d/ssh stop
+bash: /etc/init.d/ssh: No such file or directory
+andra@ubuntu:~$ systemctl disable ssh
+Failed to disable unit: Unit ssh.service does not exist
+andra@ubuntu:~$ sudo systemctl disable ssh
+Failed to disable unit: Unit ssh.service does not exist
+
+//4
+andra@ubuntu:~$ ftp alex@fmi.unibuc.ro
+Connected to fmi.unibuc.ro.
+220---------- Welcome to Pure-FTPd [privsep] [TLS] ----------
+220-You are user number 5 of 50 allowed.
+220-Local time is now 15:25. Server port: 21.
+220-This is a private system - No anonymous login
+220-IPv6 connections are also welcome on this server.
+220 You will be disconnected after 15 minutes of inactivity.
+331 User alex OK. Password required
+Password: 
+
+530 Login authentication failed
+ftp: Login failed
+ftp> exit
+221-Goodbye. You uploaded 0 and downloaded 0 kbytes.
+221 Logout.
+andra@ubuntu:~$ ftp ftp://fmi.unibuc.ro
+Connected to fmi.unibuc.ro.
+220---------- Welcome to Pure-FTPd [privsep] [TLS] ----------
+220-You are user number 5 of 50 allowed.
+220-Local time is now 15:26. Server port: 21.
+220-This is a private system - No anonymous login
+220-IPv6 connections are also welcome on this server.
+220 You will be disconnected after 15 minutes of inactivity.
+331 User anonymous OK. Password required
+530 Login authentication failed
+ftp: Login failed
+ftp: Can't connect or login to host `fmi.unibuc.ro:ftp'
+221-Goodbye. You uploaded 0 and downloaded 0 kbytes.
+221 Logout.
+andra@ubuntu:~$ ftp fmi.unibuc.ro -P 2121
+ftp: Can't connect to `80.96.21.88:2121': Connection refused
+ftp: Can't connect to `fmi.unibuc.ro:2121'
+ftp> quit
+andra@ubuntu:~$ apt install vsftpd
+Error: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)
+Error: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+andra@ubuntu:~$ sudo apt install vsftpd
+Installing:                     
+  vsftpd
+
+Summary:
+  Upgrading: 0, Installing: 1, Removing: 0, Not Upgrading: 17
+  Download size: 121 kB
+  Space needed: 316 kB / 17.3 GB available
+
+Get:1 http://ro.archive.ubuntu.com/ubuntu oracular/main amd64 vsftpd amd64 3.0.5-0ubuntu4 [121 kB]
+Fetched 121 kB in 1s (184 kB/s) 
+Preconfiguring packages ...
+Selecting previously unselected package vsftpd.
+(Reading database ... 160042 files and directories currently installed.)
+Preparing to unpack .../vsftpd_3.0.5-0ubuntu4_amd64.deb ...
+Unpacking vsftpd (3.0.5-0ubuntu4) ...
+Setting up vsftpd (3.0.5-0ubuntu4) ...
+Created symlink '/etc/systemd/system/multi-user.target.wants/vsftpd.service' → '
+/usr/lib/systemd/system/vsftpd.service'.
+/usr/lib/tmpfiles.d/vsftpd.conf:1: Line references path below legacy directory /
+var/run/, updating /var/run/vsftpd/empty → /run/vsftpd/empty; please update the 
+tmpfiles.d/ drop-in file accordingly.
+Processing triggers for man-db (2.12.1-3) ...
+andra@ubuntu:~$ serice vsftpd start
+Command 'serice' not found, did you mean:
+  command 'service' from deb init-system-helpers (1.66ubuntu1)
+Try: sudo apt install <deb name>
+andra@ubuntu:~$ sudo apt install <deb name>
+bash: syntax error near unexpected token `newline'
+andra@ubuntu:~$ service vsftpd start
+andra@ubuntu:~$ serice vsftpd status
+Command 'serice' not found, did you mean:
+  command 'service' from deb init-system-helpers (1.66ubuntu1)
+Try: sudo apt install <deb name>
+andra@ubuntu:~$ service vsftpd status
+● vsftpd.service - vsftpd FTP server
+     Loaded: loaded (/usr/lib/systemd/system/vsftpd.service; enabled; preset: e>
+     Active: active (running) since Wed 2024-11-06 13:29:32 UTC; 3min 12s ago
+ Invocation: b5399ac5bd9541908f5716108426255d
+    Process: 7929 ExecStartPre=/bin/mkdir -p /var/run/vsftpd/empty (code=exited>
+   Main PID: 7930 (vsftpd)
+      Tasks: 1 (limit: 3995)
+     Memory: 808K (peak: 1.5M)
+        CPU: 25ms
+     CGroup: /system.slice/vsftpd.service
+             └─7930 /usr/sbin/vsftpd /etc/vsftpd.conf
+
+Nov 06 13:29:31 ubuntu systemd[1]: Starting vsftpd.service - vsftpd FTP server.>
+Nov 06 13:29:32 ubuntu systemd[1]: Started vsftpd.service - vsftpd FTP server.
+
+andra@ubuntu:~$ ftp localhost
+Connected to localhost.
+220 (vsFTPd 3.0.5)
+Name (localhost:andra): anonymus
+331 Please specify the password.
+Password: 
+andra530 Login incorrect.
+ftp: Login failed
+ftp> quit
+221 Goodbye.
+andra@ubuntu:~$ apt install openssh-server
+Error: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)
+Error: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+andra@ubuntu:~$ sudo apt install openssh-server
+Installing:                     
+  openssh-server
+
+Installing dependencies:
+  ncurses-term  openssh-sftp-server  ssh-import-id
+
+Suggested packages:
+  molly-guard  monkeysphere  ssh-askpass
+
+Summary:
+  Upgrading: 0, Installing: 4, Removing: 0, Not Upgrading: 17
+  Download size: 836 kB
+  Space needed: 6,777 kB / 17.3 GB available
+
+Continue? [Y/n] y
+Get:1 http://ro.archive.ubuntu.com/ubuntu oracular/main amd64 openssh-sftp-server amd64 1:9.7p1-7ubuntu4 [37.1 kB]
+Get:2 http://ro.archive.ubuntu.com/ubuntu oracular/main amd64 openssh-server amd64 1:9.7p1-7ubuntu4 [514 kB]
+Get:3 http://ro.archive.ubuntu.com/ubuntu oracular/main amd64 ncurses-term all 6.5-2 [275 kB]
+Get:4 http://ro.archive.ubuntu.com/ubuntu oracular/main amd64 ssh-import-id all 5.11-0ubuntu2 [10.0 kB]
+Fetched 836 kB in 1s (1,330 kB/s)        
+Preconfiguring packages ...
+Selecting previously unselected package openssh-sftp-server.
+(Reading database ... 160098 files and directories currently installed.)
+Preparing to unpack .../openssh-sftp-server_1%3a9.7p1-7ubuntu4_amd64.deb ...
+Unpacking openssh-sftp-server (1:9.7p1-7ubuntu4) ...
+Selecting previously unselected package openssh-server.
+Preparing to unpack .../openssh-server_1%3a9.7p1-7ubuntu4_amd64.deb ...
+Unpacking openssh-server (1:9.7p1-7ubuntu4) ...
+Selecting previously unselected package ncurses-term.
+Preparing to unpack .../ncurses-term_6.5-2_all.deb ...
+Unpacking ncurses-term (6.5-2) ...
+Selecting previously unselected package ssh-import-id.
+Preparing to unpack .../ssh-import-id_5.11-0ubuntu2_all.deb ...
+Unpacking ssh-import-id (5.11-0ubuntu2) ...
+Setting up openssh-sftp-server (1:9.7p1-7ubuntu4) ...
+Setting up openssh-server (1:9.7p1-7ubuntu4) ...
+
+Creating config file /etc/ssh/sshd_config with new version
+Created symlink '/etc/systemd/system/sockets.target.wants/ssh.socket' → '/usr/li
+b/systemd/system/ssh.socket'.
+Created symlink '/etc/systemd/system/ssh.service.requires/ssh.socket' → '/usr/li
+b/systemd/system/ssh.socket'.
+Setting up ssh-import-id (5.11-0ubuntu2) ...
+Setting up ncurses-term (6.5-2) ...
+Processing triggers for man-db (2.12.1-3) ...
+Processing triggers for ufw (0.36.2-6) ...
+andra@ubuntu:~$  systemctl start ssh
+andra@ubuntu:~$  systemctl status ssh
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/usr/lib/systemd/system/ssh.service; disabled; preset: ena>
+     Active: active (running) since Wed 2024-11-06 13:37:40 UTC; 29s ago
+ Invocation: 7aa879d4ab1544bfa6ac5b6915ae59a2
+TriggeredBy: ● ssh.socket
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+    Process: 8834 ExecStartPre=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+   Main PID: 8838 (sshd)
+      Tasks: 1 (limit: 3995)
+     Memory: 1.3M (peak: 1.7M)
+        CPU: 54ms
+     CGroup: /system.slice/ssh.service
+             └─8838 "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups"
+
+Nov 06 13:37:40 ubuntu systemd[1]: Starting ssh.service - OpenBSD Secure Shell >
+Nov 06 13:37:40 ubuntu sshd[8838]: Server listening on 0.0.0.0 port 22.
+Nov 06 13:37:40 ubuntu sshd[8838]: Server listening on :: port 22.
+Nov 06 13:37:40 ubuntu systemd[1]: Started ssh.service - OpenBSD Secure Shell s>
+
+andra@ubuntu:~$ ssh fmi.unibuc.ro
+The authenticity of host 'fmi.unibuc.ro (80.96.21.88)' can't be established.
+ED25519 key fingerprint is SHA256:o6jchSDHJvb8Sn/3+GbJJWHJ3yHaRh0Kkgb140/vqNA.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'fmi.unibuc.ro' (ED25519) to the list of known hosts.
+andra@fmi.unibuc.ro's password: 
+
+andra@ubuntu:~$ ssh fmi.unibuc.ro ls
+andra@fmi.unibuc.ro's password: 
+
+andra@ubuntu:~$ ssh alex@fmi.unibuc.ro
+
+^C
+andra@ubuntu:~$ ssh alex@fmi.unibuc.ro -p 2222
+^C
+andra@ubuntu:~$ ssh-keygen
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/home/andra/.ssh/id_ed25519): ^C
+andra@ubuntu:~$ mkdir .ssh
+mkdir: cannot create directory ‘.ssh’: File exists
+andra@ubuntu:~$ cd .ssh
+andra@ubuntu:~/.ssh$ cd ..
+andra@ubuntu:~$ touch authorized_keys
+andra@ubuntu:~$ ifcongig
+Command 'ifcongig' not found, did you mean:
+  command 'ifconfig' from deb net-tools (2.10-1.1ubuntu1)
+Try: sudo apt install <deb name>
+andra@ubuntu:~$ ifconfig
+Command 'ifconfig' not found, but can be installed with:
+sudo apt install net-tools
+andra@ubuntu:~$ sudo apt install net-tools
+Installing:                     
+  net-tools
+
+Summary:
+  Upgrading: 0, Installing: 1, Removing: 0, Not Upgrading: 17
+  Download size: 204 kB
+  Space needed: 807 kB / 17.3 GB available
+
+Get:1 http://ro.archive.ubuntu.com/ubuntu oracular/main amd64 net-tools amd64 2.10-1.1ubuntu1 [204 kB]
+Fetched 204 kB in 1s (198 kB/s)   
+Selecting previously unselected package net-tools.
+(Reading database ... 163009 files and directories currently installed.)
+Preparing to unpack .../net-tools_2.10-1.1ubuntu1_amd64.deb ...
+Unpacking net-tools (2.10-1.1ubuntu1) ...
+Setting up net-tools (2.10-1.1ubuntu1) ...
+Processing triggers for man-db (2.12.1-3) ...
+andra@ubuntu:~$ ifconfig
+enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+        inet6 fd00::a00:27ff:fe2b:6ea8  prefixlen 64  scopeid 0x0<global>
+        inet6 fd00::6ce0:50f6:a3d1:ddfe  prefixlen 64  scopeid 0x0<global>
+        inet6 fe80::a00:27ff:fe2b:6ea8  prefixlen 64  scopeid 0x20<link>
+        ether 08:00:27:2b:6e:a8  txqueuelen 1000  (Ethernet)
+        RX packets 9591  bytes 10118935 (10.1 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 5082  bytes 633738 (633.7 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 767  bytes 87029 (87.0 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 767  bytes 87029 (87.0 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+andra@ubuntu:~$ ssh-keygen
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/home/andra/.ssh/id_ed25519): authorized_keys
+authorized_keys already exists.
+Overwrite (y/n)? y
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in authorized_keys
+Your public key has been saved in authorized_keys.pub
+The key fingerprint is:
+SHA256:nxlS74MTV+pmX4oZfLePq7gYIcuk5dl/rBFofDUu5Ls andra@ubuntu
+The key's randomart image is:
++--[ED25519 256]--+
+|                 |
+|                 |
+|          o o .  |
+|       . = + +   |
+|      + S B =    |
+|     * * = #     |
+|    . = o O.O . o|
+|         + BoB =.|
+|        . E++.=oo|
++----[SHA256]-----+
+andra@ubuntu:~$ ssh-keygen -t ed25519
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/home/andra/.ssh/id_ed25519): 
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /home/andra/.ssh/id_ed25519
+Your public key has been saved in /home/andra/.ssh/id_ed25519.pub
+The key fingerprint is:
+SHA256:urVWGkwL3a4/2hrXYSxAOMOjmI/VRc+8UdmVQ9MvZ3A andra@ubuntu
+The key's randomart image is:
++--[ED25519 256]--+
+|     . oo   .o.++|
+|      *..+ .. ooE|
+|   o o *..=    oo|
+|  o o o o..+  . +|
+|   +   +Soo +  + |
+|  . .  .+ o+ .   |
+|      . o=. .    |
+|       o+=.      |
+|      ..++o.     |
++----[SHA256]-----+
+andra@ubuntu:~$ ssh-keygen -t ed25519
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/home/andra/.ssh/id_ed25519): .ssh/authorized_keys 
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in .ssh/authorized_keys 
+Your public key has been saved in .ssh/authorized_keys .pub
+The key fingerprint is:
+SHA256:ZBHleT7Gh9ixPDlgphc4rSQWMfZhdZcPWNWBXHGTxA4 andra@ubuntu
+The key's randomart image is:
++--[ED25519 256]--+
+|      =.=+o ooBOB|
+|     . = * o.Eoo+|
+|      o B O o oo |
+|     . = * X = ..|
+|        S o & .  |
+|         . . =   |
+|                 |
+|                 |
+|                 |
++----[SHA256]-----+
+andra@ubuntu:~$ cat id_rsa.pub >> .ssh/authorized_keys
+cat: id_rsa.pub: No such file or directory
+andra@ubuntu:~$ scp hello.c fmi.unibuc.ro:
+andra@fmi.unibuc.ro's password: 
+Permission denied, please try again.
+andra@fmi.unibuc.ro's password: 
+Permission denied, please try again.
+andra@fmi.unibuc.ro's password: 
+andra@ubuntu:~$ scp hello.c alex@fmi.unibuc.ro:code/
+
+^Candra@ubuntu:~$ scp -r project/ alex@fmi.unibuc.ro:
+scp: stat local "project/": No such file or directory
+andra@ubuntu:~$ screen ssh localhost sleep 300
+Command 'screen' not found, but can be installed with:
+sudo apt install screen
+andra@ubuntu:~$ sudo apt install screen
+Installing:                     
+  screen
+
+Installing dependencies:
+  libutempter0
+
+Suggested packages:
+  byobu  | screenie  | iselect
+
+Summary:
+  Upgrading: 0, Installing: 2, Removing: 0, Not Upgrading: 10
+  Download size: 665 kB
+  Space needed: 1,072 kB / 17.3 GB available
+
+Continue? [Y/n] y
+Get:1 http://ro.archive.ubuntu.com/ubuntu oracular/main amd64 libutempter0 amd64 1.2.1-3build1 [9,606 B]
+Get:2 http://ro.archive.ubuntu.com/ubuntu oracular/main amd64 screen amd64 4.9.1-1build1 [655 kB]
+Fetched 665 kB in 1s (494 kB/s) 
+Selecting previously unselected package libutempter0:amd64.
+(Reading database ... 163057 files and directories currently installed.)
+Preparing to unpack .../libutempter0_1.2.1-3build1_amd64.deb ...
+Unpacking libutempter0:amd64 (1.2.1-3build1) ...
+Selecting previously unselected package screen.
+Preparing to unpack .../screen_4.9.1-1build1_amd64.deb ...
+Unpacking screen (4.9.1-1build1) ...
+Setting up libutempter0:amd64 (1.2.1-3build1) ...
+Setting up screen (4.9.1-1build1) ...
+Processing triggers for debianutils (5.20) ...
+Processing triggers for install-info (7.1-3build2) ...
+Processing triggers for libc-bin (2.40-1ubuntu3) ...
+Processing triggers for man-db (2.12.1-3) ...
+andra@ubuntu:~$ screen ssh localhost sleep 300
+[detached from 7292.pts-1.ubuntu]
+andra@ubuntu:~$ screen -ls
+There is a screen on:
+	7292.pts-1.ubuntu	(11/09/2024 09:47:16 PM)	(Detached)
+1 Socket in /run/screen/S-andra.
+andra@ubuntu:~$ screen -r 
+[screen is terminating]
+andra@ubuntu:~$ screen -r 
+                screen -r
+                         ^C
+andra@ubuntu:~$ ssh-keygen -t rsa -b 4096 -C "chiritoiu.andra@yahoo.com"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/andra/.ssh/id_rsa): ~/.ssh/id_rsa
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Saving key "~/.ssh/id_rsa" failed: No such file or directory
+andra@ubuntu:~$ ls -ld ~/.ssh
+drwx------ 2 andra andra 4096 Nov  9 21:47 /home/andra/.ssh
+andra@ubuntu:~$ chmod 700 ~/.ssh
+andra@ubuntu:~$ ssh-keygen -t rsa -b 4096 -C "chiritoiu.andra@yahoo.com"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/andra/.ssh/id_rsa): 
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /home/andra/.ssh/id_rsa
+Your public key has been saved in /home/andra/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:cKfj7r2h2Cj9yFn44HVN3ezfhQNB7AqVnG0lDe050kw chiritoiu.andra@yahoo.com
+The key's randomart image is:
++---[RSA 4096]----+
+|         . =+=.  |
+|          =.+.E  |
+|      . ...o.= . |
+|       o.o  oo*o |
+|        S. .o...o|
+|       o ..o . o |
+|     .o + o . o o|
+|    .o.% + .   .+|
+|     .BoB o.    o|
++----[SHA256]-----+
+andra@ubuntu:~$ ls -l ~/.ssh/
+total 32
+-rw------- 1 andra andra    0 Oct 14 08:03  authorized_keys
+-rw------- 1 andra andra  399 Nov  9 21:40 'authorized_keys '
+-rw-r--r-- 1 andra andra   94 Nov  9 21:40 'authorized_keys .pub'
+-rw------- 1 andra andra  399 Nov  6 13:49  id_ed25519
+-rw-r--r-- 1 andra andra   94 Nov  6 13:49  id_ed25519.pub
+-rw------- 1 andra andra 3434 Nov  9 21:57  id_rsa
+-rw-r--r-- 1 andra andra  751 Nov  9 21:57  id_rsa.pub
+-rw------- 1 andra andra 1120 Nov  9 21:47  known_hosts
+-rw-r--r-- 1 andra andra  284 Nov  9 21:47  known_hosts.old
+andra@ubuntu:~$ chmod 600 ~/.ssh/id_rsa
+andra@ubuntu:~$ screen ssh localhost sleep 300
+[detached from 7996.pts-1.ubuntu]
+andra@ubuntu:~$ screen -ls
+There is a screen on:
+	7996.pts-1.ubuntu	(11/09/2024 10:00:33 PM)	(Detached)
+1 Socket in /run/screen/S-andra.
+andra@ubuntu:~$ screen -r
+[screen is terminating]
+
+//5.sarcini de laborator
+//1
+andra@ubuntu:~$ nslookup google.com
+Server:		127.0.0.53
+Address:	127.0.0.53#53
+
+Non-authoritative answer:
+Name:	google.com
+Address: 142.250.185.174
+Name:	google.com
+Address: 2a00:1450:4001:811::200e
+
+andra@ubuntu:~$ nslookup google.com
+                                   ^C
+andra@ubuntu:~$ Google_IP_Addresses: 142.250.185.174
+Google_IP_Addresses:: command not found
+andra@ubuntu:~$ sudo nano /etc/hosts
+[sudo] password for andra: 
+andra@ubuntu:~$ nslookup fmi.unibuc.ro
+Server:		127.0.0.53
+Address:	127.0.0.53#53
+
+Non-authoritative answer:
+Name:	fmi.unibuc.ro
+Address: 80.96.21.88
+
+andra@ubuntu:~$ sudo nano /etc/hosts
+andra@ubuntu:~$ nslookup wikipedia.org
+Server:		127.0.0.53
+Address:	127.0.0.53#53
+
+Non-authoritative answer:
+Name:	wikipedia.org
+Address: 185.15.59.224
+Name:	wikipedia.org
+Address: 2a02:ec80:300:ed1a::1
+
+andra@ubuntu:~$ sudo nano /etc/hosts
+
+
+IN FISIERUL /ETC/HOSTS:
+127.0.0.1 localhost
+127.0.1.1 ubuntu
+142.250.185.174 google.com
+80.96.21.88 fmi.unibuc.ro
+185.15.59.224 wikipedia.org
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+//2
+
+//laborator
+//1,2
+andra@ubuntu:~$ nslookup fmi.unibuc.ro
+Server:		127.0.0.53
+Address:	127.0.0.53#53
+
+Non-authoritative answer:
+Name:	fmi.unibuc.ro
+Address: 80.96.21.88
+
+andra@ubuntu:~$ nslookup fmi.unibuc.ro 8.8.8.8
+Server:		8.8.8.8
+Address:	8.8.8.8#53
+
+Non-authoritative answer:
+Name:	fmi.unibuc.ro
+Address: 80.96.21.88
+
+andra@ubuntu:~$ nslookup
+> server
+Default server: 127.0.0.53
+Address: 127.0.0.53#53
+> server 1.1.1.1
+Default server: 1.1.1.1
+Address: 1.1.1.1#53
+> set type=ptr
+> 8.8.8.8
+Server:		1.1.1.1
+Address:	1.1.1.1#53
+
+Non-authoritative answer:
+8.8.8.8.in-addr.arpa	name = dns.google.
+
+Authoritative answers can be found from:
+> set type=a
+> dns.google
+Server:		1.1.1.1
+Address:	1.1.1.1#53
+
+Non-authoritative answer:
+Name:	dns.google
+Address: 8.8.8.8
+Name:	dns.google
+Address: 8.8.4.4
+> set type=ns
+> google.com
+Server:		1.1.1.1
+Address:	1.1.1.1#53
+
+Non-authoritative answer:
+google.com	nameserver = ns1.google.com.
+google.com	nameserver = ns4.google.com.
+google.com	nameserver = ns3.google.com.
+google.com	nameserver = ns2.google.com.
+
+Authoritative answers can be found from:
+> set type=mx
+> google.com
+Server:		1.1.1.1
+Address:	1.1.1.1#53
+
+Non-authoritative answer:
+google.com	mail exchanger = 10 smtp.google.com.
+
+Authoritative answers can be found from:
+> exit
+
+andra@ubuntu:~$ dig @8.8.8.8 fmi.unibuc.ro 
+
+; <<>> DiG 9.20.0-2ubuntu3-Ubuntu <<>> @8.8.8.8 fmi.unibuc.ro
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 53026
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;fmi.unibuc.ro.			IN	A
+
+;; ANSWER SECTION:
+fmi.unibuc.ro.		11659	IN	A	80.96.21.88
+
+;; Query time: 35 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8) (UDP)
+;; WHEN: Wed Nov 06 13:10:53 UTC 2024
+;; MSG SIZE  rcvd: 58
+
+andra@ubuntu:~$ host fmi.unibuc.ro 8.8.8.8
+Using domain server:
+Name: 8.8.8.8
+Address: 8.8.8.8#53
+Aliases: 
+
+fmi.unibuc.ro has address 80.96.21.88
+fmi.unibuc.ro mail is handled by 10 657f9c276ce843bb4aa341845d842b.mail.outlook.com.
+andra@ubuntu:~$ whois unibuc.ro
+Command 'whois' not found, but can be installed with:
+sudo apt install whois
+andra@ubuntu:~$ sudo apt install whois
+[sudo] password for andra: 
+Installing:                     
+  whois
+
+Summary:
+  Upgrading: 0, Installing: 1, Removing: 0, Not Upgrading: 17
+  Download size: 51.8 kB
+  Space needed: 279 kB / 17.3 GB available
+
+Get:1 http://ro.archive.ubuntu.com/ubuntu oracular/main amd64 whois amd64 5.5.23 [51.8 kB]
+Fetched 51.8 kB in 0s (198 kB/s)
+Selecting previously unselected package whois.
+(Reading database ... 160011 files and directories currently installed.)
+Preparing to unpack .../whois_5.5.23_amd64.deb ...
+Unpacking whois (5.5.23) ...
+Setting up whois (5.5.23) ...
+Processing triggers for man-db (2.12.1-3) ...
+andra@ubuntu:~$ whois unibuc.ro
+
+% The WHOIS service offered by ROTLD and the access to the records in the ROTLD WHOIS database 
+% are provided for information purposes and to be used within the scope of technical or administrative
+% necessities of Internet operation or to remedy legal problems. The use for other purposes, 
+% in particular for advertising and domain hunting, is not permitted.
+
+% Without prejudice to the above, it is explicitly forbidden to extract, copy and/or use or re-utilise
+% in any form and by any means (electronically or not) the whole or a quantitatively or qualitatively 
+% substantial part of the contents of the WHOIS database without prior and explicit permission by ROTLD, 
+% nor in any attempt hereof, to apply automated, electronic processes to ROTLD (or its systems).
+
+% ROTLD cannot, under any circumstances, be held liable in case the stored information would prove 
+% to be wrong, incomplete or not accurate in any sense.
+
+% You agree that any reproduction and/or transmission of data for commercial purposes will always 
+% be considered as the extraction of a substantial part of the content of the WHOIS database.
+
+% By submitting the query you agree to abide by this policy and accept that ROTLD can take measures 
+% to limit the use of its WHOIS services in order to protect the privacy of its registrants or the 
+% integrity of the database.
+
+% The ROTLD WHOIS service on port 43 never discloses any information concerning the registrant.
+
+% Registrant information can be obtained through use of the web-based whois service available from 
+% the ROTLD website www.rotld.ro
+
+
+  Domain Name: unibuc.ro
+  Registered On: Before 2001
+  Expires On: 2028-05-29
+  Registrar: ICI - Registrar
+  Referral URL: http://www.rotld.ro
+
+  DNSSEC: Inactive
+
+  Nameserver: ns1.unibuc.ro
+  Nameserver: ns2.unibuc.ro
+  Nameserver: ns3.unibuc.ro
+  Nameserver: ns4.unibuc.ro
+  Nameserver: ns5.unibuc.ro
+
+  Domain Status: OK
+
+
+^CInterrupted by signal 2...
+andra@ubuntu:~$ ping fmi.unibuc.ro
+PING fmi.unibuc.ro (80.96.21.88) 56(84) bytes of data.
+^C64 bytes from 80.96.21.88: icmp_seq=1 ttl=255 time=7.56 ms
+
+--- fmi.unibuc.ro ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 7.560/7.560/7.560/0.000 ms
+andra@ubuntu:~$ traceroute 8.8.8.8
+Command 'traceroute' not found, but can be installed with:
+sudo apt install inetutils-traceroute  # version 2:2.5-5ubuntu1, or
+sudo apt install traceroute            # version 1:2.1.5-1
+andra@ubuntu:~$ sudo apt install traceroute
+Installing:                     
+  traceroute
+
+Summary:
+  Upgrading: 0, Installing: 1, Removing: 0, Not Upgrading: 17
+  Download size: 60.5 kB
+  Space needed: 162 kB / 17.3 GB available
+
+Get:1 http://ro.archive.ubuntu.com/ubuntu oracular/universe amd64 traceroute amd64 1:2.1.5-1 [60.5 kB]
+Fetched 60.5 kB in 0s (221 kB/s)    
+Selecting previously unselected package traceroute.
+(Reading database ... 160022 files and directories currently installed.)
+Preparing to unpack .../traceroute_1%3a2.1.5-1_amd64.deb ...
+Unpacking traceroute (1:2.1.5-1) ...
+Setting up traceroute (1:2.1.5-1) ...
+update-alternatives: using /usr/bin/traceroute.db to provide /usr/bin/traceroute
+ (traceroute) in auto mode
+update-alternatives: using /usr/bin/traceroute6.db to provide /usr/bin/tracerout
+e6 (traceroute6) in auto mode
+update-alternatives: using /usr/bin/lft.db to provide /usr/bin/lft (lft) in auto
+ mode
+update-alternatives: using /usr/bin/traceproto.db to provide /usr/bin/traceproto
+ (traceproto) in auto mode
+update-alternatives: using /usr/sbin/tcptraceroute.db to provide /usr/sbin/tcptr
+aceroute (tcptraceroute) in auto mode
+Processing triggers for man-db (2.12.1-3) ...
+andra@ubuntu:~$ traceroute 8.8.8.8
+traceroute to 8.8.8.8 (8.8.8.8), 30 hops max, 60 byte packets
+ 1  _gateway (10.0.2.2)  0.950 ms  0.885 ms  0.862 ms
+^C
+andra@ubuntu:~$ cat /etc/hosts
+127.0.0.1 localhost
+127.0.1.1 ubuntu
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+//3
+andra@ubuntu:~$ service ssh start
+Failed to start ssh.service: Unit ssh.service not found.
+andra@ubuntu:~$ service ssh start
+Failed to start ssh.service: Unit ssh.service not found.
+andra@ubuntu:~$ sudo service ssh start
+Failed to start ssh.service: Unit ssh.service not found.
+andra@ubuntu:~$ sudo systemctl start openvpn.service
+andra@ubuntu:~$ systemctl status openvpn.service
+● openvpn.service - OpenVPN service
+     Loaded: loaded (/usr/lib/systemd/system/openvpn.service; enabled; pres>
+     Active: active (exited) since Wed 2024-11-06 12:39:43 UTC; 41min ago
+ Invocation: 3b5d6c52166847a1bcbbfda12cc8e456
+       Docs: man:openvpn(8)
+   Main PID: 1177 (code=exited, status=0/SUCCESS)
+   Mem peak: 1.5M
+        CPU: 12ms
+
+Nov 06 12:39:43 ubuntu systemd[1]: Starting openvpn.service - OpenVPN servi>
+Nov 06 12:39:43 ubuntu systemd[1]: Finished openvpn.service - OpenVPN servi>
+
+andra@ubuntu:~$ sudo systemctl stop openvpn.service
+andra@ubuntu:~$ systemctl status openvpn.service
+○ openvpn.service - OpenVPN service
+     Loaded: loaded (/usr/lib/systemd/system/openvpn.service; enabled; pres>
+     Active: inactive (dead) since Wed 2024-11-06 13:22:01 UTC; 4s ago
+   Duration: 42min 17.746s
+ Invocation: 3b5d6c52166847a1bcbbfda12cc8e456
+       Docs: man:openvpn(8)
+   Main PID: 1177 (code=exited, status=0/SUCCESS)
+
+Nov 06 12:39:43 ubuntu systemd[1]: Starting openvpn.service - OpenVPN servi>
+Nov 06 12:39:43 ubuntu systemd[1]: Finished openvpn.service - OpenVPN servi>
+Nov 06 13:22:01 ubuntu systemd[1]: openvpn.service: Deactivated successfull>
+Nov 06 13:22:01 ubuntu systemd[1]: Stopped openvpn.service - OpenVPN servic>
+
+andra@ubuntu:~$ /etc/init.d/ssh start
+bash: /etc/init.d/ssh: No such file or directory
+andra@ubuntu:~$ /etc/init.d/ssh stop
+bash: /etc/init.d/ssh: No such file or directory
+andra@ubuntu:~$ systemctl disable ssh
+Failed to disable unit: Unit ssh.service does not exist
+andra@ubuntu:~$ sudo systemctl disable ssh
+Failed to disable unit: Unit ssh.service does not exist
+
+//4
+andra@ubuntu:~$ ftp alex@fmi.unibuc.ro
+Connected to fmi.unibuc.ro.
+220---------- Welcome to Pure-FTPd [privsep] [TLS] ----------
+220-You are user number 5 of 50 allowed.
+220-Local time is now 15:25. Server port: 21.
+220-This is a private system - No anonymous login
+220-IPv6 connections are also welcome on this server.
+220 You will be disconnected after 15 minutes of inactivity.
+331 User alex OK. Password required
+Password: 
+
+530 Login authentication failed
+ftp: Login failed
+ftp> exit
+221-Goodbye. You uploaded 0 and downloaded 0 kbytes.
+221 Logout.
+andra@ubuntu:~$ ftp ftp://fmi.unibuc.ro
+Connected to fmi.unibuc.ro.
+220---------- Welcome to Pure-FTPd [privsep] [TLS] ----------
+220-You are user number 5 of 50 allowed.
+220-Local time is now 15:26. Server port: 21.
+220-This is a private system - No anonymous login
+220-IPv6 connections are also welcome on this server.
+220 You will be disconnected after 15 minutes of inactivity.
+331 User anonymous OK. Password required
+530 Login authentication failed
+ftp: Login failed
+ftp: Can't connect or login to host `fmi.unibuc.ro:ftp'
+221-Goodbye. You uploaded 0 and downloaded 0 kbytes.
+221 Logout.
+andra@ubuntu:~$ ftp fmi.unibuc.ro -P 2121
+ftp: Can't connect to `80.96.21.88:2121': Connection refused
+ftp: Can't connect to `fmi.unibuc.ro:2121'
+ftp> quit
+andra@ubuntu:~$ apt install vsftpd
+Error: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)
+Error: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+andra@ubuntu:~$ sudo apt install vsftpd
+Installing:                     
+  vsftpd
+
+Summary:
+  Upgrading: 0, Installing: 1, Removing: 0, Not Upgrading: 17
+  Download size: 121 kB
+  Space needed: 316 kB / 17.3 GB available
+
+Get:1 http://ro.archive.ubuntu.com/ubuntu oracular/main amd64 vsftpd amd64 3.0.5-0ubuntu4 [121 kB]
+Fetched 121 kB in 1s (184 kB/s) 
+Preconfiguring packages ...
+Selecting previously unselected package vsftpd.
+(Reading database ... 160042 files and directories currently installed.)
+Preparing to unpack .../vsftpd_3.0.5-0ubuntu4_amd64.deb ...
+Unpacking vsftpd (3.0.5-0ubuntu4) ...
+Setting up vsftpd (3.0.5-0ubuntu4) ...
+Created symlink '/etc/systemd/system/multi-user.target.wants/vsftpd.service' → '
+/usr/lib/systemd/system/vsftpd.service'.
+/usr/lib/tmpfiles.d/vsftpd.conf:1: Line references path below legacy directory /
+var/run/, updating /var/run/vsftpd/empty → /run/vsftpd/empty; please update the 
+tmpfiles.d/ drop-in file accordingly.
+Processing triggers for man-db (2.12.1-3) ...
+andra@ubuntu:~$ serice vsftpd start
+Command 'serice' not found, did you mean:
+  command 'service' from deb init-system-helpers (1.66ubuntu1)
+Try: sudo apt install <deb name>
+andra@ubuntu:~$ sudo apt install <deb name>
+bash: syntax error near unexpected token `newline'
+andra@ubuntu:~$ service vsftpd start
+andra@ubuntu:~$ serice vsftpd status
+Command 'serice' not found, did you mean:
+  command 'service' from deb init-system-helpers (1.66ubuntu1)
+Try: sudo apt install <deb name>
+andra@ubuntu:~$ service vsftpd status
+● vsftpd.service - vsftpd FTP server
+     Loaded: loaded (/usr/lib/systemd/system/vsftpd.service; enabled; preset: e>
+     Active: active (running) since Wed 2024-11-06 13:29:32 UTC; 3min 12s ago
+ Invocation: b5399ac5bd9541908f5716108426255d
+    Process: 7929 ExecStartPre=/bin/mkdir -p /var/run/vsftpd/empty (code=exited>
+   Main PID: 7930 (vsftpd)
+      Tasks: 1 (limit: 3995)
+     Memory: 808K (peak: 1.5M)
+        CPU: 25ms
+     CGroup: /system.slice/vsftpd.service
+             └─7930 /usr/sbin/vsftpd /etc/vsftpd.conf
+
+Nov 06 13:29:31 ubuntu systemd[1]: Starting vsftpd.service - vsftpd FTP server.>
+Nov 06 13:29:32 ubuntu systemd[1]: Started vsftpd.service - vsftpd FTP server.
+
+andra@ubuntu:~$ ftp localhost
+Connected to localhost.
+220 (vsFTPd 3.0.5)
+Name (localhost:andra): anonymus
+331 Please specify the password.
+Password: 
+andra530 Login incorrect.
+ftp: Login failed
+ftp> quit
+221 Goodbye.
+andra@ubuntu:~$ apt install openssh-server
+Error: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)
+Error: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+andra@ubuntu:~$ sudo apt install openssh-server
+Installing:                     
+  openssh-server
+
+Installing dependencies:
+  ncurses-term  openssh-sftp-server  ssh-import-id
+
+Suggested packages:
+  molly-guard  monkeysphere  ssh-askpass
+
+Summary:
+  Upgrading: 0, Installing: 4, Removing: 0, Not Upgrading: 17
+  Download size: 836 kB
+  Space needed: 6,777 kB / 17.3 GB available
+
+Continue? [Y/n] y
+Get:1 http://ro.archive.ubuntu.com/ubuntu oracular/main amd64 openssh-sftp-server amd64 1:9.7p1-7ubuntu4 [37.1 kB]
+Get:2 http://ro.archive.ubuntu.com/ubuntu oracular/main amd64 openssh-server amd64 1:9.7p1-7ubuntu4 [514 kB]
+Get:3 http://ro.archive.ubuntu.com/ubuntu oracular/main amd64 ncurses-term all 6.5-2 [275 kB]
+Get:4 http://ro.archive.ubuntu.com/ubuntu oracular/main amd64 ssh-import-id all 5.11-0ubuntu2 [10.0 kB]
+Fetched 836 kB in 1s (1,330 kB/s)        
+Preconfiguring packages ...
+Selecting previously unselected package openssh-sftp-server.
+(Reading database ... 160098 files and directories currently installed.)
+Preparing to unpack .../openssh-sftp-server_1%3a9.7p1-7ubuntu4_amd64.deb ...
+Unpacking openssh-sftp-server (1:9.7p1-7ubuntu4) ...
+Selecting previously unselected package openssh-server.
+Preparing to unpack .../openssh-server_1%3a9.7p1-7ubuntu4_amd64.deb ...
+Unpacking openssh-server (1:9.7p1-7ubuntu4) ...
+Selecting previously unselected package ncurses-term.
+Preparing to unpack .../ncurses-term_6.5-2_all.deb ...
+Unpacking ncurses-term (6.5-2) ...
+Selecting previously unselected package ssh-import-id.
+Preparing to unpack .../ssh-import-id_5.11-0ubuntu2_all.deb ...
+Unpacking ssh-import-id (5.11-0ubuntu2) ...
+Setting up openssh-sftp-server (1:9.7p1-7ubuntu4) ...
+Setting up openssh-server (1:9.7p1-7ubuntu4) ...
+
+Creating config file /etc/ssh/sshd_config with new version
+Created symlink '/etc/systemd/system/sockets.target.wants/ssh.socket' → '/usr/li
+b/systemd/system/ssh.socket'.
+Created symlink '/etc/systemd/system/ssh.service.requires/ssh.socket' → '/usr/li
+b/systemd/system/ssh.socket'.
+Setting up ssh-import-id (5.11-0ubuntu2) ...
+Setting up ncurses-term (6.5-2) ...
+Processing triggers for man-db (2.12.1-3) ...
+Processing triggers for ufw (0.36.2-6) ...
+andra@ubuntu:~$  systemctl start ssh
+andra@ubuntu:~$  systemctl status ssh
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/usr/lib/systemd/system/ssh.service; disabled; preset: ena>
+     Active: active (running) since Wed 2024-11-06 13:37:40 UTC; 29s ago
+ Invocation: 7aa879d4ab1544bfa6ac5b6915ae59a2
+TriggeredBy: ● ssh.socket
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+    Process: 8834 ExecStartPre=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+   Main PID: 8838 (sshd)
+      Tasks: 1 (limit: 3995)
+     Memory: 1.3M (peak: 1.7M)
+        CPU: 54ms
+     CGroup: /system.slice/ssh.service
+             └─8838 "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups"
+
+Nov 06 13:37:40 ubuntu systemd[1]: Starting ssh.service - OpenBSD Secure Shell >
+Nov 06 13:37:40 ubuntu sshd[8838]: Server listening on 0.0.0.0 port 22.
+Nov 06 13:37:40 ubuntu sshd[8838]: Server listening on :: port 22.
+Nov 06 13:37:40 ubuntu systemd[1]: Started ssh.service - OpenBSD Secure Shell s>
+
+andra@ubuntu:~$ ssh fmi.unibuc.ro
+The authenticity of host 'fmi.unibuc.ro (80.96.21.88)' can't be established.
+ED25519 key fingerprint is SHA256:o6jchSDHJvb8Sn/3+GbJJWHJ3yHaRh0Kkgb140/vqNA.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'fmi.unibuc.ro' (ED25519) to the list of known hosts.
+andra@fmi.unibuc.ro's password: 
+
+andra@ubuntu:~$ ssh fmi.unibuc.ro ls
+andra@fmi.unibuc.ro's password: 
+
+andra@ubuntu:~$ ssh alex@fmi.unibuc.ro
+
+^C
+andra@ubuntu:~$ ssh alex@fmi.unibuc.ro -p 2222
+^C
+andra@ubuntu:~$ ssh-keygen
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/home/andra/.ssh/id_ed25519): ^C
+andra@ubuntu:~$ mkdir .ssh
+mkdir: cannot create directory ‘.ssh’: File exists
+andra@ubuntu:~$ cd .ssh
+andra@ubuntu:~/.ssh$ cd ..
+andra@ubuntu:~$ touch authorized_keys
+andra@ubuntu:~$ ifcongig
+Command 'ifcongig' not found, did you mean:
+  command 'ifconfig' from deb net-tools (2.10-1.1ubuntu1)
+Try: sudo apt install <deb name>
+andra@ubuntu:~$ ifconfig
+Command 'ifconfig' not found, but can be installed with:
+sudo apt install net-tools
+andra@ubuntu:~$ sudo apt install net-tools
+Installing:                     
+  net-tools
+
+Summary:
+  Upgrading: 0, Installing: 1, Removing: 0, Not Upgrading: 17
+  Download size: 204 kB
+  Space needed: 807 kB / 17.3 GB available
+
+Get:1 http://ro.archive.ubuntu.com/ubuntu oracular/main amd64 net-tools amd64 2.10-1.1ubuntu1 [204 kB]
+Fetched 204 kB in 1s (198 kB/s)   
+Selecting previously unselected package net-tools.
+(Reading database ... 163009 files and directories currently installed.)
+Preparing to unpack .../net-tools_2.10-1.1ubuntu1_amd64.deb ...
+Unpacking net-tools (2.10-1.1ubuntu1) ...
+Setting up net-tools (2.10-1.1ubuntu1) ...
+Processing triggers for man-db (2.12.1-3) ...
+andra@ubuntu:~$ ifconfig
+enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+        inet6 fd00::a00:27ff:fe2b:6ea8  prefixlen 64  scopeid 0x0<global>
+        inet6 fd00::6ce0:50f6:a3d1:ddfe  prefixlen 64  scopeid 0x0<global>
+        inet6 fe80::a00:27ff:fe2b:6ea8  prefixlen 64  scopeid 0x20<link>
+        ether 08:00:27:2b:6e:a8  txqueuelen 1000  (Ethernet)
+        RX packets 9591  bytes 10118935 (10.1 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 5082  bytes 633738 (633.7 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 767  bytes 87029 (87.0 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 767  bytes 87029 (87.0 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+andra@ubuntu:~$ ssh-keygen
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/home/andra/.ssh/id_ed25519): authorized_keys
+authorized_keys already exists.
+Overwrite (y/n)? y
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in authorized_keys
+Your public key has been saved in authorized_keys.pub
+The key fingerprint is:
+SHA256:nxlS74MTV+pmX4oZfLePq7gYIcuk5dl/rBFofDUu5Ls andra@ubuntu
+The key's randomart image is:
++--[ED25519 256]--+
+|                 |
+|                 |
+|          o o .  |
+|       . = + +   |
+|      + S B =    |
+|     * * = #     |
+|    . = o O.O . o|
+|         + BoB =.|
+|        . E++.=oo|
++----[SHA256]-----+
+andra@ubuntu:~$ ssh-keygen -t ed25519
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/home/andra/.ssh/id_ed25519): 
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /home/andra/.ssh/id_ed25519
+Your public key has been saved in /home/andra/.ssh/id_ed25519.pub
+The key fingerprint is:
+SHA256:urVWGkwL3a4/2hrXYSxAOMOjmI/VRc+8UdmVQ9MvZ3A andra@ubuntu
+The key's randomart image is:
++--[ED25519 256]--+
+|     . oo   .o.++|
+|      *..+ .. ooE|
+|   o o *..=    oo|
+|  o o o o..+  . +|
+|   +   +Soo +  + |
+|  . .  .+ o+ .   |
+|      . o=. .    |
+|       o+=.      |
+|      ..++o.     |
++----[SHA256]-----+
+andra@ubuntu:~$ ssh-keygen -t ed25519
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/home/andra/.ssh/id_ed25519): .ssh/authorized_keys 
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in .ssh/authorized_keys 
+Your public key has been saved in .ssh/authorized_keys .pub
+The key fingerprint is:
+SHA256:ZBHleT7Gh9ixPDlgphc4rSQWMfZhdZcPWNWBXHGTxA4 andra@ubuntu
+The key's randomart image is:
++--[ED25519 256]--+
+|      =.=+o ooBOB|
+|     . = * o.Eoo+|
+|      o B O o oo |
+|     . = * X = ..|
+|        S o & .  |
+|         . . =   |
+|                 |
+|                 |
+|                 |
++----[SHA256]-----+
+andra@ubuntu:~$ cat id_rsa.pub >> .ssh/authorized_keys
+cat: id_rsa.pub: No such file or directory
+andra@ubuntu:~$ scp hello.c fmi.unibuc.ro:
+andra@fmi.unibuc.ro's password: 
+Permission denied, please try again.
+andra@fmi.unibuc.ro's password: 
+Permission denied, please try again.
+andra@fmi.unibuc.ro's password: 
+andra@ubuntu:~$ scp hello.c alex@fmi.unibuc.ro:code/
+
+^Candra@ubuntu:~$ scp -r project/ alex@fmi.unibuc.ro:
+scp: stat local "project/": No such file or directory
+andra@ubuntu:~$ screen ssh localhost sleep 300
+Command 'screen' not found, but can be installed with:
+sudo apt install screen
+andra@ubuntu:~$ sudo apt install screen
+Installing:                     
+  screen
+
+Installing dependencies:
+  libutempter0
+
+Suggested packages:
+  byobu  | screenie  | iselect
+
+Summary:
+  Upgrading: 0, Installing: 2, Removing: 0, Not Upgrading: 10
+  Download size: 665 kB
+  Space needed: 1,072 kB / 17.3 GB available
+
+Continue? [Y/n] y
+Get:1 http://ro.archive.ubuntu.com/ubuntu oracular/main amd64 libutempter0 amd64 1.2.1-3build1 [9,606 B]
+Get:2 http://ro.archive.ubuntu.com/ubuntu oracular/main amd64 screen amd64 4.9.1-1build1 [655 kB]
+Fetched 665 kB in 1s (494 kB/s) 
+Selecting previously unselected package libutempter0:amd64.
+(Reading database ... 163057 files and directories currently installed.)
+Preparing to unpack .../libutempter0_1.2.1-3build1_amd64.deb ...
+Unpacking libutempter0:amd64 (1.2.1-3build1) ...
+Selecting previously unselected package screen.
+Preparing to unpack .../screen_4.9.1-1build1_amd64.deb ...
+Unpacking screen (4.9.1-1build1) ...
+Setting up libutempter0:amd64 (1.2.1-3build1) ...
+Setting up screen (4.9.1-1build1) ...
+Processing triggers for debianutils (5.20) ...
+Processing triggers for install-info (7.1-3build2) ...
+Processing triggers for libc-bin (2.40-1ubuntu3) ...
+Processing triggers for man-db (2.12.1-3) ...
+andra@ubuntu:~$ screen ssh localhost sleep 300
+[detached from 7292.pts-1.ubuntu]
+andra@ubuntu:~$ screen -ls
+There is a screen on:
+	7292.pts-1.ubuntu	(11/09/2024 09:47:16 PM)	(Detached)
+1 Socket in /run/screen/S-andra.
+andra@ubuntu:~$ screen -r 
+[screen is terminating]
+andra@ubuntu:~$ screen -r 
+                screen -r
+                         ^C
+andra@ubuntu:~$ ssh-keygen -t rsa -b 4096 -C "chiritoiu.andra@yahoo.com"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/andra/.ssh/id_rsa): ~/.ssh/id_rsa
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Saving key "~/.ssh/id_rsa" failed: No such file or directory
+andra@ubuntu:~$ ls -ld ~/.ssh
+drwx------ 2 andra andra 4096 Nov  9 21:47 /home/andra/.ssh
+andra@ubuntu:~$ chmod 700 ~/.ssh
+andra@ubuntu:~$ ssh-keygen -t rsa -b 4096 -C "chiritoiu.andra@yahoo.com"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/andra/.ssh/id_rsa): 
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /home/andra/.ssh/id_rsa
+Your public key has been saved in /home/andra/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:cKfj7r2h2Cj9yFn44HVN3ezfhQNB7AqVnG0lDe050kw chiritoiu.andra@yahoo.com
+The key's randomart image is:
++---[RSA 4096]----+
+|         . =+=.  |
+|          =.+.E  |
+|      . ...o.= . |
+|       o.o  oo*o |
+|        S. .o...o|
+|       o ..o . o |
+|     .o + o . o o|
+|    .o.% + .   .+|
+|     .BoB o.    o|
++----[SHA256]-----+
+andra@ubuntu:~$ ls -l ~/.ssh/
+total 32
+-rw------- 1 andra andra    0 Oct 14 08:03  authorized_keys
+-rw------- 1 andra andra  399 Nov  9 21:40 'authorized_keys '
+-rw-r--r-- 1 andra andra   94 Nov  9 21:40 'authorized_keys .pub'
+-rw------- 1 andra andra  399 Nov  6 13:49  id_ed25519
+-rw-r--r-- 1 andra andra   94 Nov  6 13:49  id_ed25519.pub
+-rw------- 1 andra andra 3434 Nov  9 21:57  id_rsa
+-rw-r--r-- 1 andra andra  751 Nov  9 21:57  id_rsa.pub
+-rw------- 1 andra andra 1120 Nov  9 21:47  known_hosts
+-rw-r--r-- 1 andra andra  284 Nov  9 21:47  known_hosts.old
+andra@ubuntu:~$ chmod 600 ~/.ssh/id_rsa
+andra@ubuntu:~$ screen ssh localhost sleep 300
+[detached from 7996.pts-1.ubuntu]
+andra@ubuntu:~$ screen -ls
+There is a screen on:
+	7996.pts-1.ubuntu	(11/09/2024 10:00:33 PM)	(Detached)
+1 Socket in /run/screen/S-andra.
+andra@ubuntu:~$ screen -r
+[screen is terminating]
+
+//5.sarcini de laborator
+//1
+andra@ubuntu:~$ nslookup google.com
+Server:		127.0.0.53
+Address:	127.0.0.53#53
+
+Non-authoritative answer:
+Name:	google.com
+Address: 142.250.185.174
+Name:	google.com
+Address: 2a00:1450:4001:811::200e
+
+andra@ubuntu:~$ nslookup google.com
+                                   ^C
+andra@ubuntu:~$ Google_IP_Addresses: 142.250.185.174
+Google_IP_Addresses:: command not found
+andra@ubuntu:~$ sudo nano /etc/hosts
+[sudo] password for andra: 
+andra@ubuntu:~$ nslookup fmi.unibuc.ro
+Server:		127.0.0.53
+Address:	127.0.0.53#53
+
+Non-authoritative answer:
+Name:	fmi.unibuc.ro
+Address: 80.96.21.88
+
+andra@ubuntu:~$ sudo nano /etc/hosts
+andra@ubuntu:~$ nslookup wikipedia.org
+Server:		127.0.0.53
+Address:	127.0.0.53#53
+
+Non-authoritative answer:
+Name:	wikipedia.org
+Address: 185.15.59.224
+Name:	wikipedia.org
+Address: 2a02:ec80:300:ed1a::1
+
+andra@ubuntu:~$ sudo nano /etc/hosts
+
+
+IN FISIERUL /ETC/HOSTS:
+127.0.0.1 localhost
+127.0.1.1 ubuntu
+142.250.185.174 google.com
+80.96.21.88 fmi.unibuc.ro
+185.15.59.224 wikipedia.org
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+//2
+andra@ubuntu:~$ ping google.com
+PING google.com (142.250.185.174) 56(84) bytes of data.
+64 bytes from google.com (142.250.185.174): icmp_seq=1 ttl=255 time=40.8 ms
+64 bytes from google.com (142.250.185.174): icmp_seq=2 ttl=255 time=40.4 ms
+64 bytes from google.com (142.250.185.174): icmp_seq=3 ttl=255 time=41.7 ms
+64 bytes from google.com (142.250.185.174): icmp_seq=4 ttl=255 time=40.7 ms
+64 bytes from google.com (142.250.185.174): icmp_seq=5 ttl=255 time=40.5 ms
+64 bytes from google.com (142.250.185.174): icmp_seq=6 ttl=255 time=40.0 ms
+64 bytes from google.com (142.250.185.174): icmp_seq=7 ttl=255 time=58.5 ms
+64 bytes from google.com (142.250.185.174): icmp_seq=8 ttl=255 time=40.5 ms
+64 bytes from google.com (142.250.185.174): icmp_seq=9 ttl=255 time=40.4 ms
+64 bytes from google.com (142.250.185.174): icmp_seq=10 ttl=255 time=41.9 ms
+^C
+--- google.com ping statistics ---
+10 packets transmitted, 10 received, 0% packet loss, time 9703ms
+rtt min/avg/max/mdev = 39.991/42.554/58.496/5.344 ms
+andra@ubuntu:~$ ping fmi.unibuc.ro
+PING fmi.unibuc.ro (80.96.21.88) 56(84) bytes of data.
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=1 ttl=255 time=25.6 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=2 ttl=255 time=25.2 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=3 ttl=255 time=24.7 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=4 ttl=255 time=26.8 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=5 ttl=255 time=25.8 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=6 ttl=255 time=25.5 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=7 ttl=255 time=24.2 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=8 ttl=255 time=26.4 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=9 ttl=255 time=24.2 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=10 ttl=255 time=25.5 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=11 ttl=255 time=25.4 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=12 ttl=255 time=24.8 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=13 ttl=255 time=26.6 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=14 ttl=255 time=25.4 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=15 ttl=255 time=24.8 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=16 ttl=255 time=26.2 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=17 ttl=255 time=33.9 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=18 ttl=255 time=27.5 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=20 ttl=255 time=26.2 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=23 ttl=255 time=25.5 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=24 ttl=255 time=26.2 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=25 ttl=255 time=26.5 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=26 ttl=255 time=25.8 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=27 ttl=255 time=25.9 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=28 ttl=255 time=26.0 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=29 ttl=255 time=25.8 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=30 ttl=255 time=25.8 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=31 ttl=255 time=25.6 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=32 ttl=255 time=25.7 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=33 ttl=255 time=25.6 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=34 ttl=255 time=25.4 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=35 ttl=255 time=25.7 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=36 ttl=255 time=116 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=37 ttl=255 time=26.0 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=38 ttl=255 time=24.6 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=39 ttl=255 time=25.6 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=40 ttl=255 time=25.5 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=41 ttl=255 time=25.2 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=42 ttl=255 time=26.0 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=43 ttl=255 time=25.7 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=44 ttl=255 time=25.3 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=45 ttl=255 time=24.6 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=47 ttl=255 time=27.7 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=49 ttl=255 time=24.7 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=50 ttl=255 time=25.5 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=52 ttl=255 time=25.2 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=54 ttl=255 time=23.5 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=55 ttl=255 time=25.4 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=56 ttl=255 time=23.4 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=57 ttl=255 time=25.8 ms
+64 bytes from fmi.unibuc.ro (80.96.21.88): icmp_seq=58 ttl=255 time=25.5 ms
+^C
+--- fmi.unibuc.ro ping statistics ---
+59 packets transmitted, 51 received, 13.5593% packet loss, time 94859ms
+rtt min/avg/max/mdev = 23.381/27.473/116.167/12.621 ms
+andra@ubuntu:~$ sudo nano /etc/hosts
+andra@ubuntu:~$ sudo nano /etc/hosts
+andra@ubuntu:~$ ping google.com
+PING google.com (80.96.21.88) 56(84) bytes of data.
+64 bytes from google.com (80.96.21.88): icmp_seq=1 ttl=255 time=25.8 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=2 ttl=255 time=25.3 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=3 ttl=255 time=25.9 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=4 ttl=255 time=25.4 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=5 ttl=255 time=24.9 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=6 ttl=255 time=26.0 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=7 ttl=255 time=23.8 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=8 ttl=255 time=25.9 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=9 ttl=255 time=25.5 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=10 ttl=255 time=25.7 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=11 ttl=255 time=26.1 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=12 ttl=255 time=25.7 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=13 ttl=255 time=25.5 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=14 ttl=255 time=26.9 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=15 ttl=255 time=26.0 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=16 ttl=255 time=25.7 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=17 ttl=255 time=25.7 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=18 ttl=255 time=27.1 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=19 ttl=255 time=25.6 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=21 ttl=255 time=27.6 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=22 ttl=255 time=26.0 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=23 ttl=255 time=30.0 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=25 ttl=255 time=33.0 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=26 ttl=255 time=26.2 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=27 ttl=255 time=23.6 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=28 ttl=255 time=25.7 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=29 ttl=255 time=25.8 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=30 ttl=255 time=26.2 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=31 ttl=255 time=25.5 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=32 ttl=255 time=26.1 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=33 ttl=255 time=26.0 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=35 ttl=255 time=26.7 ms
+64 bytes from google.com (80.96.21.88): icmp_seq=36 ttl=255 time=23.9 ms
+^C
+--- google.com ping statistics ---
+36 packets transmitted, 33 received, 8.33333% packet loss, time 70802ms
+rtt min/avg/max/mdev = 23.647/26.091/32.951/1.628 ms
+andra@ubuntu:~$ ping fmi.unibuc.ro
+PING fmi.unibuc.ro (142.250.185.174) 56(84) bytes of data.
+64 bytes from fmi.unibuc.ro (142.250.185.174): icmp_seq=1 ttl=255 time=40.5 ms
+64 bytes from fmi.unibuc.ro (142.250.185.174): icmp_seq=2 ttl=255 time=40.6 ms
+64 bytes from fmi.unibuc.ro (142.250.185.174): icmp_seq=3 ttl=255 time=41.0 ms
+64 bytes from fmi.unibuc.ro (142.250.185.174): icmp_seq=4 ttl=255 time=43.1 ms
+64 bytes from fmi.unibuc.ro (142.250.185.174): icmp_seq=5 ttl=255 time=40.8 ms
+64 bytes from fmi.unibuc.ro (142.250.185.174): icmp_seq=6 ttl=255 time=40.9 ms
+64 bytes from fmi.unibuc.ro (142.250.185.174): icmp_seq=7 ttl=255 time=41.4 ms
+64 bytes from fmi.unibuc.ro (142.250.185.174): icmp_seq=8 ttl=255 time=40.1 ms
+64 bytes from fmi.unibuc.ro (142.250.185.174): icmp_seq=9 ttl=255 time=40.9 ms
+64 bytes from fmi.unibuc.ro (142.250.185.174): icmp_seq=10 ttl=255 time=41.1 ms
+64 bytes from fmi.unibuc.ro (142.250.185.174): icmp_seq=11 ttl=255 time=40.6 ms
+64 bytes from fmi.unibuc.ro (142.250.185.174): icmp_seq=12 ttl=255 time=40.8 ms
+64 bytes from fmi.unibuc.ro (142.250.185.174): icmp_seq=13 ttl=255 time=40.1 ms
+64 bytes from fmi.unibuc.ro (142.250.185.174): icmp_seq=14 ttl=255 time=52.0 ms
+64 bytes from fmi.unibuc.ro (142.250.185.174): icmp_seq=15 ttl=255 time=41.6 ms
+^C
+--- fmi.unibuc.ro ping statistics ---
+15 packets transmitted, 15 received, 0% packet loss, time 43616ms
+rtt min/avg/max/mdev = 40.077/41.711/52.043/2.843 ms
+
+
+IN FISIERUL /ETC/HOSTS:
+127.0.0.1 localhost
+127.0.1.1 ubuntu
+142.250.185.174 fmi.unibuc.ro
+80.96.21.88 google.com   
+185.15.59.224 wikipedia.org
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+//3
+andra@ubuntu:~$ touch verifid.sh
+andra@ubuntu:~$ chmod u+x verifid.sh
+andra@ubuntu:~$ ls /etc/
+adduser.conf            gtk-3.0              profile.d
+alsa                    hdparm.conf          protocols
+alternatives            host.conf            pulse
+anacrontab              hostname             python3
+apache2                 hosts                python3.12
+apg.conf                hosts.allow          rc0.d
+apm                     hosts.deny           rc1.d
+apparmor                hp                   rc2.d
+apparmor.d              ifplugd              rc3.d
+apport                  ImageMagick-6        rc4.d
+apt                     init                 rc5.d
+avahi                   init.d               rc6.d
+bash.bashrc             initramfs-tools      rcS.d
+bash_completion         inputrc              resolv.conf
+bash_completion.d       insserv.conf.d       rmt
+bindresvport.blacklist  ipp-usb              rpc
+binfmt.d                issue                rsyslog.conf
+bluetooth               issue.net            rsyslog.d
+brlapi.key              kdump                rygel.conf
+brltty                  kernel               sane.d
+brltty.conf             krb5.conf.d          screenrc
+ca-certificates         ldap                 security
+ca-certificates.conf    ld.so.cache          selinux
+chatscripts             ld.so.conf           sensors3.conf
+cloud                   ld.so.conf.d         sensors.d
+colord                  legal                services
+console-setup           libao.conf           sgml
+cracklib                libaudit.conf        shadow
+credstore               libblockdev          shadow-
+credstore.encrypted     libibverbs.d         shells
+cron.d                  libnl-3              skel
+cron.daily              libpaper.d           snmp
+cron.hourly             locale.alias         speech-dispatcher
+cron.monthly            locale.conf          ssh
+crontab                 locale.gen           ssl
+cron.weekly             localtime            sssd
+cron.yearly             logcheck             subgid
+cups                    login.defs           subgid-
+cupshelpers             logrotate.conf       subuid
+dbus-1                  logrotate.d          subuid-
+dconf                   lsb-release          sudo.conf
+debconf.conf            machine-id           sudoers
+debian_version          magic                sudoers.d
+debuginfod              magic.mime           sudoers.tmp.save
+default                 manpath.config       sudo_logsrvd.conf
+deluser.conf            mime.types           supercat
+depmod.d                mke2fs.conf          sysctl.conf
+dhcp                    ModemManager         sysctl.d
+dhcpcd.conf             modprobe.d           sysstat
+dictionaries-common     modules              systemd
+dpkg                    modules-load.d       terminfo
+e2scrub.conf            mtab                 thermald
+emacs                   nanorc               timezone
+environment             netconfig            tmpfiles.d
+environment.d           netplan              ubuntu-advantage
+ethertypes              network              ucf.conf
+fonts                   networkd-dispatcher  udev
+fprintd.conf            NetworkManager       udisks2
+fstab                   networks             ufw
+ftpusers                newt                 update-manager
+fuse.conf               nftables.conf        update-motd.d
+fwupd                   nsswitch.conf        update-notifier
+gai.conf                openvpn              UPower
+gdb                     opt                  usb_modeswitch.conf
+gdm3                    os-release           usb_modeswitch.d
+geoclue                 PackageKit           vconsole.conf
+ghostscript             pam.conf             vim
+glvnd                   pam.d                vsftpd.conf
+gnome                   papersize            vtrgb
+gnome-remote-desktop    passwd               vulkan
+gnutls                  passwd-              w3m
+gprofng.rc              pcmcia               wgetrc
+groff                   perl                 wpa_supplicant
+group                   pki                  X11
+group-                  plymouth             xattr.conf
+grub.d                  pm                   xdg
+gshadow                 pnm2ppa.conf         xml
+gshadow-                polkit-1             zsh_command_not_found
+gss                     ppp
+gtk-2.0                 profile
+andra@ubuntu:~$ chmod u+x verifid.sh
+andra@ubuntu:~$ ./verifid.sh
+./verifid.sh: line 6: a: command not found
+Bogus IP for <nume> in /etc/hosts
+./verifid.sh: line 6: a: command not found
+Bogus IP for <nume> in /etc/hosts
+./verifid.sh: line 6: a: command not found
+Bogus IP for <nume> in /etc/hosts
+./verifid.sh: line 6: a: command not found
+Bogus IP for <nume> in /etc/hosts
+./verifid.sh: line 6: a: command not found
+Bogus IP for <nume> in /etc/hosts
+./verifid.sh: line 6: a: command not found
+Bogus IP for <nume> in /etc/hosts
+./verifid.sh: line 6: a: command not found
+Bogus IP for <nume> in /etc/hosts
+./verifid.sh: line 6: a: command not found
+Bogus IP for <nume> in /etc/hosts
+./verifid.sh: line 6: a: command not found
+Bogus IP for <nume> in /etc/hosts
+./verifid.sh: line 6: a: command not found
+Bogus IP for <nume> in /etc/hosts
+./verifid.sh: line 6: a: command not found
+Bogus IP for <nume> in /etc/hosts
+
+
+verifid.sh
+#!/bin/bash
+
+cat /etc/hosts | while read ip nume
+do
+  if [ -n "$ip" ] && [ -n "$nume" ]; then
+    ip_nslookup=$(nslookup "$nume" | grep -m 1 "Address" | awk '{print $2}')#tipareste a doua coloana
+    if [ "$ip" != "$ip_nslookup" ]; then
+      echo "Bogus IP for <nume> in /etc/hosts"
+    fi
+  fi
+done
+
+//4
+andra@ubuntu:~$ sudo less /etc/init.d/ssh
+[sudo] password for andra: 
+andra@ubuntu:~$ sudo more  /etc/init.d/ssh
+#! /bin/sh
+
+### BEGIN INIT INFO
+# Provides:		ssh sshd
+# Required-Start:	$remote_fs $syslog
+# Required-Stop:	$remote_fs $syslog
+# Default-Start:	2 3 4 5
+# Default-Stop:		
+# Short-Description:	OpenBSD Secure Shell server
+### END INIT INFO
+
+set -e
+
+# /etc/init.d/ssh: start and stop the OpenBSD "secure shell(tm)" daemon
+
+test -x /usr/sbin/sshd || exit 0
+( /usr/sbin/sshd -\? 2>&1 | grep -q OpenSSH ) 2>/dev/null || exit 0
+
+umask 022
+
+if test -f /etc/default/ssh; then
+    . /etc/default/ssh
+fi
+
+. /lib/lsb/init-functions
+
+if [ -n "$2" ]; then
+    SSHD_OPTS="$SSHD_OPTS $2"
+fi
+
+# Are we running from init?
+run_by_init() {
+    ([ "$previous" ] && [ "$runlevel" ]) || [ "$runlevel" = S ]
+}
+
+check_for_no_start() {
+    # forget it if we're trying to start, and /etc/ssh/sshd_not_to_be_run exists
+    if [ -e /etc/ssh/sshd_not_to_be_run ]; then 
+	if [ "$1" = log_end_msg ]; then
+	    log_end_msg 0 || true
+	fi
+	if ! run_by_init; then
+	    log_action_msg "OpenBSD Secure Shell server not in use (/etc/ssh/ssh
+d_not_to_be_run)" || true
+	fi
+	exit 0
+    fi
+}
+
+check_dev_null() {
+    if [ ! -c /dev/null ]; then
+	if [ "$1" = log_end_msg ]; then
+	    log_end_msg 1 || true
+	fi
+	if ! run_by_init; then
+	    log_action_msg "/dev/null is not a character device!" || true
+	fi
+	exit 1
+    fi
+}
+
+check_privsep_dir() {
+    # Create the PrivSep empty dir if necessary
+    if [ ! -d /run/sshd ]; then
+	mkdir /run/sshd
+	chmod 0755 /run/sshd
+    fi
+}
+
+check_config() {
+    if [ ! -e /etc/ssh/sshd_not_to_be_run ]; then
+	# shellcheck disable=SC2086
+	/usr/sbin/sshd $SSHD_OPTS -t || exit 1
+    fi
+}
+
+export PATH="${PATH:+$PATH:}/usr/sbin:/sbin"
+
+case "$1" in
+  start)
+	check_privsep_dir
+	check_for_no_start
+	check_dev_null
+	log_daemon_msg "Starting OpenBSD Secure Shell server" "sshd" || true
+	# shellcheck disable=SC2086
+	if start-stop-daemon --start --quiet --oknodo --chuid 0:0 --pidfile /run
+/sshd.pid --exec /usr/sbin/sshd -- $SSHD_OPTS; then
+	    log_end_msg 0 || true
+	else
+	    log_end_msg 1 || true
+	fi
+	;;
+  stop)
+
+//5
+andra@ubuntu:~$ ftp ftp.vim.org
+Trying 145.220.21.40:21 ...
+Connected to ftp.nluug.nl.
+220-Welcome to the FTP archive of 
+220-The Netherlands Unix Users Group (NLUUG).
+220-
+220-This server is located in The Netherlands, Europe.
+220-If you are abroad, please find an ftp site near you.
+220-Most information on this site is mirrored.
+220-
+220-Information about your login and any transfers you do are logged.
+220-If you don't like this, disconnect now.
+220-
+220-For statistics, see http://ftp.nluug.nl/.statistics/
+220-Problems?  Mail ftp-admin @ nluug.nl
+220-
+220-You may login as "ftp" or "anonymous".
+220-
+220 
+Name (ftp.vim.org:andra): anonymous   
+331 Please specify the password.
+Password: 
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> ls
+229 Entering Extended Passive Mode (|||62581|).
+150 Here comes the directory listing.
+-rw-r--r--    1 0        0            8773 Nov 04 08:53 --one-file-system
+lrwxrwxrwx    1 0        0               1 Nov 13  2012 ftp -> .
+lrwxrwxrwx    1 0        0               3 Nov 13  2012 mirror -> pub
+drwxr-xr-x   23 0        0            4096 Apr 22  2024 pub
+drwxr-sr-x   83 0        450          4096 Oct 02 12:56 site
+drwxr-xr-x    9 0        0            4096 Jan 23  2014 vol
+226 Directory send OK.
+ftp> cd vim
+550 Failed to change directory.
+ftp> get vimXX.zip
+local: vimXX.zip remote: vimXX.zip
+229 Entering Extended Passive Mode (|||61306|).
+550 Failed to open file.
+ftp> quit
+221 Goodbye.
+andra@ubuntu:~$ sudo apt install lftp
+Installing:                     
+  lftp
+
+Summary:
+  Upgrading: 0, Installing: 1, Removing: 0, Not Upgrading: 10
+  Download size: 710 kB
+  Space needed: 1,917 kB / 17.2 GB available
+
+Get:1 http://ro.archive.ubuntu.com/ubuntu oracular/main amd64 lftp amd64 4.9.2-3ubuntu1 [710 kB]
+Fetched 710 kB in 2s (330 kB/s)
+Selecting previously unselected package lftp.
+(Reading database ... 163125 files and directories currently installed.)
+Preparing to unpack .../lftp_4.9.2-3ubuntu1_amd64.deb ...
+Unpacking lftp (4.9.2-3ubuntu1) ...
+Setting up lftp (4.9.2-3ubuntu1) ...
+Processing triggers for desktop-file-utils (0.27-2build1) ...
+Processing triggers for hicolor-icon-theme (0.18-1) ...
+Processing triggers for gnome-menus (3.36.0-1.1ubuntu3) ...
+Processing triggers for man-db (2.12.1-3) ...
+andra@ubuntu:~$ ftp ftp.vim.org
+Trying 145.220.21.40:21 ...
+Connected to ftp.nluug.nl.
+220-Welcome to the FTP archive of 
+220-The Netherlands Unix Users Group (NLUUG).
+220-
+220-This server is located in The Netherlands, Europe.
+220-If you are abroad, please find an ftp site near you.
+220-Most information on this site is mirrored.
+220-
+220-Information about your login and any transfers you do are logged.
+220-If you don't like this, disconnect now.
+220-
+220-For statistics, see http://ftp.nluug.nl/.statistics/
+220-Problems?  Mail ftp-admin @ nluug.nl
+220-
+220-You may login as "ftp" or "anonymous".
+220-
+220 
+Name (ftp.vim.org:andra): anonymous
+331 Please specify the password.
+Password: 
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> ls
+229 Entering Extended Passive Mode (|||59329|).
+150 Here comes the directory listing.
+-rw-r--r--    1 0        0            8773 Nov 04 08:53 --one-file-system
+lrwxrwxrwx    1 0        0               1 Nov 13  2012 ftp -> .
+lrwxrwxrwx    1 0        0               3 Nov 13  2012 mirror -> pub
+drwxr-xr-x   23 0        0            4096 Apr 22  2024 pub
+drwxr-sr-x   83 0        450          4096 Oct 02 12:56 site
+drwxr-xr-x    9 0        0            4096 Jan 23  2014 vol
+cd vim
+ls
+
+
+get vimXXsrc.zip
+^C
+receive aborted. Waiting for remote to finish abort.
+226 Directory send OK.
+225 No transfer to ABOR.
+396 bytes received in 00:45 (0.00 KiB/s)
+ftp> cd vim
+550 Failed to change directory.
+ftp> ls
+229 Entering Extended Passive Mode (|||50090|).
+150 Here comes the directory listing.
+-rw-r--r--    1 0        0            8773 Nov 04 08:53 --one-file-system
+lrwxrwxrwx    1 0        0               1 Nov 13  2012 ftp -> .
+lrwxrwxrwx    1 0        0               3 Nov 13  2012 mirror -> pub
+drwxr-xr-x   23 0        0            4096 Apr 22  2024 pub
+drwxr-sr-x   83 0        450          4096 Oct 02 12:56 site
+drwxr-xr-x    9 0        0            4096 Jan 23  2014 vol
+^C
+receive aborted. Waiting for remote to finish abort.
+226 Directory send OK.
+225 No transfer to ABOR.
+396 bytes received in 00:04 (0.08 KiB/s)
+ftp> get vimXXsrc.zip
+local: vimXXsrc.zip remote: vimXXsrc.zip
+229 Entering Extended Passive Mode (|||61046|).
+550 Failed to open file.
+ftp> debug
+Debugging on (debug=1).
+ftp> 
+ftp> ls
+---> TYPE A
+200 Switching to ASCII mode.
+ftp: setsockopt SO_DEBUG (ignored): Permission denied
+---> EPSV
+229 Entering Extended Passive Mode (|||65125|).
+229 Entering Extended Passive Mode (|||65125|).
+---> LIST
+150 Here comes the directory listing.
+-rw-r--r--    1 0        0            8773 Nov 04 08:53 --one-file-system
+lrwxrwxrwx    1 0        0               1 Nov 13  2012 ftp -> .
+lrwxrwxrwx    1 0        0               3 Nov 13  2012 mirror -> pub
+drwxr-xr-x   23 0        0            4096 Apr 22  2024 pub
+drwxr-sr-x   83 0        450          4096 Oct 02 12:56 site
+drwxr-xr-x    9 0        0            4096 Jan 23  2014 vol
+226 Directory send OK.
+ftp> get
+(remote-file) ^C
+ftp> debug
+Debugging off (debug=0).
+ftp> quit
+221 Goodbye.
+
+//6
+andra@ubuntu:~$ sudo ufw allow 'Apache'
+[sudo] password for andra: 
+Rules updated
+Rules updated (v6)
+andra@ubuntu:~$ ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:2b:6e:a8 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute enp0s3
+       valid_lft 76562sec preferred_lft 76562sec
+    inet6 fd00::4bb6:480b:5bd9:5423/64 scope global temporary dynamic 
+       valid_lft 86074sec preferred_lft 14074sec
+    inet6 fd00::a00:27ff:fe2b:6ea8/64 scope global dynamic mngtmpaddr proto kernel_ra 
+       valid_lft 86074sec preferred_lft 14074sec
+    inet6 fe80::a00:27ff:fe2b:6ea8/64 scope link proto kernel_ll 
+       valid_lft forever preferred_lft forever
+andra@ubuntu:~$ sudo apt install openssh-server
+openssh-server is already the newest version (1:9.7p1-7ubuntu4).
+Summary:
+  Upgrading: 0, Installing: 0, Removing: 0, Not Upgrading: 10
+andra@ubuntu:~$ sudo systemctl status ssh
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/usr/lib/systemd/system/ssh.service; disabled; preset: ena>
+     Active: active (running) since Sat 2024-11-09 21:47:25 UTC; 2h 38min ago
+ Invocation: 470ace082e574ca492b1bcd6214c5609
+TriggeredBy: ● ssh.socket
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+    Process: 7295 ExecStartPre=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+   Main PID: 7301 (sshd)
+      Tasks: 1 (limit: 3995)
+     Memory: 2.3M (peak: 5.6M)
+        CPU: 183ms
+     CGroup: /system.slice/ssh.service
+             └─7301 "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups"
+
+Nov 09 21:47:16 ubuntu systemd[1]: Starting ssh.service - OpenBSD Secure Shell >
+Nov 09 21:47:25 ubuntu sshd[7301]: Server listening on 0.0.0.0 port 22.
+Nov 09 21:47:25 ubuntu sshd[7301]: Server listening on :: port 22.
+Nov 09 21:47:25 ubuntu systemd[1]: Started ssh.service - OpenBSD Secure Shell s>
+Nov 09 21:47:56 ubuntu sshd[7306]: Accepted password for andra from 127.0.0.1 p>
+Nov 09 21:47:56 ubuntu sshd[7306]: pam_unix(sshd:session): session opened for u>
+Nov 09 21:47:56 ubuntu sshd[7306]: pam_systemd(sshd:session): New sd-bus connec>
+Nov 09 22:00:41 ubuntu sshd[7999]: Accepted password for andra from 127.0.0.1 p>
+Nov 09 22:00:41 ubuntu sshd[7999]: pam_unix(sshd:session): session opened for u>
+Nov 09 22:00:41 ubuntu sshd[7999]: pam_systemd(sshd:session): New sd-bus connec>
+
+andra@ubuntu:~$ sudo ufw allow ssh
+Rules updated
+Rules updated (v6)
+andra@ubuntu:~$ sudo systemctl start ssh
+andra@ubuntu:~$ ssh-keygen -t rsa -b 4096
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/andra/.ssh/id_rsa): 
+/home/andra/.ssh/id_rsa already exists.
+Overwrite (y/n)? y
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /home/andra/.ssh/id_rsa
+Your public key has been saved in /home/andra/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:eONNTyG+Y4gML+p1Zd6xCjo+2pFNouAet/ZQdJtYJXE andra@ubuntu
+The key's randomart image is:
++---[RSA 4096]----+
+|       o.E       |
+|        +        |
+|     . o  . .    |
+|    . +.o. . .   |
+|.   ooooS + .    |
+|.. ..O B * *     |
+| o.o= B + B .    |
+|. o=== . o .     |
+| o=+=+  .        |
++----[SHA256]-----+
+andra@ubuntu:~$ ssh-copy-id andra@10.0.2.15
+The authenticity of host '10.0.2.15 (10.0.2.15)' can't be established.
+ED25519 key fingerprint is SHA256:UAuws7twwDTv7R13kt1zurIVFszgmtSi6OowQcA4cao.
+This host key is known by the following other names/addresses:
+    ~/.ssh/known_hosts:2: [hashed name]
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+/usr/bin/ssh-copy-id: INFO: 3 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+andra@10.0.2.15's password: 
+
+Number of key(s) added: 3
+
+Now try logging into the machine, with:   "ssh 'andra@10.0.2.15'"
+and check to make sure that only the key(s) you wanted were added.
+
+andra@ubuntu:~$ cat ~/.ssh/authorized_keys
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBHdHcc41E8kiHckR2TgopsQ0mfmUKJQmZbAYxUkqVsg andra@ubuntu
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDIh4au+OEkjuN52BH+J8PDWUw8YtSfOYh1NDl4rtDjLBA5s99oVg5hEzzDrGnzTdEaXh3FVy23diZjeaQNkMcxHiK6hJMfjEgvMCuo97ZY1Yvm6b1cv/n1Y3Ne1IFVrxiDjt8gUF1NBT+HFfg0mlKfbW4ysra0+DsgwekiNje7eBw+qdLFRuldqocA8Lm0seGRsVIxvfFNq7yDoOjvnAG8UWu6lpJlh9dv60zqGNdEWmkTGz/Yx4TC9ONOCZyzRCj8wTgYtk6s5wWj9tAi5ZsMOvEUqJ1CAxwA3O7s1FW8p+CwdlQcP/3hCNaEL7Y9cpj8KO/oBENtzIz+QDESgxBjZF6sGGkuF9NjK0mcUIRZ41EjtKWD6q4sBEtrswR5ryZ+AfbCiyB28SiCW7iKprFB/Zy+NBJihrxocBI9oSVch1Up4eerP3tCxopgdzaPaQobaoArC9VhXufEkyEq+3FDh863loTEyxJ79C5Mo7M9LWjfmTcRRXoXLlHvrQ3bBWeIkizFn4g4+vrmOw0McySQkxq0TS3uYSP9LpLkKB2j3VNMYwFNktwGDOQ9C3v75KGrCvXH/w369U0mytg029GCozyZSlXvZfmEP29JAWBC88H52CtdVQI09nufg9hJqdmqEgqJeM+DOhoW4vT0scSgZBaUaSnyioKKoqW/+wPA3w== andra@ubuntu
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID4aA+p/mlgYNw00ekNSIaUZB0mPQ67ayZjW1GH7uj4B 
+andra@ubuntu:~$ history -d $(history 1 | awk '{print $1}')
+andra@ubuntu:~$ history -d $(history 1 | awk '{print $1}')
+andra@ubuntu:~$ ssh andra@10.0.2.15
+Welcome to Ubuntu 24.10 (GNU/Linux 6.11.0-8-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+17 updates can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+//7
+andra@ubuntu:~$ wget -r -l fmi.unibuc.ro
+wget: missing URL
+Usage: wget [OPTION]... [URL]...
+
+Try `wget --help' for more options.
+andra@ubuntu:~$ which wget
+/usr/bin/wget
+andra@ubuntu:~$ wget --version
+GNU Wget 1.24.5 built on linux-gnu.
+
+-cares +digest -gpgme +https +ipv6 +iri +large-file -metalink +nls 
++ntlm +opie +psl +ssl/openssl 
+
+Wgetrc: 
+    /etc/wgetrc (system)
+Locale: 
+    /usr/share/locale 
+Compile: 
+    gcc -DHAVE_CONFIG_H -DSYSTEM_WGETRC="/etc/wgetrc" 
+    -DLOCALEDIR="/usr/share/locale" -I. -I../../src -I../lib 
+    -I../../lib -Wdate-time -D_FORTIFY_SOURCE=3 -DHAVE_LIBSSL -DNDEBUG 
+    -g -O2 -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer 
+    -ffile-prefix-map=/build/wget-UII2Gh/wget-1.24.5=. -flto=auto 
+    -ffat-lto-objects -fstack-protector-strong -fstack-clash-protection 
+    -Wformat -Werror=format-security -fcf-protection 
+    -fdebug-prefix-map=/build/wget-UII2Gh/wget-1.24.5=/usr/src/wget-1.24.5-1ubuntu2 
+    -DNO_SSLv2 -D_FILE_OFFSET_BITS=64 -g -Wall 
+Link: 
+    gcc -DHAVE_LIBSSL -DNDEBUG -g -O2 -fno-omit-frame-pointer 
+    -mno-omit-leaf-frame-pointer 
+    -ffile-prefix-map=/build/wget-UII2Gh/wget-1.24.5=. -flto=auto 
+    -ffat-lto-objects -fstack-protector-strong -fstack-clash-protection 
+    -Wformat -Werror=format-security -fcf-protection 
+    -fdebug-prefix-map=/build/wget-UII2Gh/wget-1.24.5=/usr/src/wget-1.24.5-1ubuntu2 
+    -DNO_SSLv2 -D_FILE_OFFSET_BITS=64 -g -Wall -Wl,-Bsymbolic-functions 
+    -flto=auto -ffat-lto-objects -Wl,-z,relro -Wl,-z,now 
+    -specs=/usr/share/dpkg/elf-package-metadata.specs -lpcre2-8 -luuid 
+    -lidn2 -lssl -lcrypto -lz -lpsl ../lib/libgnu.a 
+
+Copyright (C) 2015 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later
+<http://www.gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Originally written by Hrvoje Niksic <hniksic@xemacs.org>.
+Please send bug reports and questions to <bug-wget@gnu.org>.
+andra@ubuntu:~$ sudo systemctl status ssh
+[sudo] password for andra: 
+○ ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/usr/lib/systemd/system/ssh.service; disabled; preset: ena>
+     Active: inactive (dead)
+TriggeredBy: ● ssh.socket
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+andra@ubuntu:~$ sudo ufw allow 22
+Rules updated
+Rules updated (v6)
+andra@ubuntu:~$ ping 10.0.2.15
+PING 10.0.2.15 (10.0.2.15) 56(84) bytes of data.
+64 bytes from 10.0.2.15: icmp_seq=1 ttl=64 time=0.049 ms
+64 bytes from 10.0.2.15: icmp_seq=2 ttl=64 time=0.043 ms
+64 bytes from 10.0.2.15: icmp_seq=3 ttl=64 time=0.043 ms
+64 bytes from 10.0.2.15: icmp_seq=4 ttl=64 time=0.045 ms
+64 bytes from 10.0.2.15: icmp_seq=5 ttl=64 time=0.043 ms
+64 bytes from 10.0.2.15: icmp_seq=6 ttl=64 time=0.041 ms
+64 bytes from 10.0.2.15: icmp_seq=7 ttl=64 time=0.042 ms
+64 bytes from 10.0.2.15: icmp_seq=8 ttl=64 time=0.043 ms
+64 bytes from 10.0.2.15: icmp_seq=9 ttl=64 time=0.052 ms
+64 bytes from 10.0.2.15: icmp_seq=10 ttl=64 time=0.043 ms
+64 bytes from 10.0.2.15: icmp_seq=11 ttl=64 time=0.047 ms
+64 bytes from 10.0.2.15: icmp_seq=12 ttl=64 time=0.046 ms
+64 bytes from 10.0.2.15: icmp_seq=13 ttl=64 time=0.040 ms
+64 bytes from 10.0.2.15: icmp_seq=14 ttl=64 time=0.045 ms
+64 bytes from 10.0.2.15: icmp_seq=15 ttl=64 time=0.043 ms
+64 bytes from 10.0.2.15: icmp_seq=16 ttl=64 time=0.043 ms
+64 bytes from 10.0.2.15: icmp_seq=17 ttl=64 time=0.053 ms
+64 bytes from 10.0.2.15: icmp_seq=18 ttl=64 time=0.055 ms
+64 bytes from 10.0.2.15: icmp_seq=19 ttl=64 time=0.041 ms
+64 bytes from 10.0.2.15: icmp_seq=20 ttl=64 time=0.054 ms
+64 bytes from 10.0.2.15: icmp_seq=21 ttl=64 time=0.053 ms
+64 bytes from 10.0.2.15: icmp_seq=22 ttl=64 time=0.051 ms
+64 bytes from 10.0.2.15: icmp_seq=23 ttl=64 time=0.053 ms
+64 bytes from 10.0.2.15: icmp_seq=24 ttl=64 time=0.054 ms
+64 bytes from 10.0.2.15: icmp_seq=25 ttl=64 time=0.042 ms
+64 bytes from 10.0.2.15: icmp_seq=26 ttl=64 time=0.043 ms
+64 bytes from 10.0.2.15: icmp_seq=27 ttl=64 time=0.053 ms
+64 bytes from 10.0.2.15: icmp_seq=28 ttl=64 time=0.055 ms
+64 bytes from 10.0.2.15: icmp_seq=29 ttl=64 time=0.054 ms
+64 bytes from 10.0.2.15: icmp_seq=30 ttl=64 time=0.052 ms
+^C
+--- 10.0.2.15 ping statistics ---
+30 packets transmitted, 30 received, 0% packet loss, time 29702ms
+rtt min/avg/max/mdev = 0.040/0.047/0.055/0.005 ms
+andra@ubuntu:~$ ifconfig
+enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+        inet6 fd00::a00:27ff:fe2b:6ea8  prefixlen 64  scopeid 0x0<global>
+        inet6 fe80::a00:27ff:fe2b:6ea8  prefixlen 64  scopeid 0x20<link>
+        inet6 fd00::95c5:bb33:d401:48fb  prefixlen 64  scopeid 0x0<global>
+        ether 08:00:27:2b:6e:a8  txqueuelen 1000  (Ethernet)
+        RX packets 3084  bytes 1866640 (1.8 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 2705  bytes 399972 (399.9 KB)
+        TX errors 0  dropped 3 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 1232  bytes 138695 (138.6 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 1232  bytes 138695 (138.6 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+andra@ubuntu:~$ ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:2b:6e:a8 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute enp0s3
+       valid_lft 77695sec preferred_lft 77695sec
+    inet6 fd00::95c5:bb33:d401:48fb/64 scope global temporary dynamic 
+       valid_lft 86109sec preferred_lft 14109sec
+    inet6 fd00::a00:27ff:fe2b:6ea8/64 scope global dynamic mngtmpaddr proto kernel_ra 
+       valid_lft 86109sec preferred_lft 14109sec
+    inet6 fe80::a00:27ff:fe2b:6ea8/64 scope link proto kernel_ll 
+       valid_lft forever preferred_lft forever
+andra@ubuntu:~$ cd /var/www/html/student/
+andra@ubuntu:/var/www/html/student$ ls -l
+total 100
+-rw-rw-r-- 1 andra andra 99998 Nov 10 12:43 index.html
+
+CYGWIN:
+Andra@DESKTOP-5IODPKH ~
+$ wget -r -l 2 fmi.unibuc.ro
+-bash: wget: command not found
+
+Andra@DESKTOP-5IODPKH ~
+$ wget --version
+-bash: wget: command not found
+
+Andra@DESKTOP-5IODPKH ~
+$ echo $PATH
+/usr/local/bin:/usr/bin:/cygdrive/c/Program Files (x86)/VMware/VMware Player/bin:/cygdrive/c/WINDOWS/system32:/cygdrive/c/WINDOWS:/cygdrive/c/WINDOWS/System32/Wbem:/cygdrive/c/WINDOWS/System32/WindowsPowerShell/v1.0:/cygdrive/c/WINDOWS/System32/OpenSSH:/cygdrive/c/Program Files/Microsoft SQL Server/150/Tools/Binn:/cygdrive/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn:/cygdrive/c/Program Files/dotnet:/cygdrive/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit:/cygdrive/c/Users/Andra/AppData/Local/Programs/Python/Launcher:/cygdrive/c/Users/Andra/AppData/Local/Microsoft/WindowsApps:/cygdrive/c/Users/Andra/OneDrive/Desktop/pycharm/PyCharm 2024.2.3/bin:/cygdrive/c/Program Files/JetBrains/PyCharm Community Edition 2024.2.3/bin:/cygdrive/c/Users/Andra/.dotnet/tools
+
+Andra@DESKTOP-5IODPKH ~
+$ llynx -source https://github.com/transcode-open/apt-cyg/raw/master/apt-cyg > /usr/loca/bin/apt-cyg
+chmod +x /usr/local/bin/apt-cyg
+-bash: $'\302\226lynx': command not found
+
+Andra@DESKTOP-5IODPKH ~
+$ lynx -source https://github.com/transcode-open/apt-cyg/raw/master/apt-cyg > /usr/localbin/apt-cyg
+-bash: lynx: command not found
+
+Andra@DESKTOP-5IODPKH ~
+$ sudo lynx -source https://github.com/transcode-open/apt-cyg/raw/master/apt-cyg > /usr/ocal/bin/apt-cyg
+-bash: sudo: command not found
+
+Andra@DESKTOP-5IODPKH ~
+$ apt-cyg install wget
+
+Andra@DESKTOP-5IODPKH ~
+$ wget --version
+-bash: wget: command not found
+
+Andra@DESKTOP-5IODPKH ~
+$ ping google.com
+
+Pinging google.com [142.250.185.174] with 32 bytes of data:
+Reply from 142.250.185.174: bytes=32 time=39ms TTL=117
+Reply from 142.250.185.174: bytes=32 time=40ms TTL=117
+Reply from 142.250.185.174: bytes=32 time=39ms TTL=117
+Reply from 142.250.185.174: bytes=32 time=39ms TTL=117
+
+Ping statistics for 142.250.185.174:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 39ms, Maximum = 40ms, Average = 39ms
+
+Andra@DESKTOP-5IODPKH ~
+$ ^[[200~export http_proxy="http://proxy.example.com:8080"~
+-bash: $'\E[200~export': command not found
+
+Andra@DESKTOP-5IODPKH ~
+$ export http_proxy="http://proxy.example.com:8080"
+
+Andra@DESKTOP-5IODPKH ~
+$
+
+Andra@DESKTOP-5IODPKH ~
+$ export https_proxy="http://proxy.example.com:8080"
+
+Andra@DESKTOP-5IODPKH ~
+$ nslookup mirror.cygwin.com
+Server:  UnKnown
+Address:  192.168.100.1
+
+*** UnKnown can't find mirror.cygwin.com: Non-existent domain
+
+Andra@DESKTOP-5IODPKH ~
+$ cycheck -c
+-bash: cycheck: command not found
+
+Andra@DESKTOP-5IODPKH ~
+$ cygcheck -c
+Cygwin Package Information
+Package              Version                    Status
+_autorebase          001091-1                     OK
+alternatives         1.26-1                       OK
+base-cygwin          3.8-2                        OK
+base-files           4.3-3                        OK
+bash                 5.2.21-1                     OK
+bzip2                1.0.8-1                      OK
+ca-certificates      2024.2.69_v8.0.401-1         OK
+coreutils            9.0-1                        OK
+crypto-policies      20190218-1                   OK
+cygutils             1.4.17-1                     OK
+cygwin               3.5.4-1                      OK
+dash                 0.5.12-5                     OK
+diffutils            3.10-1                       OK
+editrights           1.04-1                       OK
+file                 5.44-1                       OK
+findutils            4.10.0-1                     OK
+gawk                 5.3.0-1                      OK
+getent               2.18.90-5                    OK
+grep                 3.11-1                       OK
+groff                1.23.0-1                     OK
+gzip                 1.13-1                       OK
+hostname             3.13-1                       OK
+info                 7.1-2                        OK
+ipc-utils            1.1-1                        OK
+less                 643-1                        OK
+libargp              20230708-2                   OK
+libattr1             2.5.1-1.20.g0981a7bfe487     OK
+libblkid1            2.39.3-2                     OK
+libbz2_1             1.0.8-1                      OK
+libfdisk1            2.39.3-2                     OK
+libffi6              3.2.1-2                      OK
+libgcc1              12.4.0-3                     OK
+libgdbm6             1.18.1-1                     OK
+libgmp10             6.3.0-1                      OK
+libiconv2            1.17-1                       OK
+libintl8             0.22.5-1                     OK
+liblz4_1             1.9.4-1                      OK
+liblzma5             5.6.3-1                      OK
+libmpfr6             4.2.1-1                      OK
+libncursesw10        6.5+20240427-1               OK
+libp11-kit0          0.23.20-1                    OK
+libpcre1             8.45-1                       OK
+libpcre2_8_0         10.44-1                      OK
+libpipeline1         1.5.6-1                      OK
+libpopt-common       1.19-1                       OK
+libpopt0             1.19-1                       OK
+libreadline7         8.2-2                        OK
+libsmartcols1        2.39.3-2                     OK
+libssl1.1            1.1.1w-1                     OK
+libssl3              3.0.15-1                     OK
+libstdc++6           12.4.0-3                     OK
+libtasn1_6           4.14-1                       OK
+libuchardet0         0.0.8-1                      OK
+libuuid1             2.39.3-2                     OK
+libzstd1             1.5.6-1                      OK
+login                1.13-1                       OK
+man-db               2.13.0-1                     OK
+mintty               3.7.6-1                      OK
+ncurses              6.5+20240427-1               OK
+openssl              3.0.15-1                     OK
+p11-kit              0.23.20-1                    OK
+p11-kit-trust        0.23.20-1                    OK
+rebase               4.6.6-1                      OK
+run                  1.3.4-2                      OK
+sed                  4.9-1                        OK
+tar                  1.35-2                       OK
+terminfo             6.5+20240427-1               OK
+tzcode               2024b-1                      OK
+tzdata               2024b-1                      OK
+util-linux           2.39.3-2                     OK
+vim-minimal          9.0.2155-2                   OK
+which                2.20-2                       OK
+xz                   5.6.3-1                      OK
+zlib0                1.3.1-1                      OK
+zstd                 1.5.6-1                      OK
+
+Andra@DESKTOP-5IODPKH ~
+$ tar -xvf wget-<version>-<arch>.tar.xz -C /usr/local/
+-bash: version: No such file or directory
+
+Andra@DESKTOP-5IODPKH ~
+$ chmod +x /usr/local/bin/wget
+chmod: cannot access '/usr/local/bin/wget': No such file or directory
+
+Andra@DESKTOP-5IODPKH ~
+$ .tar.xz
+-bash: .tar.xz: command not found
+
+Andra@DESKTOP-5IODPKH ~
+$ cd /cygdrive/c/Users/<username>/Downloads
+-bash: username: No such file or directory
+
+Andra@DESKTOP-5IODPKH ~
+$ cd /cygdrive/c/Users/andra/Downloads
+
+Andra@DESKTOP-5IODPKH /cygdrive/c/Users/andra/Downloads
+$ tar -xvf wget-<version>-<arch>.tar.xz -C /usr/local/
+-bash: version: No such file or directory
+
+Andra@DESKTOP-5IODPKH /cygdrive/c/Users/andra/Downloads
+$ tar -xvf wget-<version>-<arch>.tar.xz
+-bash: version: No such file or directory
+
+Andra@DESKTOP-5IODPKH /cygdrive/c/Users/andra/Downloads
+$ tar -xvf wget-<version>-<arch>.tar.bz2
+-bash: version: No such file or directory
+
+Andra@DESKTOP-5IODPKH /cygdrive/c/Users/andra/Downloads
+$ tar -xvf wget-1.21.1-1-x86_64.tar.xz
+tar: wget-1.21.1-1-x86_64.tar.xz: Cannot open: No such file or directory
+tar: Error is not recoverable: exiting now
+
+Andra@DESKTOP-5IODPKH /cygdrive/c/Users/andra/Downloads
+$ tar -xvf wget-1.21.1-1-i686.tar.xz
+tar: wget-1.21.1-1-i686.tar.xz: Cannot open: No such file or directory
+tar: Error is not recoverable: exiting now
+
+Andra@DESKTOP-5IODPKH /cygdrive/c/Users/andra/Downloads
+$ cp -r * /usr/local/
+
+
+
+
+
+
+
+
+
+
+Andra@DESKTOP-5IODPKH /cygdrive/c/Users/andra/Downloads
+$ ls /usr/local/bin/ | grep wget
+
+Andra@DESKTOP-5IODPKH /cygdrive/c/Users/andra/Downloads
+$ chmod +x /usr/local/bin/wget
+chmod: cannot access '/usr/local/bin/wget': No such file or directory
+
+Andra@DESKTOP-5IODPKH /cygdrive/c/Users/andra/Downloads
+$ wget --version
+-bash: wget: command not found
+
+Andra@DESKTOP-5IODPKH /cygdrive/c/Users/andra/Downloads
+$ wget --version
+GNU Wget 1.24.5 built on cygwin.
+
++cares +digest +gpgme +https +ipv6 +iri +large-file +metalink +nls
++ntlm +opie +psl +ssl/gnutls
+
+Wgetrc:
+    /etc/wgetrc (system)
+Locale:
+    /usr/share/locale
+Compile:
+    gcc -DHAVE_CONFIG_H -DSYSTEM_WGETRC="/etc/wgetrc"
+    -DLOCALEDIR="/usr/share/locale" -I.
+    -I/usr/src/wget/wget-1.24.5-1.x86_64/src/wget-1.24.5/src -I../lib
+    -I/usr/src/wget/wget-1.24.5-1.x86_64/src/wget-1.24.5/lib
+    -I/usr/include/uuid -DNDEBUG -ggdb -O2 -pipe -Wall
+    -Werror=format-security -Wp,-D_FORTIFY_SOURCE=3
+    -fstack-protector-strong --param=ssp-buffer-size=4
+    -ffile-prefix-map=/usr/src/wget/wget-1.24.5-1.x86_64/build=/usr/src/debug/wget-1.24.-1
+    -ffile-prefix-map=/usr/src/wget/wget-1.24.5-1.x86_64/src/wget-1.24.5=/usr/src/debug/get-1.24.5-1
+Link:
+    gcc -I/usr/include/uuid -DNDEBUG -ggdb -O2 -pipe -Wall
+    -Werror=format-security -Wp,-D_FORTIFY_SOURCE=3
+    -fstack-protector-strong --param=ssp-buffer-size=4
+    -ffile-prefix-map=/usr/src/wget/wget-1.24.5-1.x86_64/build=/usr/src/debug/wget-1.24.-1
+    -ffile-prefix-map=/usr/src/wget/wget-1.24.5-1.x86_64/src/wget-1.24.5=/usr/src/debug/get-1.24.5-1
+    -lmetalink -lcares -lpcre2-8 -luuid -lidn2 -lnettle -lgnutls -lz
+    -lpsl -lgpgme ../lib/libgnu.a -liconv -lintl -lunistring
+
+Copyright (C) 2015 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later
+<http://www.gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Originally written by Hrvoje Niksic <hniksic@xemacs.org>.
+Please send bug reports and questions to <bug-wget@gnu.org>.
+
+Andra@DESKTOP-5IODPKH /cygdrive/c/Users/andra/Downloads
+$ wget -r -l fmi.unibuc.ro
+wget: missing URL
+Usage: wget [OPTION]... [URL]...
+
+Try `wget --help' for more options.
+
+Andra@DESKTOP-5IODPKH /cygdrive/c/Users/andra/Downloads
+$ wget -r -l https://ro.wikipedia.org/wiki/Categorie:Flori
+wget: missing URL
+Usage: wget [OPTION]... [URL]...
+
+Try `wget --help' for more options.
+
+Andra@DESKTOP-5IODPKH /cygdrive/c/Users/andra/Downloads
+$ wget -r -l 2 https://ro.wikipedia.org/wiki/Categorie:Flori
+--2024-11-10 12:53:28--  https://ro.wikipedia.org/wiki/Categorie:Flori
+Resolving proxy.example.com (proxy.example.com)... failed: Name or service not known.
+wget: unable to resolve host address ‘proxy.example.com’
+
+Andra@DESKTOP-5IODPKH /cygdrive/c/Users/andra/Downloads
+$ wget -r -l 2 fmi.unibuc.ro
+--2024-11-10 12:53:51--  http://fmi.unibuc.ro/
+Resolving proxy.example.com (proxy.example.com)... failed: Name or service not known.
+wget: unable to resolve host address ‘proxy.example.com’
+
+Andra@DESKTOP-5IODPKH /cygdrive/c/Users/andra/Downloads
+$ wget -r -l 2 https://www.wikipedia.org
+--2024-11-10 12:57:07--  https://www.wikipedia.org/
+Resolving proxy.example.com (proxy.example.com)... failed: Name or service not known.
+wget: unable to resolve host address ‘proxy.example.com’
+
+Andra@DESKTOP-5IODPKH /cygdrive/c/Users/andra/Downloads
+$ cd ..
+
+Andra@DESKTOP-5IODPKH /cygdrive/c/Users/andra
+$ cd ..
+
+Andra@DESKTOP-5IODPKH /cygdrive/c/Users
+$ cd ..
+
+Andra@DESKTOP-5IODPKH /cygdrive/c
+$ cd ..
+
+Andra@DESKTOP-5IODPKH /cygdrive
+$ cd ..
+
+Andra@DESKTOP-5IODPKH /
+$ cd ..
+
+Andra@DESKTOP-5IODPKH /
+$ cd ~
+
+Andra@DESKTOP-5IODPKH ~
+$
+^C
+
+Andra@DESKTOP-5IODPKH ~
+$ $ wget -r -l 2 https://www.wikipedia.org
+-bash: $: command not found
+
+Andra@DESKTOP-5IODPKH ~
+$ wget -r -l 2 https://www.wikipedia.org
+--2024-11-10 12:59:21--  https://www.wikipedia.org/
+Resolving proxy.example.com (proxy.example.com)... failed: Name or service not known.
+wget: unable to resolve host address ‘proxy.example.com’
+
+Andra@DESKTOP-5IODPKH ~
+$ echo $http_proxy
+http://proxy.example.com:8080
+
+Andra@DESKTOP-5IODPKH ~
+$ echo $https_proxy
+http://proxy.example.com:8080
+
+Andra@DESKTOP-5IODPKH ~
+$ echo $ftp_proxy
+
+
+Andra@DESKTOP-5IODPKH ~
+$ unset http_proxy
+
+Andra@DESKTOP-5IODPKH ~
+$ unset https_proxy
+
+Andra@DESKTOP-5IODPKH ~
+$ unset ftp_proxy
+
+Andra@DESKTOP-5IODPKH ~
+$ source ~/.bashrc
+
+Andra@DESKTOP-5IODPKH ~
+$ export http_proxy="http://<proxy_address>:<proxy_port>"
+
+Andra@DESKTOP-5IODPKH ~
+$ export https_proxy="https://<proxy_address>:<proxy_port>"
+
+Andra@DESKTOP-5IODPKH ~
+$ export http_proxy="http://proxy.company.com:8080"
+
+Andra@DESKTOP-5IODPKH ~
+$ export https_proxy="https://proxy.company.com:8080"
+
+Andra@DESKTOP-5IODPKH ~
+$ wget -r -l 2 https://www.wikipedia.org
+--2024-11-10 13:09:40--  https://www.wikipedia.org/
+Resolving proxy.company.com (proxy.company.com)... failed: Name or service not known.
+wget: unable to resolve host address ‘proxy.company.com’
+
+Andra@DESKTOP-5IODPKH ~
+$ echo $http_proxy
+http://proxy.company.com:8080
+
+Andra@DESKTOP-5IODPKH ~
+$ echo $https_proxy
+https://proxy.company.com:8080
+
+Andra@DESKTOP-5IODPKH ~
+$ echo $ftp_proxy
+
+
+Andra@DESKTOP-5IODPKH ~
+$ nslookup proxy.company.com
+Server:  UnKnown
+Address:  192.168.100.1
+
+*** No internal type for both IPv4 and IPv6 Addresses (A+AAAA) records available for pro
+y.company.com
+
+Andra@DESKTOP-5IODPKH ~
+$ ping google.com
+
+Pinging google.com [142.250.185.174] with 32 bytes of data:
+Reply from 142.250.185.174: bytes=32 time=39ms TTL=117
+Reply from 142.250.185.174: bytes=32 time=39ms TTL=117
+Reply from 142.250.185.174: bytes=32 time=39ms TTL=117
+Reply from 142.250.185.174: bytes=32 time=62ms TTL=117
+
+Ping statistics for 142.250.185.174:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 39ms, Maximum = 62ms, Average = 44ms
+
+Andra@DESKTOP-5IODPKH ~
+$ wget https://www.wikipedia.org
+--2024-11-10 13:12:42--  https://www.wikipedia.org/
+Resolving proxy.company.com (proxy.company.com)... failed: Name or service not known.
+wget: unable to resolve host address ‘proxy.company.com’
+
+Andra@DESKTOP-5IODPKH ~
+$ echo $http_proxy
+http://proxy.company.com:8080
+
+Andra@DESKTOP-5IODPKH ~
+$ unset http_proxy
+
+Andra@DESKTOP-5IODPKH ~
+$ unset https_proxy
+
+Andra@DESKTOP-5IODPKH ~
+$ unset ftp_proxy
+
+Andra@DESKTOP-5IODPKH ~
+$ ~/.bashrc
+/home/Andra/.bashrc: line 27: return: can only `return' from a function or sourced scrip
+
+Andra@DESKTOP-5IODPKH ~
+$ nano ~/.bashrc
+-bash: nano: command not found
+
+Andra@DESKTOP-5IODPKH ~
+$ nano ~/.zshrc
+-bash: nano: command not found
+
+Andra@DESKTOP-5IODPKH ~
+$ vim ~/.bashrc
+-bash: vim: command not found
+
+Andra@DESKTOP-5IODPKH ~
+$ vim ~/.zshrc
+-bash: vim: command not found
+
+Andra@DESKTOP-5IODPKH ~
+$ nano ~/.bashrc
+
+Andra@DESKTOP-5IODPKH ~
+$ source ~/.bashrc
+
+Andra@DESKTOP-5IODPKH ~
+$ nslookup proxy.company.com
+Server:  UnKnown
+Address:  192.168.100.1
+
+*** No internal type for both IPv4 and IPv6 Addresses (A+AAAA) records available for pro
+y.company.com
+
+Andra@DESKTOP-5IODPKH ~
+$ export http_proxy="http://proxy.example.com:8080"
+
+Andra@DESKTOP-5IODPKH ~
+$ export https_proxy="https://proxy.example.com:8080"
+
+Andra@DESKTOP-5IODPKH ~
+$ wget https://example.com
+--2024-11-10 13:25:04--  https://example.com/
+Resolving proxy.example.com (proxy.example.com)... failed: Name or service not known.
+wget: unable to resolve host address ‘proxy.example.com’
+
+Andra@DESKTOP-5IODPKH ~
+$ wget https://www.wikipedia.org
+--2024-11-10 13:25:22--  https://www.wikipedia.org/
+Resolving proxy.example.com (proxy.example.com)... failed: Name or service not known.
+wget: unable to resolve host address ‘proxy.example.com’
+
+Andra@DESKTOP-5IODPKH ~
+$ unset http_proxy
+
+Andra@DESKTOP-5IODPKH ~
+$ unset https_proxy
+
+Andra@DESKTOP-5IODPKH ~
+$ unset ftp_proxy
+
+Andra@DESKTOP-5IODPKH ~
+$ wget https://www.wikipedia.org
+--2024-11-10 13:31:59--  https://www.wikipedia.org/
+Resolving www.wikipedia.org (www.wikipedia.org)... 185.15.59.224, 2a02:ec80:300:ed1a::1
+Connecting to www.wikipedia.org (www.wikipedia.org)|185.15.59.224|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 99998 (98K) [text/html]
+Saving to: ‘index.html’
+
+index.html             100%[=========================>]  97.65K   605KB/s    in 0.2s
+
+2024-11-10 13:32:00 (605 KB/s) - ‘index.html’ saved [99998/99998]
+
+
+Andra@DESKTOP-5IODPKH ~
+$ scp -r /home/user/mysite andra@10.0.2.15:/var/www/html/student/
+C:\WINDOWS\System32\OpenSSH\scp.exe: stat local "/home/user/mysite": No such file or dir
+ctory
+
+Andra@DESKTOP-5IODPKH ~
+$ scp -r index.html andra@10.0.2.15:/var/www/html/student/
+ssh: connect to host 10.0.2.15 port 22: Connection timed out
+C:\WINDOWS\System32\OpenSSH\scp.exe: Connection closed
+
+Andra@DESKTOP-5IODPKH ~
+$
+
+Andra@DESKTOP-5IODPKH ~
+$
+
+Andra@DESKTOP-5IODPKH ~
+$ ssh andra@10.0.2.15
+ssh: connect to host 10.0.2.15 port 22: Connection timed out
+
+Andra@DESKTOP-5IODPKH ~
+$
+
+Andra@DESKTOP-5IODPKH ~
+$ cd /var/www/html/student/
+-bash: cd: /var/www/html/student/: No such file or directory
+
+Andra@DESKTOP-5IODPKH ~
+$ ssh andra@10.0.2.15
+ssh: connect to host 10.0.2.15 port 22: Connection timed out
+
+Andra@DESKTOP-5IODPKH ~
+$ cd /var/www/html/student/
+-bash: cd: /var/www/html/student/: No such file or directory
+
+Andra@DESKTOP-5IODPKH ~
+$ ls -l
+total 100
+-rw-r--r-- 1 Andra None 99998 Oct 28 17:40 index.html
+
+Andra@DESKTOP-5IODPKH ~
+$ scp -r index.html andra@10.0.2.15:/var/www/html/student/
+ssh: connect to host 10.0.2.15 port 22: Connection timed out
+C:\WINDOWS\System32\OpenSSH\scp.exe: Connection closed
+
+Andra@DESKTOP-5IODPKH ~
+$ scp -r index.html andra@10.0.2.15:/var/www/html/student/
+ssh: connect to host 10.0.2.15 port 22: Connection timed out
+C:\WINDOWS\System32\OpenSSH\scp.exe: Connection closed
+
+Andra@DESKTOP-5IODPKH ~
+$ Get-Service -Name sshd
+-bash: Get-Service: command not found
+
+Andra@DESKTOP-5IODPKH ~
+$ ping 10.0.2.15
+
+Pinging 10.0.2.15 with 32 bytes of data:
+Request timed out.
+Request timed out.
+Request timed out.
+Request timed out.
+
+Ping statistics for 10.0.2.15:
+    Packets: Sent = 4, Received = 0, Lost = 4 (100% loss),
+
+Andra@DESKTOP-5IODPKH ~
+$ scp -r index.html andra@10.0.2.15:/var/www/html/student/
+ssh: connect to host 10.0.2.15 port 22: Connection timed out
+C:\WINDOWS\System32\OpenSSH\scp.exe: Connection closed
+
+Andra@DESKTOP-5IODPKH ~
+$ scp -r index.html andra@127.0.0.1:/var/www/html/student/
+ssh: connect to host 127.0.0.1 port 22: Connection refused
+C:\WINDOWS\System32\OpenSSH\scp.exe: Connection closed
+
+Andra@DESKTOP-5IODPKH ~
+$ scp -r index.html andra@127.0.0.1:/var/www/html/student/
+ssh: connect to host 127.0.0.1 port 22: Connection refused
+C:\WINDOWS\System32\OpenSSH\scp.exe: Connection closed
+
+Andra@DESKTOP-5IODPKH ~
+$ scp -r index.html andra@127.0.0.1:/var/www/html/student/
+ssh: connect to host 127.0.0.1 port 22: Connection refused
+C:\WINDOWS\System32\OpenSSH\scp.exe: Connection closed
+
+Andra@DESKTOP-5IODPKH ~
+$  scp -r index.html andra@10.0.2.15:/var/www/html/student/
+ssh: connect to host 10.0.2.15 port 22: Connection timed out
+C:\WINDOWS\System32\OpenSSH\scp.exe: Connection closed
+
+Andra@DESKTOP-5IODPKH ~
+$  scp -r index.html andra@192.168.100.40/24:/var/www/html/student/
+The filename, directory name, or volume label syntax is incorrect.
+        0 file(s) copied.
+
+Andra@DESKTOP-5IODPKH ~
+$  scp -r index.html andra@192.168.100.40:/var/www/html/student/
+The authenticity of host '192.168.100.40 (192.168.100.40)' can't be established.
+ED25519 key fingerprint is SHA256:UAuws7twwDTv7R13kt1zurIVFszgmtSi6OowQcA4cao.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])?
+Warning: Permanently added '192.168.100.40' (ED25519) to the list of known hosts.
+andra@192.168.100.40's password:
+C:\WINDOWS\System32\OpenSSH\scp.exe: dest open "/var/www/html/student/": Failure
+C:\WINDOWS\System32\OpenSSH\scp.exe: failed to upload file index.html to /var/www/html/s
+tudent/
+
+Andra@DESKTOP-5IODPKH ~
+$ ssh  andra@192.168.100.40
+andra@192.168.100.40's password:
+Welcome to Ubuntu 24.10 (GNU/Linux 6.11.0-8-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+17 updates can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+Last login: Sun Nov 10 12:02:11 2024 from 127.0.0.1
+andra@ubuntu:~$ ls -l /var/www/html/
+total 4
+-rw-r--r-- 1 root root 62 Nov  6 12:47 index.html
+andra@ubuntu:~$ cd /var/www/html/student/
+-bash: cd: /var/www/html/student/: No such file or directory
+andra@ubuntu:~$ sudo mkdir -p /var/www/html/student/
+[sudo] password for andra:
+andra@ubuntu:~$ sudo chown -R andra:andra /var/www/html/student/
+andra@ubuntu:~$ sudo chmod -R 755 /var/www/html/student/
+andra@ubuntu:~$ sudo usermod -aG www-data andra
+andra@ubuntu:~$ sudo chown -R www-data:www-data /var/www/html/student/
+andra@ubuntu:~$ sudo chmod -R 775 /var/www/html/student/
+andra@ubuntu:~$ scp -r index.html andra@192.168.100.40:/var/www/html/student/
+scp: stat local "index.html": No such file or directory
+andra@ubuntu:~$ exit
+logout
+Connection to 192.168.100.40 closed.
+
+Andra@DESKTOP-5IODPKH ~
+$  scp -r index.html andra@192.168.100.40:/var/www/html/student/
+andra@192.168.100.40's password:
+index.html                                            100%   98KB   9.5MB/s   00:00
+
+Andra@DESKTOP-5IODPKH ~
+$ ssh  andra@192.168.100.40
+andra@192.168.100.40's password:
+Welcome to Ubuntu 24.10 (GNU/Linux 6.11.0-8-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+17 updates can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+Last login: Sun Nov 10 12:34:18 2024 from 192.168.100.86
+andra@ubuntu:~$ cd /var/www/html/student/
+andra@ubuntu:/var/www/html/student$ ls -l
+total 100
+-rw-rw-r-- 1 andra andra 99998 Nov 10 12:43 index.html
+andra@ubuntu:/var/www/html/student$ exit
+logout
+Connection to 192.168.100.40 closed.
+
+Andra@DESKTOP-5IODPKH ~
+
+
+
+
