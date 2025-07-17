@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8" />
+<title>LABORATORUL 6 | Tehnici Web</title>
+ <style>
+ body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #35424a;
+            color: #ffffff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        section {
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+        }
+        h2 {
+            color: #35424a;
+        }
+        ul {
+            padding-left: 20px;
+        }
+
+        ul > li {margin-bottom:20px;}
+        ul li > ul {margin-bottom:5px;}
+        pre{margin-left:0;
+          padding:0;}
+
+
+</style>
+
+</head>
+
+<body>
+<header>
+<h1>Laboratorul 6</h1>
+</header>
+
+<section>
+<h1>Laboratorul 6</h1>
+<p>Vom folosi fisierele reteta.html si reteta.css. Creati fisiere JavaScript pe care le legati de fisierul html, pentru a rezolva urmatoarele cerinte:</p>
+
+
+<h2>Tema 6.1</h2>
+<ul>
+<li> Creati un obiect JavaScript care reprezinta lista de cumparaturi pentru reteta de pateuri cu cascaval. Obiectul va contine ingrediente ca proprietati, iar valorile acestora vor reprezenta preturile ingredientelor. </li>
+ <li>Scrieti o functie care primeste ca parametru obiectul creat si returneaza valoarea totala a cumparaturilor. Afisati valoarea in consola.</li>
+ <li>Scrieti o functie care primeste ca parametru un ingredient si pretul acestuia si il adaugă in obiectul „lista de cumparaturi”. Afisati noul ingredient si pretul sau in consola.</li>
+ </ul>
+
+<h2>Tema 6.2</h2>
+
+<ul>
+<li>Creati un array de obiecte numit retete, unde fiecare obiect reprezinta o reteta si contine urmatoarele proprietati:
+  <em>nume</em>: numele rețetei (string),
+  <em>timpPreparare</em>: durata preparării în minute (number),
+   <em> ingrediente</em>: o listă de ingrediente principale (array de stringuri).
+    <br><i>Exemplu:</i>
+   <pre>
+  var retete = [
+  { nume: "Pateuri cu cascaval", timpPreparare: 45, ingrediente: ["făină", "unt", "cașcaval", "ouă"] },
+  { nume: "Salata de fructe", timpPreparare: 15, ingrediente: ["mere", "banane", "portocale", "struguri"] },
+  { nume: "Supa de legume", timpPreparare: 30, ingrediente: ["ceapă", "morcovi", "cartofi", "pătrunjel"] },
+  { nume: "Pizza", timpPreparare: 60, ingrediente: ["făină", "roșii", "brânză", "ciuperci"] },
+  { nume: "Tort de ciocolata", timpPreparare: 90, ingrediente: ["făină", "ciocolată", "ouă", "zahăr"] }
+];
+ </pre>
+</li>
+
+ <li>De la prompt cereti utilizatorului sa introduca un nume de reteta. Afisati intr-un alert informatiile despre reteta în formatul:
+ "Pateuri cu cașcaval" se prepară în 45 de minute. Ingrediente: făină, unt, cașcaval, ouă
+  sau mesajul "Nu exista reteta" daca aceasta nu exista in vectorul de retete.
+ </li>
+
+ <li>
+
+De la prompt cereți utilizatorului să introducă un timp maxim de preparare (in minute). Folosind metoda filter, creați un nou array care să contina doar retetele care pot fi preparate tn timpul specificat. Afitati rezultatele intr-un alert in formatul:
+
+"Retete care se pot prepara în maxim X minute: Pateuri cu cașcaval, Salată de fructe, Supă de legume"
+
+ </li>
+ </ul>
+
+
+<h2>Tema 6.3</h2>
+
+<ul>
+<li>Creati un array numit sfaturiDeGatit, care sa contina diverse sfaturi utile despre gatit sub forma de stringuri (minim 5).
+<i>De exemplu:</i>
+<pre>
+
+var sfaturiDeGatit = [
+  "Întotdeauna citește rețeta complet înainte de a începe.",
+  "Măsoară ingredientele cu precizie pentru cele mai bune rezultate.",
+  "Gătește la foc mic pentru a evita arderea mâncării.",
+  "Folosește ingrediente proaspete pentru un gust mai bun.",
+  "Nu te teme să experimentezi cu condimentele!"
+];
+</pre></li>
+
+
+<li>La fiecare încărcare a paginii, alege aleatoriu un sfat din array-ul sfaturiDeGatit și afișează-l ca text al elementului paragraf din headerul documentului, inlocuind textul existent.</li>
+</ul>
+
+
+<h2>Tema 6.4 </h2>
+<p>La intrarea pe pagina se va afisa un prompt cu intrebarea, "Cum te numesti?" Dupa ce utilizatorul raspunde, title-ul tab-ului se va schimba in "Salut, nume!"</p>
+
+
+
+<h2> Tema 6.5 </h2>
+
+<p>Scrieți o functie care selectează toate imaginile din sectiunea cu id-ul "galerie" si setează atributul lor <em>src</em> la "https://media.tenor.com/7qFULBHgzlYAAAAi/bubu-cooking-dudu-bubu.gif" iar atributul <em>alt</em> la "bubu gateste".
+</p>
+
+<h2> Tema 6.6</h2>
+
+<p>Scrieti o functie care schimba continutul elementelor <em>figcaption</em> in "Figura i", unde i este numarul de ordine al elementului figcaption.</p>
+
+
+<h2>Tema 6.7 </h2>
+
+<p>Scrieți o functie care selectează toate elementele din lista cu pasii de preparare si scrie cu majuscule textul acestora.</p>
+
+</section>
+</body>
+</html>
