@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LABORATORUL 8 | Tehnici Web</title>
+<style>
+body {
+           font-family: Arial, sans-serif;
+           line-height: 1.6;
+           margin: 0;
+           padding: 0;
+           background-color: #f4f4f4;
+       }
+       header {
+           background: #35424a;
+           color: #ffffff;
+           padding: 20px 0;
+           text-align: center;
+       }
+       h1 {
+           margin: 0;
+           font-size: 2.5em;
+       }
+
+       section {
+           margin: 20px auto;
+           background-color: #fff;
+           padding: 20px;
+           border-radius: 8px;
+           box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+           max-width: 900px;
+       }
+       h2 {
+           color: #35424a;
+       }
+       ul {
+           padding-left: 20px;
+       }
+
+       ul > li {margin-bottom:20px;}
+       ul li > ul {margin-bottom:5px;}
+       pre{margin-left:0;
+         padding:0;}
+
+
+</style>
+
+</head>
+<body>
+  <header>
+<h1>Laboratorul 8</h1>
+</header>
+<section>
+<h2>Tema 8.1</h2>
+
+<ul>
+  <li> La încarcarea paginii, la fiecare click in fereastra, se va crea un element div ce reprezinta o notificare ce contine un mesaj si un buton (element html button) cu textul "Sterge".
+     Notificarea va fi pozitionata pe ecran la coordonatele clickului.</li>
+
+  <li> La creare, asociati elementelor div si button clasele CSS "popup" si "buton".</li>
+
+  <li> Faceti ca fiecare notificare sa dispara automat după 10 secunde de la crearea sa, disparitia sa se faca treptat, printr-o animatie.</li>
+
+  <li> Daca utilizatorul apasa pe butonul "Sterge" inainte de expirarea celor 10 secunde, notificarea va fi stearsa (eliminata din DOM).
+     Click-ul pe notificare nu se va propaga si nu va declansa evenimentul de click asupra ferestrei.</li>
+</ul>
+
+
+
+<h2> Tema 8.2</h2>
+<ul>
+ <li> La incarcarea paginii, se vor crea 10 butoane care vor aparea treptat la interval de 2 secunde.
+ Fiecare buton va avea o pozitionare aleatorie pe ecran si va primi o culoare de background generata random. </li>
+
+ <li> Dupa crearea tuturor celor 10 butoane, jocul va incepe cand utilizatorul apasa tasta "s" de pe tastatura.
+ Scopul jocului este ca utilizatorul sa apese pe butoane in ordinea in care au aparut pe ecran. Cand un buton este apasat acesta se va colora in rosu iar numarul butonului va aparea ca text pe acel buton.
+  Daca utilizatorul apasa corect butoanele in ordinea lor, se va afisa intr-un alert mesajul "Felicitări, ai câștigat!".
+   Daca utilizatorul apasa un buton gresit, jocul se termina cu mesajul "Ai pierdut!" si toate butoanele vor fi eliminate din pagina.
+</li>
+</ul>
+
+<h2>Tema 8.3</h2>
+<p>
+Un fisier HTML contine: un &lt;button&gt; cu id-ul "start", un paragraf cu id-ul "raspuns"
+un paragraf cu id-ul "intrebare", care contine o intrebare,  3 butoane radio, reprezentand variantele de raspuns, cu valorile "corect"sau "gresit".
+ Initial întrebarea și butoanele radio nu sunt vizibile.</p>
+ <ul>
+   <li>La click pe butonul "start" intrebarea si butoanele radio devin vizibile si utilizatorul are la dispozitie 5 secunde pentru a selecta un raspuns.</li>
+   <li>Daca utilizatorul a selectat un raspuns, in paragraful cu id-ul "raspuns" se afiseaza textul "Raspuns corect" sau "Raspuns gresit" in functie de valoarea raspunsului.</li>
+  <li> Dupa 5 secunde, daca nu s-a raspuns la intrebare, butoanele dispar si se afiseaza intr-o fereastra alert "Timpul a expirat".</li>
+</ul>
+</section>
+</body>
+</html>
