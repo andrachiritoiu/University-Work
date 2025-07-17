@@ -1,0 +1,279 @@
+input {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: 2px solid #ccc;
+    background-color: #fafafa;
+    margin-top: 0;
+	margin-left: 100px;
+    margin-right: 100px;
+    box-sizing: border-box;
+}
+	
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color:#FFFFCC; 
+  text-align: center;
+  align-items: center;
+  padding-top: 20px;
+}
+h1 {
+  text-align: center;
+  font-size:18px;
+}
+
+nav {
+    width: 100%;
+    height: 50px;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 10; 
+}
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+nav > ul.meniu {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+nav > ul.meniu > li {
+    border: 1px solid white;
+    flex: 1 1 150px; 
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    background-color: #FF9966;
+	word-wrap: break-word;
+    position: relative; 
+}
+nav a {
+    text-decoration: none;
+    color: black;
+    display: block;
+	font-size: 14px;
+	word-wrap: break-word;
+}
+nav a:hover {
+    background-color:  #ffb48c;
+    font-size: 16px;
+}
+nav > ul.meniu > li > ul.submeniu {
+    position: absolute;
+    top: 100%;  
+    left: 0;
+    width: auto;
+    background-color: #FF9966;
+    padding: 0;
+    border: 1px solid black ;
+    box-shadow: 0px 4px 6px;
+    z-index: 9;  
+	display:none;
+}
+nav ul.submeniu > li {
+    border: 1px black;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    background-color:#FF9966;
+	white-space: nowrap; /*previne rupere cuvintelor pe mai multe linii*/
+	word-wrap: break-word; /*textul se poate imaprtii la finalul liniei*/
+	overflow: hidden;
+}
+nav ul.submeniu li a:hover {
+    color: black;
+}
+nav > ul.meniu > li > ul.submeniu > li > a {
+    font-size: 12px;  
+}
+nav > ul.meniu > li:hover > ul.submeniu {
+    display: block; 
+}
+#sectiunea1 {
+	background-color:#FF9966;
+	color:black;
+	text-align:center;
+	padding:20px;
+}
+    
+#sectiunea1 > h1{
+  font-size:2.5em;
+}
+#sectiunea1 > p{
+	text-decoration:underline;
+	color:black;
+}
+
+#contact {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fce199;
+  border-radius: 8px;
+  z-index: 2; 
+  position: relative;
+  margin-bottom: 60px;
+}
+#contact h3 {
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  color: black;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+
+#contact input, #contact textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 8px;
+  border: 1px solid #FFFFCC;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+#contact button {
+  width: 100%;
+  padding: 12px;
+  background-color: #FFFFCC; 
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; 
+}
+
+
+#contact button:hover {
+  background-color:  #FF9966; 
+}
+
+#contact textarea {
+  height: 150px; 
+}
+
+form::before {
+    content: "";
+    display: block;
+    border-top: 2px solid #333; /* linie de sus */
+    margin-bottom: 10px;
+}
+form::after {
+    content: "";
+    display: block;
+    border-bottom: 2px solid #333; /* linie de jos */
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+#contact {
+    padding: 15px; 
+	margin-top: 120px; 
+    }
+input, button {
+    padding: 10px; 
+    font-size: 0.9em; 
+    }
+#contact h3 {
+    font-size: 1.6em; 
+    }
+}
+
+@media (max-width: 768px) {
+nav ul.meniu {
+    text-align: center;
+    display: block;
+}
+nav ul.meniu li {
+    display: block;
+    width: 100%;
+}
+	
+main {
+    padding: 20px;
+	margin-top: 120px; 
+}
+section {
+    margin-bottom: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+}
+
+footer {
+	background-color:#FF9966;
+	text-align:center;
+	padding:20px;
+	border-top:2px black;
+}
+footer>a{
+	text-decoration: none;
+	color:black;
+	background-color:white;
+	padding:10px;
+	display:inline-block;
+	border-radius: 20px;
+	font-weight:bold;
+}
+
+
+.container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fce199;
+  border-radius: 8px;
+  z-index: 2; 
+  position: relative;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.container input, .container textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 8px;
+  border: 1px solid #FFFFCC;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.container button {
+  width: 100%;
+  padding: 12px;
+  background-color: #FFFFCC; 
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; 
+}
+
+.container button:hover {
+  background-color:  #FF9966; 
+}
+
+.container textarea {
+  height: 150px; 
+}
+
+.container h1 {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}

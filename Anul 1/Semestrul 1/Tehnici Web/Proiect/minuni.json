@@ -1,0 +1,62 @@
+{
+    "ancient": [
+        {
+            "name": "Marea Piramidă din Giza",
+            "description": "Singura dintre cele șapte minuni ale lumii antice care mai există, situată în Egipt."
+        },
+        {
+            "name": "Grădinile Suspendate ale Babilonului",
+            "description": "O grădină legendară construită în Babilon, în prezent Irak, cunoscută pentru frumusețea sa."
+        },
+        {
+            "name": "Statuia lui Zeus din Olympia",
+            "description": "O statuie colosală a lui Zeus, realizată de sculptorul Phidias în Grecia antică."
+        },
+        {
+            "name": "Templul zeiței Artemis din Efes",
+            "description": "Un templu dedicat zeiței Artemis, considerat una dintre cele mai frumoase construcții ale lumii antice."
+        },
+        {
+            "name": "Mausoleul din Halicarnas",
+            "description": "Un mormânt monumental construit în Halicarnas, Turcia, pentru regele Mausolus."
+        },
+        {
+            "name": "Colosul din Rhodos",
+            "description": "O statuie uriașă a zeului Helios, construită pe insula Rhodos, Grecia."
+        },
+        {
+            "name": "Farul din Alexandria",
+            "description": "Un far impresionant construit pe insula Pharos, care ghida navele spre portul din Alexandria, Egipt."
+        }
+    ],
+    "modern": [
+        {
+            "name": "Marele Zid Chinezesc",
+            "description": "O construcție masivă realizată pentru a proteja granițele nordice ale Chinei antice."
+        },
+        {
+            "name": "Machu Picchu",
+            "description": "Un oraș incaș antic situat în munții din Peru, un simbol al civilizației incașe."
+        },
+        {
+            "name": "Chichen Itza",
+            "description": "Un important sit arheologic al civilizației mayașe, situat în Mexic."
+        },
+        {
+            "name": "Colosseum",
+            "description": "Un amfiteatru antic din Roma, Italia, folosit pentru spectacole și lupte de gladiatori."
+        },
+        {
+            "name": "Taj Mahal",
+            "description": "Un mausoleu din marmură albă construit în Agra, India, în memoria soției împăratului Shah Jahan."
+        },
+        {
+            "name": "Petra",
+            "description": "Un oraș antic sculptat în stâncă, situat în Iordania, cunoscut drept „Orașul de piatră”."
+        },
+        {
+            "name": "Statuia lui Iisus Hristos",
+            "description": "O statuie iconică a lui Iisus Hristos din Rio de Janeiro, Brazilia, simbol al creștinismului."
+        }
+    ]
+}

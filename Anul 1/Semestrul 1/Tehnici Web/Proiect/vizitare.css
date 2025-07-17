@@ -1,0 +1,365 @@
+html,body {
+  font-family: 'Roboto', sans-serif;
+  background-color:#FFFFCC; 
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+  height: 100%;
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+  margin:0;
+  padding:0;
+}
+
+main{
+	padding: 20px;
+}
+
+nav {
+    width: 100%;
+    height: 50px;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 10; 
+    border:none;
+    margin:0;
+    padding:0;
+}
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+nav > ul.meniu {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+nav > ul.meniu > li {
+    border: 1px solid white;
+    flex: 1 1 150px; 
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    background-color: #FF9966;
+	word-wrap: break-word;
+    position: relative; 
+}
+nav a {
+    text-decoration: none;
+    color: black;
+    display: block;
+	font-size: 14px;
+	word-wrap: break-word;
+}
+nav a:hover {
+    background-color:  #ffb48c;
+    font-size: 16px;
+}
+nav > ul.meniu > li > ul.submeniu {
+    position: absolute;
+    top: 100%;  
+    left: 0;
+    width: auto;
+    background-color: #FF9966;
+    padding: 0;
+    border: 1px solid black ;
+    box-shadow: 0px 4px 6px;
+    z-index: 9;  
+	display:none;
+}
+nav ul.submeniu > li {
+    border: 1px black;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    background-color:#FF9966;
+	white-space: nowrap; /*previne rupere cuvintelor pe mai multe linii*/
+	word-wrap: break-word; /*textul se poate imaprtii la finalul liniei*/
+	overflow: hidden;
+}
+nav ul.submeniu li a:hover {
+    color: black;
+}
+nav > ul.meniu > li > ul.submeniu > li > a {
+    font-size: 12px;  
+}
+nav > ul.meniu > li:hover > ul.submeniu {
+    display: block; 
+}
+
+#sectiunea1{
+	background-color:#FF9966;
+    color: #FF9966;
+	text-align:center;
+	padding:20px;
+    border-bottom: none;
+    margin:0;
+}
+#sectiunea1 > h1{
+  font-size:2.5em;
+}
+
+img {
+    max-width: 70%; 
+    height: auto;
+    border: 3px solid #FF9966;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+img {
+    width: 600px; 
+    height: 400px; 
+    object-fit: contain;
+}
+footer {
+	background-color:#FF9966;
+	color:white;
+	text-align:center;
+	padding:20px;
+	border-top:2px black;
+}
+footer>a{
+	text-decoration: none;
+	color:black;
+	background-color:white;
+	padding:10px;
+	display:inline-block;
+	border-radius: 20px;
+	font-weight:bold;
+}
+footer > a:hover{
+	color:#FF9966;
+	font-size: 20px;
+}
+footer > a:active{
+	background-color: white;
+}
+#sectiunea1 {
+	background-color:#FF9966;
+	color:black;
+	text-align: center;
+	padding:20px;
+	border-bottom:2px solid;
+}
+#sectiunea1 > h1{
+  font-size:2.5em;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.minune {
+    margin-bottom: 40px;
+}
+
+.minune h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.hotel-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.hotel {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 20px;
+    width: 45%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px;
+}
+
+.hotel img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.hotel h3 {
+    font-size: 1.5em;
+    margin: 10px;
+}
+
+.hotel a {
+    display: inline-block;
+    background-color: #ffb48c;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.hotel a:hover {
+    background-color: #FF9966;
+}
+
+h2.animat {
+    font-size: 20px;
+    font-family: 'Arial', sans-serif;
+    color: black; 
+    transition: all 0.9s ease; 
+    animation: animaTitlu 5s infinite; 
+}
+@keyframes animaTitlu {
+    0% {
+        color: black; 
+    }
+    25% {
+        color: #ff7043; 
+    }
+    50% {
+        color: #ff9966; 
+    }
+    75% {
+        color:  #daba67e9; 
+    }
+    100% {
+        color: black; 
+    }
+}
+
+@media (max-width: 768px) {
+nav ul.meniu {
+    text-align: center;
+    display: block;
+}
+nav ul.meniu li {
+    display: block;
+    width: 100%;
+}
+	
+main {
+    padding: 20px;
+	margin-top: 160px; 
+}
+section {
+    margin-bottom: 20px;
+}
+
+.imag {
+    height: auto;
+    display: block;
+    margin: 20px auto;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+}
+
+#login-form, #thank-you-message {
+    display: none;
+}
+#thank-you-message {
+    font-size: 1.2em;
+}
+
+button {
+    background-color: #ff9966;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+button:hover {
+    background-color: #ff7043;
+}
+
+.form-container {
+    display: flex;              
+    justify-content: center;  /*pe orizontala*/   
+    align-items: center;  /*pe verticala*/   
+    height: 100%;             
+}
+
+#booking-form {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 800px;
+    margin: 50px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+}
+
+h3 {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+h4 {
+    color: #444;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+label {
+    font-size: 16px;
+    color: #555;
+    margin: 20px;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+input[type="date"] {
+    padding: 8px;
+    margin: 10px 0;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.hotel-options {
+    margin-bottom: 15px;
+}
+
+.hotel-options input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.hotel-options label {
+    font-size: 16px;
+    color: #333;
+}
+
+.hotel-options {
+    padding-left: 20px;
+}
+
+.hotel-section {
+    margin-bottom: 20px;
+}

@@ -1,0 +1,330 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color:#FFFFCC; 
+  text-align: center;
+  align-items: center;
+  padding-top: 20px;
+}
+h2 {
+  text-align: center;
+}
+
+main{
+	padding: 20px;
+}
+
+.header {
+    background-image: url('minunile-lumii-moderneh.jpg'); 
+    background-size:cover; 
+	background-repeat: no-repeat; 
+    background-position: center; 
+    text-align: center;
+    padding: 100px 0; 
+	display: flex;  
+	height: 100px;
+    justify-content: center;
+}
+.header h1 {
+    margin: 0;
+	color:#ffefa7;
+}
+
+.big{
+	font-size: 22px;
+	text-decoration: underline;
+}
+
+ol {
+    text-align: left; 
+    margin: 0;
+    padding-left: 20px; 
+}
+
+ ol li {
+    margin-bottom: 10px; 
+    font-size: 1rem; 
+}
+
+nav {
+    width: 100%;
+    height: 50px;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 10; 
+}
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+nav > ul.meniu {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+nav > ul.meniu > li {
+    border: 1px solid white;
+    flex: 1 1 150px; 
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    background-color: #FF9966;
+	word-wrap: break-word;
+    position: relative; 
+}
+nav a {
+    text-decoration: none;
+    color: black;
+    display: block;
+	font-size: 14px;
+	word-wrap: break-word;
+}
+nav a:hover {
+    background-color:  #ffb48c;
+    font-size: 16px;
+}
+nav > ul.meniu > li > ul.submeniu {
+    position: absolute;
+    top: 100%;  
+    left: 0;
+    width: auto;
+    background-color: #FF9966;
+    padding: 0;
+    border: 1px solid black ;
+    box-shadow: 0px 4px 6px;
+    z-index: 9;  
+	display:none;
+}
+nav ul.submeniu > li {
+    border: 1px black;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    background-color:#FF9966;
+	white-space: nowrap; /*previne rupere cuvintelor pe mai multe linii*/
+	word-wrap: break-word; /*textul se poate imaprtii la finalul liniei*/
+	overflow: hidden;
+}
+nav ul.submeniu li a:hover {
+    color: black;
+}
+nav > ul.meniu > li > ul.submeniu > li > a {
+    font-size: 12px;  
+}
+nav > ul.meniu > li:hover > ul.submeniu {
+    display: block; 
+}
+
+#sectiunea1 {
+	background-color:#FF9966;
+	color:black;
+	text-align:center;
+	padding:20px;
+}
+#sectiunea1 > h1{
+  font-size:2.5em;
+}
+#sectiunea1 > p{
+	text-decoration:underline;
+	color:black;
+}
+
+ img {
+    max-width: 70%; 
+    height: auto;
+    border: 3px solid #FF9966;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+        }
+img {
+    width: 600px; 
+    height: 400px; 
+    object-fit: contain;
+}
+footer {
+	background-color:#FF9966;
+	color:white;
+	text-align:center;
+	padding:20px;
+	border-top:2px black;
+}
+footer>a{
+	text-decoration: none;
+	color:black;
+	background-color:white;
+	padding:10px;
+	display:inline-block;
+	border-radius: 20px;
+	font-weight:bold;
+}
+footer > a:hover{
+	color:#FF9966;
+	font-size: 20px;
+}
+footer > a:active{
+	background-color: white;
+}
+
+.container {
+  display: flex;               
+  flex-direction: column;       
+  align-items: center;
+  padding: 20px;
+  gap: 40px;   
+  width: 85%; 
+  
+}
+
+.minune {
+  background-color: #ffefa7;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px;
+  width: 97%; 
+  margin: 10px ; 
+}
+
+@media screen and (max-width: 700px) {
+  .minune {
+    width: 90%; 
+  }
+}
+
+/*animatie div*/
+.minune {
+    opacity: 0; 
+    transform: translateY(20px); 
+    animation: fadeInUp 1s forwards; 
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 18px;
+}
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.minune:nth-child(1) {
+    animation-delay: 0s;
+}
+.minune:nth-child(2) {
+    animation-delay: 0.2s; 
+}
+.minune:nth-child(3) {
+    animation-delay: 0.4s; 
+}
+.minune:nth-child(4) {
+    animation-delay: 0.6s; 
+}
+.minune:nth-child(5) {
+    animation-delay: 0.8s; 
+}
+.minune:nth-child(6) {
+    animation-delay: 1s; 
+}
+.minune:nth-child(7) {
+    animation-delay: 1.2s; 
+}
+
+.imag {
+    width: 500px; 
+    height: auto; 
+	cursor: pointer; 
+	transition: transform 0.3s ease; 
+}
+@keyframes zoomIn{
+    0% {
+        transform: scale(1); 
+    }
+    50% {
+        transform: scale(1.1); 
+    }
+    100% {
+        transform: scale(1); 
+    }
+}
+.imag:hover {
+    animation: zoomIn 0.6s ease; 
+}
+
+@media (max-width: 768px) {
+nav ul.meniu {
+    text-align: center;
+    display: block;
+}
+nav ul.meniu li {
+    display: block;
+    width: 100%;
+}
+	
+main {
+    padding: 20px;
+	margin-top: 170px; 
+}
+section {
+    margin-bottom: 20px;
+}
+
+.imag {
+    height: auto;
+    display: block;
+    margin: 20px auto;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+}
+
+fieldset {
+    margin-bottom: 20px;
+    border: 2px solid #ff9966;
+    border-radius: 10px;
+    padding: 15px;
+    color:black;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #ff7043;
+}
+
+input[type="radio"] {
+    margin: 10px;
+    font-size: 1em;
+    color:#333;
+}
+
+button {
+    background-color: #ff9966;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+button:hover {
+    background-color: #ff7043;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #333;
+    font-weight: bold;
+}

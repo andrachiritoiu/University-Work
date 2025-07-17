@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<title>Minunile lumii
+</title>
+<style>
+th, td {
+  border-style: solid;
+  border-width: 1px;   
+}
+</style>
+</head>
+<body bgcolor="#FFFFCC" leftmargin="200" topmargin="100">
+<h1><b>Minunile lumii</b></h1>
+<h4>Minunile lumii antice</h4>
+<hr align="center" width="100%" size="4" color="black">
+<p><b>Cele șapte minuni ale lumii antice</b> este o listă ce conține șapte edificii din Antichitate. Lista era în principal un ghid turistic pentru călătorii din lumea antică ce voiau să vadă cele mai cunoscute destinații din acea perioadă.</p>
+<p>Cea mai veche versiune cunoscută a listei îi aparține lui Antipater din Sidon și a fost elaborată în secolul al II-lea î.Hr.. Se pare că se bazează pe ghidurile populare printre călătorii eleni și cuprinde doar clădiri din jurul Mării Mediterane, unde siguranța călătoriilor era oarecum asigurată. Cele șapte minuni erau considerate minuni deoarece erau printre cele mai populare destinații; încă din 1600 î.Hr. turiștii au zgâriat inscripții pe monumentele din Valea Regilor în Egipt (în acea perioadă Sfinxul avea deja o mie de ani). Toate minunile erau construcții antropice; destinațiile naturale nu erau incluse, nefiind populare.</p>
+<table bgcolor="FF9966" align="center" >
+<tr bgcolor="#FFCC99"><th>Numele construcției
+<th>Data construcției
+<th>Constructori
+<th>Data distrugerii
+<th>Cauza distrugerii
+<tr>
+<td><a href="minunile-lumii(2).html">Marea Piramidă din Gizeh</a>
+<td>2550 î.Hr.
+<td>egiptenii
+<td>-
+<td>-
+<tr>
+<td><a href="minunile-lumii(3).html">Grădinile suspendate ale Semiramidei</a>
+<td>600 î.Hr.
+<td>babilonienii
+<td>după secolul I î.Hr.
+<td>cutremur
+<tr>
+<td><a href="minunile-lumii(4).html">Templul zeiței Artemis din Efes</a>
+<td>550 î.Hr.
+<td>grecii, lidienii
+<td>356 î.Hr.
+<td>incendiu
+<tr>
+<td><a href="minunile-lumii(5).html">Statuia lui Zeus din Olympia</a>
+<td>435 î.Hr.
+<td>grecii
+<td>secolele V-VI d.Hr.
+<td>incendiu
+<tr>
+<td><a href="minunile-lumii(6).html">Mausoleul din Halicarnas</a>
+<td>351 î.Hr.
+<td>carienii, grecii
+<td>înainte de 1494 d.Hr.
+<td>cutremur
+<tr>
+<td><a href="minunile-lumii(7).html">Colosul din Rhodos</a>
+<td>292-280 î.Hr.
+<td>Grecia elenistică
+<td>224 î.Hr.
+<td>cutremur
+<tr>
+<td><a href="minunile-lumii(8).html">Farul din Alexandria</a>
+<td>secolul al III-lea î.Hr.
+<td>Egiptul elenistic
+<td>1303-1480 d.Hr.
+<td>cutremur
+</table>
+<p>În lista inițială a lui Antipater, Farul din Alexandria era înlocuit cu Zidurile Babilonului. Lista de mai sus a fost folosită începând cu secolul al VI-lea d.H. Dintre aceste minuni, singura care s-a păstrat este Marea Piramidă din Giza. Existența Grădinilor suspendate nu a fost încă dovedită 100%. Înregistrările istorice indică faptul că celelalte cinci minuni au fost distruse prin dezastre naturale. Templul zeiței Artemis din Efes și Statuia lui Zeus din Olympia au fost distruse de incendii, iar Farul din Alexandria, Colosul din Rodos și Mausoleul din Halicarnas au fost distruse de cutremure.</p>
+<p>În stabilirea celor șapte minuni ale lumii antice, grecii au avut un rol important. Istoricul Herodot, călătorind în Egipt in anul 450 î.Hr. spunea că: “Nicăieri în lume nu se pot vedea atâtea lucruri de o mareție atât de greu de definit”. El exemplifica aceasta afirmație cu două mari construcții egiptene apreciind că, sunt chiar superioare piramidelor: Lacul artificial Moeris și Labirintul de la Fayum. Acesta fusese construit de faraonul Amenemhet III (1842-1798 î.Hr.) și este de fapt un templu funerar cu două niveluri și 3000 de camere, coridoare, coloane și intrări secrete.</p>
+<p>Tot Herodot i-a informat pe greci despre giganticele ziduri ale Babilonului, groase de 27 metri. Deși se cunoșteau aceste relatări, cele două mari construcții nu au fost considerate minuni ale lumii antice, menționându-se patru monumente grecești: Templul zeiței Artemis din Efes, Mausoleul din Halicarnas, Colosul din Rodos și Farul din Alexandria, la care s-au mai adăugat Marea Piramidă din Giza și Grădinile suspendate ale Semiramidei din Babilon.</p>
+<p>Nu a fost menționat nici Zidul Chinezesc, care în timpul împaratului Qin Huangdi (259-240 î.Hr.) avea o lungime, peste munți și văi, de aproape 4000 km, iar în primele secole ale erei noastre de peste 6000 km.</p>
+<h3>Minunile lumii moderne</h3>
+<hr align="center" width="100%" size="2" color="black">
+<p><b>Cele șapte noi minuni ale lumii</b> reprezintă o listă cu șapte monumente arhitecturale alese în urma unei acțiuni organizate de NewSevenWonders Foundation în anul 1999 cu scopul de a se da o replică modernă celor "Șapte minuni ale lumii antice".</p>
+<p>Inițiativa a aparținut lui Bernard Weber Jr., filozof, producător de filme și fost aviator canadian, în colaborare cu întreprinderea de marketing Deureka. UNESCO a anunțat într-un comunicat că nu este implicată în această acțiune, contrar convingerii multor persoane. Bernard Weber este cunoscut nu numai pentru aceasta inițiativă, ci și pentru relatiile internationale pe care le întreținea, dat fiind faptul că fratele sau Igor-Abraham Weber a fost un cercetator în SUA. Familia Weber, soția lui, Anghola Weber, tatăl său Bernard Weber, au susținut inițiativa lui Bernard de la început până când acesta și-a atins scopul.</p>
+<p> Ideea lui Bernard Weber a fost de a se alcătui o nouă listă cu edificii sau monumente încă existente, suficient de bine conservate, opere ale mâinii omenești cu valoare estetică, realizate înainte de anul 2000, care să merite calificativul de "minune a lumii". S-au exclus prin urmare monumente ale naturii sau construcții utilitare (poduri, baraje), chiar dacă ar reprezenta o "minune" a tehnicii. Până la data de 24 noiembrie 2005, au fost luate în considerație 19 monumente, apoi, pe 1 ianuarie 2006, New7WondersFoundation a anunțat selecția a 21 obiecte rămase în competiție, selecție efectuată de o comisie compusă din șase athitecți renumiți, recrutați din cele cinci continente, Zaha Hadid, César Pelli, Tadao Ando, Harry Seidler, Aziz Tayob, Yung Ho Chang, sub președinția lui Federico Mayor, fost director general al UNESCO.</p>
+<p>În a treia fază, din ianuarie 2006 până în iunie 2007, lista finalistă a fost supusă unei votări mondiale, care se putea efectua prin Internet, telefon sau SMS. La acest vot au participat cca. 100 milioane de persoane. În ziua de 7 iulie 2007, s-au adus la cunoștința publicului rezulatele votării, în cadrul unui spectacol festiv televizat, care a avut loc la Lisabona.</p>
+<p>Ca urmare a acestor minuni, economia globala a crescut in anul 2008, deoarce turismul a atins un numar considerabil.</p>
+<table bgcolor="FF9966" align="center">
+<tr bgcolor="#FFCC99"><th>Numele construcției
+<tr>
+<td><a href="minunile-lumii(9).html">Marele Zid Chinezesc</a>
+<tr>
+<td><a href="minunile-lumii(10).html">Oraşul Petra din Iordania. Ansamblu arhitectural tăiat direct în stâncă</a>
+<tr>
+<td><a href="minunile-lumii(11).html">Statuia lui Hristos Mântuitorul de pe muntele Corcovado, Rio de Janeiro, Brazilia</a>
+<tr>
+<td><a href="minunile-lumii(12).html">Machu Picchu, vechiul oraş incas din Munţii Anzi, Peru</a>
+<tr>
+<td><a href="minunile-lumii(13).html">Piramida de la Chichén Itzá</a>
+<tr>
+<td><a href="minunile-lumii(14).html">Colosseum din Roma, Italia</a>
+<tr>
+<td><a href="minunile-lumii(15).html">Mausoleul Taj Mahal, India</a>
+</table>
+</body>
+</html>
