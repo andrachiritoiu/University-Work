@@ -1,2 +1,2 @@
 # Facultatea de Matematica si Informatica
- specializarea Informatica
+ Specializarea Informatica
