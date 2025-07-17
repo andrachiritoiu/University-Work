@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<head>
+<title>LABORATORUL 9 | Tehnici Web</title>
+<style>
+body {
+           font-family: Arial, sans-serif;
+           line-height: 1.6;
+           margin: 0;
+           padding: 0;
+           background-color: #f4f4f4;
+       }
+       header {
+           background: #35424a;
+           color: #ffffff;
+           padding: 20px 0;
+           text-align: center;
+       }
+       h1 {
+           margin: 0;
+           font-size: 2.5em;
+       }
+
+       section {
+           margin: 20px auto;
+           background-color: #fff;
+           padding: 20px;
+           border-radius: 8px;
+           box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+           max-width: 900px;
+       }
+       h2 {
+           color: #35424a;
+       }
+       ol {
+           padding-left: 20px;
+       }
+
+       ol, ul > li {margin-bottom:20px;}
+       ol li, ul li > ul {margin-bottom:5px;}
+</style>
+</head>
+<body>
+  <header>
+<h1>Laboratorul 9</h1>
+</header>
+<section>
+<h2>Tema 9.1</h2>
+
+<p>
+Fisierul <strong>e1.html</strong> contine  un element &lt;select&gt; cu id-ul "numar" ale carui optiuni sunt numerele de la
+1 la 20,  un &lt;button&gt; cu <br> id-ul  "finalizeaza", un element &lt;input&gt; de tip text cu id-ul "rezervari".
+ <br>Scrieti cod JavaScript pentru a implementa:</p>
+<ol>
+<li>
+La incarcarea paginii faceti ca butonul "finalizeaza" sa fie dezactivat.
+Dupa selectarea unui numar n din select, se vor crea n butoane (reprezentand bilete) care vor fi adaugate in divul cu clasa "container". Butoanele au ca text numerele de la 1 la n și
+culoare de background verde. </li>
+<li> La click pe un buton verde, numarul biletului va fi retinut in input (cu virgula intre numerele rezervate), butonul va deveni rosu iar numarul biletelor rezervate va fi actualizat.
+Daca se da click pe un buton rosu acesta va redeveni verde iar numarul lui va fi sters din input (se anuleaza rezervarea). Daca exista butoane rezervate, butonul "finalizeaza" va deveni activ.</li>
+<li>La click pe butonul "finalizeaza", se vor afisa intr-un alert biletele rezervate
+(continutul inputului), continutul inputului va fi setat la "" iar butoanele vor fi eliminate din pagina.</li>
+</ol>
+
+<h2>Tema 9.2</h2>
+
+<p>Consideram fisierul <strong>e2.html</strong>. Realizati urmatoarele cerinte: </p>
+<ol>
+<li>Adaugati in documentul html, un formular pentru retete care sa contina:
+  <ul>
+    <li>un input de tip text pentru numele retetei</li>
+<li>un input de tip number pentru durata retetei (in minute)</li>
+<li>un select pentru categoria retetei (ex. Aperitiv, Fel Principal, Desert)</li>
+<li>un buton "Adauga" pentru adaugarea retetei in lista de retete</li>
+<li>un buton "Reset" pentru resetarea datelor</li>
+</ul>
+</li>
+<li>La apasarea butonului "Adauga", se vor prelua datele introduse in campurile formularului si se va crea un element li care va fi adaugat listei cu id-ul "retete".
+  Elementul li va contine si un buton cu textul "Sterge".</li>
+<li>La click pe butonul Sterge, reteta respectiva se va sterge din lista.</li>
+<li>Salvați lista retetelor în localStorage de fiecare data cand se adauga sau se sterge o reteta.
+La reincarcarea paginii, restaurati lista retetelor din localStorage.</li>
+<li>La click pe butonul Reset se vor sterge toate retetele din localStorage iar lista va deveni vida.</li>
+<ol>
+</section>
+</body>
+</html>
