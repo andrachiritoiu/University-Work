@@ -1,0 +1,21 @@
+.container--contact {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: center;
+}
+
+.icon {
+    font-size: 60px;
+}
+
+@media (max-width: 990px) { 
+    .container--contact {
+        grid-template-columns: 1fr 1fr;
+    }    
+}
+
+@media (max-width: 767px) {
+    .container--contact {
+        grid-template-columns: 1fr;
+    }
+}

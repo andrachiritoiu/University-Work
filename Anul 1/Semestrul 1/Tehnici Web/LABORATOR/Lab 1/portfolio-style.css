@@ -1,0 +1,24 @@
+.portfolio-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-bottom: 0;
+}
+.portfolio-item {
+    width: calc(33% - 13px);
+    margin-bottom: 20px;
+}
+
+@media (max-width: 990px) {
+    .portfolio-item {
+        width: calc(50% - 10px);
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    .portfolio-item {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
