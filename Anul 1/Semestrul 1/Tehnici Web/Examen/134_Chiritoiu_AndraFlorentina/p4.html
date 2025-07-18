@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>examen-pb4</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('submitForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                var inputText = document.getElementById('inputText').value;
+                var litere = inputText.split(',').map(function(litera) {
+                    return litera.trim();
+                });
+
+                fetch('persoane.json')
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(data) {
+                        var persoane = data.persoane;
+                        var rezultate = persoane.filter(function(persoana) {
+                            return litere.some(function(litera) {
+                                return persoana.startsWith(litera);
+                            });
+                        });
+
+                        var rezultatText = rezultate.length > 0 ? rezultate.join(', ') : 'Nu exista persoane';
+                        document.getElementById('rezultat').textContent = rezultatText;
+                    })
+                    .catch(function(error) {
+                        console.error('Error:', error);
+                    });
+            });
+        });
+    </script>
+</head>
+<body>
+    <form id="submitForm">
+        <label for="inputText">Introduceti literele:</label>
+        <input type="text" id="inputText" name="inputText">
+        <button type="submit">Submit</button>
+    </form>
+    <p id="rezultat"></p>
+</body>
+</html>

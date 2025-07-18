@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>varianta 8</title>
+    <style>
+         /*css*/
+
+    </style>
+
+    <script>
+        /*java*/
+    window.onload=function(){
+        prelucrare();
+    }
+     // JavaScript pentru prelucrarea formularului
+     function prelucrare(){
+     document.getElementById('form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        // Preluăm valorile din formular
+                const textInput = document.getElementById('text').value;
+
+                // Verificăm dacă textul conține doar numere întregi și puncte și virgule
+                const regex = /^-?\d+(\s*-?\d+)*(\s*;\s*-?\d+)*$/;
+                const isValid = regex.test(textInput);
+
+                // Dacă regex-ul nu este valid, afișăm un mesaj de eroare
+                if (!isValid) {
+                    alert('Te rugăm să introduci doar numere întregi separate prin ;!');
+                    return;
+                }
+
+                // Verificăm fiecare număr separat
+                const numbers = textInput.split(';');
+                for (let i = 0; i < numbers.length; i++) {
+                    // Eliminăm spațiile și verificăm dacă fiecare element este un număr întreg
+                    const num = numbers[i].trim();
+                    if (num === '' || parseInt(num) != num) {
+                        alert('Te rugăm să introduci doar numere întregi valide!');
+                        return;
+                    }
+                }
+
+            
+            const order = document.querySelector('input[name="order"]:checked')?.value;
+
+            // Verificăm dacă utilizatorul a selectat o opțiune
+            if (!order) {
+                alert('Te rugăm să selectezi o opțiune de sortare!');
+                return;
+            }
+
+          // Transformăm textul introdus într-un array de numere
+            const numbersArray = textInput.split(';');
+            for (let i = 0; i < numbersArray.length; i++) {
+            numbersArray[i] = parseInt(numbersArray[i].trim());
+            }
+
+            // Verificăm dacă există numere valide
+            if (numbersArray.length === 0) {
+                alert('Te rugăm să introduci numere valide!');
+                return;
+            }
+
+            // Sortăm array-ul în funcție de alegerea utilizatorului
+            if (order === 'crescator') {
+            numbersArray.sort(); // Sortare crescătoare (implicit)
+            } else if (order === 'descrescator') {
+            numbersArray.sort().reverse(); // Sortare descrescătoare
+            }
+
+            // Afișăm rezultatul
+            const resultDiv = document.createElement('div');
+            resultDiv.classList.add('result');
+            resultDiv.innerText = 'Numerele sortate: ' + numbersArray.join('; ');
+            document.body.appendChild(resultDiv);
+        });
+    }
+    </script>
+
+</head>
+
+<body>
+    <form id="form">
+        <!-- /*for - pentru formular*/ -->
+        <label for="text">Introdu text:</label>
+        <input type="text" id="text">
+        <br>
+
+        <label for="b1">Crescător</label>
+        <input type="radio" id="b1" name="order" value="crescator">
+        <br>
+
+        <label for="b2">Descrescător</label>
+        <input type="radio" id="b2" name="order" value="descrescator">
+        <br>
+
+        <button type="submit" id="btn">Submit</button>
+    </form>
+</body>
+
+</html>

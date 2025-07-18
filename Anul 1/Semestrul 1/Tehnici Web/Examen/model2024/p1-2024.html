@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+
+<html lang="ro">
+    <head>
+        <!-- <link rel="stylesheet" type="text/css" href="p1.css"> -->
+        <style>
+            #parinte {
+    height: 500px;
+    width: 50%;
+    border: 5px solid green;
+    padding: 7px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+#parinte > div:nth-child(1), #parinte > div:nth-child(6) {
+    background-color: orange;
+}
+
+#parinte > div:nth-child(1) {
+    /*linia de inceput pe axa verticala, pe axa orizontala si span cate randuri va ocupa pe axa verticala*/
+    grid-area: 1 / 1 / span 1 / span 3;
+}
+
+#parinte > div:nth-child(2) {
+    background-color: pink;
+    grid-area: 2 / 1 / span 4;
+}
+
+#parinte > div:nth-child(3) {
+    background-color: red;
+    grid-area: 2 / 2 / span 2 / span 2;
+}
+
+#parinte > div:nth-child(4), #parinte > div:nth-child(5) {
+    background-color: purple;
+}
+
+#parinte > div:nth-child(4) {
+    grid-area: 4 / 2 / span 2;
+}
+
+#parinte > div:nth-child(5) {
+    grid-area: 4 / 3 / span 2
+}
+
+#parinte > div:nth-child(6) {
+    grid-area: 6 / 1 / span 1 / span 3;
+}
+
+#parinte > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (min-width: 300px) and (max-width: 600px) {
+    #parinte {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: left;
+    }
+
+    #parinte > div:nth-child(2n+1) {
+        transition: 3s;
+    }
+
+    #parinte > div:nth-child(2n+1):hover {
+        background-color: blue;
+        font-weight: bold;
+    }
+}
+
+        </style>
+        <meta name="viewport" content="initial-scale=1">
+    </head>
+
+    <body>
+        <div id="parinte">
+            <div>
+                DIV 1
+            </div>
+
+            <div>
+                DIV 2
+            </div>
+
+            <div>
+                DIV 3
+            </div>
+
+            <div>
+                DIV 4
+            </div>
+
+            <div>
+                DIV 5
+            </div>
+
+            <div>
+                DIV 6
+            </div>
+        </div>
+    </body>
+</html>

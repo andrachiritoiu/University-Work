@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>model</title>
+    <style>
+         /*css*/
+    </style>
+
+    <script>
+        /*java*/
+    window.onload=function(){
+        numar()
+    }
+    function numar(){
+         // Verificăm dacă există o valoare salvată în localStorage
+                const numarSalvat = localStorage.getItem("numar");
+
+                if (numarSalvat) {
+                    // Dacă există, setăm această valoare în input
+                    document.getElementById("numar").value = numarSalvat;
+                }
+                
+        document.addEventListener("keydown",function(event){
+            if(event.key==="s"){
+                let casuta=document.getElementById("numar").value;
+                let nr=0;
+                let v=[];
+                paragrafe=document.querySelectorAll("p");
+            for(let i = 0; i < 10; i++){
+                let lungimetext=paragrafe[i].textContent.split(" ").length;
+                if (lungimetext>casuta){
+                    v.push(i); //append
+                    nr+=1;
+                }
+            }
+
+            let i=0;
+            let interval=setInterval(function() {
+            if(i<v.length){
+                paragrafe[v[i]].remove()
+                i+=1
+            }
+               else{
+                clearInterval(interval)
+               }
+            }, 1000); // Interval de 1 sec
+
+            //salveaza nr in localStorage
+            localStorage.setItem("numar",nr);
+        }
+        
+    })
+}
+
+ 
+    </script>
+
+</head>
+
+<body>
+<input type="text" id="numar">
+    <p>mama mia</p>
+    <p>examen la TW</p>
+    <p>tu și eu</p>
+    <p>floricele pe câmpii</p>
+    <p>examenul la ASC</p>
+    <p>nanana muzica</p>
+    <p>nananana metrou</p>
+    <p>am fost</p>
+    <p>dormeam bine</p>
+    <p>noapte lungă</p>
+</body>
+
+</html>

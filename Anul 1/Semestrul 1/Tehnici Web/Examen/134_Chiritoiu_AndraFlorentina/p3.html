@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>examen-pb3</title>
+    <script>
+        window.onload=function(){
+            initializare();
+            mutare();
+        }
+
+      function initializare() {
+            const lista = document.getElementById("lista");
+            const listaSalvata = localStorage.getItem("lista");
+            if (listaSalvata) {
+                lista.innerHTML = ""; 
+                const elemente = listaSalvata.split(","); 
+                for (let i = 0; i < elemente.length; i++) {
+                    const li = document.createElement("li");
+                    li.textContent = elemente[i];
+                    lista.appendChild(li);
+                }
+            }
+        }
+
+        function salvareLista() {
+            const lista = document.getElementById("lista");
+            const elemente = [];
+            for (let i = 0; i < lista.children.length; i++) {
+                elemente.push(lista.children[i].textContent);
+            }
+            localStorage.setItem("lista", elemente.join(",")); 
+        }
+
+        function mutare() {
+            const checkbox = document.getElementById("mycheckbox");
+            const lista = document.getElementById("lista");
+            
+            let interval = setInterval(function() {
+                if (!checkbox.checked) {
+                    if (lista.children.length > 0) {
+                        const lastElement = lista.lastElementChild;
+                        lista.removeChild(lastElement);
+                        lista.insertBefore(lastElement, lista.firstElementChild);
+                        salvareLista(); 
+                    }
+                }
+            }, 3000); 
+        }
+    </script>
+
+</head>
+
+<body>
+    <input type="checkbox" id="mycheckbox"> pauza<br>
+    <ul id="lista">
+        <li>luni</li>
+        <li>marti</li>
+        <li>miercuri</li>
+        <li>joi</li>
+        <li>vineri</li>
+        <li>sambata</li>
+        <li>duminica</li>
+    </ul>
+</body>
+
+</html>

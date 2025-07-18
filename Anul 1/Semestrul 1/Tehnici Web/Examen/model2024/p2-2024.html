@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+
+<html lang="ro">
+    <head>
+        <!-- <link rel="stylesheet" type="text/css" href="p2.css"> -->
+        <!-- <script src="p2.js"></script> -->
+         <script>
+            window.onload = function() {
+    let countButtons = 0;
+
+    for (let i = 1; i <= 6; i++) {
+        let button = document.createElement("button");
+        countButtons++;
+
+        button.textContent = `Buton ${i}`;
+        button.style.width = "100px";
+        button.style.height = "40px";
+        button.classList.add("buton");
+
+        if (i % 2) {
+            button.style.backgroundColor = "yellow";
+            button.style.color = "black";
+        }
+        else {
+            button.style.backgroundColor = "green";
+            button.style.color = "white";
+        }
+
+        button.onclick = function() {
+            if (button.style.backgroundColor == "red") {
+                document.body.removeChild(button);
+                countButtons--;
+            }
+                
+            button.style.backgroundColor = "red";
+            button.style.transitionDuration = "5s";
+
+        }
+
+        document.body.appendChild(button);
+
+        // document.body.onclick = function(event) {
+        //     alert(countButtons);
+        // }
+    }
+}
+
+         </script>
+    </head>
+
+    <body>
+        
+    </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang="ro">
+    <head>
+        <!-- <script src="p3.js"></script> -->
+         <script>
+            window.onload = function() {
+    let paragraph = document.getElementById("info");
+    if (localStorage.getItem("lastFontSize")) {
+        paragraph.style.fontSize = localStorage.getItem("lastFontSize");
+    }
+
+    let ok = 0;
+    let aux = 0;
+    window.onkeydown = function(event) {
+        if (ok == 2) window.onkeydown = null;
+        else if (event.key == "a") {
+            ok++;
+            if (ok == 1) {
+                const currentDate = new Date();
+                paragraph.textContent = `${paragraph.textContent} ${currentDate.getDay()}/${currentDate.getDate()}/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()}`;
+                let c = setInterval(function() {
+                    if (ok == 2) {
+                        clearInterval(c);
+                        paragraph.style.fontSize = localStorage.getItem("lastFontSize");
+                        aux = 1;
+                    }
+                    if (!aux) {
+                        let randomFontSize = Math.floor(Math.random() * 21) + 10;
+                        paragraph.style.fontSize = randomFontSize + "px";
+                        localStorage.setItem("lastFontSize", `${randomFontSize}px`);
+                    }
+                    
+                }, 3000)
+            }
+        }
+    }
+}
+         </script>
+    </head>
+
+    <body>
+        <p id="info">un mesaj personalizat</p>
+    </body>
+</html>

@@ -1,0 +1,95 @@
+/*cu divuri*/
+
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>varianta 8</title>
+    <style>
+        /*css*/
+        #container{
+        max-width: 33vw;
+        max-height: 50vh;
+        border:2px solid black;
+        /*grid*/
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas: 
+            "div1 div1 div2"
+            "div3  div4 div2"
+            "div5 div5 div5";
+        gap:5px;
+        padding:2px;
+        text-align: center;
+        } 
+        
+        .div1{
+            grid-area:div1;
+        }
+
+        .div2{
+            grid-area:div2;
+        }
+
+        .div3{
+            grid-area:div3;
+        }
+
+        .div4{
+            grid-area:div4;
+        }
+
+        .div5{
+            grid-area:div5;
+        }
+
+        
+        #container>div {
+            border:3px solid blue; 
+            font-size: 10px;
+        }
+
+        /*inversarea divurilor*/
+        @media(max-width:600px) /*and (max-height:500px)*/{
+            #container{
+                display:flex;
+                flex-direction: column-reverse ;
+
+            } 
+
+            #container>div:nth-child(2n-1):hover{
+                border-color: red;
+                font-weight: bold;/*bolduit*/
+                transition: 3s;
+            }
+        }
+
+    </style>
+
+    <script>
+        /*java*/
+    </script>
+
+</head>
+
+<body>
+    <div id="container">
+        <div class="div1">
+           <p> Div1</p>
+        </div>
+        <div class="div2">
+            <p>Div2</p>
+        </div>
+        <div class="div3">
+            <p>Div3</p>
+        </div>
+        <div class="div4">
+            <p>Div4</p>
+        </div>
+        <div class="div5">
+            <p>Div5</p>
+        </div>
+    </div>
+</body>
+
+</html>

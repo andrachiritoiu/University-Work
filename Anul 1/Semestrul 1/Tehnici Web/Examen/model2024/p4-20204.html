@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+
+<html lang="ro">
+    <head>
+        <script>
+            const express = require('express');
+const app = express();
+const path = require('path');
+
+app.use(express.urlencoded({ extended: true }));
+
+app.use(express.static(path.join(__dirname)));
+
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname, "p4.html"));
+});
+
+app.get("/p4.html", function(req, res) {
+    res.sendFile(path.join(__dirname, "p4.html"));
+});
+
+app.post("/post", function(req, res) {
+    let ok = 1;
+    let words = req.body.cuvinte.split(" ");
+    for (let word of words) {
+        for (let i = 0; i < word.length; i++) {
+            if (word[i] < 'a' || word[i] > 'z') {
+                ok = 0;
+                break;
+            }
+        }
+    }
+
+    if (ok) {
+        let tip = req.body.tip;
+        if (tip == "alfabetic") {
+            words.sort();
+            let result = words.join(" ");
+            res.send(result);
+        }
+        else if (tip == "lungime") {
+            words.sort((a, b) => a.length - b.length);
+            let result = words.join(" ");
+            res.send(result);
+        }
+    }
+    
+    else {
+        res.send("Date invalide");
+    }
+});
+
+app.listen(7000, function() {
+    console.log("Server is running on port 7000");
+});
+        </script>
+    </head>
+
+    <body>
+        <form method="post" action="http://localhost:7000/post" target="afisare">
+            <input type="text" name="cuvinte">
+
+            <br>
+
+            <select name="tip">
+                <option value="alfabetic">alfabetic</option>
+                <option value="lungime">lungime</option>
+            </select>
+        </form>
+
+        <br>
+
+        <iframe name="afisare" width="200" height="100"></iframe>
+    </body>
+</html>

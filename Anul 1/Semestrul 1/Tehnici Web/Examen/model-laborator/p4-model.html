@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Descriere culori</title>
+    <script>
+        function afiseazaDescriere() {
+            // Obținem culoarea selectată
+            let culoareSelectata = document.querySelector('input[name="culoare"]:checked');
+
+            if (!culoareSelectata) {
+                alert( "Selectați o culoare!");
+                return;
+            }
+
+            let culoare = culoareSelectata.value;
+
+            // Cerere fetch pentru fisierul JSON
+            fetch("fisier.json")
+                .then(function(response) {
+                    if (!response.ok) {
+                        throw new Error("Eroare la încărcarea datelor!");
+                    }
+                    return response.json();
+                })
+                .then(function(culori) {
+                    // Verificăm dacă există descriere pentru culoarea selectată
+                    if (culori[culoare]) {
+                        document.getElementById("raspuns").textContent = culori[culoare];
+                        document.getElementById("raspuns").style.color = culoare;
+                    } else {
+                        document.getElementById("raspuns").textContent = "Nu există informații pentru această culoare!";
+                        document.getElementById("raspuns").style.color = "red";
+                    }
+                })
+        }
+    </script>
+</head>
+<body>
+    <!-- butoane radio cu eticheta -->
+    <h2>Selectați o culoare:</h2>
+    <label><input type="radio" name="culoare" value="red"> Roșu</label><br>
+    <label><input type="radio" name="culoare" value="blue"> Albastru</label><br>
+    <label><input type="radio" name="culoare" value="green"> Verde</label><br>
+    <label><input type="radio" name="culoare" value="yellow"> Galben</label><br>
+
+    <button onclick="afiseazaDescriere()">Afisează descrierea</button>
+
+    <p id="raspuns" style="font-weight: bold; margin-top: 20px;"></p>
+
+</body>
+</html>

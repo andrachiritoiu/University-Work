@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>varianta 8</title>
+    <style>
+         /*css*/
+    </style>
+
+    <script>
+        /*java*/
+        window.onload=function(){
+            initializare();
+            mutare();
+        }
+
+      // Inițializează lista din localStorage
+      function initializare() {
+            const lista = document.getElementById("lista");
+            const listaSalvata = localStorage.getItem("lista");
+            if (listaSalvata) {
+                lista.innerHTML = ""; // Golim lista curentă
+                const elemente = listaSalvata.split(","); // Împărțim stringul salvat
+                for (let i = 0; i < elemente.length; i++) {
+                    const li = document.createElement("li");
+                    li.textContent = elemente[i];
+                    lista.appendChild(li);
+                }
+            }
+        }
+
+        // Salvează lista în localStorage
+        function salvareLista() {
+            const lista = document.getElementById("lista");
+            const elemente = [];
+            for (let i = 0; i < lista.children.length; i++) {
+                elemente.push(lista.children[i].textContent);
+            }
+            localStorage.setItem("lista", elemente.join(",")); // Salvează lista ca string
+        }
+
+        // Schimbarea elementelor din lista la fiecare 3 secunde
+        function mutare() {
+            const checkbox = document.getElementById("mycheckbox");
+            const lista = document.getElementById("lista");
+            
+            let interval = setInterval(function() {
+                if (checkbox.checked) {
+                    clearInterval(interval); // Oprește intervalul când checkbox-ul este bifat
+                } else {
+                    let element1 = lista.querySelector("li"); // Selectează primul element
+                    lista.appendChild(element1); // Mută elementul la finalul listei
+                    salvareLista(); // Salvează lista în localStorage
+                }
+            }, 3000); // Interval de 3 secunde
+        }
+    </script>
+
+</head>
+
+<body>
+    <input type="checkbox" id="mycheckbox"> stop <br>
+    <ul id="lista">
+        <li>element1</li>
+        <li>element2</li>
+        <li>element3</li>
+        <li>element4</li>
+        <li>element5</li>
+        <li>element6</li>
+        <li>element7</li>
+        <li>element8</li>
+        <li>element9</li>
+        <li>element10</li>
+    </ul>
+</body>
+
+</html>

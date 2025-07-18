@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>MODEL_examen</title>
+<script>
+    window.onload = function(){
+        let cifre = [5, 6, 7, 8, 9, 10];
+        let cifra = cifre[Math.floor(Math.random() * cifre.length)];
+
+       /* const N = Math.floor(Math.random() * (10 - 5 + 1)) + 5; // Număr între 5 și 10*/
+        creare(cifra);
+        mutare();
+    }
+
+    function creare(cifra){
+        for (let i = 0; i < cifra; i++) {
+            let div = document.createElement("div");
+            div.classList.add("patrat");
+            document.body.appendChild(div);
+        }
+    }
+
+    function mutare(){
+        let divuri = document.querySelectorAll(".patrat");
+
+        // La fiecare click pe un div, mută-l la dreapta
+        for (let div of divuri) {
+            div.addEventListener("click", function(event){
+                event.stopPropagation(); // Previne propagarea click-ului
+                div.style.position = "relative";
+                div.style.left = "10px"; 
+            });
+        }
+
+        // La fiecare click în afara divurilor, alege un div aleatoriu și mută-l
+        document.body.addEventListener("click", function(event){
+            let numar = Math.floor(Math.random() * divuri.length);
+            let mutat = divuri[numar];
+            let x = event.clientX; // Coordonata X a cursorului
+            let y = event.clientY; // Coordonata Y a cursorului
+
+            // Setează poziția elementului la coordonatele click-ului
+            mutat.style.position = "absolute"; 
+            mutat.style.left = (x - mutat.offsetWidth / 2) + "px"; // Centrarea pe X
+            mutat.style.top = (y - mutat.offsetHeight / 2) + "px"; // Centrarea pe Y
+        });
+    }
+</script>
+<style>
+    .patrat {
+        border: 2px solid black;
+        width: 50px;
+        height: 50px;
+        background-color: green;
+        margin: 5px;
+    }
+</style>
+</head>
+<body>
+
+</body>
+</html>

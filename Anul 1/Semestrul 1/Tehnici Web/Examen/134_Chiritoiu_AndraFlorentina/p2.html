@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>examen-pb2</title>
+    <style>
+        .color1 {
+            background-color: pink;
+        }
+        .color2 {
+            background-color: purple;
+        }
+        .color3 {
+            background-color: red;
+        }
+        .color4 {
+            background-color: beige;
+        }
+        .color5 {
+            background-color: plum;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            adaugare();
+        }
+
+        function adaugare() {
+            document.addEventListener("keydown", function(event) {
+                if (event.key === 'b') {
+                    const button = document.createElement("button");
+                    var classes = ['color1', 'color2', 'color3', 'color4', 'color5'];
+                    var randomClass = classes[Math.floor(Math.random() * classes.length)];
+                    button.classList.add(randomClass);
+        
+                    button.style.width = "100px";
+                    button.style.height = "50px";
+                    button.style.display = "flex";
+                    button.style.alignItems = "center";
+                    button.style.justifyContent = "center";
+                    button.style.fontSize = "20px";
+                    button.style.fontWeight = "bold";
+                    
+                    let bcolor = getComputedStyle(button).backgroundColor;
+                    button.textContent = bcolor;
+                    document.body.appendChild(button);
+
+            button.addEventListener("dblclick", function() {
+                button.disabled = true;
+                });
+            }
+        });
+
+            document.addEventListener('click', function(event) {
+                if (!event.target.classList.contains("button")) {
+                    let butoane = document.querySelectorAll("button");
+                    alert(`Număr de butoane: ${butoane.length}`);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

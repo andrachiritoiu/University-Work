@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>examen-pb1</title>
+    <style>
+     .box{
+     width: 66vw;
+     height: 50vh;
+     border:2px solid black;
+     display: grid;
+     grid-template-columns: 1fr 1fr 1fr 1fr;
+     grid-template-areas: 
+         ". div1 div1 ."
+         "div2 div2 div3 div3"
+         "div4 div4 div4 div4"
+         "div5 . . div6";
+     row-gap:5px;
+     gap:5px;
+     padding:5px;
+     margin:auto;
+     } 
+     
+     .div1{
+        grid-area:div1;
+        background-color: grey;
+        color:white;
+     }
+
+     .div2{
+        grid-area:div2;
+        background-color: grey;
+        color:white;
+     }
+
+     .div3{
+        grid-area:div3;
+        background-color: yellow;
+        color:black;
+     }
+
+     .div4{
+        grid-area:div4;
+        background-color: grey;
+        color:white;
+     }
+
+     .div5{
+        grid-area:div5;
+        background-color: grey;
+        color:white;
+     }
+
+     .div6{
+        grid-area:div6;
+        background-color: yellow;
+        color:black;
+     }
+
+     
+     .box>div {
+        border:5px double red; 
+        font-size: 15px;
+        padding: 10px;
+     }
+
+     @media(min-width:250px) and (max-width:650px){
+            .box{
+                display:flex;
+                flex-direction: column;
+            } 
+
+            .box>div{
+                font-size: 8px;
+            }
+
+        .box:hover{
+                height: 100vh;
+                transition:3s;
+
+                div:nth-child(6){
+                border-color: blue;
+                }
+
+            }
+        }
+
+     
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="div1">
+           <p>A</p>
+        </div>
+        <div class="div2">
+            <p>B</p>
+        </div>
+        <div class="div3">
+            <p>C</p>
+        </div>
+        <div class="div4">
+            <p>D</p>
+        </div>
+        <div class="div5">
+            <p>E</p>
+        </div>
+        <div class="div6">
+            <p>F</p>
+        </div>
+    </div>
+</body>
+
+</html>

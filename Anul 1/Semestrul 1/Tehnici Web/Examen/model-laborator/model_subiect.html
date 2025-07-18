@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Model subiect</title>
+
+</head>
+<body>
+<h2>Model examen</h2>
+
+<article>
+<h3>P1 (HTML/CSS: stilizare, layout, media query, animatii, tranzitii)</h3>
+<ul>
+<li> Creati un div cu clasa "container" (scrieti o regula css pentru aceasta clasa, astfel incat inaltimea sa fie jumatate din inaltimea ecranului, latimea de 250px si border albastru punctat) in care se vor gasi alte 5 divuri. </li>
+<li>Realizati folosind tehnica grid din CSS urmatorul mod de afisare al divurilor. Scrieti o regula css astfel incat divurile din interiorul unui element cu clasa "container" sa aiba border negru, dublu, de 8px si dimensiunea fontului de 15px.<br>
+<img src="layout.png" alt="layout">
+</li>
+<li>
+Scrieti un media query pentru latimea ferestrei sub 600px si inaltimea sub 500px cu efectele:
+<ol> <li> divurile sa nu se mai afiseze in grid, ci in formatul default, unul sub altul, intinse pe toata latimea containerului </li>
+<li>culoarea borderului elementelor din container se va schimba lent timp de 3 secunde, de la negru la galben si invers repetandu-se la infinit.</li>
+<li> cand aducem cursorul pe oricare din ele sa creasca treptat dimensiunea fontului la 30px iar culoarea textului sa devina rosie (modificarile sa se faca in timp de 2 secunde).</li>
+</li>
+</ul>
+ </article>
+
+ <article>
+ <h3>P2 (JS: creare colectie dinamica, eveniment pe elementele colectiei, stopPropagare, adaugare/stergere/modificare clase, numar/culoare random)</h3>
+ <p> Se considera un document HTML fara continut (nu contine alte elemente in interiorul body-ului). Scrieti cod JavaScript pentru a rezolva urmatoarele:</p>
+ <ul>
+ <li> la incarcarea paginii, se vor crea dinamic N elemente div care primesc stilizarea unei clase "patrat" (o definiti in CSS) unde N este un numar natural ales aleator intre 5 si 10. Clasa "patrat" atribuie un border, dimensiuni patratice divurilor generate si o culoare de background verde.
+ </li>
+ <li> la fiecare click pe orice div cu clasa "patrat", acesta se va deplasa spre dreapta cu 10px. Daca se da click in fereastra (in afara divurilor), un div selectat random din cele N divuri create se va muta la pozitia click-ului.
+ Click-ul pe un div nu trebuie sa declanseze actiunea click-ului din afara divurilor.
+ </li>
+ </ul>
+ </article>
+
+<article>
+ <h3>P3 (JS: inputuri, localStorage, setTimeout/setInterval, eveniment tastatura)</h3>
+
+ Presupunem ca in documentul HTML exista un input de tip text cu id-ul "numar" si 10 paragrafe ale caror continuturi sunt cuvinte separate prin spatii (ex: &lt;p &gt;examen la tehnici web &lt;/p &gt;). In inputul de  tip text se va scrie un numar intreg (fara validare, presupuneti ca e corect). La prima apasare a tastei "s" se preia numarul din inputul de tip text si se sterge din secunda in secunda cate un  paragraf care contine un numar de cuvinte mai mare strict decat numarul din input.
+ Dupa ce s-a terminat stergerea tuturor paragrafelor care indeplinesc conditia, numarul paragrafelor sterse va fi salvat in localStorage iar la urmatoarea reincarcare a paginii, ea va fi valoarea implicita a elementului input de tip text.
+</article>
+
+<article>
+<h3> P4 (Cerere Ajax, formulare, actualizare pagina)</h3>
+Scrieti un document HTML care contine un grup de butoane radio avand ca etichete nume de culori si un buton cu textul "Afiseaza descrierea".
+La apasarea butonului "Afiseaza descrierea" se verifica daca utilizatorul a selectat o culoare. Daca nu, afiseaza un mesaj de eroare.
+Daca o culoare a fost selectata, se va trimite o cerere AJAX pentru a obtine datele din fisierul culori.json.
+Cautati in fisierul JSON descrierea asociata culorii selectate.
+Daca exista o descriere, afisati descrierea in paragraful cu id-ul "raspuns", schimband culoarea textului in culoarea selectata.
+Daca nu exista informatii pentru culoarea respectiva, afisati un mesaj de eroare. </article>
+<br>
+<br>
+
+</body>
+</html>

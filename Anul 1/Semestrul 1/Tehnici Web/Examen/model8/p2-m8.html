@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>varianta 8</title>
+    <style>
+         /*css*/
+        /* .click{
+            border: 2px double green;
+         }*/
+    </style>
+
+    <script>
+        /*java*/
+
+        window.onload = function(){
+            adaugare();
+        }
+
+        //aduga un div la apasarea tastatura
+        function adaugare() {
+            document.addEventListener("keydown", function(event) {
+                if (event.key >= '0' && event.key <= '9') {
+                    // Creăm un div daca apasam o tasta de la 0 la 9
+                    const div = document.createElement("div");
+                    var colors = ['rgb(243, 225, 213)', '#C70039', 'rgba(241, 193, 184, 0.85)', 'rgba(173, 34, 161, 0.34)', 'purple'];
+                    var randomColor = colors[Math.floor(Math.random() * colors.length)];
+                    div.style.width = "50px";
+                    div.style.height = "50px";
+                    div.style.display = "flex";
+                    div.style.alignItems = "center";
+                    div.style.justifyContent = "center";
+                    div.style.fontSize = "20px";
+                    div.style.fontWeight = "bold";
+                    div.style.color = "white";
+                    div.style.backgroundColor = randomColor;
+                    div.textContent = event.key;
+
+                    // Facem ca div-urile să fie afișate pe o linie
+                    document.body.style.display = "flex";
+                    //elementul html
+                    document.body.appendChild(div);
+
+                    // Adăugăm un eveniment de click pe div(elemntul html)
+                    div.addEventListener("click", function(event) {
+                        event.stopPropagation(); // Previne propagarea click-ului către body
+
+                        // Căutăm toate div-urile care au același text
+                        let divs = document.querySelectorAll("div");
+                        for (let i = 0; i < divs.length; i++) {
+                            //div.textContent-divul pe care am dat click
+                            if (divs[i].textContent === div.textContent) {
+                                divs[i].classList.add("click"); // Adăugăm clasa "click" la div
+                                divs[i].style.border = "green double 2px";
+                            }
+                        }
+                    });
+                }
+
+            document.addEventListener("click", function(){
+                   // Căutăm toate div-urile care au clasa click
+                   let divs = document.querySelectorAll(".click");
+                        for (let i = 0; i < divs.length; i++) {
+                            divs[i].remove();
+                        }
+            });
+         });
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+</body>
+
+</html>
