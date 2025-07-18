@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Yellowtail&display=swap');
+/* Setare stil general pentru întreaga pagină: culoare/imagine de background, culoare a textului, familie de fonturi, padding, margin */
+   
+body{
+   background-color:lightgreen;
+   background-image: url("poze/fundal.jpg");
+   color:#333333;
+   font-family: "Arial", sans-serif;
+   margin:0;
+   padding:0;
+   }
+   
+
+/* Ascundeti meniul fara insa a-i pastra spatiul */
+
+
+ nav {
+   display:none;
+   }
+
+
+
+/* Stilizare pentru header: background, padding de 20px, culoare text, centare elemente din interior; h1 din header de 3em, margin 0 */
+
+
+ header {
+  background-color: YellowGreen;
+  padding: 30px;
+  text-align: center;
+  color: white;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 3.5em;
+  font-family: "Yellowtail", cursive;
+}
+
+
+
+/* Stil pentru secțiuni: culoare de background, margin si padding de 30px, border cu margini rotunjite, box-shadow */
+
+
+section, article {
+  background-color: #d0f0c0;
+  padding: 30px;
+  margin: 30px;
+  border-radius: 15px;
+/*  margin-bottom: 20px; */
+  box-shadow: 5px 3px grey;
+  border:1px solid grey;
+}
+
+
+
+/* Stil pentru subsectiunile din sectiunea Diverse si articolele din sectiune Rase de pisici: culoare de background; titlu centrat si italic (folositi clase);*/
+
+#pisici-diverse > section, #pisici-rase > article {
+  background-color: ivory;
+}
+  
+h3{
+  text-align:center;
+  font-style:italic;
+  }
+
+
+/* Continut generat (::before, ::after): dupa fiecare element h3 din document se va afisa imaginea 🐱*/
+
+
+h3::after {
+  content: "🐱 ";
+  margin-left:3px;
+}
+
+
+
+/* Stil pentru tabel: latime, border, padding pentru tabel si pentru celule, background diferit pentru primul rand si restul tabelului, 
+culoare a textului, alinierea textului in celula; la trecerea cu mouse-ul peste un rand acesta sa-si schimbe fundalul */
+
+
+table {
+
+  width:100%;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #9933cc;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #2f4f4f;
+  color: white;
+}
+
+td {
+  background-color: ivory;
+}
+
+tbody > tr:hover > td {
+  background-color: darkgrey; /* Culoarea dorită pentru hover */
+}
+
+
+
+/*Stil pentru fiecare paragraf din sectiunea Rase de pisici care urmeaza imediat dupa un element h3: italic si cu alta culoare*/
+
+#pisici-rase  h3 + p {
+  font-style: italic;
+  color: #660099;
+}
+
+
+
+/* Stil pentru lista de sfaturi pentru pisici (:nth-child):
+-coloreaza elementele de pe pozițiile impare într-o culoare diferită față de cele de pe pozițiile pare
+-schimbă stilul listei pentru primele doua elemente (de ex. bold)
+-la hover, schimbă culoarea de fundal pentru element, dar păstrează stilul diferit între elementele impare și pare.
+*/
+
+
+#pisici-sfaturi > ul {
+display:inline-block;
+}
+
+
+#pisici-sfaturi > ul > li:nth-child(2n){
+ color: green;
+}
+#pisici-sfaturi > ul > li:nth-child(2n+1){
+color:blue; }
+
+#pisici-sfaturi > ul > li:nth-child(-n+2){
+ background-color:white;
+ }
+#pisici-sfaturi > ul > li:hover{
+background-color:magenta;
+}
+
+
+/*Stil pentru elementul aside din sectiunea sfaturi pentru pisici: culoare de background, culoare pentru text, padding, border-left*/
+
+
+aside {
+  background-color:SeaGreen;
+  color:white;
+  padding: 10px;
+  border-left: 4px solid yellow;
+
+}
+
+/* Stil pentru galerie: figurile sa fie aranjate cate 3 pe linie, cu o distanta de 16px intre ele; border-radius pentru imagini, figcaption centrat, opacitate de 0.7 pentru imagini; la hover sa-si modifice opacitatea la 1  */
+
+
+
+ 
+/* Stil pentru footer: culoare de background, padding, culoare a textului, centrare text, stilizare ancora ca un buton (padding, border-radius), schimbare stil la hover */
+
+footer {
+  background-color: #2f4f4f;
+  text-align: center;
+  padding: 20px;
+  color: white;
+}
+a.buton {
+  text-decoration: none;
+  color: darkgreen;
+  padding: 10px 20px;
+  background-color: PaleGreen;
+  display: inline-block;
+  border-radius: 5px;
+}
+
+a.buton:hover {
+  background-color: yellow;
+}
+
