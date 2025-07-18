@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Rezervare bilete</title>
+    <style>
+        .container {
+            margin-top: 10px;
+        }
+        .container button {
+            margin: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+    <script type="text/javascript" src="e1.js"></script>
+</head>
+<body>
+    <h1>Aplicație de rezervare bilete</h1>
+    <label for="numar">Selectează numărul de bilete:</label>
+    <select id="numar">
+        <option value="" selected>Alege...</option>
+        <!-- Numerele de la 1 la 20 -->
+        <script>
+            for (let i = 1; i <= 20; i++) {
+                document.write(`<option value="${i}">${i}</option>`);
+            }
+        </script>
+    </select>
+
+    <button id="finalizeaza">Finalizează</button>
+    <input type="text" id="rezervari" value="" readonly placeholder="Bilete rezervate...">
+
+    <p><strong>Bilete rezervate:</strong> <span id="count">0</span></p>
+
+    <div class="container" id="butoane"></div>
+</body>
+</html>
