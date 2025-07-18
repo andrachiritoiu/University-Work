@@ -1,0 +1,17 @@
+[
+	{       
+                "sursa" : "psiho1.png",
+                "caption": "Asculta-ti corpul"
+
+	},
+	
+	{       
+		"sursa" : "psiho2.png",
+                "caption": "Vindecarea"
+	},
+	{       
+		"sursa" : "psiho3.png",
+                "caption": "Cele 5 rani"	
+	}
+	
+]

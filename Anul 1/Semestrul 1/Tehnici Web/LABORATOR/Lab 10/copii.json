@@ -1,0 +1,17 @@
+[
+	{       
+                "sursa" : "copii1.png",
+                "caption": "Matilda"
+
+	},
+	
+	{       
+		"sursa" : "copii2.png",
+                "caption": "The Hobbit"
+	},
+	{       
+		"sursa" : "copii3.png",
+                "caption": "Little Women"	
+	}
+	
+]

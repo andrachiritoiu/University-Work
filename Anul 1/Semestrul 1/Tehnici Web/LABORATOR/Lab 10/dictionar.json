@@ -1,0 +1,23 @@
+[
+    { "cuvant": "carte", "engleza": "book", "franceza": "livre" },
+    { "cuvant": "floare", "engleza": "flower", "franceza": "fleur" },
+    { "cuvant": "tablou", "engleza": "picture", "franceza": "photo" },
+    { "cuvant": "film", "engleza": "movie", "franceza": "film" },
+    { "cuvant": "apa", "engleza": "water", "franceza": "eau" },
+    { "cuvant": "soare", "engleza": "sun", "franceza": "soleil" },
+    { "cuvant": "luna", "engleza": "moon", "franceza": "lune" },
+    { "cuvant": "cer", "engleza": "sky", "franceza": "ciel" },
+    { "cuvant": "mancare", "engleza": "food", "franceza": "nourriture" },
+    { "cuvant": "muzica", "engleza": "music", "franceza": "musique" },
+    { "cuvant": "pisica", "engleza": "cat", "franceza": "chat" },
+    { "cuvant": "caine", "engleza": "dog", "franceza": "chien" },
+    { "cuvant": "frunza", "engleza": "leaf", "franceza": "feuille" },
+    { "cuvant": "copac", "engleza": "tree", "franceza": "arbre" },
+    { "cuvant": "mare", "engleza": "sea", "franceza": "mer" },
+    { "cuvant": "oras", "engleza": "city", "franceza": "ville" },
+    { "cuvant": "zid", "engleza": "wall", "franceza": "mur" },
+    { "cuvant": "cladire", "engleza": "building", "franceza": "bâtiment" },
+    { "cuvant": "prieten", "engleza": "friend", "franceza": "ami" },
+    { "cuvant": "familie", "engleza": "family", "franceza": "famille" }
+]
+

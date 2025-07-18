@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <title>Carti</title>
+  <style>
+  #carti {display:flex;
+    gap:10px;}
+    figure {
+      width:200px;
+      height:auto;
+    }
+    figure img{
+      max-width:100%;
+    }
+    figcaption {
+      color: red;
+      font-size:20px;
+      text-align:center;
+    }
+  </style>
+  <script src="e3.js"></script>
+</head>
+<body>
+  <h1>Cartile mele</h1>
+  <select id="categorie">
+    <option selected disabled>Categoria</option>
+    <option value="bele">Beletristica</option>
+    <option value="psiho">Psihologie</option>
+    <option value="copii">Carti pentru copii</option>
+  </select>
+  <section id="carti">
+  </section>
+</body>
+</html>
