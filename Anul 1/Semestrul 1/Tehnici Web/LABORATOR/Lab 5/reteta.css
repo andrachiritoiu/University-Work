@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+body {
+  background-color:ivory;
+  color: #333333;
+  font-family: "Lucida Console", "Courier New", monospace;
+  margin: 0;
+  padding: 0;
+}
+header {
+  background-color: orange;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 3px solid #cc5500;
+}
+
+header > h1 {
+  color: white;
+  font-size: 2.5em;
+  margin: 0;
+}
+
+header > p {
+  font-style: italic;
+  color: black;
+  text-decoration: underline;
+}
+
+
+section {
+  /*width:70%;*/
+  border:1px solid darkorange;
+/*  margin-left:auto;
+  margin-right:auto;
+  margin-top:15px;*/
+  background-color: white;
+  padding:20px;
+}
+section > h2 {
+  color:darkorange;
+  font-family: "Permanent Marker", cursive;
+}
+
+table,
+th,
+td {
+  border: 1px solid brown;
+  border-collapse: collapse;
+}
+table{
+ width:100%;
+}
+tr:first-child{
+  background-color: #cc5500;
+  color:white;
+}
+tr:nth-child(n+2){
+  background-color: beige;
+}
+tr>th, tr>td{
+  padding:10px;
+  text-align: left;
+}
+tr:nth-child(n+2):hover{
+  background-color: red;
+}
+#video > iframe{
+  display: block;
+  margin:auto;
+}
+footer {
+  background-color: orange;
+  padding: 20px;
+  text-align: center;
+  border-top: 3px solid #cc5500;
+}
+footer > a{
+  color:beige;
+  background-color: brown;
+  text-decoration: none;
+  padding:10px;
+  display:inline-block;
+  border-radius: 15px;
+  font-weight: bold;
+}
+footer > a:hover{
+  font-size: 20px;
+}
+footer > a:active{
+  background-color: lime;
+}
+dl>dt{
+  font-weight: bold;
+  font-style: italic;
+  margin-top: 10px;
+  }
+dl>dd{
+  color:grey;
+  margin-top:10px;
+}
+footer > p::after{
+  content: "🥣";
+  margin-left:5px;
+}
+
+figure>img {width:100%;border-radius: 10px;opacity:0.6;}
+figure>img:hover{
+  opacity: 1;
+}
+figure>figcaption{
+/*  display: none;*/
+ visibility: hidden;
+  text-align: center;
+  color:red;
+}
+figure>img:hover + figcaption{
+  /*display: block;*/
+  visibility: visible;
+}
+
+figure:has(~figure:hover){
+  visibility: hidden;
+}
+
+figure:hover ~ figure {
+  visibility: hidden;
+}
+ol{
+  display: none;
+}
+ol>li:nth-child(-n+3){
+  text-decoration: underline;
+}
+#preparare>h2:hover + ol{
+  display: block;
+}
+dl>dt::first-letter{
+  color:red;
+  font-size:1.5em;
+  text-transform: uppercase;
+}
+
+/*meniul drop-down realizat cu flex*/
+
+nav ul{
+  list-style-type: none;
+}
+nav ul, nav li{
+  margin:0;
+  padding:0;
+}
+nav a{
+  text-decoration: none;
+  color:white;
+  display: block;
+  font-weight: bold;
+}
+nav {
+  background-color:peru;
+  height: 50px;
+  width:100%;
+  position:sticky;
+  top:0;
+  z-index:3;
+}
+nav>ul.meniu>li>ul.submeniu{
+  display: none;
+}
+nav>ul.meniu>li:hover>ul.submeniu{
+  display: block;
+}
+ul.meniu{
+  display:flex;
+  flex-flow:row nowrap;
+  justify-content: space-around;
+}
+ul.meniu>li{
+  height:50px;
+  line-height: 50px;
+  text-align: center;
+  border:1px solid white;
+  flex:1 250px;
+}
+ul.submeniu>li{
+  height:50px;
+  line-height: 50px;
+  text-align: center;
+  border:1px solid white;
+  background-color: peru;
+}
+nav a:hover{
+  background-color:grey;
+}
+
+
+/*gridul paginii*/
+#ustensile{
+  grid-area:ustensile;
+}
+#ingrediente{
+  grid-area:tabel;
+}
+#preparare{
+  grid-area:pasi;
+}
+#video{
+  grid-area:video;
+}
+#galerie{
+  grid-area:galerie;
+}
+.grid-container{
+  padding:10px;
+  display:grid;
+  grid-template-columns: repeat(10,1fr);
+  grid-gap:15px;
+  grid-template-areas:
+  "ustensile ustensile tabel tabel tabel tabel tabel tabel tabel tabel"
+  "pasi pasi pasi pasi pasi pasi video video video video"
+  "galerie galerie galerie galerie galerie galerie galerie galerie galerie galerie";
+}
+
+ #container-poze{
+   display:grid;
+   grid-template-columns: repeat(auto-fill,minmax(400px,1fr)); /*numar de coloane variabil*/
+   grid-gap:10px;
+ }
+ol{
+  display:flex;
+  padding:0;
+  margin:0;
+  list-style-type: none;
+  justify-content: space-between;
+
+}
+ol>li{
+  margin:0;
+  padding:5px;
+  flex:0 0 170px;
+  border:1px solid red;
+}
