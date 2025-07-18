@@ -1,0 +1,52 @@
+
+body {
+  background-color: ivory;
+  color: #333;
+  font-family: "Lucida Console", "Courier New", monospace;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: orange;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 3px solid #cc5500;
+}
+
+header > h1 {
+  color: white;
+  font-size: 2.5em;
+  margin: 0;
+}
+
+header > p {
+  font-style: italic;
+  color: black;
+}
+
+nav {
+  background-color: lightblue;
+  text-align: center;
+  padding: 10px;
+}
+
+nav > ul {
+  list-style-type: none;
+}
+
+nav > ul > li {
+  display: inline;
+  margin: 10px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #003366; 
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: white; 
+}
+
