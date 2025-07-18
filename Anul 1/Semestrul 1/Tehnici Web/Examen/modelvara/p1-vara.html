@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>varianta vara-p1</title>
+    <style>
+        /*css*/
+        #parinte{
+        max-width: 50vw;
+        max-height: 500px;
+        border:5px solid green;
+        /*grid*/
+        display: grid;
+        /*cele 2 randuri din mijloc sa fie de 5 ori mai mari*/
+        grid-template-rows: 1fr 5fr 5fr 1fr;
+        grid-template-areas: 
+            "div1 div1 div1"
+            "div2  div3 div3"
+            "div2 div4 div5"
+            "div6 div6 div6";
+        gap:10px;
+        padding:7px;
+        text-align: center;
+        } 
+        
+        .div1{
+            grid-area:div1;
+            background-color: orange;
+        }
+
+        .div2{
+            grid-area:div2;
+            background-color: pink;
+        }
+
+        .div3{
+            grid-area:div3;
+            background-color: red;
+        }
+
+        .div4{
+            grid-area:div4;
+            background-color: purple;
+        }
+
+        .div5{
+            grid-area:div5;
+            background-color: purple;
+        }
+        .div6{
+            grid-area:div6;
+            background-color: orange;
+        }
+
+        
+        #parinte>div {
+            font-size: 10px;
+            display:flex;
+            justify-content: center;
+            text-align: center;
+            /*centreaza textul*/
+            align-items: center; 
+        }
+
+        /*inversarea divurilor*/
+        @media(max-width:600px) /*and (min-widtht:300px)*/{
+            #parinte{
+                display:flex;
+                flex-direction: column-reverse ;
+
+            } 
+
+            #parinte > div:nth-child(2n-1):hover{
+                background-color: blue;
+                font-weight: bold;/*bolduit*/
+                transition: 3s;
+            }
+        }
+
+    </style>
+
+    <script>
+        /*java*/
+    </script>
+
+</head>
+
+<body>
+    <div id="parinte">
+        <div class="div1">
+           <p> Div1</p>
+        </div>
+        <div class="div2">
+            <p>Div2</p>
+        </div>
+        <div class="div3">
+            <p>Div3</p>
+        </div>
+        <div class="div4">
+            <p>Div4</p>
+        </div>
+        <div class="div5">
+            <p>Div5</p>
+        </div>
+        <div class="div6">
+            <p>Div6</p>
+        </div>
+    </div>
+</body>
+
+</html>

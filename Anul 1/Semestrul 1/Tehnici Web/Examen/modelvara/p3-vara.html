@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>vara-p3</title>
+  <style>
+
+  </style>
+
+  <script>
+   window.onkeydown = function(event) {
+        let p = document.getElementById("info");
+        let nr = 0;
+        let font;
+        let c;
+        let f= localStorage.getItem("font");
+        if (f){
+            p.style.border = f + "px solid red";
+        }
+        if (event.key == "a") {
+            if (nr == 0) {
+                nr++;
+                let data = new Date();
+                p.innerHTML += `Ziua ${data.getDay()} / Ora ${data.getHours()}: ${data.getMinutes()}: ${data.getSeconds()}`;
+                setInterval(function() {
+                    let font = Math.floor(Math.random() * 21) + 10;
+                    p.style.fontSize = font + "px";
+                }, 3000); // Interval de 1 secundă
+            }
+            else{
+                clearInterval(c);
+                localStrorage.setItem("font",font);
+            }
+        }
+    };
+
+  </script>
+
+</head>
+<body>
+
+    <p id="info">Astazi este o zi cu soare </p>
+
+</body>
+</html>
+

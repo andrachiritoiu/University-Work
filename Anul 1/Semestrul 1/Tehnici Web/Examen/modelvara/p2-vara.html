@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>vara-2</title>
+  <style>
+    .buton {
+        border-radius: 5px;
+        margin-right: 10px;
+    }
+  </style>
+  <script>
+    window.onload = function() {
+        // Creăm 6 butoane
+        for (let i = 1; i <= 6; i++) {
+            let buton = document.createElement("button");
+            buton.innerHTML = `Buton ${i}`;
+            document.body.appendChild(buton);
+            buton.className = "buton";
+            buton.style.width = "100px";
+            buton.style.height = "40px";
+            buton.style.backgroundColor = (i % 2 == 1) ? "yellow" : "green";
+            buton.style.color = (i % 2 == 1) ? "black" : "white";
+            buton.culoareInitiala = buton.style.backgroundColor;
+
+            // Adăugăm funcționalitatea de schimbare a culorii și eliminare
+            buton.onclick = function(event) {
+                event.stopPropagation(); // Oprim propagarea click-ului pentru buton
+                if (buton.style.backgroundColor == "red") {
+                    buton.remove(); // Elimină butonul
+                } else {
+                    buton.style.backgroundColor = "red";
+                    setTimeout(function() {
+                        buton.style.backgroundColor = buton.culoareInitiala;
+                    }, 5000);
+                }
+            }
+        }
+
+        // Evenimentul pentru click pe întreaga pagină
+        document.addEventListener('click', function(event) {
+            // Verificăm dacă click-ul a avut loc în afara butoanelor
+            if (!event.target.classList.contains("buton")) {
+                // Verificăm câte butoane sunt pe pagină
+                let butoane = document.querySelectorAll("button");
+                alert(`Număr de butoane rămase: ${butoane.length}`);
+            }
+        });
+    }
+  </script>
+</head>
+<body>
+</body>
+</html>

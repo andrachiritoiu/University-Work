@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sortare Cuvinte</title>
+</head>
+<body>
+    <form id="wordForm">
+        <label for="words">Introduceți cuvintele (separate prin spațiu):</label><br>
+        <input type="text" id="words" name="words" required><br><br>
+        
+        <label for="sortOption">Selectați tipul de sortare:</label><br>
+        <select id="sortOption" name="sortOption">
+            <option value="alphabetic">Alfabetic</option>
+            <option value="length">Lungime</option>
+        </select><br><br>
+        
+        <button type="submit">Trimite</button>
+    </form>
+
+    <div id="response"></div>
+
+    <script>
+        document.getElementById("wordForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            var wordsInput = document.getElementById("words").value.trim();
+            var sortOption = document.getElementById("sortOption").value;
+            var responseDiv = document.getElementById("response");
+
+            // Validare locală înainte de trimiterea datelor
+            var wordArray = wordsInput.split(" ");
+            if (!/^[a-z ]+$/.test(wordsInput) || wordArray.some(function(word) { return word === ""; })) {
+                responseDiv.textContent = "Date invalide. Asigurați-vă că introduceți doar cuvinte formate din litere mici, separate prin spațiu.";
+                return;
+            }
+
+            // Sortare cuvinte
+            if (sortOption === "alphabetic") {
+                wordArray.sort();
+            } else if (sortOption === "length") {
+                wordArray.sort(function(a, b) {
+                    return a.length - b.length;
+                });
+            }
+
+            // Afișare rezultat
+            responseDiv.textContent = wordArray.join(" ");
+        });
+    </script>
+</body>
+</html>
