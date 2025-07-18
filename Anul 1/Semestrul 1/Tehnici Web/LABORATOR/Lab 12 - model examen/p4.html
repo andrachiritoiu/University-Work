@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8"/>
+	<title>Exercitiul4</title>
+	<script>
+
+	window.onload = function(){
+		let form = document.getElementById('form');
+		let rezultat = document.getElementById('raspuns');
+		let select = document.querySelector("select");
+		let input = document.getElementById("input");
+
+		form.onsubmit = function(event){
+			event.preventDefault();
+			let tip = select.value;
+			let v = input.value;
+			let a = [];
+			let url = "http://localhost:8000/animale.json";
+
+			fetch(url).then(function(response){
+				if(response.status == 200){
+					return response.json();
+				}
+				else{
+					throw new Error("statusul: " + response.status);
+				}
+			}).then(function(date){
+				for(let d of date){
+					if ((d.tip == tip) && (d.varsta <= v)) { a.push(d.nume);}
+				}
+				//	console.log(a);
+				if(a.length == 0)
+				{
+					rezultat.innerHTML = "Nu exista nici un animal";
+
+				}
+				else {
+					rezultat.innerHTML = a.join(",");
+				}
+
+			}).catch(function(err){
+				console.log("A aparut o eroare: " + err.message);
+			})
+		}
+	}
+	</script>
+
+</head>
+<body>
+
+	<form id="form">
+
+		<label>
+			Tip animal
+			<select name="tip">
+				<option value="pisica">pisica</option>
+				<option value="caine">caine</option>
+				<option value="peste">peste</option>
+			</select>
+		</label>
+
+		<br/>
+		<label>Varsta
+			<input id="input" type="number" min="1" max="10">
+		</label>
+		<br/>
+		<input type="submit">
+	</form>
+	<br>
+	<p id="raspuns">
+	</p>
+</body>
+</html>

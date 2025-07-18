@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Exercitiul1</title>
+</head>
+<style>
+#parinte{
+  height:500px;
+  width:50vw;
+  border:5px solid green;
+  padding:7px;
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 5fr 5fr 1fr;
+  grid-template-areas: "d1 d1 d1"
+                       "d2 d3 d3"
+                       "d2 d4 d5"
+                       "d6 d6 d6";
+  grid-gap:10px;
+}
+#parinte > :nth-child(1){
+  grid-area:d1;
+  background-color: orange;
+}
+#parinte > :nth-child(2){
+  grid-area:d2;
+  background-color: pink;
+
+}
+#parinte > :nth-child(3){
+  grid-area:d3;
+  background-color: red;
+
+}#parinte > :nth-child(4){
+  grid-area:d4;
+  background-color: purple;
+
+}
+#parinte > :nth-child(5){
+  grid-area:d5;
+  background-color: purple;
+}
+#parinte > :nth-child(6){
+  grid-area:d6;
+  background-color: orange;
+}
+#parinte>div{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+@media (min-width:300px) and (max-width:600px){
+  /*#parinte{
+    display:flex;
+    flex-direction:column-reverse;
+  }
+  #parinte>div{
+    flex-grow:1;
+  }*/
+  #parinte{
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas: "d6"
+                       "d5"
+                       "d4"
+                       "d3"
+                       "d2"
+                       "d1";
+
+}
+#parinte>div:nth-child(2n+1){
+  transition: background-color 3s, font-weight 3s;
+}
+
+#parinte>div:nth-child(2n+1):hover{
+  background-color: blue;
+  font-weight: bold;
+}
+
+</style>
+<body>
+
+  <div id="parinte">
+    <div>DIV 1</div>
+    <div>DIV 2</div>
+    <div>DIV 3</div>
+    <div>DIV 4</div>
+    <div>DIV 5</div>
+    <div>DIV 6</div>
+  </div>
+
+</body>
+</html>

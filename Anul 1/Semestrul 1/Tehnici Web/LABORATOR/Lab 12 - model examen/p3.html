@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Exercitiul3</title>
+</head>
+<script>
+window.onload = function(){
+  let p = document.getElementById('info');
+  let nr = 0;
+  let c;
+  let f;
+  if(localStorage.getItem("font"))
+  p.style.fontSize = localStorage.getItem("font") + "px";
+
+  window.onkeydown = function(event){
+    if(event.key == "a"){
+      if(nr == 0){
+        nr++;
+        let data = new Date();
+        p.innerHTML += "," + data;
+        c = setInterval(function(){
+        f = Math.floor(Math.random()*21) + 10;
+          //console.log(f);
+          p.style.fontSize = f + "px";
+        },3000);
+      }
+      else{
+       clearInterval(c);
+       localStorage.setItem("font",f);
+      }
+    }
+  }
+}
+</script>
+<body>
+
+<p id="info">Astazi este o zi cu soare</p>
+
+</body>
+</html>
