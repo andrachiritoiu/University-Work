@@ -1,0 +1,40 @@
+% Caz de bază: atom (variabilă logică)
+predicat(atom(X), R) :-
+    atom(X),
+    % aici pui regula ta specifică pentru atom
+    R = ...
+
+% Caz: negație
+predicat(non(X), R) :-
+    predicat(X, R1),
+    % aici pui regula specifică pentru negație
+    R = ...
+
+% Caz: si (conjuncție)
+predicat(si(X, Y), R) :-
+    predicat(X, R1),
+    predicat(Y, R2),
+    % aici pui regula specifică pentru si
+    R = ...
+
+% Caz: sau (disjuncție)
+predicat(sau(X, Y), R) :-
+    predicat(X, R1),
+    predicat(Y, R2),
+    % aici pui regula specifică pentru sau
+    R = ...
+
+% Caz: implicație
+predicat(imp(X, Y), R) :-
+    predicat(X, R1),
+    predicat(Y, R2),
+    % aici pui regula specifică pentru implicație
+    R = ...
+
+
+Cerință	Ce pui în R = ...
+Număr de variabile	R = [X] și union(R1, R2, R)
+Număr de negații	R is R1 + 1 (pentru non)
+Variabile sub non	dacă atom(X) → R = 1 altfel recursiv
+Verificare condiție (has...)	folosești true/false, ; pentru "sau"
+Returnezi listă	append/3, union/3, setof/3 după caz

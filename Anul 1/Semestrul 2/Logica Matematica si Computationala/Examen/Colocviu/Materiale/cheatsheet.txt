@@ -1,0 +1,128 @@
+T = U reuseste daca exista o potrivire (termenii se unifica)
+T \= U reuseste daca nu exista o potrivire
+T == U reuseste daca termenii sunt identici
+T \== U reuseste daca termenii sunt diferiti
+
+In exemplul de mai sus, 1+1 este privita ca o expresie, nu este
+evaluata. Exista si predicate care forteaza evaluarea (e.g., =:=).
+
+
+
+\+ se numeste negation as failure
+
+?- \+ animal(elephant).
+true.   % Pentru că elephant NU este în baza de date
+
+?- \+ animal(dog).
+false.  % Pentru că dog ESTE un animal în baza de date
+
+Totusi, nu este recomandat sa folositi is pentru a compara doua expresii
+aritmetice, ci operatorul =:=.
+
+
+
+Operatori:
+•2**5 ınseamna 25
+• Exemple de alte functii disponibile:
+min/2, abs/1 (modul), sqrt/1 (radical), sin/1 (sinus)
+• Operatorul // este folosit pentru ımpartire ıntreaga.
+• Operatorul mod este folosit pentru restul ımpartirii ıntregi
+
+<, >, =<, >=, =\= (diferit), =:= (aritmetic egal)
+
+!!!!Prolog nu stie sa evalueze direct, spre ex: fib(N-1, M) - nu stie sa faca n-1
+
+
+
+LISTE:
+
+element_of(X,Y) trebuie sa fie adevarat daca X este un element al
+lui Y.
+
+primul element al listei este cel cautat - element of(X,[X| ]).
+verificam in restul listei-element of(X,[_|Tail]) :- element of(X,Tail).
+
+-concatenare:
+concat lists([], List, List).  //daca prima lista e vida rezultatul e a doua
+concat lists([Elem | List1], List2, [Elem | List3]) :-
+concat lists(List1, List2, List3).
+
+     In Prolog exista niste predicate predefinite pentru lucrul cu liste. De
+exemplu:
+• length/2: al doilea argument ıntoarce lungimea listei date ca prim
+argument
+• member/2: este adevarat daca primul argument se afla ın lista data
+ca al doilea argument
+• append/3: identic cu predicatul anterior concat lists/3
+• last/2: este adevarat daca al doilea argument este identic cu
+ultimul element al listei date ca prim argument
+• reverse/2: lista din al doilea argument este lista data ca prim
+element ın oglinda.
+
+
+!!!!!member(Element, List)
+Este adevărat dacă Element se află undeva în List.
+
+
+bagof(Rezultat, Condiție, ListăRezultate).
+Înseamnă: „găsește toate valorile posibile pentru Rezultat care fac Condiție adevărată și returnează acele valori într-o listă.”
+
+- setof(X,
+Y^(member(X,[1,2,2,2,3]),member(Y,[0,1,2,3,4,5]),X<Y),L).
+Comportamentul lui setof/3 este similar cu cel al lui bagof/3, cu
+deosebirea ca se ıncearca eliminarea duplicatelor
+
+
+
+Interogati:
+?- findall(X,
+(member(X,[1,2,2,2,3]),member(Y,[0,1,2,3,4,5]),X<Y),L).
+?- findall((X,Y),
+(member(X,[1,2,2,2,3]),member(Y,[0,1,2,3,4,5]),X<Y),L).
+Comportamentul lui findall/3 este similar cu cel al lui bagof/3, cu
+doua deosebiri. In primul rand, semnul de cuantificare existentiala nu mai
+este permis si, ın acelasi timp (sau chiar de aceea), orice variabila a¸sa-zis
+libera va fi implicit cuantificata existential.
+
+
+
+
+
+
+ 1. findall(Template, Goal, List)
+- Adună toate soluțiile posibile pentru Goal, înlocuind Template, într-o listă List.
+
+Ignoră complet variabilele libere (nu face grupare).
+Exemplu:
+likes(maria, pizza).
+likes(maria, pasta).
+likes(ana, pizza).
+
+?- findall(F, likes(maria, F), L).
+L = [pizza, pasta].
+
+
+
+2. bagof(Template, Goal, List)
+La fel ca findall, dar face grupare pe variabilele libere.
+
+Dacă există variabile în Goal care nu sunt în Template, bagof le grupează separat. Dacă nu vrei asta, trebuie să le blochezi cu ^.
+
+Exemplu:
+?- bagof(F, likes(Person, F), L).
+Person = ana, L = [pizza] ;
+Person = maria, L = [pizza, pasta].
+
+
+
+
+3. setof(Template, Goal, List)
+Exact ca bagof, dar sortează rezultatul și elimină duplicate.
+
+Exemplu:
+?- setof(F, likes(Person, F), L).
+Person = ana, L = [pizza] ;
+Person = maria, L = [pasta, pizza].  % sortat
+
+
+member(X, L) - ia fiecare element X din L( ca un for )
