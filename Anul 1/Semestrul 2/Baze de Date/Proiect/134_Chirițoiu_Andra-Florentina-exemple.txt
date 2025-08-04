@@ -1,0 +1,235 @@
+
+-- 12. Formularea în limbaj natural și implementarea a 5 cereri SQL complexe ce vor utiliza, în ansamblul lor, următoarele elemente
+--1.Formulare în limbaj natural: Afișați clienții care au animale consultate de medici cu specializarea 'Chirurgie' sau 'Cardiologie', au avut cel puțin 2 consultații și suma totală a consultațiilor pentru animalele lor este mai mare decât media generală. Pentru fiecare client afișați numele complet, numărul de animale, suma totală a consultațiilor și data ultimei consultații.
+
+SELECT
+    CL.NUME || ' ' || CL.PRENUME AS NUME_CLIENT,
+    COUNT(DISTINCT A.ID_ANIMAL) AS NR_ANIMALE,
+    SUM(C.PRET) AS SUMA_TOTALA_CONSULTII,
+    MAX(R.DATA_EMITERII) AS DATA_ULTIMA_CONSULTATIE
+FROM CLIENT CL
+JOIN ANIMAL A ON CL.ID_CLIENT=A.ID_CLIENT
+JOIN CONSULTATIE C ON A.ID_ANIMAL=C.ID_ANIMAL
+LEFT JOIN RETETA R ON C.ID_CONSULTATIE=R.ID_CONSULTATIE
+WHERE EXISTS (
+    SELECT 1
+    FROM CONSULTATIE C1
+    JOIN PERSONAL_MEDICAL PM ON C1.ID_PERSONAL_MEDICAL=PM.ID_PERSONAL_MEDICAL
+    JOIN MEDIC_VETERINAR MV ON PM.ID_PERSONAL_MEDICAL=MV.ID_PERSONAL_MEDICAL
+    WHERE C1.ID_ANIMAL=A.ID_ANIMAL
+    AND MV.SPECIALIZARE IN ('Chirurgie', 'Cardiologie')
+) AND (
+    SELECT COUNT(C2.ID_CONSULTATIE)
+    FROM CONSULTATIE C2
+    JOIN ANIMAL A2 ON C2.ID_ANIMAL=A2.ID_ANIMAL
+    JOIN CLIENT CL2 ON A2.ID_CLIENT=CL2.ID_CLIENT
+    WHERE CL2.ID_CLIENT=CL.ID_CLIENT
+) >= 2
+AND (
+    SELECT SUM(C3.PRET)
+    FROM CONSULTATIE C3
+    JOIN ANIMAL A3 ON C3.ID_ANIMAL=A3.ID_ANIMAL
+    JOIN CLIENT CL3 ON A3.ID_CLIENT=CL3.ID_CLIENT
+    WHERE CL3.ID_CLIENT=CL.ID_CLIENT
+) > (
+    SELECT AVG(total_per_client)
+    FROM (
+        SELECT SUM(C4.PRET) AS total_per_client
+        FROM CONSULTATIE C4
+        JOIN ANIMAL A4 ON C4.ID_ANIMAL=A4.ID_ANIMAL
+        JOIN CLIENT CL4 ON A4.ID_CLIENT=CL4.ID_CLIENT
+        GROUP BY CL4.ID_CLIENT
+    )
+)
+GROUP BY CL.ID_CLIENT, CL.NUME, CL.PRENUME
+ORDER BY SUMA_TOTALA_CONSULTII DESC;
+
+--2.Formulare în limbaj natural: Selectați primele 5 tipuri de medicamente în funcție de prețul cel mai mic din stoc și afișați substanța activă, denumirea și informații despre furnizorii care le comercializează.
+SELECT
+    MEDICAMENTE.SUBSTANTA_ACTIVA,
+    MEDICAMENTE.DENUMIRE,
+    MEDICAMENTE.PRET_UNITAR,
+    FURNIZORI.NUME_FURNIZOR
+FROM (
+    SELECT
+        TM.ID_TIP,
+        TM.SUBSTANTA_ACTIVA,
+        TM.DENUMIRE,
+        S.PRET_UNITAR
+    FROM TIP_MEDICAMENT TM
+    JOIN STOC S ON TM.ID_TIP = S.ID_TIP
+    ORDER BY S.PRET_UNITAR
+) MEDICAMENTE
+JOIN (
+    SELECT
+        V.ID_TIP,
+        F.NUME AS NUME_FURNIZOR
+    FROM VINDE V
+    JOIN FURNIZOR F ON V.ID_FURNIZOR = F.ID_FURNIZOR
+) FURNIZORI ON MEDICAMENTE.ID_TIP = FURNIZORI.ID_TIP
+WHERE ROWNUM <= 5;
+
+--3.Formulare în limbaj natural: Afișați clienții care au un numărul total de consultații pentru animalele lor mai mare decât media consultațiilor per client din sistem.
+SELECT
+    CL.NUME || ' ' || CL.PRENUME AS NUME_CLIENT,
+    COUNT(C.ID_CONSULTATIE) AS NR_CONSULTII,
+    SUM(C.PRET) AS SUMA_TOTALA
+FROM CLIENT CL
+JOIN ANIMAL A ON CL.ID_CLIENT = A.ID_CLIENT
+JOIN CONSULTATIE C ON A.ID_ANIMAL = C.ID_ANIMAL
+GROUP BY CL.ID_CLIENT, CL.NUME, CL.PRENUME
+HAVING COUNT(C.ID_CONSULTATIE) > (
+    SELECT AVG(consultatii_per_client)
+    FROM (
+        SELECT COUNT(C2.ID_CONSULTATIE) AS consultatii_per_client
+        FROM CLIENT CL2
+        JOIN ANIMAL A2 ON CL2.ID_CLIENT = A2.ID_CLIENT
+        JOIN CONSULTATIE C2 ON A2.ID_ANIMAL = C2.ID_ANIMAL
+        GROUP BY CL2.ID_CLIENT
+    )
+)
+ORDER BY NR_CONSULTII;
+
+--4.Formulare în limbaj natural:Afișați toate animalele cu informații despre ultima lor consultație, folosind valori implicite pentru câmpurile lipsă și categorizarea după specie.
+SELECT
+    A.NUME AS NUME_ANIMAL,
+    A.SPECIE,
+    NVL(A.RASA, 'Rasă necunoscută') AS RASA,
+    DECODE(A.SPECIE, 'Câine', 'Canin', 'Pisică', 'Felin', 'Altă specie') AS CATEGORIE_SPECIE,
+    NVL((
+        SELECT MAX(C.PRET)
+        FROM CONSULTATIE C
+        WHERE C.ID_ANIMAL = A.ID_ANIMAL
+    ), 0) AS ULTIMUL_PRET_CONSULTATIE
+FROM ANIMAL A
+ORDER BY A.SPECIE, A.NUME;
+
+--5.Formulare în limbaj natural:Pentru fiecare rețetă din farmacia veterinară, afișați informații despre medicul prescriptor (numele scurtat și specializarea), data emiterii formatată, vechimea rețetei în luni și statusul ei (recentă, validă sau veche). De asemenea, includeți statistici despre medic: numărul total de consultații și media prețurilor.
+WITH STATISTICI_MEDICI AS (
+    SELECT
+        PM.ID_PERSONAL_MEDICAL,
+        PM.NUME || ' ' || PM.PRENUME AS NUME_COMPLET,
+        MV.SPECIALIZARE,
+        COUNT(C.ID_CONSULTATIE) AS NR_CONSULTII,
+        SUM(C.PRET) AS SUMA_TOTALA,
+        AVG(C.PRET) AS MEDIA_PRET
+    FROM PERSONAL_MEDICAL PM
+    JOIN MEDIC_VETERINAR MV ON PM.ID_PERSONAL_MEDICAL = MV.ID_PERSONAL_MEDICAL
+    LEFT JOIN CONSULTATIE C ON PM.ID_PERSONAL_MEDICAL = C.ID_PERSONAL_MEDICAL
+    GROUP BY PM.ID_PERSONAL_MEDICAL, PM.NUME, PM.PRENUME, MV.SPECIALIZARE
+)
+SELECT
+    R.ID_RETETA,
+    UPPER(SUBSTR(SM.NUME_COMPLET, 1, 15)) AS NUME_MEDIC_SCURT,
+    LOWER(SM.SPECIALIZARE) AS SPECIALIZARE_LOWER,
+    TO_CHAR(R.DATA_EMITERII, 'DD-MM-YYYY') AS DATA_EMITERE_FORMAT,
+    ABS(MONTHS_BETWEEN(SYSDATE, R.DATA_EMITERII)) AS VECHIME_LUNI,
+    CASE
+        WHEN ABS(MONTHS_BETWEEN(SYSDATE, R.DATA_EMITERII)) < 1 THEN 'Rețetă recentă'
+        WHEN ABS(MONTHS_BETWEEN(SYSDATE, R.DATA_EMITERII)) < 6 THEN 'Rețetă validă'
+        ELSE 'Rețetă veche'
+    END AS STATUS_RETETA,
+    SM.NR_CONSULTII,
+    ROUND(SM.MEDIA_PRET, 2) AS MEDIA_PRET_ROTUNJITA
+FROM RETETA R
+JOIN STATISTICI_MEDICI SM ON R.ID_PERSONAL_MEDICAL = SM.ID_PERSONAL_MEDICAL
+WHERE SM.NR_CONSULTII > 0
+ORDER BY R.DATA_EMITERII DESC;
+
+--13
+--1.Actualizarea prețului din stoc (cresterea cu 10%) pentru medicamentele care au fost prescrise în mai mult de 3 rețete.
+UPDATE STOC
+SET pret_unitar = pret_unitar * 1.1
+WHERE id_tip IN (
+    SELECT tm.id_tip
+    FROM TIP_MEDICAMENT tm
+    WHERE (
+        SELECT COUNT(*)
+        FROM CONTINE c
+        WHERE c.id_tip = tm.id_tip
+    ) > 3
+);
+
+--2.Ștergerea înregistrărilor din tabela CLIENT pentru clienții care nu au animale înregistrate.
+DELETE FROM CLIENT
+WHERE id_client NOT IN (
+    SELECT DISTINCT id_client
+    FROM ANIMAL
+    WHERE id_client IS NOT NULL
+);
+
+--3.Actualizarea responsabilității stocului pentru farmaciștii care au gestionat comenzi de la furnizori .
+UPDATE FARMACIST
+SET responsabil_stoc = 1
+WHERE id_personal_medical IN (
+    SELECT DISTINCT c.id_personal_medical
+    FROM COMANDA c
+    JOIN COMANDA_FARMACIE cf ON c.id_comanda = cf.id_comanda
+);
+
+--14.
+CREATE VIEW VIEW_CONSULTII_COMPLEXE AS
+SELECT
+    c.id_consultatie,
+    c.pret,
+    cl.nume || ' ' || cl.prenume AS nume_client,
+    a.nume AS nume_animal,
+    pm.nume || ' ' || pm.prenume AS nume_medic
+FROM CONSULTATIE c
+JOIN ANIMAL a ON c.id_animal = a.id_animal
+JOIN CLIENT cl ON a.id_client = cl.id_client
+JOIN PERSONAL_MEDICAL pm ON c.id_personal_medical = pm.id_personal_medical;
+
+UPDATE VIEW_CONSULTII_COMPLEXE
+SET pret = 200
+WHERE id_consultatie = 1;
+
+-- INSERT INTO VIEW_CONSULTII_COMPLEXE (id_consultatie, pret, nume_client, nume_animal, nume_medic)
+-- VALUES (100, 150, 'Test Client', 'Test Animal', 'Test Medic');
+
+--15.
+--a) Outer join pe minimum 4 tabele
+SELECT
+    cl.nume || ' ' || cl.prenume AS nume_client,
+    a.nume AS nume_animal,
+    c.pret AS pret_consultatie,
+    r.data_emiterii,
+    tm.denumire AS medicament
+FROM CLIENT cl
+LEFT OUTER JOIN ANIMAL a ON cl.id_client = a.id_client
+LEFT OUTER JOIN CONSULTATIE c ON a.id_animal = c.id_animal
+LEFT OUTER JOIN RETETA r ON c.id_consultatie = r.id_consultatie
+LEFT OUTER JOIN CONTINE co ON r.id_reteta = co.id_reteta
+LEFT OUTER JOIN TIP_MEDICAMENT tm ON co.id_tip = tm.id_tip
+ORDER BY cl.nume, a.nume;
+
+--b) Operația division
+SELECT pm.nume || ' ' || pm.prenume AS nume_medic
+FROM PERSONAL_MEDICAL pm
+JOIN MEDIC_VETERINAR mv ON pm.id_personal_medical = mv.id_personal_medical
+WHERE NOT EXISTS (
+    SELECT tm.id_tip
+    FROM TIP_MEDICAMENT tm
+    WHERE NOT EXISTS (
+        SELECT 1
+        FROM RETETA r
+        JOIN CONTINE c ON r.id_reteta = c.id_reteta
+        WHERE r.id_personal_medical = pm.id_personal_medical
+        AND c.id_tip = tm.id_tip
+    )
+);
+
+--c) Analiza top-n
+SELECT *
+FROM (
+    SELECT
+        cl.nume || ' ' || cl.prenume AS nume_client,
+        SUM(f.suma) AS total_platit,
+        COUNT(f.id_factura) AS nr_facturi
+    FROM CLIENT cl
+    JOIN COMANDA_CLIENT cc ON cl.id_client = cc.id_client
+    JOIN FACTURA f ON cc.id_comanda = f.id_comanda
+    GROUP BY cl.id_client, cl.nume, cl.prenume
+    ORDER BY total_platit DESC
+)
+WHERE ROWNUM <= 5;
