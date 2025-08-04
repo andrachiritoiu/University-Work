@@ -1,0 +1,256 @@
+Sortari pe tablouri unidimensionale
+
+
+1.               METODA DE SORTARE PRIN INTERSCHIMBARE
+
+·                 Aceasta metoda consta in parcurgerea sirului utilizand doi contori (i si j) .
+
+·                 Fiecare element a[i] se va compara cu toate elementele din dreapta sa, elemente de forma a[j], cu j=i+1,n
+
+·                 Daca a[i]>a[j] atunci cele doua component e se vor interschimba
+
+·                 Obs: aceasta metoda  nu este eficienta deoarece daca sirul ar fi de la inceput  sortat sirul tot se parcurge realizand n(n-1)/2 comparatii
+
+ALGORITMUL:
+
+Citeste n
+
+Citeste sirul a cu n elemente
+
+Pentru i=1,n-1 executa
+
+   Pentru j=i+1,n executa
+
+      Daca a[i]>a[j] atunci
+
+                        {aux=a[i]
+
+                        a[i]=a[j]
+
+                        a[j]=aux
+
+                        }
+
+Afisare  sir a
+
+ 
+
+2.               METODA DE SORTARE PRIN NUMARARE
+
+·                 Este o metoda ineficienta ca spatiu de memorie deoarece utilizeaza 3 siruri astfel : sirul a cel care trebuie sortat, sirul b cel in care se vor plasa elementele sortate si respectiv sirul nr avand semnificatia ca nr[i]= numarul elementelor sirului a care sunt mai mici decat a[i]
+
+·                 Pentru formarea sirului nr se parcurge sirul cu doua foruri avand variabilele contor i si respectiv j
+
+·                 Fiecare element  a[i] se compara cu toate elementele din dreapta sa, elemente de forma a[j] cu j=i+1,n
+
+·                 Daca a[i]>a[j] creste nr[i] cu o unitate , in caz contrar creste nr[j] cu o unitate
+
+·                 Dupa formarea  sirului nr , orice componenta nr[i], la care se aduna o unitate reprezinta pozitia elementului a[i] in sirul sortat
+
+·                 Sirul sortat b se formeaza dupa urmatoarea regula : b[nr[i]+1]=a[i], unde i=1,n
+
+ALGORITMUL
+
+Citeste n
+
+Citeste sirul a cu n elemente
+
+Pentru i=1,n-1 executa
+
+  Pentru j=i+1, n  executa
+
+            Daca  a[i]>a[j] atunci nr[i]=nr[i]+1
+
+            Altfel  nr[j]=nr[j]+1
+
+Pentru i=1,n executa
+
+  b[nr[i]+1]=a[i]
+
+Afiseaza sirul b
+
+ 
+
+
+ 
+
+3.               SORTAREA PRIN METODA BULELOR
+
+·                 Metoda consta in parcurgerea sirului ori de cate ori este nevoie pana cand sirul devine sortat sau cat timp sirul nu este sortat
+
+·                 Inainte de parcurgerea sirului se presupune de fiecare daca ca sirul ar fi sortat utilizand o variabila logica
+
+·                 La fiecare iteratie sirul se va parcurge pana la ultima componenta care nu este sortata .
+
+·                 Parcurgerea sirului  consta in compararea de fiecare data a doua componente de pe pozitii consecutive, de forma a[i] si a[i+1]
+
+·                 Daca a[i]>a[i+1] cele doua componente se vor interschimba
+
+·                 Daca la o parcurgere a sirului exista cel putin o interschimbare inseamna ca sirul inca nu este sigur sortat si se reia parcurgerea sirului
+
+·                 Daca la o parcurgere a sirului nu exista nicio interschimbare atunci cu siguranta sirul este sortat
+
+·                 Obs : metoda are rolul de a transporta , la fiecare parcurgere a sirului, valoare maxima dintre componente nesortate si de a o plasa pe pozitia finala in sirul sortat .
+
+ 
+
+
+ALGORITMUL
+
+V1
+
+Citeste n
+
+Citeste sirul a cu n elemente
+
+ok=1
+
+Cat timp (ok=1)
+
+{ok=0 // se presupune ca sirul este sortat
+
+Pentru i=1,n-1 executa
+
+  Daca a[i]>a[i+1] atunci
+
+            {aux=a[i]
+
+              a[i]=a[i+1]
+
+              a[i+1]=aux
+
+              ok=1
+
+            }
+
+}
+
+Se afiseaza sirul a
+
+ V2
+
+ Citeste n
+
+Citeste sirul a cu n elemente
+
+repeta
+
+{ok=0 // se presupune ca sirul este sortat
+
+Pentru i=1,n-1 executa
+
+  Daca a[i]>a[i+1] atunci
+
+            {aux=a[i]
+
+              a[i]=a[i+1]
+
+              a[i+1]=aux
+
+              ok=1
+
+            }
+
+}
+
+cat timp ok=1;
+
+Se afiseaza sirul a
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+ 
+
+4.               METODA DE SORTARE PRIN SELECTIE DIRECTA
+
+·                 Metoda consta in parcurgerea sirului de la prima componenta pana la componenta n-1 inclusiv
+
+·                 La pasul  i  componentele a[1],a[2],...,a[i-1] sunt deja sortate .
+
+·                 La pasul  i  se determina valoarea minima respectiv pozitia elementului minim dintrea componentele a[i],a[i+1],...,a[n] .
+
+·                 Fie p pozitia elementului minim . Daca p este diferit de i atunci componentele a[i] si a[p] se vor interschimba
+
+ALGORITMUL
+
+ 
+
+Citeste n
+
+Citeste sirul a cu n componente
+
+Pentru i=1,n-1 executa
+
+   {        min=a[i];        p=i
+
+            Pentru j=i+1,n  executa
+
+              Daca a[j]<min atunci
+
+                        {min=a[j];p=j; }
+
+            Daca p!=i  atunci
+
+                        {aux=a[i];a[i]=a[p];a[p]=aux;}
+
+}Afiseaza sirul  a
+
+ 
+
+5.               METODA DE SORTARE PRIN INSERTIE DIRECTA
+
+·                 Aceasta metoda consta in parcurgerea sirului incepand cu a doua componenta pana la final
+
+·                 La pasul  i  elementele a[1],a[2],..,a[i-1] sunt deja sortate si trebuie sa plasam elementul a[i]  printre elementele deja sortate
+
+·                 Pentru  a plasa elementul a[i] vom parcurge urmatorii pasi :
+
+i)                Se retine a[i] intr-o variabila temporara t
+
+ii)               Indicele j parcurge in ordine inversa elementele deja sortate
+
+iii)             Cat timp a[j]>t si j>0  elementul a[j] se deplaseaza la dreapta cu o unitate, iar j descreste cu o unitate
+
+iv)             In final t se va pozitiona pe urmatoare componenta pentru care nu a mai  fost adevarata conditia : a[j+1]=t
+
+ALGORITMUL
+
+ 
+
+Citeste n
+
+Citeste sirul a cu n elemente
+
+Pentru  i=2,n executa
+
+            {t=a[i]
+
+            j=i-1
+
+            Cat  timp  a[j]>t  si j>0  executa
+
+                        {a[j+1]=a[j]
+
+                        j=j-1
+
+                        }
+
+            a[j+1]=t
+
+            }
+
+Afiseaza sirul a
