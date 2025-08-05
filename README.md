@@ -1,7 +1,10 @@
 # Facultatea de Matematica si Informatica
  Specializarea Informatica
 
+
+
 # Anul 1
+
 
 ## Semestrul I 
 
