@@ -1,0 +1,32 @@
+//ex1: Definiti un predicat lista_puncte/3 care, pentru o lista L formata din puncte reprezentate sub forma
+//punct(coordX, coordY) si un num˘ar Val, calculeaza lista acelor puncte din L care au a doua coordonat˘a mai mare decˆat Val.
+
+lista_puncte([],_,[]).
+lista_puncte([punct(X,Y)|T1], Val, [punct(X,Y)|Lrez]):- Y>Val, lista_puncte(T1, Val, Lrez).
+lista_puncte([punct(_,Y)|T1], Val, Lrez):- Y=<Val, lista_puncte(T1, Val, Lrez).
+   
+
+
+
+//ex2:Definiti un predicat dropN/3, astfel ıncat, pentru orice liste L, R ¸si numar natural N,
+//dropN(L, R, N) este adevarat daca ¸si numai dac˘a R este lista care rezulta din eliminarea ultimelor
+//N elemente ale lui L. Predicatul va fi fals ın cazul ın care N este mai mare decat lungimea lui L
+
+dropN(L, R, N) :- append(R, L1, L), length(L1, N).
+
+
+
+
+//ex3:Consideram ın continuare reprezentarea formulelor logicii propozit¸ionale folosita ın
+//laboratorul 5. Scriet¸i un predicat rmdn/2 cu proprietatea c˘a rmdn(Phi, Psi) este adevarat daca ¸si
+//numai dac˘a Psi este rezultatul elimin˘arii tuturor negat¸iilor duble din Phi.
+
+rmdn(Phi, Phi) :- atom(Phi).
+rmdn(non(Phi), non(Phi)) :- atom(Phi).
+rmdn(non(non(Phi)), Psi) :- rmdn(Phi, Psi).
+rmdn(non(si(Phi,Psi)),non(A)) :- rmdn(si(Phi,Psi),A).
+rmdn(non(sau(Phi,Psi)),non(A)) :- rmdn(sau(Phi,Psi),A).
+rmdn(non(imp(Phi,Psi)),non(A)) :- rmdn(imp(Phi,Psi),A).
+rmdn(si(Phi, Psi), si(Phi1, Psi1)) :- rmdn(Phi, Phi1), rmdn(Psi, Psi1).
+rmdn(sau(Phi, Psi), sau(Phi1, Psi1)) :- rmdn(Phi, Phi1), rmdn(Psi, Psi1).
+rmdn(imp(Phi, Psi), imp(Phi1, Psi1)) :- rmdn(Phi, Phi1), rmdn(Psi, Psi1).
