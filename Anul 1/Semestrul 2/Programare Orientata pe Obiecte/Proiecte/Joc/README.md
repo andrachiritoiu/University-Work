@@ -14,6 +14,10 @@ The code is organized into multiple `.cpp` and `.h` files using Object-Oriented 
 ```powershell
 g++ src/*.cpp -Iinclude -I"C:\path\to\SFML\include" -L"C:\path\to\SFML\lib" -lsfml-graphics -lsfml-window -lsfml-system -o game.exe
 
+```
+
+<img width="1397" height="720" alt="image" src="https://github.com/user-attachments/assets/56e5ee2a-1e48-4eb6-af14-afda6131859f" />
 
 
-<img width="1397" height="720" alt="image" src="https://github.com/user-attachments/assets/d5281649-2ece-4fd7-aaa2-be573cc8b0c7" />
+
+
