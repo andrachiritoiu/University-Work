@@ -16,7 +16,13 @@ g++ src/*.cpp -Iinclude -I"C:\path\to\SFML\include" -L"C:\path\to\SFML\lib" -lsf
 
 ```
 
+
+## City Jumper — a tiny SFML runner
+A simple arcade runner made with C++ & SFML.
+You play as a little boy sprinting through the city, jumping over obstacles (cars, trash, buildings) to survive and score points.
+
 <img width="1397" height="720" alt="image" src="https://github.com/user-attachments/assets/56e5ee2a-1e48-4eb6-af14-afda6131859f" />
+
 
 
 
