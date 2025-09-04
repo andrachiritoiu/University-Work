@@ -30,7 +30,7 @@
 | Educație fizică                                      | 2             |
 | Geometrie și Algebră Liniară                         | 4             |
 | Limba Engleza                                        | 2             |
-| Limbaje Formale și Automate                          | 5             |
+| Limbaje Formale și Automate                          | 4             |
 | Logică Matematică și Computațională                  | 4             |
 | Modulul Psihopedagogic                               | 0             |
 | Programare Orientată pe Obiecte                      | 6             |
