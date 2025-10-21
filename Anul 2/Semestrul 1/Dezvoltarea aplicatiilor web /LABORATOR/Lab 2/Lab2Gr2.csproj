@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="C:\Users\chiri\OneDrive\Desktop\Anul 2\Semestrul 1\Dezvoltarea aplicatiilor web\Program.cs" Link="Program.cs" />
+  </ItemGroup>
+
+</Project>
