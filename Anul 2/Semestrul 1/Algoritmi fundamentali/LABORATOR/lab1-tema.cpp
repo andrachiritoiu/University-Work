@@ -4,51 +4,51 @@
 //1.Scrieți un subprogram pentru construirea în memorie a matricei de adiacență a unui graf (neorientat/orientat în
 // funcție de un parametru trimis subprogramului) citit din fișierul graf.in cu structura precizată mai sus și un subprogram pentru afișarea matricei de adiacență
 
-// #include<iostream>
-// #include<fstream>
-// #include<vector>
-// using namespace std;
-//
-// vector<vector<int>> construiesteMatrice(int n, int m, int ok, ifstream &f){
-//   // vector<int>(m,0) - creeaza un vector de int cu m elemente initializate cu 0
-//
-//   vector<vector<int>> mat(n, vector<int>(n,0));
-//
-//   for(int i=0;i<m;i++){
-//     int x,y;
-//     f>>x>>y;
-//     //graf neorientat
-//     if (ok==0) {
-//       mat[x-1][y-1]=1;
-//       mat[y-1][x-1]=1;
-//     }
-//     //graf orientat
-//     else {
-//       mat[x-1][y-1]=1;
-//     }
-//   }
-//   return mat;
-// }
-//
-// void afisareMatrice(vector<vector<int>>mat) {
-//   int n=mat.size();
-//   for (int i=0;i<n;i++) {
-//     for (int j=0;j<n;j++) {
-//       cout<<mat[i][j]<<" ";
-//     }
-//     cout<<endl;
-//   }
-// }
-//
-// int main(){
-//   ifstream f("graf.in");
-//   int n,m,ok;
-//   f>>n>>m;
-//   cout<<"Graful este orientat(1) sau neorientat(0): ";cin>>ok;
-//   vector<vector<int>> mat=construiesteMatrice(n,m,ok,f);
-//   afisareMatrice(mat);
-//   return 0;
-// }
+#include<iostream>
+#include<fstream>
+#include<vector>
+using namespace std;
+
+vector<vector<int>> construiesteMatrice(int n, int m, int ok, ifstream &f){
+  // vector<int>(m,0) - creeaza un vector de int cu m elemente initializate cu 0
+
+  vector<vector<int>> mat(n, vector<int>(n,0));
+
+  for(int i=0;i<m;i++){
+    int x,y;
+    f>>x>>y;
+    //graf neorientat
+    if (ok==0) {
+      mat[x-1][y-1]=1;
+      mat[y-1][x-1]=1;
+    }
+    //graf orientat
+    else {
+      mat[x-1][y-1]=1;
+    }
+  }
+  return mat;
+}
+
+void afisareMatrice(vector<vector<int>>mat) {
+  int n=mat.size();
+  for (int i=0;i<n;i++) {
+    for (int j=0;j<n;j++) {
+      cout<<mat[i][j]<<" ";
+    }
+    cout<<endl;
+  }
+}
+
+int main(){
+  ifstream f("graf.in");
+  int n,m,ok;
+  f>>n>>m;
+  cout<<"Graful este orientat(1) sau neorientat(0): ";cin>>ok;
+  vector<vector<int>> mat=construiesteMatrice(n,m,ok,f);
+  afisareMatrice(mat);
+  return 0;
+}
 
 
 
@@ -570,91 +570,169 @@
 
 
 
-//2. Dat un graf neorientat (nu neapărat conex), să se verifice dacă graful conține un ciclu elementar (nu este aciclic).
-//În caz afirmativ să se afișeze un astfel de ciclu.
 
-#include<iostream>
-#include<fstream>
-#include<vector>
-#include<algorithm>
-using namespace std;
+// // + afișarea arcelor de întoarcere(in curs de vizitare), traversare(nu a fost vizitat), avansare
+// #include <iostream>
+// #include <vector>
+// #include <fstream>
+// #include <string>
+//
+// using namespace std;
+//
+// enum StareNod {NEVIZITAT, IN_VIZITARE, VIZITAT_COMPLET};
+//
+// int n, m;
+// vector<vector<int>> listaVecini;
+// vector<StareNod> status;
+//
+// vector<pair<int, int>> arceAvansare;
+// vector<pair<int, int>> arceIntoarcere;
+// vector<pair<int, int>> arceTraversare;
+//
+// void dfs_clasificare(int u) {
+//     status[u]=IN_VIZITARE;
+//
+//     for (int v : listaVecini[u]) {
+//         if (status[v]==NEVIZITAT) {
+//             arceAvansare.push_back({u, v});
+//             dfs_clasificare(v);
+//         } else if (status[v]==IN_VIZITARE) {
+//             arceIntoarcere.push_back({u, v});
+//         } else {
+//             arceTraversare.push_back({u, v});
+//         }
+//     }
+//     status[u]=VIZITAT_COMPLET;
+// }
+//
+// int main() {
+//     ifstream f("dfs.in");
+//     f >> n >> m;
+//
+//     listaVecini.resize(n);
+//     status.assign(n, NEVIZITAT);
+//
+//     for (int i = 0; i < m; i++) {
+//         int x, y;
+//         f>>x>>y;
+//         listaVecini[x-1].push_back(y-1);
+//     }
+//     f.close();
+//
+//
+//     for (int i = 0; i < n; i++) {
+//         if (status[i] == NEVIZITAT) {
+//             dfs_clasificare(i);
+//         }
+//     }
+//
+//
+//     cout<<"Arce de Avansare"<<endl;
+//     for(const auto& arc : arceAvansare) {
+//         cout<<arc.first+1<<" -> "<<arc.second+1<<endl;
+//     }
+//
+//     cout<<"\nArce de Intoarcere"<<endl;
+//     for(const auto& arc : arceIntoarcere) {
+//         cout<<arc.first+1<<" -> "<<arc.second+1<<endl;
+//     }
+//
+//     cout<<"\nArce de Traversare"<<endl;
+//     for(const auto& arc : arceTraversare) {
+//         cout<<arc.first+1<<" -> "<<arc.second+1<<endl;
+//     }
+//
+//     return 0;
+// }
 
 
-bool dfs_cicluri(int u, int p, vector<vector<int>> &listaVecini, vector<bool> &visited, vector<int> &parent) {
-    visited[u]=true;
-    parent[u]=p;
-
-    for(int v:listaVecini[u]) {
-        if (visited[v]) {
-            // ciclu: v este vizitat si nu este parintele lui u
-            cout<<"Ciclu gasit: ";
-            vector<int> ciclu;
 
 
-            int current = u;
-            while (current != v) {
-                ciclu.push_back(current + 1);
-                current = parent[current];
-            }
-            ciclu.push_back(v + 1);
-            reverse(ciclu.begin(), ciclu.end());
-            ciclu.push_back(ciclu[0]);
-
-            for(auto i=0; i<ciclu.size(); i++) {
-                cout<<ciclu[i]<<" ";
-            }
-            cout << endl;
-
-            return true;
-        }
-
-
-        if (dfs_cicluri(v, u, listaVecini, visited, parent)) {
-            return true; // daca s-a gasit un ciclu in subarbore, ne oprim
-        }
-    }
-    return false;
-}
-
-
-vector<vector<int>> construiesteVecini(int n, int m, ifstream &f) {
-    vector<vector<int>> listaVecini(n);
-    int x, y;
-
-    for (int i=0; i<m; i++) {
-        if (!(f >> x >> y)) break;
-
-        listaVecini[x - 1].push_back(y - 1);
-        listaVecini[y - 1].push_back(x - 1);
-    }
-    return listaVecini;
-}
-
-int main() {
-    int n, m;
-    ifstream f("graf.in");
-
-    vector<vector<int>> listaVecini = construiesteVecini(n, m, f);
-    f.close();
-
-
-    vector<bool> visited(n, false);
-    vector<int> parent(n, -1);
-    bool ciclu_gasit = false;
-
-
-    for (int i = 0; i < n; ++i) {
-        if (!visited[i]) {
-            if (dfs_cicluri(i, -1, listaVecini, visited, parent)) {
-                ciclu_gasit = true;
-                break;
-            }
-        }
-    }
-
-    if (!ciclu_gasit) {
-        cout<<"Graful este aciclic."<<endl;
-    }
-
-    return 0;
-}
+// // 2. Dat un graf neorientat (nu neapărat conex), să se verifice dacă graful conține un ciclu elementar (nu este aciclic).
+// // În caz afirmativ să se afișeze un astfel de ciclu.
+//
+//  #include<iostream>
+//  #include<fstream>
+//  #include<vector>
+//  #include<algorithm>
+//  using namespace std;
+//
+//
+//  bool dfs_cicluri(int u, int p, vector<vector<int>> &listaVecini, vector<bool> &visited, vector<int> &parent) {
+//      visited[u]=true;
+//      parent[u]=p;
+//
+//      for(int v:listaVecini[u]) {
+//          if (visited[v]) {
+//              // ciclu: v este vizitat si nu este parintele lui u
+//              cout<<"Ciclu gasit: ";
+//              vector<int> ciclu;
+//
+//
+//              int current=u;
+//              while (current!=v) {
+//                  ciclu.push_back(current + 1);
+//                  current=parent[current];
+//              }
+//              ciclu.push_back(v + 1);
+//              reverse(ciclu.begin(), ciclu.end());
+//              ciclu.push_back(ciclu[0]);
+//
+//              for(auto i=0; i<ciclu.size(); i++) {
+//                  cout<<ciclu[i]<<" ";
+//              }
+//              cout<<endl;
+//
+//              return true;
+//          }
+//
+//
+//          if (dfs_cicluri(v, u, listaVecini, visited, parent)) {
+//              return true; // daca s-a gasit un ciclu in subarbore, ne oprim
+//          }
+//      }
+//      return false;
+//  }
+//
+//
+//  vector<vector<int>> construiesteVecini(int n, int m, ifstream &f) {
+//      vector<vector<int>> listaVecini(n);
+//      int x, y;
+//
+//      for (int i=0; i<m; i++) {
+//          if (!(f>>x>>y)) break;
+//
+//          listaVecini[x-1].push_back(y-1);
+//          listaVecini[y-1].push_back(x-1);
+//      }
+//      return listaVecini;
+//  }
+//
+//  int main() {
+//      int n, m;
+//      ifstream f("graf.in");
+//
+//      vector<vector<int>> listaVecini=construiesteVecini(n, m, f);
+//      f.close();
+//
+//
+//      vector<bool> visited(n, false);
+//      vector<int> parent(n, -1);
+//      bool ciclu_gasit = false;
+//
+//
+//      for (int i=0; i<n; i++) {
+//          if (!visited[i]) {
+//              if (dfs_cicluri(i, -1, listaVecini, visited, parent)) {
+//                  ciclu_gasit=true;
+//                  break;
+//              }
+//          }
+//      }
+//
+//      if (!ciclu_gasit) {
+//          cout<<"Graful este aciclic."<<endl;
+//      }
+//
+//      return 0;
+//  }
