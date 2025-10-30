@@ -1,0 +1,15 @@
+﻿
+<h2>Editare categorie</h2>
+
+<form method="post" action="/Categories/Edit/@ViewBag.Categories.Id">
+
+    <label>Denumire categorie</label>
+
+    <br />
+
+    <input type="text" name="CategoryName" value="@ViewBag.Categories.CategoryName" />
+    
+    <button type="submit">Modifica categoria</button>
+
+</form>
+

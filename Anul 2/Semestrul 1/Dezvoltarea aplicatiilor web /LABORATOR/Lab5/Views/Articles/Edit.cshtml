@@ -1,0 +1,28 @@
+﻿
+<h2>Editare articol</h2>
+
+<form method="post" action="/Articles/Edit/@ViewBag.Article.Id">
+   
+    <label>Titlu articol</label>
+    <br />
+
+    <input type="text" name="Title" value="@ViewBag.Article.Title" />
+    <br /><br />
+
+    <label>Continut articol</label>
+    <br />
+
+    <input type="text" name="Content" value="@ViewBag.Article.Content" />
+    <br /><br />
+
+    <label>Data</label>
+    <br />
+
+    <input type="text" name="Date" value="@ViewBag.Article.Date" readonly />
+    <br />
+
+    <button type="submit" class="btn btn-info">Modifica articol</button>
+
+</form>
+
+

@@ -1,0 +1,22 @@
+﻿<h2>Afisare articole</h2>
+<br />
+
+@foreach (var art in ViewBag.Articles)
+{
+    <p>@art.Title</p>
+    <p>@art.Content</p>
+    <p>@art.Date</p>
+
+    <br />
+    <a class="btn btn-success" href="/Articles/Show/@art.Id">Afisare articol</a>
+    <br /><br />
+    <a class="btn btn-info" href="/Articles/Edit/@art.Id">Editare articol</a>
+    <hr />
+
+}
+
+<a href="/Articles/New" class="btn btn-success">Adaugare articol</a>
+<br /><br />
+<a href="/Categories/Index" class="btn btn-success">Afisare categorii</a>
+
+

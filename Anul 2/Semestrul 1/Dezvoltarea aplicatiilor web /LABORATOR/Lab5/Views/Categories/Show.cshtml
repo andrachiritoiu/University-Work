@@ -1,0 +1,17 @@
+﻿<h2>Afisare categorie</h2>
+<br />
+
+<p>@ViewBag.Category.CategoryName</p>
+
+<br />
+
+<form method="post" action="/Categories/Delete/@ViewBag.Category.Id">
+
+    <button type="submit">Sterge categoria</button>
+
+</form>
+
+<br />
+
+<a href="/Categories/Index">Afisare categorii</a>
+
