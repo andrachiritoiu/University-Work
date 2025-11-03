@@ -1,0 +1,512 @@
+--Lab 1
+--1.A)F
+--  B)A
+--  C)F - GRUP NU INCULDE NULL(CU EXCEPTIA LUI COUNT)
+--2.A)F (DEZACTIVARE PK CU ALTER TABLE)
+--  B)A
+--  C)F
+--  D)A
+--3.A)A
+--  B)A
+--  C)F(ON DELETE CASCADE)
+--  D)A
+--4.D)
+--5.C)O VIZULAIZARE SIMPLA POATE MODIFICA TABELUL
+--6.A)
+--7.A)
+--8.C)
+--9.C)
+--10.D)
+
+
+-- 11.Adăugaţi un comentariu tabelei emp_***.
+CREATE TABLE EMP_CAF
+AS SELECT *
+FROM EMPLOYEES;
+
+COMMENT ON TABLE EMP_CAF IS 'Informatii despre angajati';
+
+-- 12. Folosind vizualizarea user_tab_comments afişaţi comentariul adăugat tabelului emp_***.
+SELECT *
+FROM USER_TAB_COMMENTS;
+
+-- 13.Modificaţi formatul datei calendaristice setat la nivel de sesiune astfel încât datele calendaristice să
+-- respecte următoarea formă 01.10.2011 16:10:05.
+ALTER SESSION SET NLS_DATE_FORMAT = 'DD.MM.YYYY';
+SELECT SYSDATE FROM dual;
+
+-- 14.Rulaţi următoarea cerere SQL
+SELECT EXTRACT(YEAR FROM SYSDATE)
+FROM dual;
+
+-- 15.Modificaţi cererea anterioară astfel încât să obţineţi ziua, respectiv luna datei curente.
+SELECT
+    EXTRACT(DAY FROM SYSDATE)   AS ziua,
+    EXTRACT(MONTH FROM SYSDATE) AS luna,
+    EXTRACT(YEAR FROM SYSDATE)  AS anul
+FROM DUAL;
+
+
+-- 16.. Afişaţi numele tuturor tabelelor personale create (nume_tabel_***).
+SELECT *
+FROM USER_TABLES
+WHERE TABLE_NAME LIKE 'EMP_%';
+
+
+
+
+
+-- TEMA : 17, 23
+
+--17.Generaţi automat un script SQL care să conţină comenzi de ştergere a tuturor tabelelor personale create.
+--Indicaţie: Folosiţi comenzile SPOOL …/sterg_tabele.sql şi SPOOL OFF.
+
+--     --in sqlPlus
+-- SPOOL sterg_tabele.sql
+-- SET HEADING OFF
+-- SET FEEDBACK OFF
+-- SET PAGESIZE 0
+--
+-- SELECT 'DROP TABLE ' || table_name || ', '
+-- FROM user_tables;
+-- WHERE table_name LIKE 'EMP_%'
+--
+-- SPOOL OFF
+-- SET HEADING ON
+-- SET FEEDBACK ON
+-- SET PAGESIZE 14
+
+
+--18.Verificaţi informaţiile din fişierul generat.
+-- HOST type sterg_tabele.sql
+--! type sterg_tabele.sql
+
+
+--19. Ce informaţii suplimentare sunt incluse în acest fişier dacă folosim SQL*Plus?
+
+--     Fără setarea SET HEADING OFF, scriptul ar include antetul coloanei ('DROP TABLE '||TABLE_NAME||'CASCADE CONSTRAINTS;').
+-- Fără SET FEEDBACK OFF, ar include mesajul de feedback de la SQL*Plus/SQLcl (N rows selected). Fără SET PAGESIZE 0, ar putea include spațiu și o linie de separare.
+
+
+--20.Verificaţi ce efect are utilizarea comenzii SET FEEDBACK OFF.
+
+--     Comanda suprimă afișarea mesajului care indică numărul de rânduri (N rows selected) returnate de o interogare sau
+-- afectate de o comandă DML (INSERT, UPDATE, DELETE).
+
+
+--21.Asiguraţi-vă că antetul tabelului rezultat nu se multiplică.
+--Indicaţie: Utilizaţi comanda SET PAGESIZE 0
+
+--     SET PAGESIZE 0 (pentru a elimina antetul de tot) sau SET PAGESIZE n cu o valoare mare, de ex. SET PAGESIZE 50000
+-- (dacă se dorește antetul doar la începutul output-ului).
+
+
+
+--22.Fără să rulaţi scriptul creat daţi exemplu de un caz în care execuţia acestui script va determina erori.
+--Indicaţi o metodă de rezolvare a acestui caz.
+
+--     Caz de eroare: Dacă una dintre tabelele personale (nume_tabel_***) nu există sau dacă utilizatorul nu are permisiunile
+-- necesare pentru a o șterge. Deși user_tables ar trebui să listeze doar tabelele proprii, o eroare ar putea apărea și dacă scriptul încearcă să șteargă o vizualizare sau o altă structură.
+--
+-- Metoda de rezolvare: Se poate folosi un bloc BEGIN...END PL/SQL cu tratarea excepțiilor (EXCEPTION WHEN OTHERS THEN NULL;)
+-- sau, în unele SGBD-uri, comanda DROP TABLE IF EXISTS table_name (deși aceasta nu este disponibilă în Oracle SQL*Plus standard). În Oracle, soluția cea mai elegantă pentru scripturi automate este un bloc PL/SQL:
+--
+--
+--     BEGIN
+--     EXECUTE IMMEDIATE 'DROP TABLE ' || table_name || ' CASCADE CONSTRAINTS';
+-- EXCEPTION
+--     WHEN OTHERS THEN
+--         NULL; -- Ignoră eroarea
+-- END;
+
+--23. Folosind tabelul departments generaţi automat script-ul SQL de inserare a înregistrărilor în acest tabel.
+
+-- SPOOL insert_departments.sql
+-- SET HEADING OFF
+-- SET FEEDBACK OFF
+-- SET PAGESIZE 0
+--
+SELECT 'Insert into departments (department_name,department_id) VALUES (' || department_name || ', ' || department_id || ');'
+FROM departments;
+--
+-- SPOOL OFF
+-- SET HEADING ON
+-- SET FEEDBACK ON
+-- SET PAGESIZE 14
+
+
+
+--LAB 2
+--4.Câte filme (titluri, respectiv exemplare) au fost împrumutate din cea mai cerută categorie?
+
+SELECT T.category, COUNT(DISTINCT T.title_id), COUNT(*)
+FROM TITLE T
+JOIN RENTAL R ON R.title_id=T.title_id
+GROUP BY T.category
+HAVING COUNT(*)=(
+    SELECT MAX(NumarImprumuturi)
+    FROM(
+        SELECT COUNT(*) AS NumarImprumuturi
+        FROM TITLE T2
+        JOIN RENTAL R2 ON R2.title_id=T2.title_id
+        GROUP BY T2.category
+    )X
+)
+ORDER BY T.category;
+
+--5. Câte exemplare din fiecare film sunt disponibile în prezent (considerați că statusul unui exemplar nu
+--este setat, deci nu poate fi utilizat)?
+SELECT T.TITLE, COUNT(R.TITLE_ID)
+FROM TITLE T
+JOIN RENTAL R ON R.TITLE_ID=T.TITLE_ID
+WHERE R.EXP_RET_DATE<SYSDATE
+GROUP BY T.TITLE;
+
+--6.
+
+SELECT T.title, C.copy_id, C.status,
+    CASE
+        WHEN EXISTS (
+            SELECT 1
+            FROM RENTAL R
+            WHERE R.title_id = C.title_id
+              AND R.copy_id = C.copy_id
+              AND R.act_ret_date IS NULL
+        ) THEN 'RENTED'
+        ELSE 'AVAILABLE'
+    END AS "Status Corect"
+FROM TITLE T
+JOIN TITLE_COPY C ON C.title_id = T.title_id
+ORDER BY T.title, C.copy_id;
+
+--7. a. Câte exemplare au statusul eronat?
+
+
+-- 8.Toate filmele rezervate au fost împrumutate la data rezervării? Afișați textul “Da” sau ”Nu” în
+-- funcție de situație.
+
+SELECT
+CASE
+    WHEN NOT EXISTS(
+        SELECT 1
+        FROM RESERVATION REZ
+        LEFT JOIN RENTAL REN ON REZ.MEMBER_ID=REN.MEMBER_ID
+        WHERE REZ.TITLE_ID IS NOT NULL
+    )
+    THEN 'DA'
+    ELSE 'NU'
+END AS TOATE_IMPRUMUTURILE_LA_DATA_REZERVARII
+FROM DUAL;
+
+--tema:7(a,b),8/11,12(a,b)-zile pot fi hardcodate
+
+
+
+
+-- TEMA
+
+-- 7.Obs. Pentru rezolvare creați tabela title_copy_***, preluând structura și datele din tabela
+-- title_copy.
+
+CREATE TABLE TITLE_COPY_CAF AS
+SELECT *
+FROM TITLE_COPY;
+
+-- SELECT *
+-- FROM TITLE_COPY_CAF
+
+
+
+-- A)Câte exemplare au statusul eronat?
+
+SELECT COUNT(T.TITLE_ID)
+FROM TITLE_COPY_CAF T
+LEFT JOIN RENTAL R ON R.COPY_ID=T.COPY_ID AND R.TITLE_ID=T.TITLE_ID
+WHERE (T.STATUS = 'RENTED' AND R.ACT_RET_DATE IS NOT NULL)
+    OR (T.STATUS = 'AVAILABE' AND R.ACT_RET_DATE IS NULL);
+
+
+
+-- B)Setați statusul corect pentru toate exemplarele care au statusul eronat. Salvați actualizările
+-- realizate.
+
+UPDATE TITLE_COPY_CAF T
+SET STATUS = 'AVAILABLE'
+WHERE EXISTS(
+    SELECT 1
+    FROM RENTAL R
+    WHERE T.STATUS = 'RENTED' AND R.ACT_RET_DATE IS NOT NULL
+    AND R.COPY_ID=T.COPY_ID AND R.TITLE_ID=T.TITLE_ID
+);
+
+UPDATE TITLE_COPY_CAF T
+SET STATUS = 'RENTED'
+WHERE EXISTS(
+    SELECT 1
+    FROM RENTAL R
+    WHERE T.STATUS = 'AVAILABLE' AND R.ACT_RET_DATE IS NULL
+    AND R.COPY_ID=T.COPY_ID AND R.TITLE_ID=T.TITLE_ID
+);
+
+COMMIT;
+
+-- SELECT *
+-- FROM TITLE_COPY_CAF;
+
+
+
+
+-- 8.Toate filmele rezervate au fost împrumutate la data rezervării? Afișați textul “Da” sau ”Nu” în
+-- funcție de situație.
+
+-- DACA NU GASESTE NICIO EXCEPTIE E DA
+-- CAUTA SA GASESCA O REVERVARE PENTRU CARE NU S-A FACUT IMPRUMUT
+
+SELECT
+    CASE
+        WHEN COUNT(*)=0 THEN 'DA'
+        ELSE 'NU'
+    END AS "TOATE_FILMELE_LA_DATA_REZERVARII"
+FROM RESERVATION REZ
+WHERE
+    NOT EXISTS(
+        SELECT 1
+        FROM RENTAL RT
+        WHERE RT.MEMBER_ID=REZ.MEMBER_ID AND RT.TITLE_ID=REZ.TITLE_ID AND RT.BOOK_DATE=REZ.RES_DATE
+    );
+
+
+
+
+-- 12. Pentru anumite zile specificate din luna curentă, obțineți numărul de împrumuturi efectuate.
+--A)Se iau în considerare doar primele 2 zile din lună.
+
+SELECT CAST(R.BOOK_DATE AS DATE) AS ZI,
+    COUNT(*) AS NUMAR_IMPRUMUTURI
+FROM RENTAL R
+WHERE EXTRACT(MONTH FROM R.BOOK_DATE) = EXTRACT(MONTH FROM CURRENT_DATE) AND
+    EXTRACT(YEAR FROM R.BOOK_DATE) = EXTRACT(YEAR FROM CURRENT_DATE) AND
+    EXTRACT(DAY FROM R.BOOK_DATE) IN (1,2)
+GROUP BY (CAST(R.BOOK_DATE AS DATE));
+
+
+
+--B)Se iau în considerare doar zilele din lună în care au fost efectuate împrumuturi.
+
+SELECT CAST(R.BOOK_DATE AS DATE) AS ZI,
+    COUNT(*) AS NUMAR_IMPRUMUTURI
+FROM RENTAL R
+WHERE EXTRACT(MONTH FROM R.BOOK_DATE) = EXTRACT(MONTH FROM CURRENT_DATE) AND
+    EXTRACT(YEAR FROM R.BOOK_DATE) = EXTRACT(YEAR FROM CURRENT_DATE)
+GROUP BY (CAST(R.BOOK_DATE AS DATE));
+
+
+
+-- LAB
+-- A)
+
+SELECT
+    TRUNC(SYSDATE,'MONTH')
+FROM DUAL;
+
+-- C)
+-- QUERRY ERARHIC
+
+-- START WITH
+-- CONNECTED BY
+
+SELECT EMPLOYEE_ID
+FROM EMPLOYEES
+START WITH
+    EMPLOYEE_ID=101
+CONNECT BY EMPLOYEE_ID=EMPLOYEES.MANAGER_ID;
+
+
+SELECT ZI , COUNT(*)
+FROM(
+SELECT
+    TRUNC(SYSDATE,'MONTH') + LEVEL -1 AS ZI
+FROM DUAL
+CONNECT BY
+    LEVEL < EXTRACT(DAY FROM SYSDATE)) Z
+JOIN RENTAL R ON Z.ZI=R.BOOK_DATE
+GROUP BY ZI;
+
+
+-- lab 4
+
+-- 4. Definiți un bloc anonim în care să se afle numele departamentului cu cei mai mulți angajați.
+-- Comentați cazul în care există cel puțin două departamente cu număr maxim de angajați.
+
+DECLARE
+  v_dep departments.department_name%TYPE;
+BEGIN
+  SELECT department_name
+  INTO   v_dep
+  FROM   employees e, departments d
+  WHERE  e.department_id=d.department_id
+  GROUP BY department_name
+  HAVING COUNT(*) = (SELECT MAX(COUNT(*))
+                     FROM   employees
+                     GROUP BY department_id);
+  DBMS_OUTPUT.PUT_LINE('Departamentul '|| v_dep);
+END;
+
+-- adaugare count
+DECLARE
+  v_dep departments.department_name%TYPE;
+  v_count NUMBER;
+BEGIN
+  SELECT department_name, COUNT(e.employee_id)
+  INTO   v_dep , v_count
+  FROM   employees e, departments d
+  JOIN   departments d ON e.department_id = d.department_id
+  WHERE  e.department_id=d.department_id
+  GROUP BY department_name
+  HAVING COUNT(*) = (SELECT MAX(COUNT(*))
+                     FROM   employees
+                     GROUP BY department_id);
+  DBMS_OUTPUT.PUT_LINE('Departamentul '|| v_dep);
+   DBMS_OUTPUT.PUT_LINE('Departamentul '|| v_dep||'Nr'||v_count);
+END;
+
+
+
+
+-- lab 5
+
+--Tema: E1. Se dă următorul bloc:
+--Tema 3
+--E1.
+
+-- SET SERVEROUTPUT ON
+
+DECLARE
+ numar number(3):=100;
+ mesaj1 varchar2(255):='text 1';
+ mesaj2 varchar2(255):='text 2';
+BEGIN
+  DECLARE
+   numar number(3):=1;
+   mesaj1 varchar2(255):='text 2';
+   mesaj2 varchar2(255):='text 3';
+BEGIN
+numar:=numar+1;
+mesaj2:=mesaj2||' adaugat in sub-bloc';
+
+DBMS_OUTPUT.PUT_LINE('numar in subbloc: ' || numar);
+DBMS_OUTPUT.PUT_LINE('mesaj1 in subbloc: ' || mesaj1);
+DBMS_OUTPUT.PUT_LINE('mesaj2 in subbloc: ' || mesaj2);
+
+END;
+numar:=numar+1;
+mesaj1:=mesaj1||' adaugat un blocul principal';
+mesaj2:=mesaj2||' adaugat in blocul principal';
+
+DBMS_OUTPUT.PUT_LINE('numar in bloc: ' || numar);
+DBMS_OUTPUT.PUT_LINE('mesaj1 in bloc: ' || mesaj1);
+DBMS_OUTPUT.PUT_LINE('mesaj2 in bloc: ' || mesaj2);
+
+END;
+
+
+--E3.
+
+DECLARE
+    v_nume_membru VARCHAR(100) := '&nume_membru';
+    v_id_membru MEMBER.MEMBER_ID%TYPE;
+    v_numar_filme NUMBER:=0;
+
+BEGIN
+    SELECT member_id
+    INTO v_id_membru
+    FROM MEMBER
+    WHERE last_name = v_nume_membru;
+
+    SELECT COUNT(DISTINCT title_id)
+    INTO v_numar_filme
+    FROM RENTAL R
+    WHERE R.member_id = v_id_membru;
+
+    DBMS_OUTPUT.PUT_LINE('Membrul cu numele ' || v_nume_membru ||
+                             ' a împrumutat ' || NVL(v_numar_filme,0) || ' filme.');
+END;
+
+
+
+
+
+
+-- lab 6
+--e2. Se dă următorul enunț: Pentru fiecare zi a lunii octombrie (se vor lua în considerare și zilele din
+-- lună în care nu au fost realizate împrumuturi) obțineți numărul de împrumuturi efectuate.
+-- a. Încercați să rezolvați problema în SQL fără a folosi structuri ajutătoare.
+-- b. Definiți tabelul octombrie_*** (id, data). Folosind PL/SQL populați cu date acest tabel.
+-- Rezolvați în SQL problema dată.
+
+CREATE TABLE octombrie_caf(
+    id NUMBER(6),
+    data DATE
+);
+
+DECLARE
+    v_data_inceput DATE := DATE '2025-10-01';
+    v_data_sfarsit DATE := DATE '2025-10-31';
+    v_cnt NUMBER :=1;
+
+BEGIN
+    WHILE v_data_inceput <= v_data_sfarsit LOOP
+        INSERT INTO octombrie_caf(id, data)
+        VALUES (v_cnt, v_data_inceput);
+
+        v_data_inceput := v_data_inceput + 1;
+        v_cnt := v_cnt + 1;
+     END LOOP;
+
+END;
+
+
+
+-- e4.Modificați problema anterioară astfel încât să afișați și următorul text: - Categoria 1 (a împrumutat mai mult de 
+-- 75% din titlurile existente) - Categoria 2 (a împrumutat mai mult de 50% din titlurile existente) - Categoria 3 (a împrumutat mai
+-- mult de 25% din titlurile existente) - Categoria 4 (altfel) 
+
+DECLARE
+    v_nume_membru VARCHAR(100) := '&nume_membru';
+    v_id_membru MEMBER.MEMBER_ID%TYPE;
+    v_numar_filme NUMBER:=0;
+    v_total_titluri NUMBER;
+    v_procent NUMBER;
+    v_categorie VARCHAR2(20);
+
+BEGIN
+    SELECT member_id
+    INTO v_id_membru
+    FROM MEMBER
+    WHERE last_name = v_nume_membru;
+
+    SELECT COUNT(DISTINCT title_id)
+    INTO v_numar_filme
+    FROM RENTAL R
+    WHERE R.member_id = v_id_membru;
+
+    SELECT COUNT(*) INTO v_total_titluri FROM title;
+
+     v_procent := (v_numar_filme / v_total_titluri) * 100;
+
+    IF v_procent > 75 THEN
+        v_categorie := 'Categoria 1';
+    ELSIF v_procent > 50 THEN
+        v_categorie := 'Categoria 2';
+    ELSIF v_procent > 25 THEN
+        v_categorie := 'Categoria 3';
+    ELSE
+        v_categorie := 'Categoria 4';
+    END IF;
+
+        DBMS_OUTPUT.PUT_LINE('Membrul cu numele ' || v_nume_membru ||
+                         ' a împrumutat ' || v_numar_filme || ' filme (' || v_categorie || ').');
+END;
+
+
+--e5
