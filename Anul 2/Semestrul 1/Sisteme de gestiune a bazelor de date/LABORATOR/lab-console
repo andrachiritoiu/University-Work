@@ -674,3 +674,83 @@ END;
 /
 
 --Tema: e1(cu ambele tipuri de colectii)
+
+-- lab rec
+-- 1.
+CREATE OR REPLACE TYPE adrese_email_CAF AS VARRAY(10) OF VARCHAR2(50);
+
+CREATE TABLE client (
+    id_client    INTEGER,
+    nume_client  VARCHAR2(100),
+    adrese_email adrese_email_CAF
+);
+
+BEGIN
+    INSERT INTO client (id_client, nume_client, adrese_email)
+    VALUES (1,'Popescu Ion',adrese_email_CAF('ion.popescu@email.com', 'ion.work@companie.ro'));
+
+    INSERT INTO client (id_client, nume_client, adrese_email)
+    VALUES (2,'Ionescu Ana',adrese_email_CAF('ana.ionescu@gmail.com'));
+
+    INSERT INTO client (id_client, nume_client, adrese_email)
+    VALUES (3,'Vasilescu Vasile',NULL);
+
+    COMMIT;
+END;
+/
+
+--E2.
+-- a
+CREATE OR REPLACE TYPE tip_orase_CAF AS TABLE OF VARCHAR2(50);
+
+CREATE TABLE excursie_CAF (
+    cod_excursie NUMBER(4) PRIMARY KEY,
+    denumire VARCHAR2(20),
+    orase tip_orase_CAF,
+    status VARCHAR2(20)
+)
+
+NESTED TABLE orase STORE AS orase_ntab_CAF;
+
+BEGIN
+    INSERT INTO excursie_CAF (cod_excursie, denumire, orase, status)
+    VALUES (1, 'Italia', tip_orase_CAF('Roma', 'Florenta', 'Venetia'), 'disponibilă');
+    INSERT INTO excursie_CAF (cod_excursie, denumire, orase, status)
+    VALUES (2, 'Turul Frantei', tip_orase_CAF('Paris', 'Lyon', 'Nisa'), 'disponibilă');
+    INSERT INTO excursie_CAF (cod_excursie, denumire, orase, status)
+    VALUES (3, 'Spania', tip_orase_CAF('Madrid', 'Barcelona'),'disponibilă');
+    INSERT INTO excursie_CAF (cod_excursie, denumire, orase, status)
+    VALUES (4, 'City Break Berlin', tip_orase_CAF('Berlin'),'disponibilă');
+    INSERT INTO excursie_CAF (cod_excursie, denumire, orase, status)
+    VALUES (5, 'Grecia (plan)', tip_orase_CAF('Atena'),'disponibilă');
+    COMMIT;
+END;
+/
+
+-- b
+DECLARE
+    v_orase tip_orase_CAF;
+    v_cod_excursie NUMBER := 2;
+BEGIN
+    SELECT orase
+    INTO v_orase
+    FROM excursie_CAF
+    WHERE cod_excursie = v_cod_excursie
+    FOR UPDATE;
+
+    IF v_orase IS NULL THEN
+        v_orase := tip_orase_CAF();
+    END IF;
+
+    v_orase.EXTEND;
+    v_orase(v_orase.LAST) := 'Marsilia';
+
+    UPDATE excursie_CAF
+    SET orase = v_orase
+    WHERE cod_excursie = v_cod_excursie;
+
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Adăugat Marsilia la final. Total: ' || v_orase.COUNT);
+END;
+/
+-- tema : E4
