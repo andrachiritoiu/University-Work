@@ -1,0 +1,53 @@
+﻿
+@model ArticlesApp.Models.Article
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Editeaza articol</h2>
+<hr />
+
+<form asp-action="Edit" asp-controller="Articles" asp-route-id="@Model.Id" method="post" class="row g-3">
+    <input asp-for="Id" type="hidden" />
+    <input asp-for="Date" type="hidden" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="col-12">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="col-12">
+        <label asp-for="Content" class="form-label"></label>
+        <textarea asp-for="Content" class="form-control" rows="6"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="CategoryId" class="form-label">Selectati categoria</label>
+        <select asp-for="CategoryId" class="form-select">
+            @foreach (var category in ViewBag.Categories)
+            {
+                <option value="@category.Id">@category.CategoryName</option>
+            }
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <div class="col-12 d-flex gap-2">
+        <button class="btn btn-success" type="submit">
+            <i class="bi bi-save"></i> Modifica articol
+        </button>
+        <a class="btn btn-outline-secondary" href="/Articles/Show/@Model.Id">
+            <i class="bi bi-x-circle"></i> Anuleaza
+        </a>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

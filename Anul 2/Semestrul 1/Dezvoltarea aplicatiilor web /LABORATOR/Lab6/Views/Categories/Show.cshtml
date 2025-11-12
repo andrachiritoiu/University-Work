@@ -1,0 +1,55 @@
+﻿@model ArticlesApp.Models.Category
+
+@{
+    ViewBag.Title = "Detalii categorie";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">@Model.CategoryName</h2>
+    <div class="d-flex gap-2">
+        <a class="btn btn-outline-secondary" href="/Categories/Edit/@Model.Id">
+            <i class="bi bi-pencil"></i> Editeaza
+        </a>
+        <form asp-action="Delete" asp-controller="Categories" asp-route-id="@Model.Id" method="post" onsubmit="return confirm('Sigur stergi aceasta categorie si articolele asociate?');">
+            <button class="btn btn-outline-danger" type="submit">
+                <i class="bi bi-trash"></i> Sterge
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="mb-3">
+    <a class="btn btn-outline-primary" href="/Categories/Index">
+        <i class="bi bi-arrow-left"></i> Inapoi la lista
+    </a>
+</div>
+
+<section class="mt-4">
+    <h3 class="d-flex align-items-center gap-2">
+        <i class="bi bi-newspaper"></i>
+        Articole din categorie (@(Model.Articles?.Count ?? 0))
+    </h3>
+
+    @if (Model.Articles == null || !Model.Articles.Any())
+    {
+        <div class="alert alert-info mt-3">Nu exista articole in aceasta categorie.</div>
+    }
+    else
+    {
+        <div class="list-group mt-3">
+            @foreach (var article in Model.Articles.OrderByDescending(a => a.Date))
+            {
+                <div class="list-group-item d-flex justify-content-between align-items-start">
+                    <div>
+                        <h5 class="mb-1">@article.Title</h5>
+                        <p class="mb-1 text-muted">@article.Date.ToString("dd MMM yyyy HH:mm")</p>
+                    </div>
+                    <a class="btn btn-outline-primary" href="/Articles/Show/@article.Id">
+                        <i class="bi bi-eye"></i> Vezi articol
+                    </a>
+                </div>
+            }
+        </div>
+    }
+</section>
+

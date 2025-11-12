@@ -1,0 +1,40 @@
+@model ArticlesApp.Models.Comment
+
+@{
+    ViewBag.Title = "Edit Comment";
+}
+
+<h2>Editeaza comentariu</h2>
+<hr />
+
+<form asp-action="Edit" asp-controller="Comments" asp-route-id="@Model.Id" method="post" class="row g-3">
+    <input asp-for="Id" type="hidden" />
+    <input asp-for="Date" type="hidden" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="col-12">
+        <label asp-for="ArticleId" class="form-label">Selectati articolul</label>
+        <select asp-for="ArticleId" class="form-select" asp-items="ViewBag.Articles"></select>
+        <span asp-validation-for="ArticleId" class="text-danger"></span>
+    </div>
+
+    <div class="col-12">
+        <label asp-for="Content" class="form-label"></label>
+        <textarea asp-for="Content" class="form-control" rows="4"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+
+    <div class="col-12 d-flex gap-2">
+        <button class="btn btn-success" type="submit">
+            <i class="bi bi-save"></i> Salveaza modificarile
+        </button>
+        <a class="btn btn-outline-secondary" href="/Comments/Show/@Model.Id">
+            <i class="bi bi-x-circle"></i> Anuleaza
+        </a>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

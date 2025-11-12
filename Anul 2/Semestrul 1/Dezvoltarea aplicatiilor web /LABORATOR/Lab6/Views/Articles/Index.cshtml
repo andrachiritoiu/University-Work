@@ -1,0 +1,72 @@
+﻿@model IEnumerable<ArticlesApp.Models.Article>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="text-center">Afisare articole</h2>
+<br />
+
+<div class="d-flex justify-content-center gap-3">
+    <a class="btn btn-outline-success" href="/Categories/Index">
+        <i class="bi bi-tags"></i> Afisare categorii
+    </a>
+    <a class="btn btn-outline-success" href="/Articles/New">
+        <i class="bi bi-plus-circle"></i> Adauga articol
+    </a>
+</div>
+
+<br />
+
+
+@if (Model == null || !Model.Any())
+{
+    <div class="alert alert-info text-center">Nu există articole încă. Adaugă unul din "Adauga articol".</div>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var art in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-success d-flex align-items-center gap-2">
+                            <i class="bi bi-newspaper"></i>
+                            @art.Title
+                        </h5>
+
+                        <p class="card-text flex-grow-1">@art.Content</p>
+
+                        <div class="d-flex justify-content-between align-items-center mt-3 border-top pt-3">
+                            <span class="text-muted">
+                                <i class="bi bi-folder"></i> @art.Category.CategoryName
+                            </span>
+                            <span class="badge text-bg-light">
+                                <i class="bi bi-calendar3"></i> @art.Date.ToString("dd MMM yyyy")
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent border-0 d-flex justify-content-between">
+                        <a class="btn btn-outline-primary" href="/Articles/Show/@art.Id">
+                            <i class="bi bi-eye"></i> Detalii
+                        </a>
+                        <a class="btn btn-outline-secondary" href="/Articles/Edit/@art.Id">
+                            <i class="bi bi-pencil-square"></i> Editeaza
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+
+
+
+
+
+
+
+
+

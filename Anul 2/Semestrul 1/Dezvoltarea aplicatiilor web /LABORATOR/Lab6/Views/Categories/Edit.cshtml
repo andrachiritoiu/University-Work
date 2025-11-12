@@ -1,0 +1,33 @@
+﻿@model ArticlesApp.Models.Category
+
+@{
+    ViewBag.Title = "Editare categorie";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+<form asp-action="Edit" asp-controller="Categories" asp-route-id="@Model.Id" method="post" class="row g-3">
+    <input asp-for="Id" type="hidden" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="col-md-6">
+        <label asp-for="CategoryName" class="form-label"></label>
+        <input asp-for="CategoryName" class="form-control" />
+        <span asp-validation-for="CategoryName" class="text-danger"></span>
+    </div>
+
+    <div class="col-12 d-flex gap-2">
+        <button class="btn btn-success" type="submit">
+            <i class="bi bi-save"></i> Salveaza
+        </button>
+        <a class="btn btn-outline-secondary" href="/Categories/Show/@Model.Id">
+            <i class="bi bi-x-circle"></i> Anuleaza
+        </a>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

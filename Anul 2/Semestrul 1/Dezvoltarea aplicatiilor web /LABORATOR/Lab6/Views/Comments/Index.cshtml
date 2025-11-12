@@ -1,0 +1,50 @@
+@model IEnumerable<ArticlesApp.Models.Comment>
+
+@{
+    ViewBag.Title = "Comments";
+}
+
+<div class="d-flex justify-content-between align-items-center">
+    <h2>Lista comentarii</h2>
+    <a class="btn btn-success" href="/Comments/New">
+        <i class="bi bi-plus-circle"></i> Adauga comentariu
+    </a>
+</div>
+
+<br />
+
+@if (Model == null || !Model.Any())
+{
+    <div class="alert alert-info">Nu exista comentarii momentan.</div>
+}
+else
+{
+    <div class="list-group">
+        @foreach (var comment in Model)
+        {
+            <div class="list-group-item">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <strong>@comment.Article?.Title</strong>
+                        <div>@comment.Content</div>
+                        <small class="text-muted">@comment.Date.ToString("dd MMM yyyy HH:mm")</small>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <a class="btn btn-outline-primary" href="/Comments/Show/@comment.Id">
+                            <i class="bi bi-eye"></i> Detalii
+                        </a>
+                        <a class="btn btn-outline-secondary" href="/Comments/Edit/@comment.Id">
+                            <i class="bi bi-pencil"></i> Editeaza
+                        </a>
+                        <form asp-controller="Comments" asp-action="Delete" asp-route-id="@comment.Id" method="post">
+                            <button class="btn btn-outline-danger" type="submit">
+                                <i class="bi bi-trash"></i> Sterge
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+

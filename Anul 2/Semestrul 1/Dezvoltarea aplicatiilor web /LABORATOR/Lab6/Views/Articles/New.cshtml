@@ -1,0 +1,55 @@
+﻿
+@model ArticlesApp.Models.Article
+
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>Adaugare articol</h2>
+<hr />
+
+<form asp-action="New" asp-controller="Articles" method="post" class="row g-3">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="col-12">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="col-12">
+        <label asp-for="Content" class="form-label"></label>
+        <textarea asp-for="Content" class="form-control" rows="6"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="CategoryId" class="form-label">Selectati categoria</label>
+        <select asp-for="CategoryId" class="form-select">
+            <option value="">-- alegeti o categorie --</option>
+            @foreach (var item in ViewBag.Categories)
+            {
+                <option value="@item.Id">@item.CategoryName</option>
+            }
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <div class="col-12">
+        <button class="btn btn-success" type="submit">
+            <i class="bi bi-plus-circle"></i> Adauga articol
+        </button>
+    </div>
+</form>
+
+<div class="mt-3">
+    <a class="btn btn-outline-secondary" href="/Articles/Index">
+        <i class="bi bi-arrow-left"></i> Inapoi la lista articolelor
+    </a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

@@ -1,0 +1,87 @@
+﻿@model ArticlesApp.Models.Article
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex gap-2">
+        <a class="btn btn-outline-success" href="/Articles/Index">
+            <i class="bi bi-card-list"></i> Lista articole
+        </a>
+        <a class="btn btn-outline-success" href="/Articles/New">
+            <i class="bi bi-plus-circle"></i> Adauga articol
+        </a>
+    </div>
+
+    <div class="d-flex gap-2">
+        <a class="btn btn-outline-secondary" href="/Articles/Edit/@Model.Id">
+            <i class="bi bi-pencil-square"></i> Editeaza
+        </a>
+        <form asp-controller="Articles" asp-action="Delete" asp-route-id="@Model.Id" method="post">
+            <button class="btn btn-outline-danger" type="submit">
+                <i class="bi bi-trash"></i> Sterge
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h2 class="card-title text-success d-flex align-items-center gap-2">
+            <i class="bi bi-newspaper"></i>
+            @Model.Title
+        </h2>
+
+        <p class="card-text fs-5">@Model.Content</p>
+
+        <div class="d-flex justify-content-between align-items-center border-top pt-3">
+            <span class="text-muted">
+                <i class="bi bi-folder"></i> @Model.Category.CategoryName
+            </span>
+            <span class="badge text-bg-light">
+                <i class="bi bi-calendar3"></i> @Model.Date.ToString("dd MMM yyyy HH:mm")
+            </span>
+        </div>
+    </div>
+</div>
+
+<section class="mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="mb-0 d-flex align-items-center gap-2">
+            <i class="bi bi-chat-dots"></i>
+            Comentarii (@(Model.Comments?.Count ?? 0))
+        </h3>
+        <a class="btn btn-success" href="/Comments/New?articleId=@Model.Id">
+            <i class="bi bi-plus-circle"></i> Adauga comentariu
+        </a>
+    </div>
+
+    @if (Model.Comments == null || !Model.Comments.Any())
+    {
+        <div class="alert alert-secondary">Nu exista comentarii pentru acest articol.</div>
+    }
+    else
+    {
+        foreach (var comment in Model.Comments.OrderByDescending(c => c.Date))
+        {
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <p class="mb-2">@comment.Content</p>
+                        <span class="badge text-bg-light">
+                            <i class="bi bi-clock"></i> @comment.Date.ToString("dd MMM yyyy HH:mm")
+                        </span>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <a class="btn btn-outline-secondary btn-sm" href="/Comments/Edit/@comment.Id">
+                            <i class="bi bi-pencil"></i> Editeaza
+                        </a>
+                        <form asp-controller="Comments" asp-action="Delete" asp-route-id="@comment.Id" method="post">
+                            <button class="btn btn-outline-danger btn-sm" type="submit">
+                                <i class="bi bi-trash"></i> Sterge
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</section>
+
