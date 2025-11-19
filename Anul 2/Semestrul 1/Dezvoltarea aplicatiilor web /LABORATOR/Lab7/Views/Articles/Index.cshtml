@@ -1,0 +1,53 @@
+﻿@model ArticlesApp.Models.Article
+
+<h2 class="text-center">Afisare articole</h2>
+
+<br />
+
+@if(TempData["message"] != null){
+
+    <h2 class="alert alert-success p-3 rounded-3 text-center mb-5">@TempData["message"]</h2>
+}
+
+
+<div class="d-flex justify-content-center">
+
+    <a class="btn btn-outline-success" href="/Categories/Index/">Afisare categorii</a>
+    <br />
+    <a class="btn btn-outline-success" href="/Articles/New">Adauga articol</a>
+    <br />
+
+</div>
+
+<br />
+
+
+@foreach (var article in ViewBag.Articles)
+{
+    <div class="card">
+
+        <div class="card-body">
+
+            <h3 class="card-title alert alert-success py-3 px-3 rounded-2 text-center">@article.Title</h3>
+
+            <div class="card-text">@article.Content</div>
+
+            <div class="d-flex justify-content-between flex-row mt-5">
+
+                <div><i class="bi bi-globe"></i> @article.Category.CategoryName</div>
+
+                <a class="btn btn-success" href="/Articles/Show/@article.Id">Afisare articol</a>
+
+                <span class="px-1 align-content-center">@article.Date</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br />
+    <br />
+}
+
+

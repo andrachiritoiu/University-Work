@@ -1,0 +1,34 @@
+﻿
+
+<h2>@ViewBag.Title</h2>
+<br />  
+
+@if (TempData.ContainsKey("message"))
+{
+    <h1>@ViewBag.message</h1>
+}
+
+<a class="btn btn-success" asp-action="Index" asp-controller="Articles">Inapoi la articole</a>
+
+<br />
+<br />
+
+@foreach (var category in ViewBag.Categories)
+{
+    @Html.Label("CategoryName", "Denumire categorie")
+    <p>@category.CategoryName</p>
+    <a class="btn alert-success" asp-action="Show" asp-controller="Categories" asp-route-id="@category.Id">Afisare categorie</a>
+    <a class="btn alert-success" asp-action="Edit" asp-controller="Categories" asp-route-id="@category.Id">Editare categorie</a>
+    <form method="post" asp-action="Delete" asp-controller="Categories" asp-route-id="@category.Id">
+        <button type="submit" class="btn btn-danger">Sterge</button>
+    </form>
+
+    <br />
+    <hr />
+    <br />
+}
+<br />
+<a class="btn btn-success" asp-action="New" asp-controller="Categories">Adauga o noua categorie</a>
+
+<br />
+

@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Editare comentariu</h2>
+<br />
+
+<form method="post" action="/Comments/Edit/@ViewBag.Comment.Id">
+
+    <label>Continut comentariu</label>
+    <br />
+
+    <textarea name="Content">@ViewBag.Comment.Content</textarea>
+    <br />
+
+    <button class="btn  btn-primary" type="submit">Editeaza comentariul</button>
+
+</form>
+
