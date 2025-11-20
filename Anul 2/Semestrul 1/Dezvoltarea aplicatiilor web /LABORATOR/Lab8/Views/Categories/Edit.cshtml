@@ -1,0 +1,18 @@
+﻿@model ArticlesApp.Models.Category
+
+
+<h2>@ViewBag.Title</h2>
+
+<form method="post" asp-action="Edit" asp-controller="Categories" asp-route-id="@Model.Id">
+
+    <div class="form-group">
+        <label asp-for="CategoryName" class="form-label">Denumire categorie</label>
+        <input asp-for="CategoryName" class="form-control" />
+        <span asp-validation-for="CategoryName" class="text-danger"></span>
+    </div>
+
+    <button class="btn btn-success" type="submit">Modifica categoria</button>
+
+</form>
+
+

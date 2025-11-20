@@ -1,0 +1,74 @@
+﻿@model ArticlesApp.Models.Article
+
+
+<h2 class="text-center mt-5">Adaugare articol</h2>
+
+<br />
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-6 offset-3">
+
+            <form method="post" asp-action="New" asp-controller="Articles">
+
+                <div class="form-group">
+                    <label asp-for="Title" class="form-label">Titlu Articol</label>
+                    <br />
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                    <br /><br />
+                </div>
+
+                <div class="form-group">
+                    @*pentru continut*@
+
+                    <label>Continut</label>
+                    <textarea asp-for="Content" class="form-control"></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                    <br></br>
+                </div>
+
+                <div class="form-group">
+                    @*pentru categorie*@
+
+                    <select asp-for="CategoryId" asp-items="Model.Categ" class="form-control">
+                        <option value="">Selectati categoria</option>
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+
+                <button class="btn btn-success" type="submit">Adauga articol</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@* FORMULARUL FOLOSIND HTML HELPERS
+    Acesta este adaugat doar ca exemplu, pentru a ilustra ambele metode de implementare
+
+
+<form method="post" action="/Articles/New">
+
+    @Html.Label("Title", "Titlu Articol")
+    <br />
+    @Html.TextBox("Title", null, new { @class = "form-control" })
+    <br /><br />
+
+    @Html.Label("Content", "Continut Articol")
+    <br />
+    @Html.TextArea("Content", null, new { @class = "form-control" })
+    <br /><br />
+
+    <label>Selectati categoria</label>
+    @Html.DropDownListFor(m => m.CategoryId,
+            new SelectList(Model.Categ, "Value", "Text"),
+            "Selectati categoria", new { @class = "form-control" })
+
+    <br />
+
+    <button class="btn btn-success" type="submit">Adauga articol</button>
+
+</form>
+*@
