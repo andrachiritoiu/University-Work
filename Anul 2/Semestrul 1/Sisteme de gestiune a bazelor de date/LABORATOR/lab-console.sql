@@ -754,3 +754,192 @@ BEGIN
 END;
 /
 -- tema : E4
+--lab 9
+--e1
+
+--a
+DECLARE
+    CURSOR c_jobs IS
+        SELECT job_id, job_title FROM jobs ORDER BY job_title;
+
+    CURSOR c_emps (p_job_id VARCHAR2) IS
+        SELECT last_name, salary
+        FROM employees
+        WHERE job_id = p_job_id;
+
+    v_job_id    jobs.job_id%TYPE;
+    v_job_title jobs.job_title%TYPE;
+    v_name      employees.last_name%TYPE;
+    v_salary    employees.salary%TYPE;
+
+BEGIN
+    OPEN c_jobs;
+    LOOP
+        FETCH c_jobs INTO v_job_id, v_job_title;
+        EXIT WHEN c_jobs%NOTFOUND;
+
+        DBMS_OUTPUT.PUT_LINE('--------------------------------');
+        DBMS_OUTPUT.PUT_LINE('JOB: ' || v_job_title);
+
+        OPEN c_emps(v_job_id);
+        LOOP
+            FETCH c_emps INTO v_name, v_salary;
+            EXIT WHEN c_emps%NOTFOUND;
+
+            DBMS_OUTPUT.PUT_LINE('   -> Angajat: ' || v_name || ' | Salariu: ' || v_salary);
+        END LOOP;
+
+        IF c_emps%ROWCOUNT = 0 THEN
+             DBMS_OUTPUT.PUT_LINE('   -> (Niciun angajat pe acest post)');
+        END IF;
+
+        CLOSE c_emps;
+    END LOOP;
+    CLOSE c_jobs;
+END;
+/
+
+
+--b
+    DECLARE
+    CURSOR c_jobs IS
+        SELECT job_id, job_title FROM jobs ORDER BY job_title;
+
+    CURSOR c_emps (p_job_id VARCHAR2) IS
+        SELECT last_name, salary
+        FROM employees
+        WHERE job_id = p_job_id;
+BEGIN
+    FOR r_job IN c_jobs LOOP
+        DBMS_OUTPUT.PUT_LINE('--------------------------------');
+        DBMS_OUTPUT.PUT_LINE('JOB: ' || r_job.job_title);
+
+        FOR r_emp IN c_emps(r_job.job_id) LOOP
+            DBMS_OUTPUT.PUT_LINE('   -> Angajat: ' || r_emp.last_name || ' | Salariu: ' || r_emp.salary);
+        END LOOP;
+
+    END LOOP;
+END;
+/
+
+--c
+BEGIN
+    FOR r_job IN (SELECT job_id, job_title FROM jobs ORDER BY job_title) LOOP
+
+        DBMS_OUTPUT.PUT_LINE('--------------------------------');
+        DBMS_OUTPUT.PUT_LINE('JOB: ' || r_job.job_title);
+
+        FOR r_emp IN (SELECT last_name, salary
+                      FROM employees
+                      WHERE job_id = r_job.job_id) LOOP
+
+            DBMS_OUTPUT.PUT_LINE('   -> Angajat: ' || r_emp.last_name || ' | Salariu: ' || r_emp.salary);
+        END LOOP;
+
+    END LOOP;
+END;
+/
+
+
+--d
+DECLARE
+    CURSOR c_complex IS
+        SELECT j.job_title,
+               CURSOR(SELECT e.last_name, e.salary
+                      FROM employees e
+                      WHERE e.job_id = j.job_id) as angajati_cursor
+        FROM jobs j
+        ORDER BY j.job_title;
+
+    v_job_title  jobs.job_title%TYPE;
+    v_emps_ref   SYS_REFCURSOR;
+    v_name       employees.last_name%TYPE;
+    v_salary     employees.salary%TYPE;
+BEGIN
+    OPEN c_complex;
+    LOOP
+        FETCH c_complex INTO v_job_title, v_emps_ref;
+        EXIT WHEN c_complex%NOTFOUND;
+
+        DBMS_OUTPUT.PUT_LINE('JOB: ' || v_job_title);
+
+        LOOP
+            FETCH v_emps_ref INTO v_name, v_salary;
+            EXIT WHEN v_emps_ref%NOTFOUND;
+
+            DBMS_OUTPUT.PUT_LINE(' - Angajat: ' || v_name || ' | Salariu: ' || v_salary);
+        END LOOP;
+
+        IF v_emps_ref%ROWCOUNT = 0 THEN
+             DBMS_OUTPUT.PUT_LINE(' - Niciun angajat');
+        END IF;
+
+    END LOOP;
+    CLOSE c_complex;
+END;
+/
+
+--ex 12
+DECLARE
+    TYPE empref IS REF CURSOR;
+    v_emp empref;
+    v_nr  INTEGER := &n;
+
+    v_id   employees.employee_id%TYPE;
+    v_nume employees.last_name%TYPE;
+    v_sal  employees.salary%TYPE;
+    v_comm employees.commission_pct%TYPE;
+BEGIN
+    OPEN v_emp FOR
+    'SELECT employee_id, last_name, salary, commission_pct ' ||
+    'FROM employees WHERE salary > :bind_var'
+    USING v_nr;
+
+    LOOP
+        FETCH v_emp INTO v_id, v_nume, v_sal, v_comm;
+        EXIT WHEN v_emp%NOTFOUND;
+
+        IF v_comm IS NULL THEN
+            DBMS_OUTPUT.PUT_LINE('Angajat: ' || v_nume || ' | Salariu: ' || v_sal);
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('Angajat: ' || v_nume || ' | Salariu: ' || v_sal || ' | Comision: ' || v_comm);
+        END IF;
+
+    END LOOP;
+    CLOSE v_emp;
+
+END;
+/
+
+
+--pl/sql4
+CREATE OR REPLACE FUNCTION salariu_mediu_caf (p_job_id IN emp_caf.job_id%TYPE)
+   RETURN NUMBER IS
+   v_medie NUMBER;
+BEGIN
+
+   SELECT AVG(salary)
+   INTO v_medie
+   FROM emp_caf
+   WHERE job_id = p_job_id;
+
+   IF v_medie IS NULL THEN
+       RAISE NO_DATA_FOUND;
+   END IF;
+
+   RETURN v_medie;
+
+EXCEPTION
+   WHEN NO_DATA_FOUND THEN
+       DBMS_OUTPUT.PUT_LINE('Nu exista date pentru jobul: ' || p_job_id);
+       RETURN 0;
+END;
+/
+
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Rezultat: ' || salariu_mediu_caf('JOB_INEXISTENT'));
+END;
+/
+
+--tema e3 si ceva similar cu e3/e4
+
