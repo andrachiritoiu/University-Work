@@ -1,0 +1,29 @@
+﻿
+<br />
+<h2 class="text-center">Afisare articole</h2>
+
+<br />
+
+@if(ViewBag.Message != null){
+
+    <h2 class="p-3 rounded-3 text-center mb-5 alert @ViewBag.Alert">@ViewBag.Message</h2>
+}
+
+<br />
+
+
+@foreach (var article in ViewBag.Articles)
+{
+    <div class="card">
+
+        <partial name="ArticleInfo" model="article"></partial>
+
+        <a class="btn btn-success" asp-controller="Articles" asp-action="Show" asp-route-id="@article.Id">Afisare articol</a>
+
+    </div>
+
+    <br />
+    <br />
+}
+          
+       

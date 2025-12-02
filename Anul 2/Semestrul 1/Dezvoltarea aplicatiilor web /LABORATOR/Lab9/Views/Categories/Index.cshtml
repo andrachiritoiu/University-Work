@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Lista categorii";
+}
+
+<br /><br />
+<h2 class="text-center">@ViewBag.Title</h2>
+<br />  
+
+@if (ViewBag.Message != null)
+{
+
+    <h2 class="alert alert-success p-3 rounded-3 text-center mb-5">@ViewBag.Message</h2>
+}
+
+
+<br />
+<br />
+
+@foreach (ArticlesApp.Models.Category category in ViewBag.Categories)
+{
+    <div class="form-group">
+        <label asp-for="@category.CategoryName" class="form-label"><i class="bi bi-bookmarks-fill"></i> Denumire categorie</label>
+        <div><i class="bi bi-globe"></i> @category.CategoryName</div>
+    </div>
+    <br />
+    <a class="btn btn-outline-dark" asp-controller="Categories" asp-action="Show" asp-route-id="@category.Id">Afisare categorie</a>
+    <a class="btn btn-outline-dark" asp-controller="Categories" asp-action="Edit" asp-route-id="@category.Id">Editare categorie</a>
+    <br />
+    <br />
+
+}
+<br />
+<a class="btn btn-success" asp-controller="Categories" asp-action="New">Adauga o noua categorie</a>
+<br />
+
