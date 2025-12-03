@@ -1,0 +1,42 @@
+﻿<br />
+<br />
+
+@if (TempData["message"] != null)
+{
+    <div class="alert @ViewBag.Alert p-3 rounded-3 text-center mb-5">
+        @ViewBag.Message
+    </div>
+}
+
+<br />
+
+<a asp-controller="Bookmarks" asp-action="New" class="btn btn-success rounded-pill mb-5">
+    <i class="bi bi-plus"></i> Adăugare bookmark
+</a>
+
+<div class="row">
+
+    @foreach (var bookmark in ViewBag.Bookmarks)
+    {
+        <div class="col-4 mb-4">
+
+            <div class="card">
+
+                <div class="card-body">
+                    
+                    <h5 class="card-title" name="Name">@bookmark.Name</h5>
+
+                        @if (ViewBag.EsteAdmin)
+                        {
+                            <div><i class="bi bi-person"> Creat de: </i> @bookmark.User.UserName</div>
+                        }        
+                    <br />
+
+                    <a asp-controller="Bookmarks" asp-action="Show" asp-route-id="@bookmark.Id" class="btn btn-dark">Afisare Colectie</a>
+
+                </div>
+            </div>
+        </div>
+    }
+
+</div>

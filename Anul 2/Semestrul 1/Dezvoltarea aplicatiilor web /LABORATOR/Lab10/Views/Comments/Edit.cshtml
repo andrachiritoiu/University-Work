@@ -1,0 +1,23 @@
+﻿@model ArticlesApp.Models.Comment
+
+
+<h2>Editare comentariu</h2>
+<br />
+
+
+<form asp-action="Edit" asp-controller="Comments" asp-route-id="@Model.Id" method="post">
+
+    <div class="form-group">
+        <label asp-for="Content" class="form-label">Conținut comentariu</label>
+        <br />
+        <textarea asp-for="Content" class="form-control"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+
+    <br /><br />
+
+    <button class="btn btn-primary" type="submit">Editează comentariul</button>
+
+</form>
+
+

@@ -1,0 +1,24 @@
+﻿@model ArticlesApp.Models.Category
+
+
+@{
+    ViewBag.Title = "Adaugare Categorie";
+}
+
+
+<h2>Adaugare Categorie</h2>
+
+<form asp-action="New" asp-controller="Categories" method="post">
+
+    <div class="form-group">
+        <label asp-for="CategoryName" class="form-label">Denumire categorie</label>
+        <br />
+        <input asp-for="CategoryName" class="form-control" />
+        <span asp-validation-for="CategoryName" class="text-danger"></span>
+    </div>
+
+    <br /><br />
+    <button class="btn btn-success" type="submit">Adauga categorie</button>
+</form>
+
+

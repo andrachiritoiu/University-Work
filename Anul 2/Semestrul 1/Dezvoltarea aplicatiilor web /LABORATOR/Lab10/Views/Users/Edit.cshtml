@@ -1,0 +1,64 @@
+﻿@model ArticlesApp.Models.ApplicationUser
+
+
+
+<form asp-controller="Users" asp-action="Edit" method="post" asp-route-id="@Model.Id">
+
+    <i class="bi bi-person"></i>
+    <label asp-for="UserName">Nume utilizator</label>
+    <br />
+    <input asp-for="UserName" class="form-control" />
+    <br />
+
+    <i class="bi bi-envelope"></i>
+    <label asp-for="Email">Email utilizator</label>
+    <br />
+    <input asp-for="Email" class="form-control" />
+    <br />
+
+    <i class="bi bi-phone"></i>
+    <label asp-for="PhoneNumber">Numar telefon</label>
+    <br />
+    <input asp-for="PhoneNumber" class="form-control" />
+    <br />
+
+    <i class="bi bi-person"></i>
+    <label asp-for="FirstName">Nume</label>
+    <br />
+    <input asp-for="FirstName" class="form-control" />
+    <br />
+
+    <i class="bi bi-person"></i>
+    <label asp-for="LastName">Prenume utilizator</label>
+    <br />
+    <input asp-for="LastName" class="form-control" />
+    <br />
+
+    <i class="bi bi-card-list"></i>
+    <label>Selectati rolul</label>
+    <br />
+ 
+
+    <select name="newRole" class="form-control">
+        <option selected>Selectati rolul</option>
+
+        @foreach (var role in ViewBag.AllRoles)
+        {
+            @if (ViewBag.UserRole == role.Value)
+           {
+                <option selected="selected" value="@role.Value">@role.Text</option>
+           }
+           else
+           {
+                <option value="@role.Value">@role.Text</option>
+           }
+        }
+    </select>
+
+    <button type="submit" class="btn btn-sm btn-success">Editare user</button>
+
+</form>
+
+
+
+

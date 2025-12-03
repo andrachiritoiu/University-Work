@@ -1,0 +1,37 @@
+﻿@model ArticlesApp.Models.ApplicationUser
+
+
+<div class="card mt-3" style="height:100%; width: 100%;">
+
+    <div class="card-body d-flex justify-content-between flex-column">
+        <div>
+            <p><i class="bi bi-person"> </i> UserName: @Model.UserName</p>
+
+            <p><i class="bi bi-envelope"></i> Email utilizator: @Model.Email</p>
+
+            @if(ViewBag.Roles.Count > 0){
+                <p><i class="bi bi-person"> </i> Roluri utilizator:</p>
+                @foreach(var role in ViewBag.Roles)
+                {
+                    <span class="rounded-pill bg-dark mr-2 px-4 py-2 text-white">@role</span>
+                }
+            }
+        </div>        
+
+            @if ((string)Model.Id != ViewBag.UserCurent.Id)
+            {
+                <div class="d-flex flex-row justify-content-between p-3">
+                    <form asp-controller="Users" asp-action="Delete" method="post" asp-route-id="@Model.Id">
+                        <button type="submit" class="btn btn-danger">Sterge utilizator</button>
+                    </form>
+                </div>
+            }   
+        
+    </div>
+</div>
+
+
+
+
+
+

@@ -1,0 +1,39 @@
+﻿@model ArticlesApp.Models.Bookmark
+
+
+<div class="row">
+
+    <div class="col-12">
+
+        <h5 class="card-title mt-5 mb-3" asp-for="Name">@Model.Name</h5>
+       
+
+        @if (ViewBag.EsteAdmin)
+        {
+            <i class="bi bi-person"> Creat de: </i> @Model.User.UserName
+           
+        }
+
+        <br /><br />
+        Articole in colectie:
+        <br /><br />
+
+        
+    </div>
+    <br />
+
+    @if(Model.ArticleBookmarks.Count > 0)
+
+    @foreach (var articleBookmark in Model.ArticleBookmarks)
+    {
+        <div class="col-12">
+            <div class="card" style="width: 100%;">
+                <div class="card-body">
+                    <partial name="ArticleInfo" model="articleBookmark.Article" />
+                </div>
+            </div>
+            <br /> <br />
+        </div>
+    }
+    
+</div>

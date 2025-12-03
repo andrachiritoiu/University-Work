@@ -1,0 +1,58 @@
+﻿@model ArticlesApp.Models.Article
+
+
+<h2 class="text-center mt-5">Adaugare articol</h2>
+
+<br />
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-6 offset-3">
+
+            <form method="post" asp-action="New" asp-controller="Articles">
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Title" class="form-label">Titlu Articol</label>
+                    <br />
+                    <input asp-for="Title" class="form-control" />
+
+                    <!-- Mesaj de validare pentru titlu -->
+                    <span asp-validation-for="Title" class="text-danger"></span>
+
+                    <br /><br />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Content" class="form-label">Continut Articol</label>
+                    <br />
+                    <textarea asp-for="Content" class="form-control"></textarea>
+
+                    <!-- Mesaj de validare pentru continut -->
+                    <span asp-validation-for="Content" class="text-danger"></span>
+
+                    <br /><br />
+                </div>
+
+                <div class="form-group">
+                    <label for="CategoryId">Selectati categoria</label>
+                    <br />
+                    <select asp-for="CategoryId" asp-items="Model.Categ" class="form-control">
+                        <option value="">Selectati categoria</option>
+                    </select>
+
+                    <!-- Mesaj de validare pentru CategoryId -->
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+
+                    <br />
+                </div>
+                <br />
+                <button class="btn btn-success" type="submit">Adauga articol</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
