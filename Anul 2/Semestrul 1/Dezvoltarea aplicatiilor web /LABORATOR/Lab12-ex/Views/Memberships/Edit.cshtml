@@ -1,0 +1,53 @@
+﻿@model Membership
+
+@{
+    ViewData["Title"] = "Editare Abonament";
+}
+
+<h2>Editare abonament</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-controller="Memberships" asp-action="Edit" method="post">
+
+            <input type="hidden" asp-for="Id" />
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Titlu" class="control-label"></label>
+                <input asp-for="Titlu" class="form-control" />
+                <span asp-validation-for="Titlu" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Valoare" class="control-label"></label>
+                <input asp-for="Valoare" type="number" class="form-control" />
+                <span asp-validation-for="Valoare" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="control-label">Data Emitere</label>
+                <input type="text" value="@Model.DataEmitere.ToString("dd/MM/yyyy HH:mm")" class="form-control" readonly />
+                <small class="text-muted">Data emiterii nu poate fi modificată.</small>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="GymId" class="control-label">Sala de Sport</label>
+                <select asp-for="GymId" asp-items="ViewBag.Gyms" class="form-control"></select>
+                <span asp-validation-for="GymId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Salvează Modificările</button>
+                <a asp-action="Index" class="btn btn-secondary">Înapoi la listă</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

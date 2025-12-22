@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Membership>
+
+<h2>Afișare abonamente</h2>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success">@ViewBag.Message</div>
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Titlu</th>
+            <th>Valoare</th>
+            <th>Data Emitere</th>
+            <th>Sala de Sport</th>
+            <th>Acțiuni</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Titlu</td>
+                <td>@item.Valoare</td>
+                <td>@item.DataEmitere.ToString("dd/MM/yyyy")</td>
+                <td>@item.Gym.Nume</td>
+                <td>
+                    <a href="/Memberships/Edit/@item.Id" class="btn btn-warning">Edit</a>
+
+                    <form action="/Memberships/Delete/@item.Id" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Ești sigur?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,29 @@
+﻿@model Membership
+
+<h2>Adăugare abonament</h2>
+
+<form method="post" action="/Memberships/New">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label>Titlu</label>
+        <input asp-for="Titlu" class="form-control" />
+        <span asp-validation-for="Titlu" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Valoare</label>
+        <input asp-for="Valoare" type="number" class="form-control" />
+        <span asp-validation-for="Valoare" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Sala de Sport</label>
+        <select asp-for="GymId" asp-items="ViewBag.Gyms" class="form-control">
+            <option value="">-- Selectează Sala --</option>
+        </select>
+        <span asp-validation-for="GymId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Adaugă</button>
+</form>
