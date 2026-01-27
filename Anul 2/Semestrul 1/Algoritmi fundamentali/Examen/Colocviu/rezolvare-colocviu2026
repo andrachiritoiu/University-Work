@@ -1,0 +1,147 @@
+// //1
+//
+// #include <cmath>
+// #include <cstdio>
+// #include <vector>
+// #include <iostream>
+// #include <algorithm>
+// using namespace std;
+//
+//
+// int n, m, n_start1, n_start2;
+// vector<vector<int>>g;
+// vector<int>vizitat;
+//
+//
+//
+// void dfs(int u) {
+//     vizitat[u]=1;
+//
+//     for (int v:g[u]) {
+//         if (!vizitat[v]) {
+//             dfs(v);
+//         }
+//     }
+// }
+// int main() {
+//     cin>>n>>m;
+//
+//     g.resize(n+1);
+//     // vizitat.resize(n+1,0);
+//
+//     for (int i=1;i<=m;i++) {
+//         int x,y;
+//         cin>>x>>y;
+//         g[x].push_back(y);
+//         g[y].push_back(x);
+//     }
+//
+//     int cost_min=0;
+//     n_start1=n_start2=1;
+//
+//     int cnt=0;
+//     for (int nod=1;nod<=n;nod++) {
+//         if (!vizitat[nod]) {
+//             cnt++;
+//             n_start2=nod;
+//             dfs(nod);
+//
+//             if (cnt!=1){
+//                 cost_min+=n_start1+n_start2;
+//             }
+//
+//         }
+//     }
+//
+//     cout<<cost_min;
+//
+//     return 0;
+// }
+
+
+//3
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int n, m,cnt=0,nr;
+vector<vector<int>>g,gt;
+vector<int>vizitat;
+vector<int>ordine;
+
+
+void dfs(int u, vector<int>& ordine) {
+    vizitat[u]=1;
+    ordine[cnt++]=u;
+
+    for (int v:g[u]) {
+        if (!vizitat[v]) {
+            dfs(v, ordine);
+        }
+    }
+}
+
+void dfs2(int u, int &nr) {
+    vizitat[u]=1;
+    nr++;
+
+    for (int v:gt[u]) {
+        if (!vizitat[v]) {
+            dfs2(v,nr);
+        }
+    }
+}
+int main() {
+    cin>>n>>m;
+
+    g.resize(n+1);
+    gt.resize(n+1);
+
+    vizitat.resize(n+1,0);
+    ordine.resize(n+1,0);
+
+
+    for (int i=1;i<=m;i++) {
+        int x,y;
+        cin>>x>>y;
+        g[x].push_back(y);
+        gt[y].push_back(x);
+    }
+
+    // ordine[0]=1;
+    for (int nod=1;nod<=n;nod++) {
+        if (!vizitat[nod]) {
+            dfs(nod,ordine);
+        }
+    }
+
+
+    vector<int>noduri;
+    noduri.resize(n+1);
+
+    for (int nod:ordine) {
+        nr=0;
+        for(int i=1;i<=n;i++){
+            vizitat[i]=0;
+        }
+        dfs2(nod,nr);
+
+        if(nr==n)noduri.push_back(nod);
+
+    }
+
+    sort(noduri.begin(),noduri.end());
+    for(int nod:noduri){
+        if(nod!=0)cout<<nod<<" ";
+    }
+
+
+    return 0;
+}
+
+
+
