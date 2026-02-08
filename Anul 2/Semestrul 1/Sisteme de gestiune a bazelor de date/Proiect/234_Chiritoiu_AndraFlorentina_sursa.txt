@@ -1,0 +1,2588 @@
+﻿--ex 4
+--creare secvente
+CREATE SEQUENCE seq_client START WITH 1;
+CREATE SEQUENCE seq_animal START WITH 1;
+
+
+CREATE SEQUENCE seq_personal_medical START WITH 1;
+CREATE SEQUENCE seq_campanie START WITH 1;
+CREATE SEQUENCE seq_consultatie START WITH 1;
+CREATE SEQUENCE seq_reteta START WITH 1;
+CREATE SEQUENCE seq_program START WITH 1;
+
+
+CREATE SEQUENCE seq_medicament START WITH 1;
+CREATE SEQUENCE seq_stoc START WITH 1;
+
+
+CREATE SEQUENCE seq_furnizor START WITH 1;
+CREATE SEQUENCE seq_comanda START WITH 1;
+CREATE SEQUENCE seq_factura START WITH 1;
+
+
+CREATE SEQUENCE seq_interventie START WITH 1;
+
+
+CREATE SEQUENCE seq_cod_eroare START WITH 1;
+CREATE SEQUENCE seq_log_eroare START WITH 1;
+
+
+CREATE SEQUENCE seq_audit_ldd START WITH 1;
+
+
+
+
+--creare tabele
+CREATE TABLE CLIENT (
+  id_client INT DEFAULT seq_client.NEXTVAL PRIMARY KEY,
+  nume      VARCHAR2(50) NOT NULL,
+  prenume   VARCHAR2(50) NOT NULL,
+  telefon   VARCHAR2(10) NOT NULL CHECK (REGEXP_LIKE(telefon, '^[0-9]{10}$')),
+  email     VARCHAR2(50)
+);
+
+
+CREATE TABLE PERSONAL_MEDICAL (
+  id_personal_medical INT DEFAULT seq_personal_medical.NEXTVAL PRIMARY KEY,
+  nume               VARCHAR2(50) NOT NULL,
+  prenume            VARCHAR2(50) NOT NULL,
+  salariu            NUMBER(10,2) NOT NULL CHECK (salariu > 0),
+  grad_profesional   VARCHAR2(50),
+  data_angajare      DATE NOT NULL
+);
+
+
+CREATE TABLE FARMACIST (
+  id_personal_medical INT PRIMARY KEY,
+  responsabil_stoc    NUMBER(1) DEFAULT 0 NOT NULL CHECK (responsabil_stoc IN (0,1)),
+  FOREIGN KEY (id_personal_medical) REFERENCES PERSONAL_MEDICAL(id_personal_medical)
+);
+
+
+CREATE TABLE MEDIC_VETERINAR (
+  id_personal_medical INT PRIMARY KEY,
+  specializare        VARCHAR2(50),
+  FOREIGN KEY (id_personal_medical) REFERENCES PERSONAL_MEDICAL(id_personal_medical)
+);
+
+
+CREATE TABLE PROGRAM (
+  id_program          INT DEFAULT seq_program.NEXTVAL PRIMARY KEY,
+  zi_saptamana        VARCHAR2(50) NOT NULL,
+  ora_inceput         VARCHAR2(5)  NOT NULL CHECK (REGEXP_LIKE(ora_inceput,'^[0-2][0-9]:[0-5][0-9]$')),
+  ora_sfarsit         VARCHAR2(5)  NOT NULL CHECK (REGEXP_LIKE(ora_sfarsit,'^[0-2][0-9]:[0-5][0-9]$')),
+  id_personal_medical INT NOT NULL,
+  UNIQUE (id_personal_medical, zi_saptamana),
+  FOREIGN KEY (id_personal_medical) REFERENCES PERSONAL_MEDICAL(id_personal_medical)
+);
+
+
+CREATE TABLE ANIMAL (
+  id_animal INT DEFAULT seq_animal.NEXTVAL PRIMARY KEY,
+  nume      VARCHAR2(50) NOT NULL,
+  specie    VARCHAR2(50) NOT NULL,
+  rasa      VARCHAR2(50),
+  id_client INT NOT NULL,
+  FOREIGN KEY (id_client) REFERENCES CLIENT(id_client)
+);
+
+
+CREATE TABLE CAMPANIE (
+  id_campanie  INT DEFAULT seq_campanie.NEXTVAL PRIMARY KEY,
+  nume         VARCHAR2(50) NOT NULL,
+  tip          VARCHAR2(50) NOT NULL,
+  data_start   DATE NOT NULL,
+  data_sfarsit DATE NOT NULL,
+  CHECK (data_sfarsit >= data_start)
+);
+
+
+CREATE TABLE CONSULTATIE (
+  id_consultatie      INT DEFAULT seq_consultatie.NEXTVAL PRIMARY KEY,
+  pret                NUMBER(10,2) NOT NULL CHECK (pret > 0),
+  id_animal           INT NOT NULL,
+  id_personal_medical INT NOT NULL,
+  FOREIGN KEY (id_animal) REFERENCES ANIMAL(id_animal),
+  FOREIGN KEY (id_personal_medical) REFERENCES MEDIC_VETERINAR(id_personal_medical)
+);
+
+
+CREATE TABLE RETETA (
+  id_reteta           INT DEFAULT seq_reteta.NEXTVAL PRIMARY KEY,
+  data_emitere        DATE DEFAULT SYSDATE NOT NULL,
+  id_consultatie      INT NOT NULL UNIQUE,
+  id_personal_medical INT NOT NULL,
+  FOREIGN KEY (id_consultatie) REFERENCES CONSULTATIE(id_consultatie),
+  FOREIGN KEY (id_personal_medical) REFERENCES MEDIC_VETERINAR(id_personal_medical)
+);
+
+
+CREATE TABLE MEDICAMENT (
+  id_medicament    INT DEFAULT seq_medicament.NEXTVAL PRIMARY KEY,
+  substanta_activa VARCHAR2(50) NOT NULL,
+  denumire         VARCHAR2(50) NOT NULL,
+  producator       VARCHAR2(50) NOT NULL
+);
+
+
+CREATE TABLE STOC (
+  id_stoc              INT DEFAULT seq_stoc.NEXTVAL PRIMARY KEY,
+  data_expirare        DATE NOT NULL,
+  data_fabricatie      DATE,
+  nr_bucati_primite    INT NOT NULL CHECK (nr_bucati_primite > 0),
+  nr_bucati_ramase     INT NOT NULL CHECK (nr_bucati_ramase >= 0),
+  pret_vanzare_curent  NUMBER(10,2) NOT NULL CHECK (pret_vanzare_curent > 0),
+  data_aprovizionare   DATE DEFAULT SYSDATE NOT NULL,
+  pret_achizitie       NUMBER(10,2) NOT NULL CHECK (pret_achizitie > 0),
+  id_medicament        INT NOT NULL,
+  CHECK (nr_bucati_ramase <= nr_bucati_primite),
+  FOREIGN KEY (id_medicament) REFERENCES MEDICAMENT(id_medicament)
+);
+
+
+CREATE TABLE FURNIZOR (
+  id_furnizor INT DEFAULT seq_furnizor.NEXTVAL PRIMARY KEY,
+  nume        VARCHAR2(50) NOT NULL,
+  adresa      VARCHAR2(50),
+  telefon     VARCHAR2(10) NOT NULL CHECK (REGEXP_LIKE(telefon, '^[0-9]{10}$'))
+);
+
+
+CREATE TABLE COMANDA (
+  id_comanda          INT DEFAULT seq_comanda.NEXTVAL PRIMARY KEY,
+  data_comanda        DATE DEFAULT SYSDATE NOT NULL,
+  id_personal_medical INT NOT NULL,
+  FOREIGN KEY (id_personal_medical) REFERENCES FARMACIST(id_personal_medical)
+);
+
+
+CREATE TABLE COMANDA_CLIENT (
+  id_comanda   INT PRIMARY KEY,
+  metoda_plata VARCHAR2(20) NOT NULL CHECK (LOWER(metoda_plata) IN ('cash','card')),
+  id_client    INT NOT NULL,
+  FOREIGN KEY (id_comanda) REFERENCES COMANDA(id_comanda),
+  FOREIGN KEY (id_client) REFERENCES CLIENT(id_client)
+);
+
+
+CREATE TABLE COMANDA_FARMACIE (
+  id_comanda     INT PRIMARY KEY,
+  termen_livrare DATE,
+  id_furnizor    INT NOT NULL,
+  FOREIGN KEY (id_comanda) REFERENCES COMANDA(id_comanda),
+  FOREIGN KEY (id_furnizor) REFERENCES FURNIZOR(id_furnizor)
+);
+
+
+CREATE TABLE FACTURA (
+  id_factura   INT DEFAULT seq_factura.NEXTVAL PRIMARY KEY,
+  data_emitere DATE DEFAULT SYSDATE NOT NULL,
+  suma         NUMBER(12,2) NOT NULL CHECK (suma > 0),
+  id_comanda   INT NOT NULL UNIQUE,
+  FOREIGN KEY (id_comanda) REFERENCES COMANDA(id_comanda)
+);
+
+
+CREATE TABLE VINDE (
+  id_furnizor   INT NOT NULL,
+  id_medicament INT NOT NULL,
+  pret_furnizor NUMBER(10,2) NOT NULL CHECK (pret_furnizor > 0),
+  PRIMARY KEY (id_furnizor, id_medicament),
+  FOREIGN KEY (id_furnizor) REFERENCES FURNIZOR(id_furnizor),
+  FOREIGN KEY (id_medicament) REFERENCES MEDICAMENT(id_medicament)
+);
+
+
+CREATE TABLE INCLUDE (
+  id_comanda    INT NOT NULL,
+  id_medicament INT NOT NULL,
+  cantitate     INT NOT NULL CHECK (cantitate > 0),
+  PRIMARY KEY (id_comanda, id_medicament),
+  FOREIGN KEY (id_comanda) REFERENCES COMANDA_FARMACIE(id_comanda),
+  FOREIGN KEY (id_medicament) REFERENCES MEDICAMENT(id_medicament)
+);
+
+
+CREATE TABLE ARE (
+  id_comanda         INT NOT NULL,
+  id_stoc            INT NOT NULL,
+  cantitate          INT NOT NULL CHECK (cantitate > 0),
+  pret_vanzare_final NUMBER(10,2) NOT NULL CHECK (pret_vanzare_final > 0),
+  discount           NUMBER(5,2) DEFAULT 0 NOT NULL CHECK (discount >= 0 AND discount <= 100),
+  PRIMARY KEY (id_comanda, id_stoc),
+  FOREIGN KEY (id_comanda) REFERENCES COMANDA_CLIENT(id_comanda),
+  FOREIGN KEY (id_stoc) REFERENCES STOC(id_stoc)
+);
+
+
+CREATE TABLE CONTINE (
+  id_reteta        INT NOT NULL,
+  id_medicament    INT NOT NULL,
+  dozaj            VARCHAR2(50),
+  mod_administrare VARCHAR2(50),
+  frecventa        VARCHAR2(50),
+  durata_tratament VARCHAR2(50),
+  PRIMARY KEY (id_reteta, id_medicament),
+  FOREIGN KEY (id_reteta) REFERENCES RETETA(id_reteta),
+  FOREIGN KEY (id_medicament) REFERENCES MEDICAMENT(id_medicament)
+);
+
+
+CREATE TABLE INTERVINE (
+  id_interventie      INT DEFAULT seq_interventie.NEXTVAL PRIMARY KEY,
+  id_animal           INT NOT NULL,
+  id_campanie         INT NOT NULL,
+  id_personal_medical INT NOT NULL,
+  data_interventiei   DATE DEFAULT SYSDATE NOT NULL,
+  observatii          VARCHAR2(200),
+  FOREIGN KEY (id_animal) REFERENCES ANIMAL(id_animal),
+  FOREIGN KEY (id_campanie) REFERENCES CAMPANIE(id_campanie),
+  FOREIGN KEY (id_personal_medical) REFERENCES MEDIC_VETERINAR(id_personal_medical)
+);
+
+
+CREATE TABLE CODURI_EROARE (
+  id_cod_eroare      INT DEFAULT seq_cod_eroare.NEXTVAL PRIMARY KEY,
+  cod_eroare         NUMBER(6) NOT NULL UNIQUE,
+  descriere          VARCHAR2(200) NOT NULL,
+  entitate_afectata  VARCHAR2(50) NOT NULL,
+  data_creare        DATE DEFAULT SYSDATE NOT NULL
+);
+
+
+CREATE TABLE LOG_EROARE (
+  id_log             INT DEFAULT seq_log_eroare.NEXTVAL PRIMARY KEY,
+  cod_eroare         NUMBER(6) NOT NULL,
+  mesaj              VARCHAR2(300) NOT NULL,
+  utilizator         VARCHAR2(30) DEFAULT USER NOT NULL,
+  data_log           DATE DEFAULT SYSDATE NOT NULL,
+  CONSTRAINT fk_log_cod
+    FOREIGN KEY (cod_eroare)
+    REFERENCES CODURI_EROARE(cod_eroare)
+);
+
+
+
+
+CREATE OR REPLACE PROCEDURE insereaza_eroare(
+  p_cod   IN NUMBER,
+  p_mesaj IN VARCHAR2
+) IS
+  PRAGMA AUTONOMOUS_TRANSACTION;
+BEGIN
+  INSERT INTO LOG_EROARE(cod_eroare, mesaj)
+  VALUES (p_cod, SUBSTR(p_mesaj, 1, 300));
+
+
+  COMMIT;
+EXCEPTION
+  WHEN OTHERS THEN
+    ROLLBACK;
+END;
+/
+
+
+CREATE TABLE AUDIT_OPERATII_LDD (
+  id_audit_ldd   NUMBER DEFAULT seq_audit_ldd.NEXTVAL PRIMARY KEY,
+  tip_operatie   VARCHAR2(30) NOT NULL,   
+  tip_obiect     VARCHAR2(30) NOT NULL,  
+  nume_obiect    VARCHAR2(100) NOT NULL,  
+  utilizator     VARCHAR2(50) NOT NULL,  
+  data_ora       TIMESTAMP DEFAULT SYSTIMESTAMP NOT NULL,
+  sql_text       CLOB                  
+);
+
+
+
+
+
+
+
+
+--ex5.inserarea de date
+INSERT INTO CLIENT(nume, prenume, telefon, email) VALUES ('Popescu','Ana','0712345678','ana.popescu@gmail.com');
+INSERT INTO CLIENT(nume, prenume, telefon, email) VALUES ('Ionescu','Vlad','0723456789','vlad.ionescu@gmail.com');
+INSERT INTO CLIENT(nume, prenume, telefon, email) VALUES ('Dumitru','Andreea','0734567890','andreea.dumitru@yahoo.com');
+INSERT INTO CLIENT(nume, prenume, telefon, email) VALUES ('Marin','Mihai','0745678901','mihai.marin@gmail.com');
+INSERT INTO CLIENT(nume, prenume, telefon, email) VALUES ('Georgescu','Elena','0756789012','elena.georgescu@yahoo.com');
+INSERT INTO CLIENT(nume, prenume, telefon, email) VALUES ('Stan','Radu','0767890123','radu.stan@gmail.com');
+INSERT INTO CLIENT(nume, prenume, telefon, email) VALUES ('Ilie','Cristina','0778901234','cristina.ilie@yahoo.com');
+INSERT INTO CLIENT(nume, prenume, telefon, email) VALUES ('Toma','Sorin','0789012345','sorin.toma@gmail.com');
+INSERT INTO CLIENT(nume, prenume, telefon, email) VALUES ('Petrescu','Ioana','0790123456','ioana.petrescu@gmail.com');
+INSERT INTO CLIENT(nume, prenume, telefon, email) VALUES ('Neagu','Daniel','0701234567','daniel.neagu@yahoo.com');
+
+
+
+
+INSERT INTO PERSONAL_MEDICAL(nume, prenume, salariu, grad_profesional, data_angajare)
+VALUES ('Vasilescu','Dan',8000,'Dr.',DATE '2020-01-15');
+INSERT INTO PERSONAL_MEDICAL(nume, prenume, salariu, grad_profesional, data_angajare)
+VALUES ('Marinescu','Laura',7500,'Dr.',DATE '2019-03-10');
+INSERT INTO PERSONAL_MEDICAL(nume, prenume, salariu, grad_profesional, data_angajare)
+VALUES ('Stoica','Radu',6000,'Farm.',DATE '2021-05-20');
+INSERT INTO PERSONAL_MEDICAL(nume, prenume, salariu, grad_profesional, data_angajare)
+VALUES ('Popa','Carmen',5500,'Farm.',DATE '2022-02-14');
+INSERT INTO PERSONAL_MEDICAL(nume, prenume, salariu, grad_profesional, data_angajare)
+VALUES ('Tudor','Bogdan',7800,'Dr.',DATE '2018-09-05');
+INSERT INTO PERSONAL_MEDICAL(nume, prenume, salariu, grad_profesional, data_angajare)
+VALUES ('Munteanu','Diana',5800,'Farm.',DATE '2023-01-10');
+INSERT INTO PERSONAL_MEDICAL(nume, prenume, salariu, grad_profesional, data_angajare)
+VALUES ('Ionescu','Adrian',7200,'Dr.',DATE '2021-11-08');
+INSERT INTO PERSONAL_MEDICAL(nume, prenume, salariu, grad_profesional, data_angajare)
+VALUES ('Georgescu','Mihaela',6200,'Farm.',DATE '2020-07-22');
+INSERT INTO PERSONAL_MEDICAL(nume, prenume, salariu, grad_profesional, data_angajare)
+VALUES ('Popescu','Gabriel',8200,'Dr.',DATE '2017-04-12');
+INSERT INTO PERSONAL_MEDICAL(nume, prenume, salariu, grad_profesional, data_angajare)
+VALUES ('Dinu','Andreea',5900,'Farm.',DATE '2022-09-03');
+
+
+
+
+INSERT INTO MEDIC_VETERINAR (id_personal_medical, specializare) VALUES (1,'Chirurgie');
+INSERT INTO MEDIC_VETERINAR (id_personal_medical, specializare) VALUES (2,'Dermatologie');
+INSERT INTO MEDIC_VETERINAR (id_personal_medical, specializare) VALUES (5,'Medicina interna');
+INSERT INTO MEDIC_VETERINAR (id_personal_medical, specializare) VALUES (7,'Cardiologie');
+INSERT INTO MEDIC_VETERINAR (id_personal_medical, specializare) VALUES (9,'Oncologie');
+
+
+
+
+INSERT INTO FARMACIST (id_personal_medical, responsabil_stoc) VALUES (3,1);
+INSERT INTO FARMACIST (id_personal_medical, responsabil_stoc) VALUES (4,0);
+INSERT INTO FARMACIST (id_personal_medical, responsabil_stoc) VALUES (6,1);
+INSERT INTO FARMACIST (id_personal_medical, responsabil_stoc) VALUES (8,0);
+INSERT INTO FARMACIST (id_personal_medical, responsabil_stoc) VALUES (10,1);
+
+
+
+
+
+
+INSERT INTO PROGRAM (zi_saptamana, ora_inceput, ora_sfarsit, id_personal_medical) VALUES ('Luni','08:00','16:00',1);
+INSERT INTO PROGRAM (zi_saptamana, ora_inceput, ora_sfarsit, id_personal_medical) VALUES ('Marti','08:00','16:00',1);
+INSERT INTO PROGRAM (zi_saptamana, ora_inceput, ora_sfarsit, id_personal_medical) VALUES ('Marti','09:00','17:00',2);
+INSERT INTO PROGRAM (zi_saptamana, ora_inceput, ora_sfarsit, id_personal_medical) VALUES ('Miercuri','09:00','17:00',2);
+INSERT INTO PROGRAM (zi_saptamana, ora_inceput, ora_sfarsit, id_personal_medical) VALUES ('Miercuri','10:00','18:00',3);
+INSERT INTO PROGRAM (zi_saptamana, ora_inceput, ora_sfarsit, id_personal_medical) VALUES ('Joi','10:00','18:00',4);
+INSERT INTO PROGRAM (zi_saptamana, ora_inceput, ora_sfarsit, id_personal_medical) VALUES ('Vineri','10:00','18:00',4);
+INSERT INTO PROGRAM (zi_saptamana, ora_inceput, ora_sfarsit, id_personal_medical) VALUES ('Vineri','08:00','16:00',5);
+INSERT INTO PROGRAM (zi_saptamana, ora_inceput, ora_sfarsit, id_personal_medical) VALUES ('Sambata','08:00','12:00',5);
+INSERT INTO PROGRAM (zi_saptamana, ora_inceput, ora_sfarsit, id_personal_medical) VALUES ('Sambata','10:00','14:00',6);
+INSERT INTO PROGRAM (zi_saptamana, ora_inceput, ora_sfarsit, id_personal_medical) VALUES ('Vineri','10:00','14:00',6);
+INSERT INTO PROGRAM (zi_saptamana, ora_inceput, ora_sfarsit, id_personal_medical) VALUES ('Luni','12:00','20:00',7);
+INSERT INTO PROGRAM (zi_saptamana, ora_inceput, ora_sfarsit, id_personal_medical) VALUES ('Marti','12:00','20:00',8);
+INSERT INTO PROGRAM (zi_saptamana, ora_inceput, ora_sfarsit, id_personal_medical) VALUES ('Miercuri','09:00','17:00',9);
+INSERT INTO PROGRAM (zi_saptamana, ora_inceput, ora_sfarsit, id_personal_medical) VALUES ('Joi','12:00','20:00',10);
+INSERT INTO PROGRAM (zi_saptamana, ora_inceput, ora_sfarsit, id_personal_medical) VALUES ('Luni','09:00','17:00',10);
+
+
+
+
+INSERT INTO ANIMAL (nume, specie, rasa, id_client) VALUES ('Rex','Caine','Labrador',1);
+INSERT INTO ANIMAL (nume, specie, rasa, id_client) VALUES ('Mia','Pisica','Persana',2);
+INSERT INTO ANIMAL (nume, specie, rasa, id_client) VALUES ('Max','Caine','Ciobanesc german',3);
+INSERT INTO ANIMAL (nume, specie, rasa, id_client) VALUES ('Luna','Pisica','Siameza',4);
+INSERT INTO ANIMAL (nume, specie, rasa, id_client) VALUES ('Buddy','Caine','Golden Retriever',5);
+INSERT INTO ANIMAL (nume, specie, rasa, id_client) VALUES ('Kira','Caine','Beagle',6);
+INSERT INTO ANIMAL (nume, specie, rasa, id_client) VALUES ('Oscar','Pisica','Europeana',7);
+INSERT INTO ANIMAL (nume, specie, rasa, id_client) VALUES ('Toby','Caine','Pug',8);
+INSERT INTO ANIMAL (nume, specie, rasa, id_client) VALUES ('Bella','Pisica','Maine Coon',9);
+INSERT INTO ANIMAL (nume, specie, rasa, id_client) VALUES ('Simba','Pisica','Bengaleza',10);
+INSERT INTO ANIMAL (nume, specie, rasa, id_client) VALUES ('Coco','Caine','Bichon',1);
+INSERT INTO ANIMAL (nume, specie, rasa, id_client) VALUES ('Nala','Pisica','British Shorthair',2);
+
+
+
+
+
+
+INSERT INTO CAMPANIE (nume, tip, data_start, data_sfarsit)
+VALUES ('Vaccinare antirabica','Vaccinare',DATE '2025-01-10',DATE '2025-02-10');
+
+
+INSERT INTO CAMPANIE (nume, tip, data_start, data_sfarsit)
+VALUES ('Deparazitare gratuita','Preventie',DATE '2025-03-01',DATE '2025-03-31');
+
+
+INSERT INTO CAMPANIE (nume, tip, data_start, data_sfarsit)
+VALUES ('Sterilizare','Chirurgie',DATE '2025-04-01',DATE '2025-04-30');
+
+
+INSERT INTO CAMPANIE (nume, tip, data_start, data_sfarsit)
+VALUES ('Control cardiologic','Diagnostic',DATE '2025-05-01',DATE '2025-05-31');
+
+
+INSERT INTO CAMPANIE (nume, tip, data_start, data_sfarsit)
+VALUES ('Vaccinare polivalenta','Vaccinare',DATE '2025-09-01',DATE '2025-10-31');
+
+
+INSERT INTO CAMPANIE (nume, tip, data_start, data_sfarsit)
+VALUES ('Campanie antiparazitare','Preventie',DATE '2025-06-01',DATE '2025-06-30');
+
+
+INSERT INTO CAMPANIE (nume, tip, data_start, data_sfarsit)
+VALUES ('Consultatii gratuite junior','Preventie',DATE '2025-07-01',DATE '2025-07-31');
+
+
+
+
+
+
+INSERT INTO MEDICAMENT (substanta_activa, denumire, producator) VALUES ('Amoxicilina','Amoxivet','VetPharma');
+INSERT INTO MEDICAMENT (substanta_activa, denumire, producator) VALUES ('Meloxicam','Meloxivet','AnimalHealth');
+INSERT INTO MEDICAMENT (substanta_activa, denumire, producator) VALUES ('Fipronil','Frontline','Boehringer');
+INSERT INTO MEDICAMENT (substanta_activa, denumire, producator) VALUES ('Ivermectina','Ivomec','Merial');
+INSERT INTO MEDICAMENT (substanta_activa, denumire, producator) VALUES ('Dexametazona','Dexavet','VetMedica');
+INSERT INTO MEDICAMENT (substanta_activa, denumire, producator) VALUES ('Enrofloxacina','Baytril','Bayer');
+INSERT INTO MEDICAMENT (substanta_activa, denumire, producator) VALUES ('Maropitant','Cerenia','Zoetis');
+INSERT INTO MEDICAMENT (substanta_activa, denumire, producator) VALUES ('Carprofen','Rimadyl','Zoetis');
+INSERT INTO MEDICAMENT (substanta_activa, denumire, producator) VALUES ('Prednison','Prednicort','KRKA');
+INSERT INTO MEDICAMENT (substanta_activa, denumire, producator) VALUES ('Clotrimazol','Clotrivet','VetPharma');
+
+
+
+
+INSERT INTO FURNIZOR (nume, adresa, telefon) VALUES ('VetPharma Distribution','Bucuresti','0213456789');
+INSERT INTO FURNIZOR (nume, adresa, telefon) VALUES ('AnimalHealth Supply','Cluj','0264567890');
+INSERT INTO FURNIZOR (nume, adresa, telefon) VALUES ('MedVet Solutions','Timisoara','0256678901');
+INSERT INTO FURNIZOR (nume, adresa, telefon) VALUES ('PetCare Logistics','Bucuresti','0212789012');
+INSERT INTO FURNIZOR (nume, adresa, telefon) VALUES ('VetMed Import','Constanta','0241890123');
+INSERT INTO FURNIZOR (nume, adresa, telefon) VALUES ('EuroVet Trade','Iasi','0232123456');
+
+
+
+
+INSERT INTO STOC (data_expirare, data_fabricatie, nr_bucati_primite, nr_bucati_ramase, pret_vanzare_curent, data_aprovizionare, pret_achizitie, id_medicament)
+VALUES (DATE '2026-12-31', DATE '2025-01-10', 100, 80, 30, DATE '2025-02-01', 20, 1);
+
+
+INSERT INTO STOC (data_expirare, data_fabricatie, nr_bucati_primite, nr_bucati_ramase, pret_vanzare_curent, data_aprovizionare, pret_achizitie, id_medicament)
+VALUES (DATE '2027-01-31', DATE '2025-06-01', 120, 120, 35, DATE '2025-06-10', 22, 1);
+
+
+INSERT INTO STOC (data_expirare, data_fabricatie, nr_bucati_primite, nr_bucati_ramase, pret_vanzare_curent, data_aprovizionare, pret_achizitie, id_medicament)
+VALUES (DATE '2026-06-30', DATE '2025-02-10', 50, 35, 55, DATE '2025-02-15', 40, 2);
+
+
+INSERT INTO STOC (data_expirare, data_fabricatie, nr_bucati_primite, nr_bucati_ramase, pret_vanzare_curent, data_aprovizionare, pret_achizitie, id_medicament)
+VALUES (DATE '2025-08-31', DATE '2025-01-05', 80, 60, 45, DATE '2025-02-20', 30, 3);
+
+
+INSERT INTO STOC (data_expirare, data_fabricatie, nr_bucati_primite, nr_bucati_ramase, pret_vanzare_curent, data_aprovizionare, pret_achizitie, id_medicament)
+VALUES (DATE '2025-11-30', DATE '2025-03-01', 60, 40, 65, DATE '2025-03-05', 50, 4);
+
+
+INSERT INTO STOC (data_expirare, data_fabricatie, nr_bucati_primite, nr_bucati_ramase, pret_vanzare_curent, data_aprovizionare, pret_achizitie, id_medicament)
+VALUES (DATE '2026-01-31', DATE '2025-02-20', 40, 25, 40, DATE '2025-03-10', 27, 5);
+
+
+INSERT INTO STOC (data_expirare, data_fabricatie, nr_bucati_primite, nr_bucati_ramase, pret_vanzare_curent, data_aprovizionare, pret_achizitie, id_medicament)
+VALUES (DATE '2026-10-31', DATE '2025-04-10', 70, 55, 60, DATE '2025-04-20', 45, 6);
+
+
+INSERT INTO STOC (data_expirare, data_fabricatie, nr_bucati_primite, nr_bucati_ramase, pret_vanzare_curent, data_aprovizionare, pret_achizitie, id_medicament)
+VALUES (DATE '2026-09-30', DATE '2025-03-15', 30, 22, 95, DATE '2025-04-01', 75, 7);
+
+
+INSERT INTO STOC (data_expirare, data_fabricatie, nr_bucati_primite, nr_bucati_ramase, pret_vanzare_curent, data_aprovizionare, pret_achizitie, id_medicament)
+VALUES (DATE '2027-03-31', DATE '2025-05-05', 90, 90, 85, DATE '2025-05-10', 62, 8);
+
+
+INSERT INTO STOC (data_expirare, data_fabricatie, nr_bucati_primite, nr_bucati_ramase, pret_vanzare_curent, data_aprovizionare, pret_achizitie, id_medicament)
+VALUES (DATE '2026-04-30', DATE '2025-02-01', 60, 48, 25, DATE '2025-02-12', 15, 9);
+
+
+INSERT INTO STOC (data_expirare, data_fabricatie, nr_bucati_primite, nr_bucati_ramase, pret_vanzare_curent, data_aprovizionare, pret_achizitie, id_medicament)
+VALUES (DATE '2026-07-31', DATE '2025-03-01', 50, 50, 28, DATE '2025-03-15', 18, 10);
+
+
+INSERT INTO STOC (data_expirare, data_fabricatie, nr_bucati_primite, nr_bucati_ramase, pret_vanzare_curent, data_aprovizionare, pret_achizitie, id_medicament)
+VALUES (DATE '2027-06-30', DATE '2025-07-01', 70, 70, 58, DATE '2025-07-10', 42, 2);
+
+
+INSERT INTO STOC (data_expirare, data_fabricatie, nr_bucati_primite, nr_bucati_ramase, pret_vanzare_curent, data_aprovizionare, pret_achizitie, id_medicament)
+VALUES (DATE '2027-12-31', DATE '2025-10-01', 100, 100, 50, DATE '2025-10-15', 30, 1);
+
+
+INSERT INTO STOC (data_expirare, data_fabricatie, nr_bucati_primite, nr_bucati_ramase, pret_vanzare_curent, data_aprovizionare, pret_achizitie, id_medicament)
+VALUES (DATE '2023-06-30', DATE '2022-01-01', 20, 20, 45, DATE '2023-01-15', 25, 1);
+
+
+INSERT INTO STOC (data_expirare, data_fabricatie, nr_bucati_primite, nr_bucati_ramase, pret_vanzare_curent, data_aprovizionare, pret_achizitie, id_medicament)
+VALUES (DATE '2027-05-31', DATE '2025-09-01', 5, 5, 60, DATE '2025-09-10', 35, 1);
+
+
+
+
+
+
+INSERT INTO CONSULTATIE (pret, id_animal, id_personal_medical) VALUES (150,1,1);
+INSERT INTO CONSULTATIE (pret, id_animal, id_personal_medical) VALUES (200,2,2);
+INSERT INTO CONSULTATIE (pret, id_animal, id_personal_medical) VALUES (180,3,1);
+INSERT INTO CONSULTATIE (pret, id_animal, id_personal_medical) VALUES (220,4,5);
+INSERT INTO CONSULTATIE (pret, id_animal, id_personal_medical) VALUES (170,5,2);
+INSERT INTO CONSULTATIE (pret, id_animal, id_personal_medical) VALUES (140,6,2);
+INSERT INTO CONSULTATIE (pret, id_animal, id_personal_medical) VALUES (160,7,1);
+INSERT INTO CONSULTATIE (pret, id_animal, id_personal_medical) VALUES (155,8,7);
+INSERT INTO CONSULTATIE (pret, id_animal, id_personal_medical) VALUES (190,9,5);
+INSERT INTO CONSULTATIE (pret, id_animal, id_personal_medical) VALUES (175,10,2);
+
+
+
+
+INSERT INTO RETETA (data_emitere, id_consultatie, id_personal_medical) VALUES (DATE '2025-03-10',1,1);
+INSERT INTO RETETA (data_emitere, id_consultatie, id_personal_medical) VALUES (DATE '2025-03-12',2,2);
+INSERT INTO RETETA (data_emitere, id_consultatie, id_personal_medical) VALUES (DATE '2025-03-15',3,1);
+INSERT INTO RETETA (data_emitere, id_consultatie, id_personal_medical) VALUES (DATE '2025-03-20',4,5);
+INSERT INTO RETETA (data_emitere, id_consultatie, id_personal_medical) VALUES (DATE '2025-03-22',5,2);
+INSERT INTO RETETA (data_emitere, id_consultatie, id_personal_medical) VALUES (DATE '2025-04-01',6,2);
+INSERT INTO RETETA (data_emitere, id_consultatie, id_personal_medical) VALUES (DATE '2025-04-03',7,1);
+INSERT INTO RETETA (data_emitere, id_consultatie, id_personal_medical) VALUES (DATE '2025-04-05',8,7);
+
+
+
+
+INSERT INTO COMANDA (data_comanda, id_personal_medical) VALUES (DATE '2025-04-01',3);
+INSERT INTO COMANDA (data_comanda, id_personal_medical) VALUES (DATE '2025-04-02',4);
+INSERT INTO COMANDA (data_comanda, id_personal_medical) VALUES (DATE '2025-04-03',6);
+INSERT INTO COMANDA (data_comanda, id_personal_medical) VALUES (DATE '2025-04-04',3);
+INSERT INTO COMANDA (data_comanda, id_personal_medical) VALUES (DATE '2025-04-05',10);
+INSERT INTO COMANDA (data_comanda, id_personal_medical) VALUES (DATE '2025-04-06',4);
+INSERT INTO COMANDA (data_comanda, id_personal_medical) VALUES (DATE '2025-04-07',6);
+INSERT INTO COMANDA (data_comanda, id_personal_medical) VALUES (DATE '2025-04-08',3);
+INSERT INTO COMANDA (data_comanda, id_personal_medical) VALUES (DATE '2025-04-09',10);
+INSERT INTO COMANDA (data_comanda, id_personal_medical) VALUES (DATE '2025-04-10',4);
+INSERT INTO COMANDA (data_comanda, id_personal_medical) VALUES (DATE '2025-04-11',6);
+INSERT INTO COMANDA (data_comanda, id_personal_medical) VALUES (DATE '2025-04-12',3);
+INSERT INTO COMANDA (data_comanda, id_personal_medical) VALUES (DATE '2025-05-01',3);
+INSERT INTO COMANDA (data_comanda, id_personal_medical) VALUES (DATE '2025-05-03',4);
+INSERT INTO COMANDA (data_comanda, id_personal_medical) VALUES (DATE '2025-05-05',6);
+INSERT INTO COMANDA (data_comanda, id_personal_medical) VALUES (DATE '2025-06-01',3);
+INSERT INTO COMANDA (data_comanda, id_personal_medical) VALUES (DATE '2025-06-10',4);
+
+
+
+
+INSERT INTO COMANDA_CLIENT VALUES (1,'card',1);
+INSERT INTO COMANDA_CLIENT VALUES (2,'cash',2);
+INSERT INTO COMANDA_CLIENT VALUES (3,'card',3);
+INSERT INTO COMANDA_CLIENT VALUES (4,'cash',4);
+INSERT INTO COMANDA_CLIENT VALUES (5,'card',5);
+INSERT INTO COMANDA_CLIENT VALUES (6,'cash',6);
+INSERT INTO COMANDA_CLIENT VALUES (7,'card',7);
+INSERT INTO COMANDA_CLIENT VALUES (8,'cash',8);
+INSERT INTO COMANDA_CLIENT VALUES (9,'card',9);
+INSERT INTO COMANDA_CLIENT VALUES (10,'cash',10);
+INSERT INTO COMANDA_CLIENT VALUES (11,'card',1);
+INSERT INTO COMANDA_CLIENT VALUES (12,'card',2);
+
+
+
+
+INSERT INTO COMANDA_FARMACIE VALUES (13, DATE '2025-05-10', 1);
+INSERT INTO COMANDA_FARMACIE VALUES (14, DATE '2025-05-12', 2);
+INSERT INTO COMANDA_FARMACIE VALUES (15, DATE '2025-05-15', 3);
+INSERT INTO COMANDA_FARMACIE VALUES (16, DATE '2025-06-08', 6);
+INSERT INTO COMANDA_FARMACIE VALUES (17, DATE '2025-06-18', 5);
+
+
+
+
+INSERT INTO FACTURA (data_emitere, suma, id_comanda) VALUES (DATE '2025-04-01',120,1);
+INSERT INTO FACTURA (data_emitere, suma, id_comanda) VALUES (DATE '2025-04-02', 90,2);
+INSERT INTO FACTURA (data_emitere, suma, id_comanda) VALUES (DATE '2025-04-03',140,3);
+INSERT INTO FACTURA (data_emitere, suma, id_comanda) VALUES (DATE '2025-04-04',160,4);
+INSERT INTO FACTURA (data_emitere, suma, id_comanda) VALUES (DATE '2025-04-05',130,5);
+INSERT INTO FACTURA (data_emitere, suma, id_comanda) VALUES (DATE '2025-04-06',100,6);
+INSERT INTO FACTURA (data_emitere, suma, id_comanda) VALUES (DATE '2025-04-07',115,7);
+INSERT INTO FACTURA (data_emitere, suma, id_comanda) VALUES (DATE '2025-04-08',125,8);
+INSERT INTO FACTURA (data_emitere, suma, id_comanda) VALUES (DATE '2025-04-09',140,9);
+INSERT INTO FACTURA (data_emitere, suma, id_comanda) VALUES (DATE '2025-04-10',110,10);
+INSERT INTO FACTURA (data_emitere, suma, id_comanda) VALUES (DATE '2025-04-11', 85,11);
+INSERT INTO FACTURA (data_emitere, suma, id_comanda) VALUES (DATE '2025-04-12', 95,12);
+INSERT INTO FACTURA (data_emitere, suma, id_comanda) VALUES (DATE '2025-05-01',900,13);
+INSERT INTO FACTURA (data_emitere, suma, id_comanda) VALUES (DATE '2025-05-03',620,14);
+INSERT INTO FACTURA (data_emitere, suma, id_comanda) VALUES (DATE '2025-05-05',480,15);
+INSERT INTO FACTURA (data_emitere, suma, id_comanda) VALUES (DATE '2025-06-01',700,16);
+INSERT INTO FACTURA (data_emitere, suma, id_comanda) VALUES (DATE '2025-06-10',560,17);
+
+
+
+
+--tabele asociative
+INSERT INTO VINDE VALUES (1,1,20);
+INSERT INTO VINDE VALUES (1,10,18);
+INSERT INTO VINDE VALUES (1,5,27);
+
+
+INSERT INTO VINDE VALUES (2,2,40);
+INSERT INTO VINDE VALUES (2,8,62);
+INSERT INTO VINDE VALUES (2,9,15);
+
+
+INSERT INTO VINDE VALUES (3,6,45);
+INSERT INTO VINDE VALUES (3,7,75);
+INSERT INTO VINDE VALUES (3,4,50);
+
+
+INSERT INTO VINDE VALUES (4,3,30);
+INSERT INTO VINDE VALUES (4,2,42);
+INSERT INTO VINDE VALUES (4,1,22);
+
+
+INSERT INTO VINDE VALUES (5,4,48);
+INSERT INTO VINDE VALUES (5,3,33);
+INSERT INTO VINDE VALUES (5,6,44);
+
+
+INSERT INTO VINDE VALUES (6,8,63);
+INSERT INTO VINDE VALUES (6,7,74);
+INSERT INTO VINDE VALUES (6,9,14);
+INSERT INTO VINDE VALUES (6,1,21);
+INSERT INTO VINDE VALUES (6,5,26);
+
+
+
+
+
+
+
+
+INSERT INTO CONTINE (id_reteta, id_medicament, dozaj, mod_administrare, frecventa, durata_tratament)
+VALUES (1, 1, '1 cp', 'oral', '2/zi', '7 zile');
+
+
+INSERT INTO CONTINE (id_reteta, id_medicament, dozaj, mod_administrare, frecventa, durata_tratament)
+VALUES (1, 2, '1 cp', 'oral', '1/zi', '5 zile');
+
+
+INSERT INTO CONTINE (id_reteta, id_medicament, dozaj, mod_administrare, frecventa, durata_tratament)
+VALUES (2, 3, '1 pipeta', 'topic', 'o data', '1 zi');
+
+
+INSERT INTO CONTINE (id_reteta, id_medicament, dozaj, mod_administrare, frecventa, durata_tratament)
+VALUES (2, 10, 'aplicare locala', 'topic', '2/zi', '7 zile');
+
+
+INSERT INTO CONTINE (id_reteta, id_medicament, dozaj, mod_administrare, frecventa, durata_tratament)
+VALUES (2, 9, '1 cp', 'oral', '1/zi', '5 zile');
+
+
+INSERT INTO CONTINE (id_reteta, id_medicament, dozaj, mod_administrare, frecventa, durata_tratament)
+VALUES (3, 6, '1 cp', 'oral', '2/zi', '7 zile');
+
+
+INSERT INTO CONTINE (id_reteta, id_medicament, dozaj, mod_administrare, frecventa, durata_tratament)
+VALUES (3, 5, '0.5 ml', 'injectabil', 'o data', '1 zi');
+
+
+INSERT INTO CONTINE (id_reteta, id_medicament, dozaj, mod_administrare, frecventa, durata_tratament)
+VALUES (4, 7, '1 cp', 'oral', '1/zi', '3 zile');
+
+
+INSERT INTO CONTINE (id_reteta, id_medicament, dozaj, mod_administrare, frecventa, durata_tratament)
+VALUES (4, 2, '1 cp', 'oral', '1/zi', '5 zile');
+
+
+INSERT INTO CONTINE (id_reteta, id_medicament, dozaj, mod_administrare, frecventa, durata_tratament)
+VALUES (5, 8, '1 cp', 'oral', '2/zi', '7 zile');
+
+
+INSERT INTO CONTINE (id_reteta, id_medicament, dozaj, mod_administrare, frecventa, durata_tratament)
+VALUES (5, 1, '1 cp', 'oral', '2/zi', '5 zile');
+
+
+INSERT INTO CONTINE (id_reteta, id_medicament, dozaj, mod_administrare, frecventa, durata_tratament)
+VALUES (6, 4, '1 ml', 'injectabil', 'o data', '1 zi');
+
+
+INSERT INTO CONTINE (id_reteta, id_medicament, dozaj, mod_administrare, frecventa, durata_tratament)
+VALUES (6, 2, '1 cp', 'oral', '1/zi', '5 zile');
+
+
+INSERT INTO CONTINE (id_reteta, id_medicament, dozaj, mod_administrare, frecventa, durata_tratament)
+VALUES (7, 1, '1 cp', 'oral', '2/zi', '7 zile');
+
+
+INSERT INTO CONTINE (id_reteta, id_medicament, dozaj, mod_administrare, frecventa, durata_tratament)
+VALUES (8, 6, '1 cp', 'oral', '2/zi', '7 zile');
+
+
+
+
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+VALUES (1, 1, 2, 30, 0);
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+VALUES (2, 4, 1, 45, 0);
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+VALUES (2, 6, 1, 40, 5);
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+VALUES (3, 7, 1, 60, 0);
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+VALUES (3, 10, 2, 25, 10);
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+VALUES (3, 3, 1, 55, 0);
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+VALUES (4, 8, 1, 95, 0);
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+VALUES (4, 11, 1, 28, 0);
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+VALUES (4, 2, 1, 35, 5);
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+VALUES (4, 5, 1, 65, 0);
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+VALUES (5, 9, 1, 85, 0);
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+VALUES (5, 1, 1, 30, 0);
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+VALUES (6, 12, 1, 58, 0);
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+VALUES (7, 4, 1, 45, 0);
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+VALUES (7, 10, 1, 25, 0);
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+VALUES (7, 6, 1, 40, 5);
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+VALUES (8, 3, 1, 55, 0);
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+VALUES (9, 7, 1, 60, 0);
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+VALUES (9, 6, 1, 40, 0);
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+VALUES (10, 11, 1, 28, 0);
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+VALUES (11, 2, 1, 35, 0);
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+VALUES (11, 1, 1, 30, 10);
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+VALUES (12, 5, 1, 65, 0);
+
+
+
+
+
+
+
+
+INSERT INTO INTERVINE (id_animal, id_campanie, id_personal_medical, data_interventiei, observatii)
+VALUES (1, 1, 1, DATE '2025-01-20', 'Vaccinare efectuata');
+
+
+INSERT INTO INTERVINE (id_animal, id_campanie, id_personal_medical, data_interventiei, observatii)
+VALUES (2, 1, 2, DATE '2025-01-22', 'Vaccinare efectuata');
+
+
+INSERT INTO INTERVINE (id_animal, id_campanie, id_personal_medical, data_interventiei, observatii)
+VALUES (3, 2, 1, DATE '2025-03-10', 'Deparazitare interna');
+
+
+INSERT INTO INTERVINE (id_animal, id_campanie, id_personal_medical, data_interventiei, observatii)
+VALUES (4, 2, 2, DATE '2025-03-12', 'Deparazitare externa');
+
+
+INSERT INTO INTERVINE (id_animal, id_campanie, id_personal_medical, data_interventiei, observatii)
+VALUES (5, 3, 1, DATE '2025-04-05', 'Programare sterilizare');
+
+
+INSERT INTO INTERVINE (id_animal, id_campanie, id_personal_medical, data_interventiei, observatii)
+VALUES (6, 4, 5, DATE '2025-05-08', 'Control efectuat');
+
+
+INSERT INTO INTERVINE (id_animal, id_campanie, id_personal_medical, data_interventiei, observatii)
+VALUES (7, 4, 5, DATE '2025-05-10', 'Control efectuat');
+
+
+INSERT INTO INTERVINE (id_animal, id_campanie, id_personal_medical, data_interventiei, observatii)
+VALUES (8, 5, 2, DATE '2025-09-15', 'Vaccinare polivalenta');
+
+
+INSERT INTO INTERVINE (id_animal, id_campanie, id_personal_medical, data_interventiei, observatii)
+VALUES (9, 5, 1, DATE '2025-09-20', 'Vaccinare polivalenta');
+
+
+INSERT INTO INTERVINE (id_animal, id_campanie, id_personal_medical, data_interventiei, observatii)
+VALUES (10, 6, 7, DATE '2025-06-12', 'Tratament antiparazitar');
+
+
+INSERT INTO INTERVINE (id_animal, id_campanie, id_personal_medical, data_interventiei, observatii)
+VALUES (11, 6, 7, DATE '2025-06-18', 'Preventie');
+
+
+INSERT INTO INTERVINE (id_animal, id_campanie, id_personal_medical, data_interventiei, observatii)
+VALUES (12, 7, 2, DATE '2025-07-05', 'Consultatie junior');
+
+
+INSERT INTO INTERVINE (id_animal, id_campanie, id_personal_medical, data_interventiei, observatii)
+VALUES (1, 7, 1, DATE '2025-07-08', 'Consultatie preventie');
+
+
+INSERT INTO INTERVINE (id_animal, id_campanie, id_personal_medical, data_interventiei, observatii)
+VALUES (2, 6, 7, DATE '2025-06-20', 'Preventie');
+
+
+INSERT INTO INTERVINE (id_animal, id_campanie, id_personal_medical, data_interventiei, observatii)
+VALUES (5, 1, 2, DATE '2025-02-01', 'Rapel antirabic');
+
+
+
+
+
+
+
+
+INSERT INTO INCLUDE VALUES (13,1,60);
+INSERT INTO INCLUDE VALUES (13,10,40);
+INSERT INTO INCLUDE VALUES (13,5,30);
+
+
+INSERT INTO INCLUDE VALUES (14,2,50);
+INSERT INTO INCLUDE VALUES (14,8,25);
+INSERT INTO INCLUDE VALUES (14,9,80);
+
+
+INSERT INTO INCLUDE VALUES (15,6,40);
+INSERT INTO INCLUDE VALUES (15,7,20);
+INSERT INTO INCLUDE VALUES (15,4,35);
+
+
+INSERT INTO INCLUDE VALUES (16,8,30);
+INSERT INTO INCLUDE VALUES (16,7,25);
+INSERT INTO INCLUDE VALUES (16,1,70);
+
+
+INSERT INTO INCLUDE VALUES (17,3,55);
+INSERT INTO INCLUDE VALUES (17,6,35);
+INSERT INTO INCLUDE VALUES (17,2,40);
+
+
+COMMIT;
+
+
+SET SERVEROUTPUT ON;
+
+
+--ex.6.un subprogram cu 3 colectii
+INSERT INTO CODURI_EROARE(cod_eroare, descriere, entitate_afectata)
+SELECT -20001,
+       'Nu exista campanii de tipul cerut sau nu exista interventii.',
+       'CAMPANIE/INTERVINE'
+FROM DUAL
+WHERE NOT EXISTS(
+    SELECT 1
+    FROM CODURI_EROARE
+    WHERE cod_eroare = -20001
+);
+COMMIT;
+
+
+CREATE OR REPLACE PROCEDURE ex6_tip_campanie(
+    prm_tip IN  CAMPANIE.tip%TYPE
+)
+IS
+    --record
+    TYPE rec_interventie IS RECORD(
+        data_int INTERVINE.data_interventiei%TYPE,
+        medic VARCHAR2(120),
+        obs INTERVINE.observatii%TYPE,
+        zi NUMBER(2)
+    );
+    
+    --nested table
+    TYPE t_interventii IS TABLE OF rec_interventie;
+    v_interventii t_interventii;
+    
+    --index by table
+    TYPE t_animale IS TABLE OF t_interventii 
+    INDEX BY VARCHAR2(200);
+    
+    v_animale t_animale;
+    
+    
+    TYPE t_campanii IS TABLE OF t_animale 
+    INDEX BY VARCHAR2(200);
+    
+    v_campanii t_campanii;
+    
+    --varray
+    TYPE v_zile IS VARRAY(31) OF NUMBER;
+    contor_zile v_zile := v_zile();
+    
+    gasit BOOLEAN := FALSE;
+    k_campanie VARCHAR2(200);
+    k_animal   VARCHAR2(200);
+    
+BEGIN
+    FOR i IN 1..31 LOOP
+        contor_zile.EXTEND;
+        contor_zile(i) := 0;
+    END LOOP;
+    
+    --campaniile de tipul cerut care au interventii
+    FOR camp IN(
+        SELECT DISTINCT c.id_campanie, c.nume, c.tip, c.data_start, c.data_sfarsit
+        FROM CAMPANIE c
+        JOIN INTERVINE i ON i.id_campanie=c.id_campanie
+        WHERE LOWER(c.tip) = LOWER(prm_tip)
+        ORDER BY c.id_campanie
+    )LOOP
+        gasit := TRUE;
+        
+        --cheie campanie
+        k_campanie := camp.nume || ' [' || camp.tip || '] (' ||
+                  TO_CHAR(camp.data_start,'YYYY-MM-DD') || ' - ' ||
+                  TO_CHAR(camp.data_sfarsit,'YYYY-MM-DD') || ')';
+              
+        v_animale.DELETE; 
+        
+        FOR animl IN(
+            SELECT DISTINCT a.id_animal, a.nume, a.specie, a.rasa
+            FROM ANIMAL a
+            JOIN INTERVINE i ON i.id_animal = a.id_animal
+            WHERE i.id_campanie = camp.id_campanie
+            ORDER BY a.id_animal 
+        )LOOP
+        
+            k_animal := animl.nume || ' (' || animl.specie || ', ' || animl.rasa || ', ID=' || animl.id_animal || ')';
+    
+            --interventiile fiecarui animal
+            SELECT i.data_interventiei, pm.prenume || ' ' || pm.nume, i.observatii, EXTRACT(DAY FROM i.data_interventiei)
+            BULK COLLECT INTO v_interventii
+            FROM INTERVINE i
+            JOIN PERSONAL_MEDICAL pm ON pm.id_personal_medical = i.id_personal_medical
+            WHERE i.id_campanie = camp.id_campanie AND i.id_animal = animl.id_animal
+            ORDER BY i.data_interventiei;
+    
+            v_animale(k_animal) := v_interventii;
+            
+            --actualizam controul de zile
+            FOR j IN 1..v_interventii.COUNT LOOP
+                IF v_interventii(j).zi BETWEEN 1 AND 31 THEN
+                    contor_zile(v_interventii(j).zi) := contor_zile(v_interventii(j).zi)+1;
+                END IF;
+            END LOOP;
+        
+        END LOOP;
+        
+        v_campanii(k_campanie) := v_animale;
+    END LOOP; 
+    
+    IF NOT gasit THEN
+        RAISE_APPLICATION_ERROR(
+        -20001,
+        'Nu exista campanii de tipul: ' || prm_tip || ' sau nu exista interventii pentru acestea.'
+        );
+    END IF;
+    
+    
+    --afisare
+    k_campanie := v_campanii.FIRST;
+    
+    WHILE k_campanie IS NOT NULL LOOP
+        DBMS_OUTPUT.PUT_LINE('Campanie: ' || k_campanie);
+        
+        v_animale := v_campanii(k_campanie);
+        k_animal := v_animale.FIRST;
+        
+        WHILE k_animal IS NOT NULL LOOP
+            DBMS_OUTPUT.PUT_LINE('  Animal: ' || k_animal);
+            
+            v_interventii := v_animale(k_animal);
+            
+            FOR j IN 1..v_interventii.COUNT LOOP
+                DBMS_OUTPUT.PUT_LINE(
+                    '    - ' || TO_CHAR(v_interventii(j).data_int,'YYYY-MM-DD') ||
+                    ' | ' || v_interventii(j).medic ||
+                    ' | ' || NVL(v_interventii(j).obs,'(fara observatii)')
+                );
+            END LOOP;
+            
+        k_animal := v_animale.NEXT(k_animal);
+        END LOOP;
+        
+        DBMS_OUTPUT.NEW_LINE;
+        k_campanie := v_campanii.NEXT(k_campanie);
+    END LOOP;
+    
+    DBMS_OUTPUT.PUT_LINE('- Total interventii pe zile (1..31) -');
+    FOR i IN 1..31 LOOP
+        IF contor_zile(i)=1 THEN
+             DBMS_OUTPUT.PUT_LINE('Ziua ' || i || ': o interventie.');
+        ELSIF contor_zile(i)>1 THEN
+             DBMS_OUTPUT.PUT_LINE('Ziua ' || i || ': ' || contor_zile(i) || ' interventii.');
+        END IF;      
+    END LOOP;
+    
+EXCEPTION
+  WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Eroare: ' || SQLERRM);
+        RAISE;
+
+
+END ex6_tip_campanie;
+/
+
+
+
+
+--APEL
+BEGIN
+  ex6_tip_campanie('Vaccinare');
+  DBMS_OUTPUT.NEW_LINE;
+  ex6_tip_campanie('Adoptie');
+END;
+/
+
+
+
+
+
+
+
+
+--ex7.subprogram cu 2 cursoare
+INSERT INTO CODURI_EROARE (cod_eroare, descriere, entitate_afectata)
+SELECT -20002,
+       'Nu exista comenzi in intervalul specificat.',
+       'COMANDA/COMANDA_CLIENT'
+FROM dual
+WHERE NOT EXISTS (
+    SELECT 1 FROM CODURI_EROARE WHERE cod_eroare = -20002
+);
+
+
+COMMIT;
+
+
+CREATE OR REPLACE PROCEDURE ex7_comenzi(
+    p_data_start IN DATE,
+    p_data_sfarsit IN DATE
+)
+IS
+    nr_comenzi NUMBER := 0;
+    
+    --cursor clasic(explicit)
+    CURSOR c_detalii(p_id_comanda COMANDA.id_comanda%TYPE) IS
+        SELECT m.denumire, a.cantitate, a.pret_vanzare_final, a.discount
+        FROM ARE a
+        JOIN STOC s ON s.id_stoc = a.id_stoc
+        JOIN MEDICAMENT m ON m.id_medicament = s.id_medicament
+        WHERE a.id_comanda = p_id_comanda
+        ORDER BY m.denumire;
+        
+        detalii_comanda c_detalii%ROWTYPE;
+
+
+BEGIN
+    --ciclu cursor cu subcerere
+    FOR comanda IN (
+        SELECT c.id_comanda, c.data_comanda, cl.prenume || ' ' || cl.nume AS client, cc.metoda_plata
+        FROM COMANDA c
+        JOIN COMANDA_CLIENT cc ON cc.id_comanda = c.id_comanda
+        JOIN CLIENT cl ON cl.id_client = cc.id_client
+        WHERE  c.data_comanda BETWEEN p_data_start AND p_data_sfarsit
+        ORDER BY c.id_comanda
+    )LOOP
+    
+        nr_comenzi := nr_comenzi+1;
+    
+        DBMS_OUTPUT.PUT_LINE('Comanda #' || comanda.id_comanda || ' (' || TO_CHAR(comanda.data_comanda,'YYYY-MM-DD') || ')');
+        DBMS_OUTPUT.PUT_LINE('Client: ' || comanda.client);
+        DBMS_OUTPUT.PUT_LINE('Metoda plata: ' || comanda.metoda_plata);
+        DBMS_OUTPUT.PUT_LINE('Produse (medicamente):');
+    
+        OPEN c_detalii(comanda.id_comanda); 
+        FETCH c_detalii INTO detalii_comanda;
+        
+        IF c_detalii%FOUND THEN
+            LOOP
+                 DBMS_OUTPUT.PUT_LINE(
+                    '  - ' || detalii_comanda.denumire ||
+                    ' | cant=' || detalii_comanda.cantitate ||
+                    ' | pret_final=' || detalii_comanda.pret_vanzare_final ||
+                    ' | disc=' || detalii_comanda.discount || '%'
+                );
+                
+                FETCH c_detalii INTO detalii_comanda;
+                EXIT WHEN c_detalii%NOTFOUND;
+                
+             END LOOP;
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('  (nu exista medicamente asociate acestei comenzi)');
+        END IF;
+        
+        CLOSE c_detalii;
+        
+        DBMS_OUTPUT.NEW_LINE;
+
+
+    END LOOP;
+    
+    IF nr_comenzi = 0 THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Nu au fost gasite comenzi in intervalul specificat.');
+    ELSIF nr_comenzi = 1 THEN
+        DBMS_OUTPUT.PUT_LINE('Au fost afisate informatii despre o singura comanda.');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Au fost afisate informatii despre ' || nr_comenzi || ' comenzi.');
+    END IF;
+
+
+
+
+
+
+EXCEPTION
+ WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Eroare: ' || SQLERRM);
+        RAISE;
+
+
+END ex7_comenzi;
+/
+
+
+
+
+--APEL
+BEGIN
+  --nu  sunt comenzi
+  BEGIN
+    ex7_comenzi(DATE '2024-01-01', DATE '2024-01-31');
+  EXCEPTION
+    WHEN OTHERS THEN
+      DBMS_OUTPUT.PUT_LINE('Test eroare OK: ' || SQLERRM);
+  END;
+
+
+  DBMS_OUTPUT.NEW_LINE;
+
+
+  --sunt comenzi
+  ex7_comenzi(DATE '2025-04-01', DATE '2025-04-30');
+END;
+/
+
+
+
+
+
+
+
+
+
+
+--ex8.functie cu 3 tabele intr-o singura comanda SQL care trateaza toate exceptiile
+
+
+INSERT INTO CODURI_EROARE (cod_eroare, descriere, entitate_afectata)
+SELECT -20003, 'Client inexistent sau fara comenzi.', 'CLIENT/COMANDA_CLIENT/COMANDA'
+FROM dual
+WHERE NOT EXISTS (SELECT 1 FROM CODURI_EROARE WHERE cod_eroare = -20003);
+
+
+INSERT INTO CODURI_EROARE (cod_eroare, descriere, entitate_afectata)
+SELECT -20004, 'Clientul are comenzi cu metode de plata diferite.', 'COMANDA_CLIENT'
+FROM dual
+WHERE NOT EXISTS (SELECT 1 FROM CODURI_EROARE WHERE cod_eroare = -20004);
+
+
+COMMIT;
+
+
+
+
+CREATE OR REPLACE FUNCTION ex8_metoda_plata(
+    p_nume IN CLIENT.nume%TYPE,
+    p_prenume IN CLIENT.prenume%TYPE
+)
+RETURN VARCHAR2
+IS
+    v_metoda COMANDA_CLIENT.metoda_plata%type;
+    v_nr_comenzi NUMBER;
+    v_ultima_data DATE;
+
+
+BEGIN
+    SELECT cc.metoda_plata,
+           COUNT(DISTINCT co.id_comanda) AS nr_comenzi,
+           MAX(co.data_comanda) AS ultima_data
+    INTO v_metoda, v_nr_comenzi, v_ultima_data
+    FROM CLIENT c
+    JOIN COMANDA_CLIENT cc ON cc.id_client = c.id_client
+    JOIN COMANDA co ON co.id_comanda = cc.id_comanda
+    WHERE LOWER(c.nume) = LOWER(p_nume) AND 
+          LOWER(c.prenume) = LOWER(p_prenume)
+    GROUP BY cc.metoda_plata;
+          
+    RETURN 'Metoda=' || v_metoda
+           || ', comenzi=' || v_nr_comenzi
+           || ', ultima=' || TO_CHAR(v_ultima_data, 'YYYY-MM-DD');  
+   
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RAISE_APPLICATION_ERROR(-20003, 'Client inexistent sau fara comenzi.');
+
+
+    WHEN TOO_MANY_ROWS THEN
+        RAISE_APPLICATION_ERROR(-20004, 'Clientul are comenzi cu metode de plata diferite.');
+
+
+    WHEN OTHERS THEN
+        RAISE_APPLICATION_ERROR(-20099, 'Alta eroare: ' || SQLERRM);
+END;
+/
+
+
+--APEL
+BEGIN
+  --caz normal
+  BEGIN
+    DBMS_OUTPUT.PUT_LINE('Caz normal: ' || ex8_metoda_plata('Popescu', 'Ana'));
+  EXCEPTION
+    WHEN OTHERS THEN
+      DBMS_OUTPUT.PUT_LINE('Eroare (nu trebuia aici): ' || SQLERRM);
+  END;
+
+
+  DBMS_OUTPUT.NEW_LINE;
+
+
+  --caz NO_DATA_FOUND (client inexistent / fara comenzi)
+  BEGIN
+    DBMS_OUTPUT.PUT_LINE('Caz NO_DATA_FOUND: ' || ex8_metoda_plata('Nume', 'Inexistent'));
+  EXCEPTION
+    WHEN OTHERS THEN
+      DBMS_OUTPUT.PUT_LINE('Caz NO_DATA_FOUND OK: ' || SQLERRM);
+  END;
+
+
+  DBMS_OUTPUT.NEW_LINE;
+
+
+  --caz TOO_MANY_ROWS (metode plata diferite)
+  BEGIN
+    DBMS_OUTPUT.PUT_LINE('Caz TOO_MANY_ROWS: ' || ex8_metoda_plata('Ionescu', 'Vlad'));
+  EXCEPTION
+    WHEN OTHERS THEN
+      DBMS_OUTPUT.PUT_LINE('Caz TOO_MANY_ROWS OK: ' || SQLERRM);
+  END;
+END;
+/
+
+
+
+
+
+
+
+
+--ex9.procedura cu 5 tabele si 2 exceptii personalizate
+INSERT INTO CODURI_EROARE (cod_eroare, descriere, entitate_afectata)
+SELECT -20005, 'Stoc insuficient pentru cel putin un produs din comanda.', 'ARE/STOC'
+FROM dual
+WHERE NOT EXISTS (SELECT 1 FROM CODURI_EROARE WHERE cod_eroare = -20005);
+
+
+INSERT INTO CODURI_EROARE (cod_eroare, descriere, entitate_afectata)
+SELECT -20006, 'Comanda nu exista sau nu contine produse (ARE).', 'COMANDA/ARE'
+FROM dual
+WHERE NOT EXISTS (SELECT 1 FROM CODURI_EROARE WHERE cod_eroare = -20006);
+
+
+INSERT INTO CODURI_EROARE (cod_eroare, descriere, entitate_afectata)
+SELECT -20007, 'Exista cel putin un lot expirat in comanda.', 'STOC'
+FROM dual
+WHERE NOT EXISTS (SELECT 1 FROM CODURI_EROARE WHERE cod_eroare = -20007);
+
+
+INSERT INTO CODURI_EROARE (cod_eroare, descriere, entitate_afectata)
+SELECT -20008, 'Factura exista deja pentru comanda data.', 'FACTURA'
+FROM dual
+WHERE NOT EXISTS (SELECT 1 FROM CODURI_EROARE WHERE cod_eroare = -20008);
+
+
+COMMIT;
+
+
+
+
+
+
+CREATE OR REPLACE PROCEDURE ex9_emitere_factura(
+    p_id_comanda IN COMANDA.id_comanda%TYPE,
+    p_data_emitere IN DATE
+)
+IS
+    v_suma_total NUMBER(12,2);
+    v_nr_produse NUMBER;
+    v_insuficiente NUMBER;
+    v_expirate NUMBER;
+    v_metoda_de_plata COMANDA_CLIENT.metoda_plata%TYPE;
+    v_facturi_exist NUMBER;
+    v_client VARCHAR2(120);
+    
+BEGIN
+    SELECT COUNT(*)
+    INTO v_facturi_exist
+    FROM FACTURA
+    WHERE id_comanda = p_id_comanda;
+    
+    IF v_facturi_exist>0 THEN
+        RAISE_APPLICATION_ERROR(-20008, 'Factura exista deja pentru comanda ' || p_id_comanda || '.');
+    END IF;
+    
+    SELECT  cl.prenume || ' ' || cl.nume AS client,
+            cc.metoda_plata,
+            NVL(SUM(a.pret_vanzare_final * a.cantitate),0) AS total,
+            COUNT(*) AS nr_produse,
+            SUM(CASE WHEN a.cantitate > s.nr_bucati_ramase THEN 1 ELSE 0 END) AS insuficiente,
+            SUM(CASE WHEN s.data_expirare < p_data_emitere THEN 1 ELSE 0 END) AS expirate
+    INTO v_client, v_metoda_de_plata, v_suma_total, v_nr_produse, v_insuficiente, v_expirate
+    FROM CLIENT cl
+    JOIN COMANDA_CLIENT cc ON cc.id_client = cl.id_client
+    JOIN COMANDA c ON c.id_comanda = cc.id_comanda
+    JOIN ARE a ON a.id_comanda = c.id_comanda
+    JOIN STOC s ON s.id_stoc = a.id_stoc
+    WHERE c.id_comanda = p_id_comanda
+    GROUP BY cl.prenume, cl.nume, cc.metoda_plata;
+    
+    IF v_nr_produse = 0 THEN
+        RAISE_APPLICATION_ERROR(-20006, 'Comanda ' || p_id_comanda || ' nu contine produse.');
+    END IF;
+    
+     IF v_insuficiente > 0 THEN
+        RAISE_APPLICATION_ERROR(-20005, 'Stoc insuficient pentru comanda ' || p_id_comanda || '.');
+    END IF;
+
+
+    IF v_expirate > 0 THEN
+        RAISE_APPLICATION_ERROR(-20007, 'Comanda ' || p_id_comanda || ' contine loturi expirate.');
+    END IF;
+    
+    --emitere factura
+    INSERT INTO FACTURA(data_emitere, suma, id_comanda)
+    VALUES (p_data_emitere, v_suma_total, p_id_comanda);
+    
+    DBMS_OUTPUT.PUT_LINE('Factura emisa cu succes pentru comanda ' || p_id_comanda || '.');
+    DBMS_OUTPUT.PUT_LINE('Client: ' || v_client || ', metoda plata: ' || v_metoda_de_plata || ', suma: ' || v_suma_total);
+
+
+EXCEPTION
+     WHEN NO_DATA_FOUND THEN
+        RAISE_APPLICATION_ERROR(-20006, 'Comanda ' || p_id_comanda || ' nu exista sau nu contine produse.');
+
+
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Eroare: ' || SQLERRM);
+        RAISE;
+
+
+END ex9_emitere_factura;
+/
+
+
+--APEL
+--1)emitere factura
+SELECT id_stoc, data_expirare, nr_bucati_ramase
+FROM STOC
+ORDER BY id_stoc;
+
+
+SELECT id_stoc, nr_bucati_ramase
+FROM STOC
+WHERE id_stoc = 21;
+
+
+--creare comanda 
+DECLARE
+  v_id_comanda NUMBER;
+BEGIN
+  INSERT INTO COMANDA (data_comanda, id_personal_medical)
+  VALUES (SYSDATE, 3)
+  RETURNING id_comanda INTO v_id_comanda;
+
+
+  INSERT INTO COMANDA_CLIENT (id_comanda, metoda_plata, id_client)
+  VALUES (v_id_comanda, 'cash', 1);
+
+
+  INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+  VALUES (v_id_comanda, 21, 2, 50, 0);
+
+
+  COMMIT;
+
+
+  DBMS_OUTPUT.PUT_LINE('COMANDA NORMALA = ' || v_id_comanda);
+
+
+  ex9_emitere_factura(v_id_comanda, SYSDATE);
+END;
+
+
+
+
+--2)factura exista deja
+BEGIN
+  ex9_emitere_factura(21, SYSDATE);
+END;
+/
+
+
+--3)stoc insuficient
+SELECT id_stoc, nr_bucati_ramase
+FROM STOC
+WHERE id_stoc = 23;
+
+
+
+
+DECLARE
+  v_id_comanda NUMBER;
+BEGIN
+  INSERT INTO COMANDA (data_comanda, id_personal_medical)
+  VALUES (SYSDATE, 4)
+  RETURNING id_comanda INTO v_id_comanda;
+
+
+  INSERT INTO COMANDA_CLIENT (id_comanda, metoda_plata, id_client)
+  VALUES (v_id_comanda, 'card', 2);
+
+
+  INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+  VALUES (v_id_comanda, 23, 10, 60, 0);
+
+
+  COMMIT;
+
+
+  DBMS_OUTPUT.PUT_LINE('COMANDA STOC INSUFICIENT = ' || v_id_comanda);
+
+
+  ex9_emitere_factura(v_id_comanda, SYSDATE);
+END;
+/
+
+
+--4)lot expirat
+SELECT id_stoc, data_expirare
+FROM STOC
+WHERE id_stoc = 22;
+
+
+DECLARE
+  v_id_comanda NUMBER;
+BEGIN
+  INSERT INTO COMANDA (data_comanda, id_personal_medical)
+  VALUES (SYSDATE, 6)
+  RETURNING id_comanda INTO v_id_comanda;
+
+
+  INSERT INTO COMANDA_CLIENT (id_comanda, metoda_plata, id_client)
+  VALUES (v_id_comanda, 'cash', 3);
+
+
+  INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final, discount)
+  VALUES (v_id_comanda, 22, 1, 40, 0);
+
+
+  COMMIT;
+
+
+  DBMS_OUTPUT.PUT_LINE('COMANDA LOT EXPIRAT = ' || v_id_comanda);
+
+
+  ex9_emitere_factura(v_id_comanda, SYSDATE);
+END;
+/
+
+
+--5)comanda nu exista
+BEGIN
+  ex9_emitere_factura(9999, SYSDATE);
+END;
+/
+
+
+
+
+--ex10.trigger LMD la nivel de comanda
+INSERT INTO CODURI_EROARE (cod_eroare, descriere, entitate_afectata)
+SELECT -20009,
+       'Operatiile asupra FACTURA sunt permise doar intre orele 09:00 si 17:00.',
+       'FACTURA'
+FROM dual
+WHERE NOT EXISTS (SELECT 1 FROM CODURI_EROARE WHERE cod_eroare = -20009);
+
+
+
+
+INSERT INTO CODURI_EROARE (cod_eroare, descriere, entitate_afectata)
+SELECT -20010,
+       'Operatiile asupra FACTURA sunt interzise in ziua de duminica.',
+       'FACTURA'
+FROM dual
+WHERE NOT EXISTS (SELECT 1 FROM CODURI_EROARE WHERE cod_eroare = -20010);
+
+
+COMMIT;
+
+
+
+
+CREATE OR REPLACE TRIGGER trg_ex10_factura_program
+BEFORE INSERT OR UPDATE OR DELETE ON FACTURA
+DECLARE
+    v_now DATE := SYSDATE;
+    v_hhmi NUMBER;
+    v_zi VARCHAR2(20);
+    v_op VARCHAR2(10);
+    v_user VARCHAR2(30);
+    v_msg VARCHAR2(300);
+BEGIN
+     v_user := SYS_CONTEXT('USERENV','SESSION_USER');
+     v_hhmi := TO_NUMBER(TO_CHAR(v_now, 'HH24MI'));
+     
+      v_zi := UPPER(TO_CHAR(v_now, 'DAY', 'NLS_DATE_LANGUAGE=ROMANIAN'));
+      v_zi := RTRIM(v_zi);
+      v_zi := REPLACE(v_zi, 'Ă', 'A');
+      
+      IF INSERTING THEN
+            v_op := 'INSERT';
+      ELSIF UPDATING THEN
+            v_op := 'UPDATE';
+      ELSE
+            v_op := 'DELETE';
+      END IF;
+      
+      IF v_zi = 'DUMINICA' THEN
+        v_msg := 'Operatie ' || v_op || ' interzisa duminica, user=' || v_user ||
+             ', moment=' || TO_CHAR(v_now,'YYYY-MM-DD HH24:MI');
+         insereaza_eroare(-20010, v_msg);
+         RAISE_APPLICATION_ERROR(-20010, v_msg);
+      END IF;
+      
+       IF v_hhmi < 900 OR v_hhmi >= 1700 THEN
+            v_msg := 'Operatie ' || v_op ||
+                ' interzisa in afara programului (09:00-17:00), user=' || v_user ||
+                ', ora curenta=' || TO_CHAR(v_now,'HH24:MI');
+            insereaza_eroare(-20009, v_msg);
+            RAISE_APPLICATION_ERROR(-20009, v_msg);
+  END IF;
+
+
+END;
+/
+
+
+
+
+--APEL
+--1)UPDATE
+UPDATE FACTURA
+SET suma = 1000
+WHERE id_factura = (SELECT MIN(id_factura) FROM FACTURA);
+
+
+
+
+--2)INSERT
+INSERT INTO FACTURA (id_comanda, data_emitere, suma)
+VALUES ( 
+    (SELECT MIN(id_comanda) FROM COMANDA),SYSDATE, 0
+);
+
+
+
+
+--3)DELETE
+DELETE FROM FACTURA
+WHERE id_factura = 10;
+
+
+
+
+
+
+
+
+--ex11.trigger LMD la nivel de linie
+INSERT INTO CODURI_EROARE (cod_eroare, descriere, entitate_afectata)
+SELECT -20011, 'Eroare la actualizarea stocului in triggerul de gestiune a facturilor.', 'STOC/FACTURA'
+FROM dual
+WHERE NOT EXISTS (
+  SELECT 1 FROM CODURI_EROARE WHERE cod_eroare = -20011
+);
+
+
+INSERT INTO CODURI_EROARE (cod_eroare, descriere, entitate_afectata)
+SELECT -20012, 'Factura pentru comanda de farmacie (furnizor) nu poate fi stearsa (operatie interzisa).', 'FACTURA/COMANDA_FARMACIE'
+FROM dual
+WHERE NOT EXISTS (
+  SELECT 1 FROM CODURI_EROARE WHERE cod_eroare = -20012
+);
+
+
+INSERT INTO CODURI_EROARE (cod_eroare, descriere, entitate_afectata)
+SELECT -20013, 'Comanda de farmacie nu contine medicamente (INCLUDE).', 'COMANDA_FARMACIE/INCLUDE'
+FROM dual
+WHERE NOT EXISTS (
+  SELECT 1 FROM CODURI_EROARE WHERE cod_eroare = -20013
+);
+
+
+COMMIT;
+
+
+
+
+CREATE OR REPLACE TRIGGER trg_ex11_actualizare_stoc
+FOR INSERT OR DELETE ON FACTURA
+
+
+--pentru a evita muttating table
+COMPOUND TRIGGER
+    --variabila globala
+    v_incasari NUMBER(12,2) := 0;
+    
+    AFTER EACH ROW IS
+    --variabile locale
+        v_nr_produse_comanda NUMBER;
+        v_probleme NUMBER;
+        v_user VARCHAR2(30);
+        v_msg VARCHAR2(300);
+        v_id_comanda COMANDA.id_comanda%TYPE;
+        v_tip VARCHAR2(20);
+        
+    BEGIN
+         v_user := SYS_CONTEXT('USERENV','SESSION_USER');
+         
+         v_id_comanda := CASE
+                            WHEN INSERTING THEN :NEW.id_comanda
+                            WHEN DELETING THEN :OLD.id_comanda
+                         END;
+                         
+         SELECT CASE
+         WHEN EXISTS(
+            SELECT 1
+            FROM COMANDA_CLIENT cc
+            WHERE cc.id_comanda = v_id_comanda)
+            THEN 'CLIENT'
+         WHEN EXISTS(
+            SELECT 1
+            FROM COMANDA_FARMACIE cf
+            WHERE cf.id_comanda = v_id_comanda)
+            THEN 'FARMACIE'    
+         ELSE 'NECUNOSCUT'
+         END
+         INTO v_tip
+         FROM DUAL;
+         
+         IF v_tip = 'NECUNOSCUT' THEN
+            v_msg := 'Factura are id_comanda invalid (nu exista in COMANDA_CLIENT/COMANDA_FARMACIE): '
+                     || v_id_comanda || '. User=' || v_user;
+            insereaza_eroare(-20010, v_msg);
+            RAISE_APPLICATION_ERROR(-20010, v_msg);
+         END IF;
+        
+        --COMANDA CLIENT
+         IF v_tip = 'CLIENT' THEN
+         
+             IF INSERTING THEN
+                --comanda are produse
+                SELECT COUNT(*)
+                INTO v_nr_produse_comanda 
+                FROM ARE
+                WHERE id_comanda = :NEW.id_comanda;
+             
+                IF v_nr_produse_comanda = 0 THEN
+                    v_msg := 'Factura nu poate fi emisa: comanda ' || :NEW.id_comanda ||
+                        ' nu contine produse (ARE). User=' || v_user;
+                    insereaza_eroare(-20006, v_msg);
+                    RAISE_APPLICATION_ERROR(-20006, v_msg);
+                END IF;
+                
+                --verificare stoc
+                SELECT COUNT(*)
+                INTO v_probleme
+                FROM ARE a 
+                JOIN STOC s ON s.id_stoc = a.id_stoc
+                WHERE a.id_comanda = :NEW.id_comanda 
+                    AND a.cantitate > s.nr_bucati_ramase;
+                    
+                IF v_probleme > 0 THEN
+                    v_msg := 'Stoc insuficient la emiterea facturii pentru comanda ' ||
+                        :NEW.id_comanda || '. User=' || v_user;
+                    insereaza_eroare(-20005, v_msg);
+                    RAISE_APPLICATION_ERROR(-20005, v_msg);
+                END IF;    
+                    
+                --scadere stoc
+                UPDATE STOC s
+                SET s.nr_bucati_ramase = s.nr_bucati_ramase - (
+                    SELECT SUM(a.cantitate)
+                    FROM ARE a
+                    WHERE a.id_comanda = :NEW.id_comanda
+                        AND a.id_stoc = s.id_stoc
+                )
+                --actualizeza doar stocurile care exista in comanda facturata
+                WHERE EXISTS(
+                    SELECT 1
+                    FROM ARE a
+                    WHERE a.id_comanda = :NEW.id_comanda
+                        AND a.id_stoc = s.id_stoc
+                );
+                
+                v_incasari := v_incasari + :NEW.suma;
+            
+             
+            ELSIF DELETING THEN
+                UPDATE STOC s
+                SET s.nr_bucati_ramase = s.nr_bucati_ramase + (
+                    SELECT SUM(a.cantitate)
+                    FROM ARE a
+                    WHERE a.id_comanda = :OLD.id_comanda
+                        AND a.id_stoc = s.id_stoc
+                )
+                WHERE EXISTS(
+                    SELECT 1
+                    FROM ARE a
+                    WHERE a.id_comanda = :OLD.id_comanda
+                        AND a.id_stoc = s.id_stoc
+                );
+                
+                v_incasari := v_incasari - :OLD.suma;
+        
+            END IF;
+     
+     --COMANDA FARMACIE       
+     ELSIF v_tip = 'FARMACIE' THEN
+     
+           IF DELETING THEN
+                v_msg := 'Factura pentru comanda de farmacie (furnizor) nu poate fi stearsa. id_comanda='
+                         || :OLD.id_comanda || '. User=' || v_user;
+                insereaza_eroare(-20012, v_msg);
+                RAISE_APPLICATION_ERROR(-20012, v_msg);
+           END IF;
+           
+           SELECT COUNT(*)
+           INTO v_nr_produse_comanda
+           FROM INCLUDE 
+           WHERE id_comanda = :NEW.id_comanda;
+           
+           IF v_nr_produse_comanda = 0 THEN
+                v_msg := 'Factura furnizor nu poate fi emisa: comanda '
+                         || :NEW.id_comanda || ' nu contine medicamente (INCLUDE). User=' || v_user;
+                insereaza_eroare(-20013, v_msg);
+                RAISE_APPLICATION_ERROR(-20013, v_msg);
+            END IF;
+     
+            INSERT INTO STOC(
+                id_stoc,
+                data_aprovizionare,
+                data_expirare,
+                nr_bucati_primite,
+                nr_bucati_ramase,
+                pret_achizitie,
+                pret_vanzare_curent,
+                id_medicament
+            )
+            SELECT 
+                seq_stoc.NEXTVAL,
+                :NEW.data_emitere,
+                ADD_MONTHS(:NEW.data_emitere, 12),
+                i.cantitate,
+                i.cantitate,
+                v.pret_furnizor,
+                ROUND(v.pret_furnizor * 1.30, 2),
+                i.id_medicament
+            FROM INCLUDE i
+            JOIN COMANDA_FARMACIE cf ON cf.id_comanda = i.id_comanda
+            JOIN VINDE v ON v.id_furnizor = cf.id_furnizor AND v.id_medicament = i.id_medicament
+            WHERE i.id_comanda = :NEW.id_comanda;     
+     END IF;
+        
+     EXCEPTION
+        WHEN OTHERS THEN
+            v_msg := 'Eroare in trigger EX11 (actualizare stoc). ' || SQLERRM;
+            insereaza_eroare(-20011, v_msg);
+            RAISE;   
+    END AFTER EACH ROW;
+    
+    AFTER STATEMENT IS
+        BEGIN
+            DBMS_OUTPUT.PUT_LINE('Delta incasari pentru statementul curent pe FACTURA = ' ||
+                                NVL(v_incasari, 0) || ' RON'
+                                );
+  END AFTER STATEMENT;
+
+
+END;
+/
+   
+   
+ALTER TRIGGER trg_ex10_factura_program DISABLE;    
+
+
+--rezolvare bd
+ALTER TRIGGER ex11_actualizare_stoc DISABLE;
+
+
+
+
+--comanda client
+MERGE INTO STOC s
+USING (
+  SELECT a.id_stoc, SUM(a.cantitate) cant_facturata
+  FROM FACTURA f
+  JOIN COMANDA_CLIENT cc ON cc.id_comanda = f.id_comanda
+  JOIN ARE a ON a.id_comanda = f.id_comanda
+  GROUP BY a.id_stoc
+) c
+ON (c.id_stoc = s.id_stoc)
+WHEN MATCHED THEN
+  UPDATE SET s.nr_bucati_ramase =
+    GREATEST(0, s.nr_bucati_primite - c.cant_facturata);
+
+
+COMMIT;
+
+
+
+
+
+
+
+
+--APEL      
+ALTER TRIGGER trg_ex11_actualizare_stoc ENABLE;
+
+
+--1)insert
+--comanda noua
+INSERT INTO COMANDA (data_comanda, id_personal_medical)
+VALUES (SYSDATE, 3);
+COMMIT;
+
+
+--comanda client noua
+INSERT INTO COMANDA_CLIENT (id_comanda, metoda_plata, id_client)
+VALUES (44, 'card', 1);
+COMMIT;
+
+
+INSERT INTO ARE (id_comanda, id_stoc, cantitate, pret_vanzare_final)
+VALUES (44, 1, 15, 25);
+COMMIT;
+
+
+
+
+--STOC INITIAL
+SELECT id_stoc, nr_bucati_primite, nr_bucati_ramase
+FROM STOC
+WHERE id_stoc = 1;
+
+
+--inserare factura
+INSERT INTO FACTURA (id_comanda, data_emitere, suma)
+VALUES (44, SYSDATE, 100);
+
+
+COMMIT;
+
+
+--stoc dupa
+SELECT id_stoc, nr_bucati_primite, nr_bucati_ramase
+FROM STOC
+WHERE id_stoc = 1;
+
+
+
+
+--2)delete
+--stoc initial
+SELECT id_stoc, nr_bucati_primite, nr_bucati_ramase
+FROM STOC
+WHERE id_stoc = 1;
+
+
+--stergere
+DELETE FROM FACTURA
+WHERE id_comanda = 44;
+
+
+COMMIT;
+
+
+--stoc final
+SELECT id_stoc, nr_bucati_primite, nr_bucati_ramase
+FROM STOC
+WHERE id_stoc = 1;
+
+
+--3)stoc insuficient
+SELECT a.id_stoc, a.cantitate, s.nr_bucati_primite, s.nr_bucati_ramase
+FROM ARE a
+JOIN STOC s ON s.id_stoc = a.id_stoc
+WHERE a.id_comanda = 22;
+
+
+
+
+INSERT INTO FACTURA (id_comanda, data_emitere, suma)
+VALUES (22, SYSDATE, 150);
+
+
+COMMIT;
+
+
+
+
+--4)INSERT FARMACIE
+--COMANDA NOUA
+INSERT INTO COMANDA (data_comanda, id_personal_medical)
+VALUES (SYSDATE, 4);
+COMMIT;
+
+
+INSERT INTO COMANDA_FARMACIE (id_comanda, termen_livrare, id_furnizor)
+VALUES (46, SYSDATE + 3, 5);
+COMMIT;
+
+
+INSERT INTO VINDE (id_furnizor, id_medicament, pret_furnizor)
+SELECT 5, 1, 25
+FROM dual
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM VINDE v
+  WHERE v.id_furnizor = 5
+    AND v.id_medicament = 1
+);
+COMMIT;
+
+
+
+
+INSERT INTO INCLUDE (id_comanda, id_medicament, cantitate)
+VALUES (46, 1, 7);
+COMMIT;
+
+
+--stoc initial
+SELECT id_stoc, nr_bucati_primite, nr_bucati_ramase
+FROM STOC;
+
+
+
+
+
+
+INSERT INTO FACTURA (id_comanda, data_emitere, suma)
+VALUES (46, SYSDATE, 200);
+COMMIT;
+
+
+
+
+--stoc final
+SELECT id_stoc, id_medicament, data_aprovizionare, data_expirare,
+       nr_bucati_primite, nr_bucati_ramase
+FROM STOC
+WHERE data_aprovizionare >= TRUNC(SYSDATE)
+ORDER BY id_stoc DESC;
+
+
+
+
+--5)DELETE FARMACIE
+DELETE FROM FACTURA
+WHERE id_factura = (
+  SELECT MAX(id_factura)
+  FROM FACTURA
+  WHERE id_comanda = 46
+);
+
+
+
+
+
+
+--ex12.trigger LDD 
+INSERT INTO CODURI_EROARE (cod_eroare, descriere, entitate_afectata)
+SELECT -20014, 'DROP interzis pe tabele critice (protectie schema farmacie).', 'LDD / AUDIT_OPERATII_LDD'
+FROM dual
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM CODURI_EROARE
+    WHERE cod_eroare = -20014
+);
+
+
+COMMIT;
+
+
+
+
+CREATE OR REPLACE TRIGGER trg_ex12_audit_ldd
+BEFORE DDL ON SCHEMA
+DECLARE
+    PRAGMA AUTONOMOUS_TRANSACTION; 
+   
+    v_sql CLOB := EMPTY_CLOB(); --textul comenzii SQL care a decalnsat triggerul
+    v_vector ORA_NAME_LIST_T; --bucati din SQL
+    v_n PLS_INTEGER; --cate bucati mi-a dat din SQL
+    
+    v_tip_operatie VARCHAR2(30) := ORA_SYSEVENT;
+    v_tip_obiect VARCHAR2(30) := ORA_DICT_OBJ_TYPE;
+    v_nume_obiect VARCHAR2(100) := ORA_DICT_OBJ_NAME;
+    v_utilizator VARCHAR2(30) := SYS_CONTEXT('USERENV','SESSION_USER');
+    
+    FUNCTION este_tabel_critic(p_nume VARCHAR2) 
+    RETURN BOOLEAN 
+    IS
+    BEGIN
+        RETURN UPPER(p_nume) IN ('STOC','FACTURA','COMANDA','ARE','MEDICAMENT','CLIENT','FURNIZOR');
+    END;
+  
+BEGIN
+    --SQL-ul care a declansat trigger-ul
+    v_n := ORA_SQL_TXT(v_vector);
+    
+    IF v_n > 0 THEN
+        FOR i IN 1..v_n LOOP 
+            v_sql := v_sql || v_vector(i); 
+        END LOOP;
+    ELSE v_sql := 'SQL indisponibil (ORA_SQL_TXT=0).'; 
+    END IF;
+    
+    
+    INSERT INTO AUDIT_OPERATII_LDD(tip_operatie, tip_obiect, nume_obiect, utilizator, data_ora, sql_text) 
+    VALUES (v_tip_operatie, v_tip_obiect, v_nume_obiect, v_utilizator, SYSTIMESTAMP, v_sql);
+
+
+    COMMIT;
+    
+    --DROP intrezis pe table critice
+    IF v_tip_operatie = 'DROP' AND v_tip_obiect = 'TABLE' AND este_tabel_critic(v_nume_obiect) THEN
+        RAISE_APPLICATION_ERROR(-20014, 'DROP interzis pe tabel critic: ' || v_nume_obiect);
+    END IF;
+
+
+EXCEPTION
+     WHEN OTHERS THEN
+        IF SQLCODE = -20014 THEN
+            RAISE;
+        END IF;
+
+
+        ROLLBACK;
+END;
+/
+
+
+--APEL
+--1)creare tabel nou
+CREATE TABLE TEST_LDD (
+  id_test NUMBER PRIMARY KEY
+);
+
+
+SELECT id_audit_ldd, tip_operatie, tip_obiect, nume_obiect, utilizator, data_ora
+FROM audit_operatii_ldd;
+
+
+--2)alter
+ALTER TABLE TEST_LDD ADD descriere VARCHAR2(30);
+
+
+SELECT id_audit_ldd, tip_operatie, tip_obiect, nume_obiect, data_ora
+FROM audit_operatii_ldd;
+
+
+--3)delete
+DROP TABLE TEST_LDD;
+
+
+SELECT id_audit_ldd, tip_operatie, tip_obiect, nume_obiect, data_ora
+FROM audit_operatii_ldd;
+
+
+--4)drop tabel critic
+DROP TABLE STOC;
+
+
+
+
+
+
+
+
+
+
+--ex13.pachet
+INSERT INTO CODURI_EROARE (cod_eroare, descriere, entitate_afectata)
+SELECT -20015,
+       'Prag de reaprovizionare invalid (trebuie >= 0).',
+       'PRAG_REAPROVIZIONARE'
+FROM dual
+WHERE NOT EXISTS (
+  SELECT 1 FROM CODURI_EROARE WHERE cod_eroare = -20015
+);
+
+
+COMMIT;
+
+
+
+
+--OBJECT(o recomandare de aprovizionare)
+CREATE OR REPLACE TYPE rec_reaprov_t AS OBJECT (
+  id_medicament         NUMBER,
+  denumire_medicament   VARCHAR2(200),
+  stoc_total            NUMBER,
+  prag_minim            NUMBER,
+  zile_pana_la_exp_min  NUMBER,
+  consum_ultimele_zile  NUMBER,
+  cantitate_recomandata NUMBER
+);
+/
+
+
+--NESTED TABLE
+CREATE OR REPLACE TYPE tab_reaprov_t AS TABLE OF rec_reaprov_t;
+/
+
+
+
+
+--tabele
+CREATE SEQUENCE seq_raport_reaprov START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE seq_log_prag_reaprov START WITH 1 INCREMENT BY 1;
+
+
+--prag minim configurabil per medicament
+CREATE TABLE PRAG_REAPROVIZIONARE (
+  id_medicament NUMBER PRIMARY KEY,
+  prag_minim    NUMBER NOT NULL CHECK (prag_minim >= 0),
+  data_setare   DATE DEFAULT SYSDATE NOT NULL,
+  CONSTRAINT fk_prag_med FOREIGN KEY (id_medicament) REFERENCES MEDICAMENT(id_medicament)
+);
+/
+
+
+--raport (nested table in coloana)
+CREATE TABLE RAPORT_REAPROVIZIONARE (
+  id_raport   INT DEFAULT seq_raport_reaprov.NEXTVAL PRIMARY KEY,
+  data_raport TIMESTAMP DEFAULT SYSTIMESTAMP NOT NULL,
+  criterii    VARCHAR2(500),
+  recomandari tab_reaprov_t
+)
+NESTED TABLE recomandari STORE AS nt_raport_reaprov; --tabel separat care va stoca elementele colectiei
+/
+
+
+--istoric modificari prag 
+CREATE TABLE ISTORIC_PRAG_REAPROV (
+  id_log       INT DEFAULT seq_log_prag_reaprov.NEXTVAL PRIMARY KEY,
+  id_medicament NUMBER NOT NULL,
+  prag_vechi    NUMBER,
+  prag_nou      NUMBER,
+  data_log      TIMESTAMP DEFAULT SYSTIMESTAMP NOT NULL,
+  CONSTRAINT fk_istoric_prag_med FOREIGN KEY (id_medicament) REFERENCES MEDICAMENT(id_medicament)
+);
+/
+
+
+
+
+--SPECIFICATIA PACHETULUI
+CREATE OR REPLACE PACKAGE pachet_ex13_reaprov AS
+    TYPE rc_dyn IS REF CURSOR;
+    
+    --functii
+    FUNCTION consum_medicament_ultimele_zile(
+        p_id_medicament IN MEDICAMENT.id_medicament%TYPE,
+        p_zile IN NUMBER DEFAULT 30
+    )RETURN NUMBER;
+        
+     FUNCTION selecteaza_medicamente_critice(
+        p_prag_default IN NUMBER DEFAULT 10,
+        p_zile_expirare_max IN NUMBER DEFAULT 30,
+        p_incl_expirate IN CHAR DEFAULT 'N',
+        p_zile_consum IN NUMBER DEFAULT 30
+     )RETURN tab_reaprov_t;
+        
+    
+    --proceduri
+    PROCEDURE genereaza_raport_reaprov(
+        p_prag_default IN NUMBER DEFAULT 10,
+        p_zile_expirare_max IN NUMBER DEFAULT 30,
+        p_incl_expirate IN CHAR DEFAULT 'N',
+        p_zile_consum IN NUMBER DEFAULT 30
+     );
+     
+    PROCEDURE seteaza_prag_medicament(
+        p_id_medicament IN NUMBER,
+        p_prag_nou IN NUMBER
+      );
+
+
+    PROCEDURE afiseaza_raport(p_id_raport IN NUMBER);
+  
+END pachet_ex13_reaprov;
+/
+
+
+
+
+
+
+
+
+--CORPUL PACHETULUI
+CREATE OR REPLACE PACKAGE BODY pachet_ex13_reaprov AS
+
+
+    --functii
+    FUNCTION consum_medicament_ultimele_zile(
+        p_id_medicament IN MEDICAMENT.id_medicament%TYPE,
+        p_zile IN NUMBER DEFAULT 30
+    )RETURN NUMBER
+    IS
+    v_consum NUMBER;
+    BEGIN
+        SELECT NVL(SUM(a.cantitate), 0)
+        INTO v_consum
+        FROM ARE a
+        JOIN COMANDA c ON c.id_comanda = a.id_comanda
+        JOIN COMANDA_CLIENT cc ON cc.id_comanda = c.id_comanda
+        JOIN STOC s ON s.id_stoc = a.id_stoc
+        WHERE s.id_medicament = p_id_medicament 
+            AND c.data_comanda >= TRUNC(SYSDATE) - NVL(p_zile, 30);
+            
+        RETURN v_consum;    
+    END consum_medicament_ultimele_zile;
+    
+    
+    
+    FUNCTION selecteaza_medicamente_critice(
+        p_prag_default IN NUMBER DEFAULT 10,
+        p_zile_expirare_max IN NUMBER DEFAULT 30,
+        p_incl_expirate IN CHAR DEFAULT 'N',
+        p_zile_consum IN NUMBER DEFAULT 30
+     )RETURN tab_reaprov_t
+     IS
+        v_sql VARCHAR2(4000);  --comanda SQL
+        v_rc rc_dyn; --cursorul dinamic care va executa comanda din v_sql
+
+
+        v_id NUMBER;
+        v_den VARCHAR2(200);
+        v_stoc NUMBER;
+        v_prag NUMBER;
+        v_zile_min NUMBER;
+    
+        v_out tab_reaprov_t := tab_reaprov_t();
+        v_cons NUMBER; --consumul recent
+        v_recom NUMBER; --cantitattea recomandata pentru reaprovizionare
+     
+     BEGIN   
+        --SQL dinamic
+         v_sql :=
+              'SELECT m.id_medicament, m.denumire, '||
+              '       NVL(SUM(s.nr_bucati_ramase),0) stoc_total, '||
+              '       NVL(pr.prag_minim, :b_prag_default) prag_minim, '||
+              '       MIN(TRUNC(s.data_expirare) - TRUNC(SYSDATE)) zile_pana_exp_min '||
+              'FROM MEDICAMENT m '||
+              'JOIN STOC s ON s.id_medicament = m.id_medicament '||
+              'LEFT JOIN PRAG_REAPROVIZIONARE pr ON pr.id_medicament = m.id_medicament ';
+     
+         --include sau nu medicamentele expirate
+         IF UPPER(p_incl_expirate) = 'N' THEN
+            v_sql := v_sql || 'WHERE s.data_expirare >= TRUNC(SYSDATE) ';
+         ELSE
+            v_sql := v_sql || 'WHERE 1=1 ';
+         END IF;
+         
+         v_sql := v_sql ||
+              'GROUP BY m.id_medicament, m.denumire, NVL(pr.prag_minim, :b_prag_default) '||
+              'HAVING (NVL(SUM(s.nr_bucati_ramase),0) <= NVL(pr.prag_minim, :b_prag_default)) '||
+              '   OR (MIN(TRUNC(s.data_expirare) - TRUNC(SYSDATE)) <= :b_zile_exp) '||
+              'ORDER BY zile_pana_exp_min ASC, stoc_total ASC';
+              
+         --cursorul dinamic
+         OPEN v_rc FOR v_sql
+            USING p_prag_default, p_prag_default, p_prag_default, p_zile_expirare_max;
+         
+         LOOP 
+            FETCH v_rc INTO v_id, v_den, v_stoc, v_prag, v_zile_min;
+            EXIT WHEN v_rc%NOTFOUND;
+            
+            v_cons := consum_medicament_ultimele_zile(v_id, p_zile_consum);
+    
+            -- Recomandare: completam pana la prag + jumatate din consumul recent
+            v_recom := GREATEST(0, (v_prag - v_stoc) + CEIL(v_cons/2));
+         
+            v_out.EXTEND;
+            --construiesc obiectul si il adaug in nested_table
+            v_out(v_out.LAST) := rec_reaprov_t(
+                v_id, v_den, v_stoc, v_prag, v_zile_min, v_cons, v_recom
+            );
+            
+        END LOOP;
+        
+        CLOSE v_rc;
+        RETURN v_out;
+         
+    END selecteaza_medicamente_critice;
+    
+
+
+    --proceduri
+    PROCEDURE genereaza_raport_reaprov(
+        p_prag_default IN NUMBER DEFAULT 10,
+        p_zile_expirare_max IN NUMBER DEFAULT 30,
+        p_incl_expirate IN CHAR DEFAULT 'N',
+        p_zile_consum IN NUMBER DEFAULT 30
+    )
+    IS
+        v_list tab_reaprov_t; --lista de recomandari
+        v_criterii VARCHAR2(500);
+    
+    BEGIN
+        v_list := selecteaza_medicamente_critice(
+            p_prag_default, p_zile_expirare_max, p_incl_expirate, p_zile_consum
+        );
+        
+        v_criterii :=
+          'prag_default='||p_prag_default||
+          ', zile_expirare_max='||p_zile_expirare_max||
+          ', incl_expirate='||p_incl_expirate||
+          ', zile_consum='||p_zile_consum;
+          
+        INSERT INTO RAPORT_REAPROVIZIONARE(criterii, recomandari)
+        VALUES (v_criterii, v_list);
+
+
+        COMMIT;
+        
+    EXCEPTION
+      WHEN OTHERS THEN
+        insereaza_eroare(SQLCODE, 'EX13 genereaza_raport_reaprov: '||SQLERRM);
+        RAISE;
+
+
+    END genereaza_raport_reaprov;
+    
+    
+    
+    
+    PROCEDURE seteaza_prag_medicament(
+        p_id_medicament IN NUMBER,
+        p_prag_nou IN NUMBER
+    )
+    IS
+        v_old NUMBER;
+        v_msg VARCHAR2(500);
+    BEGIN
+        IF p_prag_nou < 0 THEN
+            v_msg := 'Prag de reaprovizionare invalid (trebuie >= 0). id_medicament='||
+                   p_id_medicament||', prag='||p_prag_nou||
+                   '. User='||SYS_CONTEXT('USERENV','SESSION_USER');
+      insereaza_eroare(-20015, v_msg);
+      RAISE_APPLICATION_ERROR(-20015, v_msg);
+    END IF;
+    
+    --daca nu exista prag vechi eroare este prinsa aici
+    BEGIN
+        SELECT prag_minim
+        INTO v_old
+        FROM PRAG_REAPROVIZIONARE
+        WHERE id_medicament = p_id_medicament;
+        
+     EXCEPTION
+        WHEN NO_DATA_FOUND THEN v_old := NULL;
+     END;
+     
+    INSERT INTO ISTORIC_PRAG_REAPROV(id_medicament, prag_vechi, prag_nou)
+    VALUES (p_id_medicament, v_old, p_prag_nou);
+    
+     MERGE INTO PRAG_REAPROVIZIONARE pr
+     USING (SELECT p_id_medicament id_medicament FROM dual) src
+     ON (pr.id_medicament = src.id_medicament)
+     WHEN MATCHED THEN
+        UPDATE SET prag_minim = p_prag_nou, data_setare = SYSDATE
+     WHEN NOT MATCHED THEN
+        INSERT (id_medicament, prag_minim, data_setare)
+        VALUES (p_id_medicament, p_prag_nou, SYSDATE);
+
+
+    COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN
+          insereaza_eroare(SQLCODE, 'EX13 seteaza_prag_medicament: '||SQLERRM);
+          RAISE;
+     
+    END seteaza_prag_medicament;
+
+
+
+
+    
+
+
+    PROCEDURE afiseaza_raport(p_id_raport IN NUMBER)
+    IS
+        v_crit VARCHAR2(500);
+        v_list tab_reaprov_t;
+    BEGIN
+        SELECT criterii, recomandari
+        INTO v_crit, v_list
+        FROM RAPORT_REAPROVIZIONARE
+        WHERE id_raport = p_id_raport;
+        
+        DBMS_OUTPUT.PUT_LINE('Raport #'||p_id_raport||' criterii: '||v_crit);
+
+
+         IF v_list.COUNT = 0 THEN
+            DBMS_OUTPUT.PUT_LINE('Nu exista recomandari.');
+            RETURN;
+         END IF;
+
+
+        FOR i IN 1..v_list.COUNT LOOP
+          DBMS_OUTPUT.PUT_LINE(
+            '- '||v_list(i).denumire_medicament||
+            ' [ID='||v_list(i).id_medicament||'] stoc='||v_list(i).stoc_total||
+            ', prag='||v_list(i).prag_minim||
+            ', exp_min_zile='||v_list(i).zile_pana_la_exp_min||
+            ', consum='||v_list(i).consum_ultimele_zile||
+            ', recom='||v_list(i).cantitate_recomandata
+          );
+        END LOOP;
+        
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+          DBMS_OUTPUT.PUT_LINE('Raport inexistent.');
+    
+    END afiseaza_raport;
+    
+    
+END pachet_ex13_reaprov;
+/
+
+
+
+
+
+
+--APEL
+--1)inserare prag
+BEGIN 
+    pachet_ex13_reaprov.seteaza_prag_medicament(1, 20);
+END;
+/
+
+
+SELECT *
+FROM PRAG_REAPROVIZIONARE
+WHERE id_medicament = 1;
+
+
+SELECT *
+FROM ISTORIC_PRAG_REAPROV
+WHERE id_medicament = 1
+ORDER BY data_log DESC;
+
+
+
+
+
+
+
+
+-- 2) prag invalid 
+BEGIN
+  pachet_ex13_reaprov.seteaza_prag_medicament(1, -5);
+END;
+/
+
+
+SELECT *
+FROM LOG_EROARE
+WHERE cod_eroare = -20015;
+
+
+
+
+
+
+-- 3) genereaza raport
+BEGIN
+  pachet_ex13_reaprov.genereaza_raport_reaprov(10, 30, 'N', 30);
+END;
+/
+
+
+SELECT id_raport, data_raport, criterii
+FROM RAPORT_REAPROVIZIONARE
+ORDER BY id_raport DESC;
+
+
+
+
+-- 4) afiseaza ultimul raport
+DECLARE
+  v_id NUMBER;
+BEGIN
+  SELECT MAX(id_raport) INTO v_id FROM raport_reaprovizionare;
+  pachet_ex13_reaprov.afiseaza_raport(v_id);
+END;
+/
