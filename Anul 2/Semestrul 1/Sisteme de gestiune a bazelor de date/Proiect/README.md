@@ -1,6 +1,3 @@
-> English version available: [README.en.md](README.en.md)
-
-
 # 🐾 Farmacie Veterinară – Sistem de Gestiune a Bazelor de Date (Oracle)
 
 Baza de date modelează fidel activitatea reală a unei farmacii veterinare, integrând:
