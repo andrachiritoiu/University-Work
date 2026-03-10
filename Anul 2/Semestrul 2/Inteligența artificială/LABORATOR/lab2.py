@@ -35,15 +35,17 @@ class Nod:
         else:
             return True
 
-    # def __str__(self):
-    #     return f"Stare curenta: " + "\n" + {self.info[0]} + "misionari, " + {self.info[1]} + "canibali | " + {
-    #         self.n - self.info[0]} + "misionari, " + {self.n - self.info[1]} + "canibali"
-    #
-    # def __repr__(self):
-    #     return f"(" + {self.info[0]} + ", " + {self.info[1]} + ", " + {self.info[2]} + ")"
-
     def __str__(self):
-        return str(self.info)
+        m_left, c_left, b = self.info
+        m_right = self.n - m_left
+        c_right = self.n - c_left
+    
+        return (
+            "Stare curentă:\n"
+            f"{m_left} misionari, {c_left} canibali  |  "
+            f"{m_right} misionari, {c_right} canibali\n"
+            f"Barca se află pe malul {self._mal_text(b)}"
+        )
 
     def __repr__(self):
         return str(self.info)
@@ -268,4 +270,5 @@ if __name__ == "__main__":
     graf = Graf(start, scopuri, N, M)
 
     ruleaza_si_scrie(graf, NSOL)
+
 
