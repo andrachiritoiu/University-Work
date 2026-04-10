@@ -1,0 +1,13 @@
+CIM: Test1 User1, venit net anual: 36300.00 lei
+PFA: Test2 User2, venit net anual: 68040.00 lei
+SRL: Test3 User3, venit net anual: 100800.00 lei
+
+Colaborator cu venit net maxim: SRL: Test3 User3, venit net anual: 100800.00 lei
+
+Colaboratori persoane juridice:
+SRL: Test3 User3, venit net anual: 100800.00 lei
+
+Sume și număr colaboratori pe tip:
+CIM: suma = 36300.00 lei, număr = 1
+PFA: suma = 68040.00 lei, număr = 1
+SRL: suma = 100800.00 lei, număr = 1
