@@ -1,0 +1,5 @@
+Initial order state: PLACED
+Order state updated to: PROCESSED
+Order has been canceled.
+Order state reverted to: PROCESSED
+User quit the program.

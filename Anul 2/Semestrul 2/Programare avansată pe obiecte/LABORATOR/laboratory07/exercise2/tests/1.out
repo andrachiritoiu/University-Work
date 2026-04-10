@@ -1,0 +1,11 @@
+STANDARD: Laptop, pret: 2500.00 lei [PLACED]
+DISCOUNTED: Headphones, pret: 160.00 lei (-20%) [PLACED]
+GIFT: Sticker, gratuit [PLACED]
+STANDARD: Mouse, pret: 80.00 lei [PLACED]
+
+Statistici:
+STANDARD: suma = 2580.00 lei, numar = 2
+DISCOUNTED: suma = 160.00 lei, numar = 1
+GIFT: suma = 0.00 lei, numar = 1
+Total platit: 2740.00 lei
+

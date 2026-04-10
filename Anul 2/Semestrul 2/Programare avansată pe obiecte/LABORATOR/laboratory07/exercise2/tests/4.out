@@ -1,0 +1,13 @@
+STANDARD: Tablet, pret: 800.00 lei [PLACED]
+DISCOUNTED: Keyboard, pret: 135.00 lei (-10%) [PLACED]
+GIFT: Sticker, gratuit [PLACED]
+DISCOUNTED: Monitor, pret: 450.00 lei (-25%) [PLACED]
+STANDARD: Cable, pret: 30.00 lei [PLACED]
+GIFT: Coupon, gratuit [PLACED]
+
+Statistici:
+STANDARD: suma = 830.00 lei, numar = 2
+DISCOUNTED: suma = 585.00 lei, numar = 2
+GIFT: suma = 0.00 lei, numar = 2
+Total platit: 1415.00 lei
+

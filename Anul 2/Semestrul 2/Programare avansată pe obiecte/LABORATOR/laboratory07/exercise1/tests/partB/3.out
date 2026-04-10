@@ -1,0 +1,4 @@
+Initial order state: DELIVERED
+Order is already in a final state.
+Cannot cancel a final state order.
+User quit the program.
