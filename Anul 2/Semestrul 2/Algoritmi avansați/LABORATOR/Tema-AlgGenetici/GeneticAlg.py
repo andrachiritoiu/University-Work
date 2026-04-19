@@ -224,9 +224,10 @@ def main():
                 populatie_dupa_mutatie = mutatie(populatie_dupa_crossover, pm)
                 populatie = populatie_dupa_mutatie
 
-        g.write("\nEvolutia maximului \n")
-        for val in max_hist:
-            g.write(f"{val}\n")
+         g.write("Evolutia fitness-ului\n")
+        for i in range(nr_gen):
+            g.write(f"Max Fitness = {max_hist[i]}\n")
+            g.write(f"Mean Fitness = {mean_hist[i]}\n")
 
         generatii = list(range(1, nr_gen + 1))
 
