@@ -1,0 +1,7 @@
+Ana,19,București,Calea Victoriei
+Mihai,22,Cluj,Strada Mărășești
+Elena,20,Iași,Bulevardul Independenței
+Ion,17,Timișoara,Strada Florilor
+Maria,23,Brașov,Strada Republicii
+Andrei,21,Constanța,Bulevardul Mamaia
+
