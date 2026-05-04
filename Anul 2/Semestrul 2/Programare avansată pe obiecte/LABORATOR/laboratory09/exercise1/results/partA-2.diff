@@ -1,0 +1,5 @@
+--- expected
++++ actual
+@@ -1,1 +1,1 @@
+-[5] 2024-03-10 CREDIT: 3000.00 RON | RO01SRC1 -> RO04DST4
++Tranzactie{id=5, suma=3000.0, data='2024-03-10', contSursa='RO01SRC1', contDestinatie='RO04DST4', tip=CREDIT, note='null'}

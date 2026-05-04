@@ -1,0 +1,5 @@
+Updated [0]: PROCESSED
+[0] id=1 data=2024-01-15 tip=CREDIT suma=1500.00 RON status=PROCESSED
+Updated [1]: REJECTED
+[0] id=1 data=2024-01-15 tip=CREDIT suma=1500.00 RON status=PROCESSED
+[1] id=2 data=2024-01-22 tip=DEBIT suma=750.50 RON status=REJECTED

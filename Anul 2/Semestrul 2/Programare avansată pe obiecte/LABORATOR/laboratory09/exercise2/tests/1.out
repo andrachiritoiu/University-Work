@@ -1,0 +1,3 @@
+[0] id=1 data=2024-01-15 tip=CREDIT suma=1500.00 RON status=PENDING
+[1] id=2 data=2024-01-22 tip=DEBIT suma=750.50 RON status=PENDING
+[2] id=3 data=2024-02-05 tip=CREDIT suma=200.00 RON status=PENDING
