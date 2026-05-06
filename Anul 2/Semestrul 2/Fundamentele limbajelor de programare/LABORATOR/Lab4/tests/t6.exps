@@ -1,0 +1,1 @@
+f(f(g(X),h(Y)),h(Z)), f(f(U,h(h(X))),h(Y)), f(V,W)

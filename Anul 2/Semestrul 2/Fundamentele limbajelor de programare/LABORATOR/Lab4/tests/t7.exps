@@ -1,0 +1,1 @@
+p(X, X,Z), p(f(a,a), Y,Y), p(f(X,a), b,Z)
