@@ -1,0 +1,2 @@
+CHECK 1 => ALLOW score=25
+CHECK 2 => FLAG score=60

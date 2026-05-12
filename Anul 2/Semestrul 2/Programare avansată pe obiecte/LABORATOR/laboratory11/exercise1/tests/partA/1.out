@@ -1,0 +1,3 @@
+CHECK 1 => ALLOW score=55
+CHECK 3 => FLAG score=105
+CHECK 99 => NOT_FOUND

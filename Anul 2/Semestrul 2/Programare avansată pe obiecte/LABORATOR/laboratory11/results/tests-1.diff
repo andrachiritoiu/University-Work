@@ -1,0 +1,5 @@
+--- expected
++++ actual
+@@ -1,1 +1,1 @@
+-MONTH 2026-05 total=550.00 count=3
++
