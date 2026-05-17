@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+body {
+  background-color: #0f0a05;
+  color: #e5d8b3;
+}
+
+@keyframes flash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.flash-animation {
+  animation: flash 1s ease-in-out infinite;
+}
+
+.door-open-animation {
+  transition: transform 3s ease-in-out, opacity 3s ease-in-out;
+  transform: perspective(1200px) rotateY(-80deg);
+  transform-origin: left;
+}
+
+@keyframes pulseGold {
+  0% { box-shadow: 0 0 5px #ffd700, inset 0 0 5px #ffd700; border-color: #DAA520; }
+  50% { box-shadow: 0 0 15px #ffd700, inset 0 0 15px #ffd700; border-color: #FFDF00; }
+  100% { box-shadow: 0 0 5px #ffd700, inset 0 0 5px #ffd700; border-color: #DAA520; }
+}
+
+.gold-highlight {
+  animation: pulseGold 2s infinite;
+  border-width: 3px !important;
+}

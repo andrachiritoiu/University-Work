@@ -1,0 +1,32 @@
+@keyframes float-mote {
+  0% { transform: translate(0, 0) scale(1); opacity: 0; }
+  50% { transform: translate(20px, -40px) scale(1.2); opacity: 0.3; }
+  100% { transform: translate(-10px, -80px) scale(1.1); opacity: 0; }
+}
+
+.mote {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(1px);
+  animation: float-mote var(--duration) infinite ease-in-out;
+}
+
+@keyframes title-glow {
+  0%, 100% { text-shadow: 0 0 20px rgba(212, 175, 55, 0.4), 0 0 40px rgba(212, 175, 55, 0.1); }
+  50% { text-shadow: 0 0 30px rgba(212, 175, 55, 0.8), 0 0 50px rgba(212, 175, 55, 0.3); }
+}
+
+.cinematic-title {
+  animation: title-glow 3s infinite ease-in-out;
+}
+
+@keyframes ken-burns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+
+.ken-burns {
+  animation: ken-burns 20s infinite alternate ease-in-out;
+}
