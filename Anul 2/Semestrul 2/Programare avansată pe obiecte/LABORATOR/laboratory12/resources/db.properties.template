@@ -1,0 +1,49 @@
+# ============================================================
+#  db.properties.template  —  Laboratory 12 / Proiect Etapa II
+#
+#  Instructiuni:
+#  1. Copiaza acest fisier ca  db.properties  in acelasi folder.
+#  2. Decomenteaza EXACT O varianta (MySQL / SQLite / H2).
+#  3. Completeaza credentialele reale.
+#  4. NU comite db.properties cu parole reale in Git public.
+#     Adauga in .gitignore:  resources/db.properties
+#     Si pastreaza  db.properties.template  in repo ca exemplu.
+# ============================================================
+
+# -------------------------------------------------------
+# Varianta 1 — MySQL / MariaDB  (recomandat pentru proiect final)
+# -------------------------------------------------------
+# Creeaza baza de date inainte:
+#   CREATE DATABASE IF NOT EXISTS paoj_lab12 CHARACTER SET utf8mb4;
+# Ruleaza schema:
+#   mysql -u root -p paoj_lab12 < resources/schema-mysql.sql
+# -------------------------------------------------------
+db.url=jdbc:mysql://localhost:3306/paoj_lab12?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+db.user=root
+db.password=parola_ta
+
+
+# -------------------------------------------------------
+# Varianta 2 — SQLite  (cel mai simplu, fara server)
+# -------------------------------------------------------
+# Nu necesita nicio configurare suplimentara.
+# Fisierul lab12.db este creat automat la prima rulare.
+# Ruleaza schema cu: DatabaseConnection + SchemaInitializer.init(conn)
+# sau manual cu: sqlite3 lab12.db < resources/schema-sqlite.sql
+# -------------------------------------------------------
+# db.url=jdbc:sqlite:./lab12.db
+# db.user=
+# db.password=
+
+
+# -------------------------------------------------------
+# Varianta 3 — H2 in-memory  (test rapid, date dispar la restart)
+# -------------------------------------------------------
+# Schema trebuie rulata la fiecare pornire a aplicatiei
+#   (foloseste SchemaInitializer.init(conn) in Main).
+# H2 e compatibil MySQL => foloseste schema-mysql.sql.
+# -------------------------------------------------------
+# db.url=jdbc:h2:mem:lab12;DB_CLOSE_DELAY=-1;MODE=MySQL
+# db.user=sa
+# db.password=
+
