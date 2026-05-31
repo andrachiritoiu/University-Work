@@ -1,0 +1,8 @@
+    Am urmărit pod-urile cu "kubectl get pods -n laborator -w", apoi am scalat doar frontend-ul la 5 replici folosind comanda: "kubectl scale deployment/frontend-deployment --replicas=5 -n laborator"
+    După scalare, am observat că au apărut 5 pod-uri frontend, în timp ce API-ul a rămas la 2 pod-uri și PostgreSQL la 1 pod. Deci scalarea frontend-ului nu a modificat celelalte componente. 
+    Apoi am intrat într-un pod frontend cu "kubectl exec". Pentru că în container nu era instalat `curl`, am folosit Python ca să apelez API-ul intern: "python3 -c "import urllib.request; print(urllib.request.urlopen('http://api-service:5001/notes').read().decode())"
+Răspunsul primit a fost [], adică o listă JSON goală. Asta arată că frontend-ul poate comunica intern cu API-ul prin "api-service", chiar dacă atunci nu existau note salvate.
+
+    După aceea am scalat API-ul la 4 replici. La final, comanda "kubectl get deployments -n laborator" a arătat că aplicația avea api-deployment cu 4/4 replici, frontend-deployment cu 5/5 replici și postgres-deployment cu 1/1 replică.
+
+    Am generat trafic din browser prin adăugarea și ștergerea notelor. În interfață s-a văzut că API Status era OK și că numărul de note din baza de date se modifica. Concluzia este că fiecare componentă a aplicației se scalează independent: frontend-ul, API-ul și baza de date nu trebuie scalate împreună.
