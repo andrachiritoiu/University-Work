@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>ACOPERIRE CONVEXA</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script type="text/javascript" src="../javascript/lessons/convex-hull.js"></script>
+    <script type="text/javascript" src="../javascript/lessons/algorithm-utils.js"></script>
+    <script type="text/javascript" src="../javascript/lessons/drawing-utils.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+
+    <link id="cssTheme" rel="stylesheet" href="../css/lessons/common-style.css" />
+    <link id="cssTheme" rel="stylesheet" href="../css/lessons/acoperire-style.css" />
+    <link rel="stylesheet" href="../css/navbar-style.css" />
+</head>
+
+
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top ">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="home.html">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link " href="acoperire-convexa.html">Acoperire convexa</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="dualitate.html">Dualitate</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="triangulare-poligoane.html">Triangularea poligoanelor</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="harta-trapezoidala.html">Harta trapezoidala</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="lessonTitle" id="startLesson">
+        <h1>ACOPERIRE CONVEXA</h1>
+        <button title="Arata suport vizual" id="scrollButton"><i class="fa fa-arrow-down"></i></button>
+    </div>
+
+    <div class="infoRow">
+        <h3>Concepte si definitii</h3>
+        <p>O multime M &#8834; R <sup>m</sup> este <b>convexa</b> daca oricare ar fi p,q &#8712; M, segmentul [pq] este
+            inclus in M.</p>
+        <p>Multimile finite cu cel putin doua elemente nu sunt convexe -> este necesara <b>acoperirea convexa</b>, adica
+            cea mai "mica" (in sensul incluziunii) multime convexa care contine multimea initiala P.</p>
+    </div>
+
+    <div class="infoRow">
+        <h3>Algoritmi pentru determinarea acoperirii convexe</h3>
+        <div id="slidesIndicators">
+            <span onclick="showAlgorithmSlide(1)" class="indicator"><i class="fa fa-circle"></i></span>
+            <span onclick="showAlgorithmSlide(2)" class="indicator"><i class="fa fa-circle"></i></span>
+            <span onclick="showAlgorithmSlide(3)" class="indicator"><i class="fa fa-circle"></i></span>
+        </div>
+        <a id="previous" onclick="showPreviousAlgSlide()"><i class="fa fa-arrow-left"></i></a>
+        <a id="next" onclick="showNextAlgSlide()"><i class="fa fa-arrow-right"></i></a>
+
+        <div id="algSlidesContainer">
+            <div class="algSlides">
+                <h4><b>ALGORITMUL LENT:</b></h4>
+                <ul>
+                    <li>
+                        <p>O muchie orientata face parte din frontiera daca toate celelalte puncte sunt "in stanga" ei
+                            (conform testului de orientare).</p>
+                    </li>
+                </ul>
+                <p>Complexitate: <b>O(n<sup>3</sup>).</b></p>
+                <div class="code">
+                    <p><b>Date de intrare</b>: O multime de puncte P din R<sup>2</sup>.</p>
+                    <p><b>Rezultat:</b>: O lista L care contine varfurile ce determina frontiera acoperirii convexe,
+                        parcursa in sens trigonometric.</p>
+                    <p> <b>Pasi</b>:</p>
+                    <p>
+                        E (lista muchiilor orientate) <- &#8709;, L <- &#8709; </p>
+                            <p>
+                                <b>for</b> (M,N) &#8712; P X P cu M &#8800; N
+                            </p>
+                            <p class="doTab">
+                                <b>do</b> valid <- true </p>
+                                    <p class="doTab">
+                                        <b>for</b> O &#8712; P\{M,N}
+                                    </p>
+                                    <p class="ifTab">
+                                        <b>do</b>
+                                    </p>
+                                    <p class="commandTab">
+                                        <b>if</b> O "in dreapta" lui MN <b>then</b> valid <- false </p>
+                                            <p class="ifTab">
+                                                <b>if</b> valid = true <b>then</b> E = E &#8746; {MN}
+                                            </p>
+                                            <P>Din E se construieste lista L a varfurilor acoperirii convexe.</P>
+                </div>
+            </div>
+            <div class="algSlides">
+                <h4><b>GRAHAM'S SCAN, VARIANTA ANDREW:</b></h4>
+                <ul>
+                    <li>
+                        <p>Punctele sunt mai intai sortate si renumerotate lexicografic.</p>
+                    </li>
+                    <li>
+                        <p>Algoritmul este de tip incremental, punctele fiind adaugate unul cate unul.</p>
+                    </li>
+                    <li>
+                        <p>Trei puncte sunt varfuri consecutive ale acoperirii convexe daca se efectueaza un ”viraj la
+                            stanga” in punctul din mijloc.</p>
+                    </li>
+                </ul>
+                <p>Complexitate: <b>O(n log n).</b></p>
+                <div class="code">
+                    <p><b>Date de intrare</b>: O multime de puncte P din R<sup>2</sup>.</p>
+                    <p><b>Rezultat:</b>: O lista L care contine varfurile ce determina frontiera acoperirii convexe,
+                        parcursa in sens trigonometric.</p>
+                    <p> <b>Pasi</b>:</p>
+                    <p> Punctele sunt sortate lexicografic</p>
+                    <p> Initializeaza lista L cu P<sub>1</sub> si P<sub>2</sub></p>
+                    <p>
+                        <b>for</b> i = 3 <b>to</b> n
+                    </p>
+                    <p class="doTab">
+                        <b>do</b>
+                    </p>
+                    <p class="ifTab">
+                        adauga P<sub>i</sub> la sfarsitul listei L
+                    </p>
+                    <p class="doTab">
+                        <b>while</b> L are mai mult de doua puncte <b>and</b> ultimele trei NU determina viraj la
+                        stanga.
+                    </p>
+                    <p class="doTab">
+                        <b>do</b> sterge penultimul punct
+                    </p>
+                    <p>
+                        <b>return</b> L<sub>i</sub>
+                    </p>
+                    <p>
+                        Parcurge pasi analogi pentru a determina L<sub>s</sub>
+                    </p>
+                    <p>
+                        Concateneaza L<sub>i</sub> si L<sub>s</sub>
+                    </p>
+                </div>
+            </div>
+            <div class="algSlides">
+                <h4><b>JARVIS'S MARCH / JARVIS'S WRAP:</b></h4>
+                <ul>
+                    <li>
+                        <p>Algoritm de tip incremental, care nu necesita sortare prealabila.</p>
+                    </li>
+                    <li>
+                        <p>Initializarea consta intr-un punct care este sigur varf al acoperirii convexe (e.g. punctul
+                            cel mai de jos/din stanga/ stanga jos).</p>
+                    </li>
+                    <li>
+                        <p>Lista de actualizeaza prin determinarea succesorului: "cel mai la dreapta" punct.</p>
+                    </li>
+                </ul>
+                <p>Complexitate: <b>O(hn).</b>, unde h este numarul punctelor de pe frontiera acoperirii convexe.</p>
+                <div class="code">
+                    <p><b>Date de intrare</b>: O multime de puncte necoliniare P din R<sup>2</sup>.</p>
+                    <p><b>Rezultat:</b>: O lista L care contine varfurile ce determina frontiera acoperirii convexe,
+                        parcursa in sens trigonometric.</p>
+                    <p> <b>Pasi</b>:</p>
+                    <p> Determinarea unui punct din P care apartine frontierei (de exemplu cel mai mic folosind ordinea
+                        lexicografica); acest punct este notat cu A<sub>1</sub>.</p>
+                    <p> k <-1; L <- (A<sub>1</sub>); valid <-true </p>
+                                <p>
+                                    <b>while</b> valid = true
+                                </p>
+                                <p class="doTab">
+                                    <b>do</b> alege un pivot arbitrat S ∈ P, diferit de A<sub>k</sub>
+                                </p>
+                                <p class="doTab">
+                                    <b>for</b> i = 1 <b>to</b> n
+                                </p>
+                                <p class="ifTab">
+                                    <b>do if</b> P<sub>i</sub> este la dreapta muchiei orientate A<sub>k</sub>S
+                                    <b>then</b> S <- P<sub>i</sub>
+                                </p>
+                                <p class="doTab">
+                                    <b>if</b> S != A<sub>1</sub> <b>then</b>
+                                </p>
+
+                                <p class="commandTab">
+                                    k <- k + 1 </p>
+                                        <p class="commandTab">
+                                            A<sub>k</sub> = S
+                                        </p>
+                                        <p class="commandTab">
+                                            adauga A<sub>k</sub> la L
+                                        </p>
+                                        <p class="doTab">
+                                            <b>else</b> valid <- false</b>
+                                        </p>
+                                        <p>
+                                            <b>return</b> L
+                                        </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="visualSupportTitle" id="visualSupportSection">
+        <h3>SUPORT VIZUAL</h3>
+    </div>
+
+    <div class="instructions">
+        <p> Adaugati puncte in plan prin click pe canvas-ul de mai jos sau generati puncte aleatoare, mentionand cate puncte sa fie desenate. </p>
+        <p> Selectati algoritmul dorit pentru animatie si apasati PAS CU PAS pentru rulare manuala
+            sau AUTOMAT pentru rularea automata a algoritmului (in acest caz, puteti alege si viteza). </p>
+            <p>  Pasii algoritmului vor fi descrisi alaturi.</p>
+        <p>Va puteti deplasa in plan prin intermediul butoanelor <span class='fa fa-arrow-left'></span> ,
+            <span class='fa fa-arrow-down'></span> , <span class='fa fa-arrow-up'></span> ,
+            <span class='fa fa-arrow-right'></span>. Puteti adauga sau ascunde sistemul de coordonare folosind butonul
+            <span class='fa fa-eye'></span>.
+        </p>
+        <p>Pentru a relua, apasati butonul RESET.</p>
+    </div>
+
+
+    <div class="options">
+        <hr>
+        <div>
+            <label>Puncte random:</label>
+            <input type="number" id="randomPointsNumberInput" min="2" max="50">
+            <button id="generateRandomPoints">GENEREAZA</button>
+        </div>
+        <hr>
+        <div>
+            <label>ALGORITMUL FOLOSIT:</label>
+            <br>
+            <div class="flexContainer">
+                <button id="grahamScan">GRAHAM'S SCAN</button>
+                <button id="jarvisMarch">JARVIS' MARCH</button>
+            </div>
+        </div>
+        <hr>
+        <label>VITEZA VIZUALIZARE AUTOMATA:</label>
+        <input type="range" id="speed" min="0" max="100">
+        <hr>
+        <div id="runSetup">
+            <label>VIZUALIZEAZA ALGORITMUL:</label>
+            <br>
+            <div class="flexContainer">
+                <button id="autorun">AUTOMAT</button>
+                <button id="stepByStep">PAS CU PAS</button>
+            </div>
+        </div>
+        <hr>
+        <div class="flexContainer">
+            <p id='totalPointsOnCanvas'>PUNCTE: 0</p>
+            <p id='pointsInConvexHull'>PUNCTE DIN ACOPERIREA CONVEXA: 0</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="leftColumn">
+            <canvas id="convexHullCanvas"></canvas>
+            <button id="showGrid" title="Arata sau ascunde sistemul de coordonate"><i id="showGridIcon"
+                    class='fa fa-eye'></i></button>
+            <button id="up"><i class='fa fa-arrow-up'></i></button>
+            <button id="down"><i class='fa fa-arrow-down'></i></button>
+            <button id="left"><i class='fa fa-arrow-left'></i></button>
+            <button id="right"><i class='fa fa-arrow-right'></i></button>
+
+        </div>
+        <div class="rightColumn">
+            <h3>EXPLICATII PASI EFECTUATI:</h3>
+            <div id="algorithmSteps">
+                <ol id="steps"> </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="resetRow">
+        <button id="reset">RESET</button>
+    </div>
+</body>
+
+
+</html>

@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <title>Acoperiri convexe</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="CSS/generic.css">
+    <script src="JavaScript/extern/jquery.min.js"></script>
+    <script src="puncte.js"></script>
+		<script src="JavaScript/utils.js"></script>
+    <script src="JavaScript/generic.js"></script>
+    <script src="JavaScript/canvas.js"></script>
+		<script src="JavaScript/Acoperiri convexe.js"></script>
+  </head>
+
+<body onload="load()">
+  <center>
+     <div id="TitluMare">
+      <h1><a href="Home.html"> Geometrie Computațională </a></h1>
+     </div>
+  </center>
+
+  <div id="content">
+  <div id="Titlu">
+      <h2> <b> Acoperiri convexe </b></h2>
+  </div>
+
+  <p style="color: #003366;"> Adaugați punctele. Alegeți algoritmul dorit. Apăsați START pentru rulare manuală sau RULEAZĂ AUTOMAT pentru rulare automată (puteți seta viteza dorită). Pașii algoritmului sunt descriși în dreapta.</p>
+  <div class="row">
+  <div class="column" id="left">
+  <canvas id = "myCanvas" width = "500" height = "500">
+    Your browser does not support the canvas element.
+  </canvas>
+  <br><br>
+  <button class="buton" onclick="reset()">Șterge tot</button>
+  Algoritm dorit:
+  <select id="algorithmSelector">
+    <option value="0">Graham's Scan</option>
+    <option value="1">Jarvi's March</option>
+  </select>
+  <button class="buton" id="loadButton">Incarcă din fișier</button>
+  <br>
+  <br>
+  <button class="buton" id="startButton">Start</button>
+  <button class="buton" id="runButton">Rulează automat</button>
+  Viteză:
+  <select id="speedSelector">
+    <option value="0">Instant</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+  </select>
+  <br><br>
+  <div id="message"></div>
+</div>
+<div class="column" id="right">
+  <center>
+  <div id="flip">Click pentru a vedea pașii efectuați de algoritm. </div>
+  <div id="panel"> <ol id="messList"> </ol> </div>
+  </center>
+
+ </div>
+</div>
+<div id="errorMessage"> Dimensiunea ferestrei este prea mică.</div>
+</div>
+</body>

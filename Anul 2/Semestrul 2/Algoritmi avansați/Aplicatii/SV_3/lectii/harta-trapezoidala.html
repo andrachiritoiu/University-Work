@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>HARTI TRAPEZOIDALE</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+    <script type="text/javascript" src="../javascript/lessons/trapezoidal-map.js"></script>
+    <script type="text/javascript" src="../javascript/lessons/trapezoidalMap-utils.js"></script>
+    <script type="text/javascript" src="../javascript/lessons/algorithm-utils.js"></script>
+    <script type="text/javascript" src="../javascript/lessons/drawing-utils.js"></script>
+    <script type="text/javascript" src="../javascript/lessons/draw-graph.js" defer></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/lessons/common-style.css" />
+    <link rel="stylesheet" href="../css/lessons/harti-style.css" />
+    <link rel="stylesheet" href="../css/lessons/graph-style.css" />
+    <link rel="stylesheet" href="../css/navbar-style.css" />
+</head>
+
+
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top ">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="home.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="acoperire-convexa.html">Acoperire convexa</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="dualitate.html">Dualitate</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="triangulare-poligoane.html">Triangularea poligoanelor</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="harta-trapezoidala.html">Harta trapezoidala</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="lessonTitle" id="startLesson">
+        <h1>HARTI TRAPEZOIDALE</h1>
+        <button title="Arata suport vizual" id="scrollButton"><i class="fa fa-arrow-down"></i></button>
+    </div>
+
+    <div class="infoRow">
+        <p> Harta trapezoidala reprezinta o solutie pentru problema localizarii in timp O(n log n). Unei astfel de harti
+            ii este asociat un graf orientat aciclic, constituind <b>structura de cautare</b> pe baza careia
+            se poate determina regiunea in care este situat punctul p.</p>
+
+    </div>
+    <div class="infoRow">
+        <h3>ALGORITM:</h3>
+        <div class="code">
+            <p><b>Date de intrare</b>: O multime S de n segmente in pozitie generala.</p>
+            <p><b>Rezultat:</b>: Harta trapezoidala T(S) ̧si o structura de cautare D(T(S)) pentru T(S),
+                intr-un dreptunghi initial cu laturile paralele cu axele.</p>
+            <p> <b>Pasi</b>:</p>
+            <p>Determina dreptunghiul initial.</p>
+            <p>Genereaza o permutare s<sub>1</sub>, s<sub>2</sub>,..., s<sub>n</sub> a segmentelor din S.</p>
+            <p> <b>for</b> i = 1 <b>to</b> n</p>
+            <p class="doTab">
+                <b>do</b>
+            </p>
+            <p class="ifTab">
+                gaseste multimea de trapeze T<sub>0</sub>, T<sub>1</sub>,..., T<sub>n</sub> care intersecteaza segmentul
+                s<sub>i</sub>
+            </p>
+            <p class="ifTab">
+                elimina T<sub>0</sub>, T<sub>1</sub>,..., T<sub>n</sub> si inlocuieste-le cu trapezele nou aparute
+            </p>
+            <p class="ifTab">
+                elimina frunzele corespunzatoare din structura D si creeaza noi frunze; actualizeaza D
+            </p>
+        </div>
+    </div>
+    <div class="infoRow">
+        <p><b>Cum se pot determina trapezele care intersecteaza segmentul?</b></p>
+        <P>Mai intai se determina trapezul T<sub>0</sub> ce contine extremitatea stanga a segmentului nou adaugat (prin
+            interogarea structurii de cautare).
+        <p> Urmatorul trapez, T<sub>i+1</sub>, va fi unul din vecinii din partea dreapta a lui T<sub>i</sub>: </p>
+        <ul>
+            <li>
+                dacă marginea dreapta a lui T<sub>i</sub> se afla in stanga segmentului orientat, atunci T<sub>i+1</sub>
+                este vecinul din dreapta jos
+            </li>
+            <li>
+                dacă marginea dreapta a lui T<sub>i</sub> se afla in dreapta segmentului orientat, atunci
+                T<sub>i+1</sub> este vecinul din dreapta sus
+            </li>
+        </ul>
+
+        <br>
+        <p><b>Ce noduri exista in structura de cautare si care sunt testele asociate?</b></p>
+        <p>Fiecare nod dintr-o astfel de structura de cautare este asociat cu o interogare pe care o putem face
+            despre pozitia punctului p.</p>
+        <ul>
+            <li><b>Nodul de tip X</b> este asociat cu o extremitate a unui segment: punctul p se afla in stanga
+                (interogarea
+                continua pe ramura stanga) sau in
+                dreapta acestei extremitati (interogarea continua pe ramura dreapta)?</li>
+            <li><b>Nodul de tip Y</b> este asociat cu un intreg segment : punctul p se afla deasupra (interogarea
+                continua pe
+                ramura stanga) sau sub segment (interogarea continua pe ramura dreapta)?</li>
+            <li>O <b>frunza</b> corespunde unui trapezoid, deci interogarea s-a terminat si am aflat regiunea in care
+                este
+                plasat punctul p.</li>
+        </ul>
+    </div>
+
+    <div class="visualSupportTitle" id="visualSupportSection">
+        <h3>SUPORT VIZUAL</h3>
+    </div>
+
+    <div class="instructions">
+        <p> Adaugati segmente in plan prin 2 click-uri succesive. ATENTIE: nu puteti sa le intersectati decat intr-un varf comun!</p>
+        <p> Selectati apoi PAS CU PAS pentru rulare manuala
+            sau AUTOMAT pentru rularea automata a algoritmului (in acest caz, puteti alege si viteza),
+            iar pasii algoritmului vor fi descrisi mai jos.</p>
+        <p>De asemenea, puteti vizualiza cum se modifica structura de cautare (aceasta
+            poate fi mutata si marita sau micsorata).</p>
+            <p> La sfarsitul algoritmului, puteti da click in plan pentru a adauga un punct si va fi evidentiat modul in care acesta este
+            cautat in structura rezultata.</p>
+        <p>Pentru a relua, apasati butonul RESET.</p>
+    </div>
+
+    <div class="options">
+        <hr>
+        <label>VITEZA VIZUALIZARE AUTOMATA:</label>
+        <input type="range" id="speed" min="0" max="100">
+
+        <hr>
+        <div id="runSetup">
+            <label>VIZUALIZEAZA ALGORITMUL:</label>
+            <br>
+            <div class="flexContainer">
+                <button id="autorun">AUTOMAT</button>
+                <button id="stepByStep">PAS CU PAS</button>
+            </div>
+        </div>
+        <hr>
+    </div>
+
+    <div class="customRow">
+        <div class="leftColumn">
+            <canvas id="trapezoidalMapCanvas"></canvas>
+            <div class="row">
+                <button id="showGrid" title="Arata sau ascunde sistemul de coordonate"><i id="showGridIcon"
+                        class='fa fa-eye'></i></button>
+                <button id="up"><i class='fa fa-arrow-up'></i></button>
+                <button id="down"><i class='fa fa-arrow-down'></i></button>
+                <button id="left"><i class='fa fa-arrow-left'></i></button>
+                <button id="right"><i class='fa fa-arrow-right'></i></button>
+            </div>
+        </div>
+        <div class="rightColumn" id="graphContainer"></div>
+    </div>
+
+    <div class="customRow" id="stepsContainer">
+        <h3>EXPLICATII PASI EFECTUATI:</h3>
+        <div id="algorithmSteps">
+            <ol id="steps"> </ol>
+        </div>
+    </div>
+
+    <div class="resetRow">
+        <button id="reset">RESET</button>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+#voronoiCanvas
+{
+	top:6%;
+	left:10%;
+	border:1px solid;
+	border-color: #003366;
+}
+
+#voronoiNoCanvasAlert
+{
+	display:none;
+	padding:1em;
+	background-color:#fcc;
+	color:black;
+}
+
+#voronoiClearSites
+{
+	margin-top: 1%;
+}
+
+#voronoiMoveSweepline
+{
+	margin-top: 1%;
+}
+
+#voronoiAnimateSweeplineStop
+{
+	margin-left: 5%;
+}
+
+#voronoiAnimateSweepline
+{
+	margin-top: 1%;
+}
+

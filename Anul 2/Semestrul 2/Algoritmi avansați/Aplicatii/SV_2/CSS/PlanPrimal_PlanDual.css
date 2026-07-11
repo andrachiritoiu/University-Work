@@ -1,0 +1,265 @@
+#Titlu
+	  {
+		margin-top: -1%;
+		margin-left: 50%;
+		color: #003366;
+		text-decoration: underline;
+		letter-spacing: 2px; 
+		font-family: Comic Sans MS, Helvetica, sans-serif;
+	  }
+	  
+.buton
+      {
+		 
+		 background-color: #003366;
+		 border: none;
+		 color: white;
+		 text-align: center;
+		 text-decoration: none;
+		 display: inline-block;
+         font-size: 16px;
+      }
+	  
+#myCanvas
+{
+	
+	position:fixed; 
+	top:6%; 
+	left:10%; 
+	border:3px solid; 
+	border-color: #003366;
+}
+
+	  
+#butoane_desenare1
+{
+	position:fixed; 
+	margin-left: 9%; 
+	margin-top: 40%;
+}
+
+#buton_transformare1
+{
+position:fixed; 
+margin-left: 10%; 
+margin-top: 42%;
+}
+
+#buton_frontiera1
+{
+	position:fixed; 
+	margin-left: 24%; 
+	margin-top: 42%;
+}
+
+#stare_canvas1
+{
+	position:fixed; 
+	margin-left: 42%; 
+	margin-top: -3.5%; 
+	border: 2px solid; 
+	visibility: hidden; 
+	padding: 2px;
+}
+
+#myCanvas2
+{
+	position:fixed; 
+	top:6%; 
+	left:55%; 
+	border:3px solid; 
+	border-color: #003366;
+}
+
+
+#butoane_desenare2
+{
+	position:fixed; 
+	margin-left: 54%; 
+	margin-top: 40%;
+}
+
+#buton_transformare2
+{
+	position:fixed; 
+	margin-left: 55%; 
+	margin-top: 42%; 
+}
+
+#buton_frontiera2
+{
+	position:fixed; 
+	margin-left: 69%; 
+	margin-top: 42%; 
+}
+
+#paragrafX
+{
+	position:fixed; 
+	margin-left: 2%; 
+	margin-top: -3.2%;
+}
+
+#Xcoord
+{
+	position:fixed; 
+	margin-left: 7%; 
+	margin-top: -3.2%; 
+	border: 2px solid; 
+	padding: 2px;
+}
+
+#paragrafY
+{
+	position:fixed; 
+	margin-left: 22%; 
+	margin-top: -3.2%;
+}
+
+#Ycoord
+{
+	position:fixed; 
+	margin-left: 27%; 
+	margin-top: -3.2%; 
+	border: 2px solid; 
+	padding: 2px;
+}
+
+#stare_canvas2
+{
+	position:fixed; 
+	margin-left: 87%; 
+	margin-top: -3.5%; 
+	border: 2px solid; 
+	visibility: hidden; 
+	padding: 2px;
+}
+
+@media screen and (max-width: 1200px) 
+{	
+
+#Titlu
+	  {
+		margin-top: -1%;
+		margin-left: 50%;
+		color: #003366;
+		text-decoration: underline;
+		letter-spacing: 2px; 
+		font-family: Comic Sans MS, Helvetica, sans-serif;
+	  }
+	  
+.button
+      {
+		 
+		 background-color: #003366;
+		 border: none;
+		 color: white;
+		 text-align: center;
+		 text-decoration: none;
+		 display: inline-block;
+         font-size: 16px;
+      }
+	  
+#myCanvas
+{
+	position:fixed; 
+	top:8%; 
+	left:10%; 
+	border:3px solid; 
+	border-color: #003366;
+}
+
+	  
+#butoane_desenare1
+{
+	position:fixed; 
+	margin-left: 9%; 
+	margin-top: 36%;
+}
+
+#buton_transformare1
+{
+position:fixed; 
+margin-left: 10%; 
+margin-top: 38%;
+}
+
+#buton_frontiera1
+{
+	position:fixed; 
+	margin-left: 24%; 
+	margin-top: 38%;
+}
+
+#stare_canvas1
+{
+	position:fixed; 
+	margin-left: 42%; 
+	margin-top: -3.5%; 
+	border: 2px solid; 
+	visibility: hidden; 
+	padding: 2px;
+}
+
+#myCanvas2
+{
+	 
+	position:fixed; 
+	top:8%; 
+	left:55%; 
+	border:3px solid; 
+	border-color: #003366;
+}
+
+
+#butoane_desenare2
+{
+	position:fixed; 
+	margin-left: 54%; 
+	margin-top: 36%;
+}
+
+#buton_transformare2
+{
+	position:fixed; 
+	margin-left: 55%; 
+	margin-top: 38%; 
+}
+
+#buton_frontiera2
+{
+	position:fixed; 
+	margin-left: 69%; 
+	margin-top: 38%;
+}
+
+#paragrafX
+{
+	position:fixed; margin-left: 8%; margin-top: -3.5%;
+}
+
+#Xcoord
+{
+	position:fixed; margin-left: 13%; margin-top: -3.5%; border: 2px solid; padding: 2px;
+}
+
+#paragrafY
+{
+	position:fixed; margin-left: 28%; margin-top: -3.5%;
+}
+
+#Ycoord
+{
+	position:fixed; 
+	margin-left: 33%; 
+	margin-top: -3.5%; 
+	border: 2px solid; 
+	padding: 2px;
+}
+
+#stare_canvas2
+{
+	position:fixed; margin-left: 87%; margin-top: -3.5%; border: 2px solid; visibility: hidden; padding: 2px;
+}
+	
+} 

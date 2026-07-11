@@ -1,0 +1,104 @@
+body {
+    margin: 0px;
+    height: 100%;
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 20px;
+}
+
+.infoSection {
+    width: 100%;
+}
+
+.infoSection:after,
+.infoRow:after {
+    content: "";
+    clear: both;
+}
+
+.infoRow {
+    margin: 0 8%;
+    margin-bottom: 50px;
+}
+
+.darkBackground {
+    background-color: rgba(82, 171, 152, 0.7);
+}
+
+div.lessonTitle {
+    margin-bottom: 15px;
+    transition: 0.3s;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+div.lessonTitle span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 70%;
+    background-color: #52ab98;
+    color: white;
+}
+
+div.lessonTitle:hover {
+    padding-left: 15px;
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.column {
+    float: left;
+    width: 50%;
+    padding-left: 30px;
+}
+
+img {
+    max-width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.lessonsColumn {
+    margin: auto;
+}
+
+.lessonsColumn>h5 {
+    font-weight: bold;
+}
+
+h1,
+h3 {
+    font-weight: bold !important;
+    padding: 30px 0px;
+}
+
+h1 {
+    text-align: center;
+}
+
+#createAccount {
+    background-color: white;
+    border: 3px solid #17252A;
+    color: #17252A;
+    font-family: inherit;
+    padding: 5px 35px;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-top: 15px;
+    transition: 500ms ease;
+}
+
+#createAccount:hover {
+    padding: 5px 50px;
+}
+
+@media screen and (max-width: 850px) {
+    .column {
+        width: 100%;
+    }
+}

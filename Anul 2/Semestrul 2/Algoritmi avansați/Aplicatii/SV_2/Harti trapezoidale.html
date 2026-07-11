@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <title>Harti trapezoidale</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="CSS/generic.css">
+    <link rel="stylesheet" type="text/css" href="CSS/extern/Treant.css">
+    <script src="JavaScript/extern/jquery.min.js"></script>
+    <script src="puncte.js"></script>
+    <script src="JavaScript/utils.js"></script>
+    <script src="JavaScript/generic.js"></script>
+    <script src="JavaScript/canvas.js"></script>
+    <script src="JavaScript/Harti trapezoidale.js"></script>
+    <script src="JavaScript/extern/raphael.js"></script>
+    <script src="JavaScript/extern/Treant.js"></script>
+  </head>
+
+  <body onload="load()">
+    <center>
+       <div id="TitluMare">
+        <h1><a href="Home.html"> Geometrie Computațională </a></h1>
+       </div>
+    </center>
+
+    <div id="content">
+      <div id="Titlu">
+          <h2> <b> Harti trapezoidale </b></h2>
+      </div>
+      <p style="color: #003366;"> Adăugați segmentele. Vizualizați cum se modifică structura de căutare din dreapta. Dacă doriți să schimbați ordinea în care sunt introduse segmentele, apăsați AMESTECĂ. Apăsați START pentru rulare manuală sau RULEAZĂ AUTOMAT pentru rulare automată (puteți seta viteza dorită). Pașii algoritmului sunt descriși mai jos. După ce s-a terminat rularea, puteți să vedeți cum funcționează căutarea unui punct dând click pe figură.</p>
+      <div class="row">
+
+        <div class="column" id="left">
+          <canvas id = "myCanvas" width = "500" height = "500">
+            Your browser does not support the canvas element.
+          </canvas>
+          <br><br>
+          <button class="buton" onclick="reset()">Șterge tot</button>
+          <button class="buton" id="shuffleButton">Amestecă</button>
+          <button class="buton" id="loadButton">Incarcă din fișier</button>
+          <br>
+          <br>
+          <button class="buton" id="startButton">Start</button>
+          <button class="buton" id="runButton">Rulează automat</button>
+          Viteză:
+          <select id="speedSelector">
+            <option value="0">Instant</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+          <br><br>
+          <div id="message"></div>
+        </div>
+
+        <div class="column" id="right">
+          <div id="tree-simple" style="width:600px; height: 600px"> </div>
+        </div>
+      </div>
+      <div>
+        <div id="flip">Click pentru a vedea pașii efectuați de algoritm. </div>
+        <div id="panel"> <ol id="messList"> </ol> </div>
+      </div>
+      <div id="errorMessage"> Dimensiunea ferestrei este prea mică.</div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<html>
+	<head>
+
+		<title> Triangularea unui poligon y-monoton </title>
+
+		<meta charset="UTF-8">
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script src="JavaScript/Triangulare poligoane y-monotone.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="CSS/generic.css">
+
+	</head>
+
+	<body onload="drawGrid()">
+		<center>
+		   <div id="TitluMare">
+				<h1><a href="Home.html"> Geometrie Computațională </a></h1>
+		   </div>
+		</center>
+		<div id="content">
+			<div class="row">
+
+				<div  class="column" id="left">
+					<canvas id = "myCanvas" width = "500" height = "500">
+						Your browser does not support the canvas element.
+					</canvas>
+					<div id="butoane">
+						<button class="buton" onclick="deseneaza_linii()">Deseneaza linii</button>
+						<button class="buton" onclick="arata_triangulare()">Arata triangularea</button>
+					</div>
+					<p id="stare_canvas1" ></p>
+				</div>
+
+				<div class="column" id="right">
+				  <canvas id = "myCanvas2" width = "500" height = "500">
+						Your browser does not support the canvas element.
+					</canvas>
+					<p> Xcoord: <input id="Xcoord" type="number"></p>
+					<p> Ycoord: <input id="Ycoord" type="number"></p>
+					<button onclick="adauga()">Adaugă</button>
+				</div>
+
+			</div>
+		</div>
+	</body>
+</html>

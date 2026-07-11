@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>TRIANGULAREA POLIGOANELOR</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script type="text/javascript" src="../javascript/lessons/triangulation.js"></script>
+    <script type="text/javascript" src="../javascript/lessons/algorithm-utils.js"></script>
+    <script type="text/javascript" src="../javascript/lessons/drawing-utils.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+
+    <link id="cssTheme" rel="stylesheet" href="../css/lessons/triangulare-style.css" />
+    <link id="cssTheme" rel="stylesheet" href="../css/lessons/common-style.css" />
+    <link rel="stylesheet" href="../css/navbar-style.css" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top ">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="home.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="acoperire-convexa.html">Acoperire convexa</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="dualitate.html">Dualitate</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="triangulare-poligoane.html">Triangularea poligoanelor</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="harta-trapezoidala.html">Harta trapezoidala</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="lessonTitle" id="startLesson">
+        <h1>TRIANGULAREA POLIGOANELOR Y-MONOTONE</h1>
+        <button title="Arata suport vizual" id="scrollButton"><i class="fa fa-arrow-down"></i></button>
+    </div>
+
+    <div class="infoRow">
+        <h3>Concepte si definitii</h3>
+        <p>O <b>diagonala</b> a unui poligon plan P este un segment ce uneste doua varfuri ale acestuia ̧si care este
+            situat in interiorul lui P.</p>
+        <p>O <b>triangulare</b> T a unui poligon plan P este o descompunere a lui P in triunghiuri, data de o multime
+            maximala de diagonale ce nu se intersecteaza.
+        </p>
+        <p>Un poligon P din plan este numit monoton față de dreapta L, dacă orice dreaptă ortogonală cu L intersectează
+            frontiera lui P de cel mult două ori.
+            Un poligon monoton in raport cu axa Ox sau Oy se numeste <b>x/y-monoton</b>.
+        </p>
+    </div>
+
+    <div class="infoRow">
+        <h3>Metode de triangulare</h3>
+        <p>Descompunerea unui poligon oarecare in componente y-monotone poate fi realizata cu un algoritm de
+            complexitate <b>O(n log n).</b>
+        </p>
+        <p>Un poligon y-monoton poate fi triangulat in mod eficient in complexitate <b>O(n).</b></p>
+        <p>Prin urmare, un poligon poate fi descompus in poligoane y-monotone si triangulat folosind un algoritm de
+            complexitate <b>O(n log n)</b>. </p>
+    </div>
+
+
+    <div class="infoRow">
+        <h3> Algoritmul eficient pentru triangularea poligoanelor y-monotone</h3>
+        <div class="code">
+            <p><b>Date de intrare:</b> Un poligon y-monoton P.</p>
+            <p><b>Rezultat::</b> O triangulare a lui P.</p>
+            <p><b>Pasi:</b></p>
+            <p> Lantul varfurilor din partea stanga ̧si al celor din partea dreapta sunt unite intr-un
+                singur ̧sir, ordonat descrescator dupa y (daca ordonata este egala, se foloseste
+                abscisa). Fie v<sub>1</sub>, v<sub>2</sub>, ... , v<sub>n</sub> ̧sirul ordonat.
+            </p>
+            <p>
+                Initializeaza o stiva vida S ̧si insereaza v<sub>1</sub> si v<sub>2</sub>.
+            </p>
+            <p>
+                <b>for</b> j = 3 to n - 1
+            </p>
+            <p class="doTab">
+                <b>do</b>
+            </p>
+            <p class="ifTab">
+                <b>if</b> v<sub>j</sub> si varful din top al lui S sunt in lanturi diferite <b>then</b>
+            </p>
+            <p class="commandTab">
+                extrage toate varfurile din S
+            </p>
+            <p class="commandTab">
+                insereaza diagonale de la v<sub>j</sub> la varfurile extrase, exceptand ultimul
+            </p>
+            <p class="commandTab">
+                insereaza v<sub>j-1</sub> ̧si v<sub>j</sub> in S
+            </p>
+            <p class="ifTab">
+                <b>else</b>
+            </p>
+            <p class="commandTab">
+                extrage un varf din S
+            </p>
+            <p class="commandTab">
+                extrage celelalte varfuri din S daca diagonalele formate cu v<sub>j</sub>
+                sunt in interiorul lui P; insereaza aceste diagonale; insereaza
+                inapoi ultimul varf extras
+            </p>
+            <p class="commandTab">
+                insereaza v<sub>j</sub> in S
+            </p>
+            <p>
+                Adauga diagonale de la v<sub>n</sub> la varful stivei (exceptand primul ̧si ultimul)
+            </p>
+        </div>
+    </div>
+
+    <div class="visualSupportTitle" id="visualSupportSection">
+        <h3>SUPORT VIZUAL</h3>
+    </div>
+    <div class="instructions">
+        <p><span class="fa fa-question"></span> Puteti adauga muchiile poligonului in plan folosind mouse-ul sau
+            mentionand coordonatele. De asemenea, puteti adauga doar punctele poligonului (fie prin coordonate, fie din
+            fisier), selectand obligatoriu daca acestea sunt deja in ordine trigonometrica sau nu.</p>
+        <p>Va puteti deplasa in plan prin intermediul butoanelor <span class='fa fa-arrow-left'></span> ,
+            <span class='fa fa-arrow-down'></span> , <span class='fa fa-arrow-up'></span> ,
+            <span class='fa fa-arrow-right'></span>. Puteti adauga sau ascunde sistemul de coordonare folosind butonul
+            <span class='fa fa-eye'></span>.
+        </p>
+        <p>Pentru a vizualiza algoritmul de triangulare a unui poligon y-monoton, alegeti PAS CU PAS pentru rulare
+            manuala sau AUTOMAT pentru rularea automata a algoritmului (in acest caz, puteti alege si viteza). Pentru a
+            relua,
+            apasati butonul RESET.</p>
+        <p></p>
+    </div>
+
+
+    <div class="settingsRow">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#optionPointsFromFile">Adauga puncte din fisier</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#optionPointsCoordinates">Adauga puncte prin coordonate</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#optionEdgesCoordinates">Adauga muchii prin coordonate</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="optionPointsFromFile" class="tab-pane active">
+                <label>Incarcati un fisier .txt care contine pe fiecare rand coordonatele unui punct al poligonului in
+                    ordine trigonometrica:</label>
+                <input type="file" accept=".txt" id="uploadPolygonFile">
+                <button id="addPolygonFromFile" class="fa fa-plus-circle"></button>
+            </div>
+
+            <div id="optionPointsCoordinates" class="tab-pane fade">
+                <div class="row">
+                    <div class="column">
+                        <label> X:</label>
+                        <input id="pointX" type="number">
+                    </div>
+                    <div class="column">
+                        <label> Y:</label>
+                        <input id="pointY" type="number">
+                    </div>
+                </div>
+                <button id="addPoint" class="fa fa-plus-circle"></button>
+            </div>
+            <div id="optionEdgesCoordinates" class="tab-pane fade">
+                <div id="addEdgeContainer" class="row">
+                    <div class="bigColumn">
+                        <p> Punctul A</p>
+                        <div class="column">
+                            <label> X:</label>
+                            <input id="firstPointX" type="number">
+                        </div>
+                        <div class="column">
+                            <label> Y:</label>
+                            <input id="firstPointY" type="number">
+                        </div>
+                    </div>
+                    <div class="bigColumn">
+                        <p> Punctul B</p>
+                        <div class="column">
+                            <label> X:</label>
+                            <input id="secondPointX" type="number">
+                        </div>
+                        <div class="column">
+                            <label> Y:</label>
+                            <input id="secondPointY" type="number">
+                        </div>
+                    </div>
+                </div>
+                <button id="addPolygonEdge" class="fa fa-plus-circle"></button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="options">
+        <hr>
+        <label>Punctele sunt adaugate in ordine:</label>
+        <input type="radio" name="trigonometricOrder" value="trigonometric" checked> TRIGONOMETRICA</input>
+        <input type="radio" name="trigonometricOrder" value="random"> ALEATOARE</input>
+        <hr>
+        <div class="flexContainer">
+            <button id="checkYMonotone">VERIFICA Y-MONOTONIE</button>
+            <button id="checkXMonotone">VERIFICA X-MONOTONIE</button>
+        </div>
+        <hr>
+        <label>VITEZA VIZUALIZARE AUTOMATA:</label>
+        <input type="range" id="speed" min="0" max="100">
+        <hr>
+        <div>
+            <label>VIZUALIZEAZA ALGORITMUL:</label>
+            <br>
+            <div class="flexContainer">
+                <button id="autorun">AUTOMAT</button>
+                <button id="stepByStep">PAS CU PAS</button>
+            </div>
+        </div>
+        <hr>
+        <p id="polygonMessage"></p>
+    </div>
+
+    <div class="row">
+        <div class="leftColumn">
+            <canvas id="triangulationCanvas"></canvas>
+            <button id="showGrid" title="Arata sau ascunde sistemul de coordonate"><i id="showGridIcon"
+                    class='fa fa-eye'></i></button>
+            <button id="up"><i class='fa fa-arrow-up'></i></button>
+            <button id="down"><i class='fa fa-arrow-down'></i></button>
+            <button id="left"><i class='fa fa-arrow-left'></i></button>
+            <button id="right"><i class='fa fa-arrow-right'></i></button>
+        </div>
+        <div class="rightColumn">
+            <h3>EXPLICATII PASI EFECTUATI:</h3>
+            <div id="algorithmSteps">
+                <ol id="steps"> </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="resetRow">
+        <button id="reset">RESET</button>
+    </div>
+
+</body>
+
+
+</html>

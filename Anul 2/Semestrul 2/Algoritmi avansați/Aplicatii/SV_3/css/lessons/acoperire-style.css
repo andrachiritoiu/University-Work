@@ -1,0 +1,101 @@
+.options{
+    font-weight: bold;
+}
+
+.row {
+    margin: 0;
+}
+
+#stepByStep,
+#jarvisMarch {
+    margin-left: 1%;
+}
+
+
+#totalPointsOnCanvas,
+#pointsInConvexHull{
+    margin-bottom: 0;
+}
+#generateRandomPoints {
+    padding: 5px 15px;
+}
+
+#autorun,
+#grahamScan {
+    margin-right: 1%;
+}
+
+.leftColumn {
+    float: left;
+    width: 65%;
+    padding: 0px 50px;
+}
+
+.rightColumn {
+    width: 35%;
+    float: left;
+    padding: 0% 20px;
+}
+
+#steps>* {
+    margin-bottom: 5px;
+}
+
+
+#reset {
+    margin: 30px 0px;
+    width: 70%;
+    padding: 5px 20px;
+}
+
+.selectedAlgorithm {
+    background-color: #52ab98 !important;
+}
+
+.algSlides {
+    display: none;
+    padding: 25px 50px;
+    background-color: white;
+    box-shadow: rgba(51, 89, 90, 0.6) 0px 5px 10px;
+}
+
+
+.previous,
+.next {
+    cursor: pointer;
+}
+
+.active,
+.indicator:hover,
+#next,
+#previous {
+    color: #52ab98;
+    cursor: pointer;
+}
+
+#slidesIndicators {
+    text-align: center;
+}
+
+
+#next {
+    float: right;
+}
+
+@media screen and (max-width: 900px) {
+
+    #stepByStep,
+    #jarvisMarch,
+    #autorun,
+    #grahamScan {
+        margin: 10px 0px;
+    }
+
+    .leftColumn {
+        width: 100%;
+    }
+
+    .rightColumn {
+        width: 100%;
+    }
+}

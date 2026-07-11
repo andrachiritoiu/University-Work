@@ -1,0 +1,91 @@
+<html>
+	<head>
+
+		<title>Descriere triangulare poligoane y-monotone</title>
+
+		<meta charset="UTF-8">
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+		<link rel="stylesheet" type="text/css" href="CSS/Triangulare poligoane y-monotone Descriere.css">
+		<link rel="stylesheet" type="text/css" href="CSS/generic.css">
+
+
+	</head>
+
+<body>
+
+	<center>
+	   <div id="TitluMare">
+			<h1><a href="Home.html"> Geometrie Computațională </a></h1>
+	   </div>
+	</center>
+
+<div class="HomePage">
+
+<div id ="content">
+	<div class="HomePage">
+
+<div id="Titlu">
+		<h2> <b> Triangularea unui poligon y-monoton </b></h2>
+</div>
+
+		<p class = "subliniat">
+			<b> Prezentarea in pseudocod a algoritmului : </b>
+						</br>
+					    </br>
+		</p>
+
+<p> <b>Input:</b>  Un poligon y-monoton P. </p>
+<p> <b>Output:</b> O triangulare a lui P </p>
+<p> <b>Pași:</b> </p>
+<p><b>1.</b>&nbsp&nbsp Lantul vârfurilor din partea sângă și al celor din partea dreaptă sunt unite într-un singur șir, ordonat descrescător, după y (dacă ordinea este egală, se folosește abscisa).</p>
+<p> &nbsp&nbsp&nbsp&nbsp&nbsp Fie v1, v2,..., vn șirul ordonat.</p>
+
+<p> <b>2.</b>&nbsp&nbsp Inițializează o stivă vidă S și inserează v1, v2; </p>
+
+<p> <b>3. &nbsp&nbsp for</b> j ←  <b>3</b> to <b>n - 1</b> </p>
+
+<p> <b>4. &nbsp&nbsp&nbsp do &nbsp&nbsp&nbsp If </b> vj și vârful din top al lui S sunt în lanțuri diferite</p>
+
+<p> <b>5. &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp then</b> extrage toate vârfurile din <b> S </b> </p>
+
+<p><b>6.</b> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp inserează diagonale de la vj la vârfurile extrase, exceptând ultimul</p>
+
+<p> <b>7.</b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp inserează vj-1 și vj în S</p>
+
+<p> <b>8. &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp else </b> extrage un vârf din S</p>
+
+<p> <b>9.</b> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  extrage celelalte vârfuri din S dacă diagonalele formate cu vj sunt în interiorul lui P; inserează aceste diagonale; inserează inapoi ultimul vârf extras</p>
+
+<p> <b>10.</b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  inserează vj in S  </p>
+
+<p> <b>11.</b>&nbsp&nbsp Adaugă diagonale de la vn la vârful stivei(exceptând primul și ultimul) </p>
+
+	</div>
+
+	<div style = "display: inline;">
+<p>
+	<b>	Aici puteti vedea prezentarea grafica a functionarii algoritmului: </b>
+	&nbsp&nbsp&nbsp
+    <button class="button" onclick="myFunction()"><span>Suport vizual </span></button>
+</p>
+</div>
+</div>
+
+
+<script>
+function myFunction() {
+    window.open("Triangulare poligoane y-monotone.html","_self");
+}
+</script>
+
+
+
+</br>
+</br>
+</br>
+
+</div>
+</body>
+</html>

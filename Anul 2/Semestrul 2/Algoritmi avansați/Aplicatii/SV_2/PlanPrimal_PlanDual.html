@@ -1,0 +1,88 @@
+<html>
+	<head>
+
+		<title>Planul primal si planul dual</title>
+
+		<meta charset="UTF-8">
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script src="JavaScript/PlanPrimal_PlanDual.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="CSS/generic.css">
+
+	</head>
+
+<body onload="drawGrid()">
+	<center>
+	   <div id="TitluMare">
+			<h1><a href="Home.html"> Geometrie Computațională </a></h1>
+	   </div>
+	</center>
+
+
+
+
+<div id="content">
+<center>
+<div id="Titlu">
+		<h2> <b> Planul primal si planul dual </b></h2>
+</div>
+</center>
+
+<div class="row">
+<div class="column" id="left">
+
+	<canvas id = "myCanvas" width = "500" height = "500">
+	Your browser does not support the canvas element.
+	</canvas>
+
+	<div id= "butoane_desenare1">
+		<button class="buton" onclick="comuta_pe_puncte_plan()">Comuta pe puncte pt. plan</button>
+		<button class="buton" onclick="comuta_pe_puncte_linie()">Comuta pe puncte pt. linie</button>
+		<button class="buton" onclick="deseneaza_linii()">Deseneaza linii</button>
+	</div>
+
+
+	<div>
+		<button class="buton" id="buton_transformare1" onclick="Transfomare_in_plan_dual()">Transforma in dual</button>
+	</div>
+
+	<div id= "buton_frontiera1">
+		<button class="buton" onclick="frontiera_convexa()">Frontiera convexa</button>
+    </div>
+
+ <p id="stare_canvas1"></p>
+
+</div>
+
+
+<div class="column" id="right">
+
+	<canvas id = "myCanvas2" width = "500" height = "500">
+	Your browser does not support the canvas element.
+	</canvas>
+
+	<div id= "butoane_desenare2">
+		<button class="buton" onclick="comuta_pe_puncte_plan2()">Comuta pe puncte pt. plan</button>
+		<button class="buton" onclick="comuta_pe_puncte_linie2()">Comuta pe puncte pt. linie</button>
+		<button class="buton" onclick="deseneaza_linii2()">Deseneaza linii</button>
+	</div>
+
+	<div id= "buton_transformare2" >
+		<button class="buton" onclick="Transfomare_in_plan_primal()">Transforma in primal</button>
+	</div>
+
+	<div id= "buton_frontiera2">
+		<button class="buton" onclick="frontiera_convexa2()">Frontiera convexa</button>
+    </div>
+
+	<p id="paragrafX"> Xcoord: <input id="Xcoord" type="number"></p>
+	<p id="paragrafY"> Ycoord: <input id="Ycoord" type="number"></p>
+<!--	<button onclick="adauga()" style="position:fixed; margin-left: 42%; margin-top: -3.5%;">Adaugă</button> -->
+	 <p id="stare_canvas2"></p>
+
+</div>
+</div>
+</div>
+</body>
+</html>

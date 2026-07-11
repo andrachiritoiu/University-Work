@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Voronoi Fortune Delaunay triangulation triangulare diagrama">
+<meta name="description"
+	content="Simularea grafica a algoritmului lui Fortune pentru determinarea diagramei Voronoi pentru o multime de puncte in plan.">
+<title>Diagrame Voronoi</title>
+<link href="index.css" rel="stylesheet" type="text/css" />
+<script src="jquery/jquery.js"></script>
+<script src="jquery/jquery.simplemodal.js"></script>
+<script type="text/javascript" src="simulation.js"></script>
+<script type="text/javascript" src="fortune.js"></script>
+<script type="text/javascript" src="popup.js"></script>
+
+
+</head>
+<body onload="Engine.initSimulation('drawbox', 'edit_delta');">
+	&nbsp;
+	<div class="main" id="main">
+		<div class="div" id="canvas_pane">
+			<canvas id="drawbox" width="666" height="522"></canvas>
+		</div>
+		<div id="calldoc"></div>
+		<div class="cfg_panel" id="cfg_panel_1">
+			<div class="edit" id="edit_sites_pane">
+				<input id="edit_sites" type="text" value="30" size="4" maxlength="4" />
+			</div>
+			<div class="edit" id="button_add_pane">
+				<a class="button" href="#" onclick="Engine.addRandomSites('edit_sites');"> <span>Adaugă</span> </a>
+			</div>
+			<div class="edit" id="button_rem_pane">
+				<a class="button" href="#" onclick="Engine.clearAllSites();"> <span>Șterge</span> </a>
+			</div>
+			<div class="edit" id="button_exec_pane">
+				<a class="button" href="#" onclick="Engine.execute();"> <span>Execută</span> </a>
+			</div>
+			<div class="edit" id="button_test_pane">
+				<a class="button" href="#" onclick="Engine.benchmark('main');"> <span>Test</span> </a>
+			</div>
+			<div class="edit" id="button_exec_pane">
+				<a class="button" href="#" onclick="Engine.execute();"> <span>Execută</span> </a>
+			</div>
+			<div class="edit" id="edit_speed_pane">
+				<input id="edit_speed" type="text" value="10" size="4" maxlength="4" />
+			</div>
+			<div class="edit" id="button_start_pane">
+				<a class="button" href="#" onclick="Engine.startAnimation('edit_delta','edit_speed');"> <span>Pornește animația</span> </a>
+			</div>
+			<div class="edit" id="button_stop_pane">
+				<a class="button" href="#" onclick="Engine.stopAnimation();"> <span>Oprește</span> </a>
+			</div>
+			<div class="edit" id="edit_delta_pane">
+				<input id="edit_delta" type="text" value="1" size="2" maxlength="2" />
+			</div>
+			<div class="edit" id="button_sweep_pane">
+				<a class="button" href="#" onclick="Engine.advanceSweepLine('edit_delta');"> <span>Avansează (focus pe input și săgeată jos)</span>
+				</a>
+			</div>
+			<div class="edit" id="button_reset_pane">
+				<a class="button" href="#" onclick="Engine.reset();"> <span>Reset</span> </a>
+			</div>
+			<div class="edit" id="button_tri_pane">
+				<a class="button" href="#" onclick="Engine.triangulate('ck_edges');"> <span>Comută triangularea Delaunay</span> </a>
+			</div>
+			<div class="edit" id="ck_tri_pane">
+				<input id="ck_edges" type="checkbox" value="false" onclick="Engine.triangulate('ck_edges', true);">
+			</div>
+		</div>
+
+		<!-- modal content -- container width : 720 src="http://en.m.wikipedia.org/wiki/Voronoi" -->
+		<div id="popup">
+			<iframe src="doc/doc.html" width="737" height="480"></iframe>
+		</div>
+
+	</div>
+
+
+
+	<!-- preload the images -->
+	<div style='display: none'>
+		<img src='res/x.png' alt='' />
+	</div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+.row {
+    margin: 0;
+}
+
+#checkXMonotone,
+#stepByStep {
+    margin-left: 1%;
+}
+
+#checkYMonotone,
+#autorun {
+    margin-right: 1%;
+}
+
+.leftColumn {
+    float: left;
+    width: 65%;
+    padding: 0px 50px;
+}
+
+.rightColumn {
+    width: 35%;
+    float: left;
+    padding: 0% 20px;
+}
+
+#steps>* {
+    margin-bottom: 5px;
+}
+
+.column,
+.bigColumn {
+    float: left;
+    width: 50%;
+}
+
+#reset {
+    margin: 30px 0px;
+    width: 70%;
+    padding: 5px 20px;
+}
+
+
+#polygonMessage {
+    font-weight: bold;
+    font-size: 20px;
+    padding: 5px 20px;
+    width: 100%;
+}
+
+.error {
+    background-color: rgba(153, 24, 24, 0.3);
+}
+
+.info {
+    background-color: rgba(82, 171, 152, 0.4);
+}
+
+.resetRow {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+}
+
+#addPolygonEdge,
+#addPoint,
+#addPolygonFromFile {
+    float: right;
+    border-radius: 30%;
+    padding: 5px;
+    margin-right: 50px;
+    margin-top: 10px;
+}
+
+.options {
+    font-weight: bold;
+}
+
+input[type='radio'] {
+    margin-left: 5px;
+}
+
+input[type='radio']:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -6px;
+    left: -1px;
+    position: relative;
+    background-color: #d1d3d1;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+input[type='radio']:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -6px;
+    left: -1px;
+    position: relative;
+    background-color: #52ab98;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+@media screen and (max-width: 1140px) {
+    .bigColumn {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .leftColumn {
+        width: 100%;
+    }
+
+    .rightColumn {
+        width: 100%;
+    }
+
+    #checkXMonotone,
+    #stepByStep,
+    #checkYMonotone,
+    #autorun {
+        margin: 10px 0px;
+    }
+}
+
+@media screen and (max-width: 670px) {
+    .column {
+        width: 100%;
+    }
+}

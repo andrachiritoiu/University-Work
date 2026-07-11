@@ -1,0 +1,192 @@
+body {
+    margin: 0px;
+    height: 100%;
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 18px;
+}
+
+.instructions {
+    font-style: italic;
+    color: grey;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 50px;
+    font-size: 15px;
+}
+
+
+
+.lessonTitle {
+    background-color: #17252A;
+    color: white;
+    padding-bottom: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.lessonTitle>h1 {
+    padding-top: 60px;
+    padding-bottom: 20px;
+}
+
+.visualSupportTitle {
+    background-color: #17252A;
+    color: white;
+    margin-bottom: 40px;
+}
+
+canvas {
+    border: 3px solid #17252A;
+    box-shadow: 0.5rem 0.5rem #17252a, -0.5rem -0.5rem rgb(82 171 152 / 70%);
+    margin-top: 10px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-weight: bold !important;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 30px 0px;
+}
+
+
+button:disabled {
+    background: grey;
+}
+
+button:hover {
+    background-color: #31695d;
+}
+
+button {
+    background-color: #17252A;
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+button:not(#showGrid, #up, #down, #left, #right,
+    #primalUp, #primalDown, #primalLeft, #primalRight,
+    #dualUp, #dualDown, #dualLeft, #dualRight) {
+    border-radius: 10px;
+}
+
+.resetRow {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+}
+
+.settingsRow {
+    padding-left: 80px;
+}
+
+.tab-pane {
+    margin-top: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.nav>li>a {
+    color: #2b6777;
+    font-weight: bold;
+}
+
+.infoRow {
+    width: 100%;
+    margin: 0;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 50px;
+    margin-bottom: 50px;
+}
+
+.infoRow:after {
+    content: "";
+    clear: both;
+}
+
+.code {
+    font-family: Consolas, "courier new";
+    color: black;
+    background-color: #f1f1f1;
+    padding: 5px 20px;
+    font-size: 17px;
+}
+
+.doTab {
+    padding-left: 30px;
+}
+
+.ifTab {
+    padding-left: 50px;
+}
+
+.commandTab {
+    padding-left: 70px;
+}
+
+.rightColumn>h3{
+    font-size: inherit !important;
+}
+
+hr {
+    border-top: 2px solid grey;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.options {
+    margin: 0px 0px;
+    padding: 0 80px;
+}
+
+.flexContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flexContainer>* {
+    width: 49%;
+    padding: 7px 20px;
+}
+
+#algorithmSteps {
+    overflow-y: scroll;
+    height: 65vh;
+}
+
+#steps {
+    counter-reset: item;
+}
+
+#steps>li {
+    list-style-type: none;
+    counter-increment: item;
+}
+
+#steps>li:before {
+    display: inline-block;
+    font-weight: bold;
+    padding-right: 0.5em;
+    content: counter(item) ".";
+}
+
+#scrollButton {
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    bottom: 40px;
+    right: 40px;
+    border-radius: 50px;
+}
+
+@media screen and (max-width: 900px) {
+    .flexContainer>* {
+        width: 100%;
+    }
+}
