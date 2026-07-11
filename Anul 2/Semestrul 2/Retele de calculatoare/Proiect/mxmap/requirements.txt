@@ -1,0 +1,15 @@
+branca==0.8.2
+certifi==2026.5.20
+charset-normalizer==3.4.7
+folium==0.20.0
+idna==3.18
+Jinja2==3.1.6
+MarkupSafe==3.0.3
+numpy==2.4.6
+pandas==3.0.3
+python-dateutil==2.9.0.post0
+requests==2.34.2
+scapy==2.7.0
+six==1.17.0
+urllib3==2.7.0
+xyzservices==2026.3.0

@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+    server:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+        privileged: true
+        volumes:
+            - ..:/elocal
+        tty: true
+        cap_add:
+          - NET_ADMIN
+          - NET_RAW
+          - SYS_ADMIN
+        networks:
+            net2:
+              ipv4_address: 198.7.0.2
+        depends_on:
+            - "router"
+        command: bash -c "/scripts/server.sh && sleep infinity"
+    middle:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+        volumes:
+            - ..:/elocal
+        tty: true
+        cap_add:
+          - NET_ADMIN
+          - NET_RAW
+          - SYS_ADMIN
+        networks:
+            net2:
+              ipv4_address: 198.7.0.3
+        depends_on:
+            - "router"
+        sysctls:
+          - net.ipv4.ip_forward=1
+        command: bash -c "/scripts/middle.sh && sleep infinity"
+    router:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+        volumes:
+            - ..:/elocal
+        tty: true
+        cap_add:
+          - NET_ADMIN
+          - NET_RAW
+          - SYS_ADMIN
+        networks:
+            net1:
+              ipv4_address: 172.7.0.1
+            net2:
+              ipv4_address: 198.7.0.1
+        sysctls:
+          - net.ipv4.ip_forward=1
+        command: bash -c "/scripts/router.sh && sleep infinity" # && /alter_packages.sh
+    client:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+        volumes:
+            - ..:/elocal
+        tty: true
+        cap_add:
+          - NET_ADMIN
+          - NET_RAW
+          - SYS_ADMIN
+        networks:
+            net1:
+              ipv4_address: 172.7.0.2
+        depends_on:
+            - "router"
+            - "server"
+        command: bash -c "/scripts/client.sh && sleep infinity"
+networks:
+    net1:
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.7.0.0/16
+                  gateway: 172.7.1.1
+    net2:
+        ipam:
+            driver: default
+            config:
+                - subnet: 198.7.0.0/16
+                  gateway: 198.7.1.1
