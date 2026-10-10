@@ -63,3 +63,18 @@
 | **Rețele De Calculatoare (RC)** | 4 |
 | **Programare Avansată Pe Obiecte (PAO)** | 4 |
 | **Competențe Avansate Într-o Limba Străină II (Engleză)** | 2 |
+
+
+--- 
+
+# Anul 3
+
+## Semestrul I
+
+| Disciplină | Puncte Credit |
+| :--- | :---: |
+| **Inginerie Software (IS)** | 6 |
+| **Calculabilitate și Complexitate (CC)** | 6 |
+| **Blockchain** | 5 |
+| **Învățare prin Recompensă / Reinforcement Learning (RL)** | 5 |
+| **JavaScript Server-Side: NodeJS & GraphQL** | 5 |
