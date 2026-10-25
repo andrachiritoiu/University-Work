@@ -1,0 +1,15 @@
+name: irl-lab3
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - numpy>=1.24
+  - pandas>=2.1
+  - matplotlib>=3.8
+  - jupyterlab>=4.0
+  - scikit-learn>=1.3
+  - pip
+  - pip:
+      - gymnasium==0.29.1
+      - gymnasium[classic-control]==0.29.1
+      - gymnasium[toy-text]==0.29.1
