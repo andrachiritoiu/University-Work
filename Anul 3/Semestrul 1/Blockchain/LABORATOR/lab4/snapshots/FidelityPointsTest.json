@@ -1,0 +1,8 @@
+{
+  "addPoints-immutable-admin": "77461",
+  "addPointsBatch-calldata": "302795",
+  "addPointsBatch-memory": "109341",
+  "custom-error-revert": "27389",
+  "redeem-optimizer": "179070",
+  "require-revert": "24857"
+}
