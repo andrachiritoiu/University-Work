@@ -1,0 +1,14 @@
+info:
+  name: me
+  type: http
+
+http:
+  method: GET
+  url: http://localhost:3000/auth/me
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
