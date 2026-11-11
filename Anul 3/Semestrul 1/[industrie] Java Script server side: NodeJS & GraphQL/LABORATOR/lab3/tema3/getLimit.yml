@@ -1,0 +1,22 @@
+info:
+  name: getLimit
+  type: http
+
+http:
+  method: GET
+  url: http://localhost:3001/users/?page=2&?limit=2
+  params:
+    - name: page
+      value: "2"
+      type: query
+    - name: ?limit
+      value: "2"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+​

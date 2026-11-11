@@ -1,0 +1,22 @@
+info:
+  name: postBook
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:3000/users
+  body:
+    type: json
+    data: |-
+      {
+        "name": "andra",
+        "email": "andra@email"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
