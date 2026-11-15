@@ -1,0 +1,26 @@
+name: irl-lab6
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.10
+  - pip
+  - numpy
+  - pandas
+  - matplotlib
+  - seaborn
+  - tqdm
+  - jupyterlab
+  - notebook
+  - gymnasium
+  - gymnasium-box2d 
+  - pip:
+      - tensorflow==2.16.1
+      - gymnasium[atari]
+      - gymnasium[classic-control]
+      - opencv-python
+      - pillow
+      - protobuf<=4.25.3
+      - tensorflow-probability
+      - pygame
