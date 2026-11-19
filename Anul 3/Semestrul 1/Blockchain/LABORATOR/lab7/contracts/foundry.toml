@@ -1,0 +1,22 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+test = "test"
+script = "script"
+optimizer = true
+optimizer_runs = 200
+
+# The deployment script copies the ABI and the deployed address to the
+# frontend (../src/contracts). Forge scripts may access only the paths
+# listed here.
+fs_permissions = [
+    { access = "read", path = "./out" },
+    { access = "write", path = "../src/contracts" },
+]
+
+[rpc_endpoints]
+localhost = "http://127.0.0.1:8545"
+sepolia = "${SEPOLIA_RPC_URL}"
+
+# See more config options https://getfoundry.sh/config/reference/default-config
