@@ -1,0 +1,22 @@
+info:
+  name: user-POST
+  type: graphql
+  seq: 1
+
+graphql:
+  method: POST
+  url: http://localhost:3001/graphql
+  body:
+    query: |-
+      query {
+          user(id: 1) {
+              id
+          }
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

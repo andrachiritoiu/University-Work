@@ -1,0 +1,22 @@
+{
+  "name": "lab-x-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "test": "node --test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.3.0",
+    "graphql": "^17.1.0",
+    "graphql-http": "^1.23.1",
+    "jest": "^30.5.2",
+    "superagent": "^10.4.2",
+    "supertest": "^7.3.2"
+  }
+}
