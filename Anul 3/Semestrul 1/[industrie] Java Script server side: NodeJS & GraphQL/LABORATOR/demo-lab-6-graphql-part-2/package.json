@@ -1,0 +1,19 @@
+{
+  "name": "graphql-lab",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.3.0",
+    "graphql": "^16.15.0",
+    "graphql-http": "^1.23.1",
+    "jsonwebtoken": "^9.0.3"
+  }
+}
